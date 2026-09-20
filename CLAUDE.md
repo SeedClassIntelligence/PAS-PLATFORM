@@ -78,7 +78,12 @@ the data architecture.
 
 ```bash
 npm run verify      # typecheck → lint → test → build. Must pass at every ticket.
+npm run build -w @pas/api && npm run start -w @pas/api   # run the API process
 ```
+
+**Unit tests are not proof a process runs.** Node packages build to `dist/` and run from
+there; tests resolve `@pas/*` to source. PAS-0005 shipped 27 green tests against an API that
+could not start. Smoke-test anything with an entry point.
 
 - **The frontend build is byte-identical to baseline `f23d11a`** and must stay that way until
   a ticket deliberately changes it. Current hashes are recorded in `docs/adr/PAS-0001-REPORT.md`.

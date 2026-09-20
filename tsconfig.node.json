@@ -5,6 +5,12 @@
       "ES2022"
     ],
     "target": "ES2022",
-    "types": []
+    "types": [
+      "node"
+    ],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": false,
+    "verbatimModuleSyntax": true
   }
 }
