@@ -455,6 +455,140 @@ individually — otherwise there is no chokepoint at which INV-10 can be enforce
 
 ---
 
+# Part C — Architecture Decision Records
+
+Decisions taken by the architect during reconciliation. These are **settled**, not
+provisional, and are binding on implementation in the same way as Part A.
+
+---
+
+## ADR-001 — Publication-boundary visibility enforcement
+
+**Status:** ✅ **CONFIRMED** (architect, during Phase 0 reconciliation)
+**Governs:** §XXII, §IX, §X. Enforces INV-3, INV-24.
+**Supersedes:** the Phase 7 placement of visibility enforcement implied by §LVI.
+
+### Decision
+
+> Any existing representation generator capable of consuming Authority Record material
+> **MUST** enforce visibility / publication eligibility no later than the phase in which
+> non-public records enter the canonical data model.
+
+For the current implementation, the `JSONLDGenerator` visibility guard therefore moves to
+**Phase 2**.
+
+### Governing dependency
+
+The correct ordering is:
+
+```
+Visibility enforcement → Private records → Machine representation
+```
+
+**not**
+
+```
+Private records → wait until Phase 7 → visibility enforcement
+```
+
+*Private Authority Record material must become impossible to expose before private Authority
+Record material can exist.*
+
+### Alternatives rejected
+
+- **Defer private records to Phase 7.** Rejected: would distort the core Authority Record
+  implementation to accommodate a downstream consumer's schedule.
+- **Accept an exposure window.** Rejected: violates a canonical PAS invariant, rather than
+  merely leaving functionality incomplete. An incomplete feature is acceptable during
+  migration; a violated invariant is not.
+
+### Scope boundary
+
+Phase 7 retains the broader machine-representation work: richer Schema.org modeling,
+representation versioning, canonical URLs, publication-derived generation, sitemaps,
+structured APIs, provenance representation where appropriate, and related Discovery
+infrastructure. **Only the guard moves.**
+
+---
+
+## ADR-002 — Protective boundaries move forward with upstream change
+
+**Status:** ✅ **CONFIRMED** (architect, during Phase 0 reconciliation)
+**Generalizes:** ADR-001.
+
+### Decision
+
+> A later-phase consumer cannot remain unsafe when an earlier phase changes the sensitivity
+> or semantics of its inputs. The necessary protective boundary moves forward with the
+> upstream change.
+
+### Standing implementation obligation
+
+Whenever a phase changes the **meaning, visibility, lifecycle or governance** of data that
+an existing component consumes, implementation must inspect every existing consumer of that
+data and move the necessary protection into that same phase.
+
+This is **dependency ordering, not phase drift.** The phase tables in
+`IMPLEMENTATION_PLAN.md` express intended sequence; they do not license shipping a known
+unsafe consumer because its nominal phase has not arrived.
+
+### Application
+
+Each phase begins with a consumer sweep against this rule. Results are recorded in the
+phase's exit criteria. The first such sweep was performed during Phase 0 and is recorded
+as **SUP-13** below.
+
+---
+
+### SUP-13 — "Visibility is stored but never enforced"
+
+**Superseded by:** ADR-001, ADR-002, §XXII, INV-3.
+
+**Discovered by:** applying ADR-002's consumer sweep during Phase 0.
+
+**Finding.** Visibility is **written in eleven places and read in zero.** Every occurrence of
+`visibility` outside `src/types/pas.ts` is either a write or a display label. No consumer
+anywhere in the codebase filters on it.
+
+**This is not a future Phase 2 risk. It is a live defect at `f23d11a`:**
+
+- `usePASStore.ts:207-220` — `auth-anthem-loi`, the "Anthem Nevada $1M Clinical Partnership"
+  (a signed LOI), carries `visibility: 'GATED'` and `associatedModuleCodes: ['M04','M08']`.
+- `usePASStore.ts:262` — dossier `d03` "Operator Resume" carries `accessTier: 'CORE_PUBLIC'`,
+  `visibility: 'PUBLIC'`, `modulesUsed: ['M02','M03','M04']`.
+- `PublishedPersonalPAS.tsx:267` resolves membership by dossier id **or module code**, with
+  **no visibility predicate**.
+
+Therefore the GATED $1M agreement renders on a CORE_PUBLIC dossier on the published public
+PAS. `DocumentParser.ts:72` also emits `GATED` objects, so the extraction path reproduces
+the condition.
+
+**Four unguarded consumers**, not one:
+
+| Consumer | Exposure |
+|---|---|
+| `components/public/PublishedPersonalPAS.tsx:267` | the public page itself — most severe |
+| `services/schema/JSONLDGenerator.ts` | emits all objects to structured data |
+| `components/account/SEOSchemaView.tsx:7-40` | **inline duplicate** — guarding the generator alone does not fix this one (SUP-9) |
+| `services/studio/ExecutiveProductionStudio.ts` | generates decks/media from authority objects |
+
+**Severity in context.** The baseline is a local prototype with seed data and no deployment,
+so this is not a live production leak. It is recorded at this severity because it
+demonstrates that the exposure path is already fully constructed — Phase 2 does not create
+the risk, it populates it.
+
+**Replacement:** a single visibility/eligibility predicate applied at every representation
+boundary, in Phase 2.
+
+**Migration constraint:** filtering `GATED` material out of the WDJIV published surface
+**changes rendered output** — which is a deliberate, correct change, and the one sanctioned
+exception to the §LVIII "renders identically" rule. It must be recorded in the Phase 2 exit
+criteria as an expected diff rather than a regression.
+
+**Phase:** 2.
+
+---
+
 ## Open items requiring owner decision
 
 These are not ambiguities in the specification. They are points where the specification is

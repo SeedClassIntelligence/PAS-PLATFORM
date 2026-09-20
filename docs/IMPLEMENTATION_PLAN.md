@@ -31,6 +31,14 @@ Identity · Input · Output · Lineage · Governance · Observability · Continu
 **§LXI.** Implementation does not make architectural decisions. Ambiguity resolves back to
 the Master Specification.
 
+**ADR-002 — consumer sweep.** A later-phase consumer cannot remain unsafe when an earlier
+phase changes the sensitivity or semantics of its inputs. **Every phase begins with a sweep**:
+where that phase changes the meaning, visibility, lifecycle or governance of data an existing
+component consumes, inspect every existing consumer and move the necessary protection into
+*this* phase. Record the result in the phase's exit criteria. This is dependency ordering,
+not phase drift — the phase tables below express intended sequence, and never license
+shipping a known-unsafe consumer because its nominal phase has not arrived.
+
 ---
 
 ## Target repository shape
@@ -133,19 +141,43 @@ the outbox.
 | Versioning | `api/platform/versioning/` *(new)* | INV-29 |
 | Governance lifecycle | `api/domain/lifecycle/` *(new)* | §X state machine |
 | **Type expansion** | `src/types/pas.ts` | **expand only** — add, never remove |
-| **Visibility filter** | `src/services/schema/JSONLDGenerator.ts` | ⚠️ see ordering note below |
-| Fixture migration | `src/fixtures/` | WDJIV seed → real records, UI unchanged |
+| **Visibility predicate** | `api/domain/visibility/` *(new)* | ✅ ADR-001 — single shared eligibility check |
+| **Guard: public surface** | `src/components/public/PublishedPersonalPAS.tsx` | L267 — **most severe**, the actual public page |
+| **Guard: JSON-LD service** | `src/services/schema/JSONLDGenerator.ts` | ✅ ADR-001 |
+| **Guard: inline JSON-LD** | `src/components/account/SEOSchemaView.tsx` | L7-40 — inline duplicate; guarding the service alone does **not** cover this |
+| **Guard: deck generator** | `src/services/studio/ExecutiveProductionStudio.ts` | representation generator under ADR-001 |
+| Fixture migration | `src/fixtures/` | WDJIV seed → real records |
 
-> ### ⚠️ Ordering exception — `JSONLDGenerator`
-> `RECONCILIATION.md` Part 12 item 2. `JSONLDGenerator` reads all authority objects with no
-> visibility filter. This is harmless today only because every seed object is `PUBLIC`.
-> **The moment this phase introduces private records, an unfiltered generator publishes
-> them.** The filter is nominally Phase 7 work but must land here. This is the one dependency
-> in the plan that runs backwards against the phase numbering.
+> ### ✅ ADR-001 — Publication-boundary visibility enforcement (CONFIRMED)
+>
+> **Decision:** any existing representation generator capable of consuming Authority Record
+> material must enforce visibility / publication eligibility no later than the phase in which
+> non-public records enter the canonical data model. The guard lands **here**, at Phase 2.
+>
+> **Governing dependency:**
+> `Visibility enforcement → Private records → Machine representation`
+> — *private material must become impossible to expose before it can exist.*
+>
+> **Phase 7 still owns** richer Schema.org modeling, representation versioning, canonical
+> URLs, publication-derived generation, sitemaps, structured APIs and provenance
+> representation. Only the guard moves.
+>
+> **SUP-13 — the sweep found four consumers, and the exposure is already live.**
+> `auth-anthem-loi` (`visibility: 'GATED'`, `M04`) renders on dossier `d03`
+> (`CORE_PUBLIC`, uses `M04`) because `PublishedPersonalPAS.tsx:267` has no visibility
+> predicate. Phase 2 does not create this path — it populates one that already exists.
+> Implement the predicate once, apply it at all four boundaries.
 
-**Exit criteria:** `npm run build` passes · all screens render · a Claim can be created with
-Evidence attached and provenance recorded · an Experience record round-trips ·
-`tsc` passes with zero removals from `types/pas.ts`.
+> ### ⚠️ Expected diff — sanctioned §LVIII exception
+> Filtering `GATED` material out of the WDJIV published surface **changes rendered output**.
+> This is deliberate and correct. It is the one sanctioned exception to "renders identically"
+> and must be verified as an *expected* diff, not investigated as a regression.
+
+**Exit criteria:** `npm run build` passes · a Claim can be created with Evidence attached and
+provenance recorded · an Experience record round-trips · `tsc` passes with zero removals from
+`types/pas.ts` · **no representation boundary emits non-public material** · the WDJIV public
+surface no longer renders `auth-anthem-loi`, and that diff is recorded as expected ·
+ADR-002 sweep result recorded.
 
 ---
 
@@ -416,15 +448,20 @@ coupled."* This runs independently, blocks nothing, is blocked by nothing, and m
 # Dependency summary
 
 ```
-Phase 0  ──► Phase 1 ──► Phase 2 ──┬──► Phase 3 ──┬──► Phase 4 ──► Phase 5 ──► Phase 6
-                                   │              │                              │
-                                   └── JSON-LD    └── CONF-A closes              ▼
-                                       visibility      (5 sites, 1 path)      Phase 7
-                                       filter ⚠️                                  │
-                                       (lands early)                              ▼
-                                                                   Phase 8 ──► Phase 9 ──► Phase 10 ──► Phase 11
+Phase 0 ──► Phase 1 ──► Phase 2 ──────► Phase 3 ──────► Phase 4 ──► Phase 5 ──► Phase 6
+                            │               │                                       │
+                            │               └── CONF-A closes                       ▼
+                            │                   (5 sites, 1 governed path)      Phase 7
+                            │                                                       │
+                            └── ADR-001 visibility guard ✅                          ▼
+                                4 consumers, lands HERE:              Phase 8 ──► Phase 9
+                                  PublishedPersonalPAS                              │
+                                  JSONLDGenerator                                   ▼
+                                  SEOSchemaView (inline dup)          Phase 10 ──► Phase 11
+                                  ExecutiveProductionStudio
 
 Design systemization ═══════════ decoupled throughout ═══════════
+ADR-002 consumer sweep ═════════ every phase, at phase start ═══════
 ```
 
 **Owner decisions on the critical path:**

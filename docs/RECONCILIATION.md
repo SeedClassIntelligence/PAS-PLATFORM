@@ -1042,14 +1042,22 @@ not expose private Authority Record material"*).
 The phase table places the *work* at Phase 7 without anticipating that Phase 2 creates the
 exposure.
 
-**Resolution.** `IMPLEMENTATION_PLAN.md` Phase 2 carries the visibility filter as a marked
-ordering exception, with the rest of the JSON-LD work remaining at Phase 7. This is the only
-item in the plan that runs backwards against the phase numbering.
+**Resolution.** `IMPLEMENTATION_PLAN.md` Phase 2 carries the visibility guard, with the rest
+of the JSON-LD work remaining at Phase 7.
 
-> ⚠️ **Flagged for architectural review.** Confirm that pulling this one guard forward is
-> preferred to the alternatives: deferring private records until Phase 7, or accepting a
-> window in which private material is machine-publishable. Implementation has taken the
-> conservative reading (pull the guard forward) but has not treated the question as settled.
+> ✅ **ARCHITECTURAL DECISION CONFIRMED.** Recorded as **ADR-001** in
+> `ARCHITECTURE_DECISIONS.md`. The governing dependency is
+> `Visibility enforcement → Private records → Machine representation`, not the nominal phase
+> numbering. Deferring private records to Phase 7 would distort the core Authority Record
+> implementation; accepting an exposure window would violate a canonical invariant rather
+> than merely leave functionality incomplete. Generalized as **ADR-002**: a protective
+> boundary moves forward with the upstream change that creates the need for it. No longer
+> provisional.
+
+**Consequence — the audit understated this.** Applying ADR-002's consumer sweep during
+Phase 0 established that the exposure is **already live at `f23d11a`**, not created by
+Phase 2, and that it has **four** unguarded consumers rather than one. Recorded as **SUP-13**.
+See Part 14.
 
 ---
 
@@ -1070,6 +1078,93 @@ Recorded for completeness, so the audit's standing is clear:
 
 The audit's factual findings are sustained in full. Only DISC-1's *classification* was
 overruled.
+
+---
+
+# Part 14 — ADR-002 consumer sweep (Phase 0)
+
+The first application of ADR-002's standing obligation: *whenever a phase changes the
+meaning, visibility, lifecycle or governance of data an existing component consumes, inspect
+every existing consumer.*
+
+**Swept:** all consumers of Authority Record material, against the Phase 2 introduction of
+non-public records.
+
+### Finding — visibility is written eleven times and read zero times
+
+Every occurrence of `visibility` outside `src/types/pas.ts` is a write or a display label.
+**No consumer in the codebase filters on it.**
+
+### The exposure is already live at `f23d11a`
+
+| Element | Value |
+|---|---|
+| `usePASStore.ts:207-220` — `auth-anthem-loi` | `visibility: 'GATED'`, `associatedModuleCodes: ['M04','M08']` — "Anthem Nevada $1M Clinical Partnership", a signed LOI |
+| `usePASStore.ts:262` — dossier `d03` | `accessTier: 'CORE_PUBLIC'`, `visibility: 'PUBLIC'`, `modulesUsed: ['M02','M03','M04']` |
+| `PublishedPersonalPAS.tsx:267` | matches by dossier id **or module code**, no visibility predicate |
+
+`d03` is public. It uses `M04`. `auth-anthem-loi` carries `M04` and is `GATED`. **It renders
+on the public surface today.** `DocumentParser.ts:72` also emits `GATED` objects, so the
+extraction path reproduces the condition rather than being a one-off in seed data.
+
+### Four unguarded consumers, not one
+
+| Consumer | Exposure | Note |
+|---|---|---|
+| `components/public/PublishedPersonalPAS.tsx:267` | the public page itself | most severe — this is the actual published surface |
+| `services/schema/JSONLDGenerator.ts` | all objects → structured data | the originally-identified consumer |
+| `components/account/SEOSchemaView.tsx:7-40` | all objects → structured data | **inline duplicate** — guarding the generator alone does **not** fix this (SUP-9) |
+| `services/studio/ExecutiveProductionStudio.ts` | decks/media from authority objects | a representation generator under ADR-001 |
+
+The `SEOSchemaView` case is the clearest vindication of ADR-002: a fix scoped to the named
+file would have left an identical unguarded path in a component nobody had classified as a
+publication boundary.
+
+### Correction to the earlier framing
+
+The audit and the first draft of this reconciliation both described this as *"harmless today,
+becomes a leak at Phase 2."* That was wrong in two ways: the seed data already contains
+`GATED` material reachable from a public dossier, and there were four consumers rather than
+one. Phase 2 does not create the exposure — it populates an exposure path that is already
+fully constructed.
+
+### Severity
+
+The baseline is a local prototype with seed data and no deployment. This is **not a live
+production leak** and needs no emergency fix. It is recorded at this severity because it
+proves the mechanism rather than predicting it.
+
+### Phase 2 consequence
+
+Filtering `GATED` material out of the WDJIV published surface **changes rendered output**.
+That is deliberate and correct, and is the one sanctioned exception to the §LVIII "renders
+identically" requirement. It must appear in the Phase 2 exit criteria as an expected diff,
+not be discovered later as an apparent regression.
+
+---
+
+# Part 15 — Outstanding architectural flags
+
+Current status of every flag raised in this reconciliation. **This list is not empty.**
+
+| Flag | Status |
+|---|---|
+| DISC-1 — service classification | ✅ Resolved. Specification controls; classifications corrected to §XLV. |
+| DISC-3 — JSON-LD visibility sequencing | ✅ **Confirmed** as ADR-001 / ADR-002. Settled. |
+| **DISC-2 — §VIII enumeration scope** | ⚠️ **OPEN — awaiting architectural review** |
+| Open item 1 — verification requirement registry | ⚠️ OPEN — blocks Phase 3 (`VerificationView`, `VERIFIED` transitions) |
+| Open item 2 — Fixture B and C subjects | ⚠️ OPEN — blocks Phase 5 completion |
+| Open item 3 — source artifact retention policy | ⚠️ OPEN — blocks Phase 4 |
+| Open item 4 — WDJIV M01–M08 public visibility | ⚠️ OPEN — product decision, blocks nothing architecturally |
+
+**DISC-2 restated for decision.** §VIII names four extraction sites. A fifth exists at
+`AuthorityGraphView.tsx:15-39` (user-origin, not extraction). §IX and §X already condemn it,
+so the *rule* is sufficient; the question is whether the *enumeration* was intended as
+exhaustive, and whether a user-origin creation rule should be stated explicitly alongside
+§VIII's extraction rule. Phase 3 routes all five through one governed write path, which is
+correct under either reading — so this does not block Phase 1 or Phase 2.
+
+**None of the seven blocks Phase 1 or Phase 2.**
 
 ---
 
