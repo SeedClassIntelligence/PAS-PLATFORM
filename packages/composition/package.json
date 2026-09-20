@@ -1,0 +1,9 @@
+{
+  "name": "@pas/composition",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@pas/domain": "*"
+  }
+}

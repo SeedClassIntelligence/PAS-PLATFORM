@@ -1,0 +1,10 @@
+{
+  "name": "@pas/discovery",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@pas/publishing": "*",
+    "@pas/domain": "*"
+  }
+}

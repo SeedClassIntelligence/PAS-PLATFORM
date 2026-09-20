@@ -464,7 +464,31 @@ provisional, and are binding on implementation in the same way as Part A.
 
 ## ADR-001 — Publication-boundary visibility enforcement
 
-**Status:** ✅ **CONFIRMED** (architect, during Phase 0 reconciliation)
+**Status:** ✅ **CONFIRMED**, and **superseded in its final form by structural isolation**
+(architect, on receipt of the Clean-Sheet Build Specification).
+
+> ### ADR-001 is now: transitional protection → structural replacement
+>
+> The security principle is unchanged and permanent. The *mechanism* changes in two stages.
+>
+> **Final architecture** (PAS-2801, PAS-2703, Part I §41):
+> ```
+> Private/Canonical Authority Record
+>   → Governance → Composition → Representation → Publication Approval
+>   → PublishedRepresentation
+>   → Public PAS / JSON-LD / Sitemap / Public API / public indexing
+> ```
+> `JSONLDGenerator` eventually loses access to unrestricted Authority Record material
+> **altogether**. Exposure becomes structurally unreachable rather than filtered.
+>
+> **Transitional obligation, still binding.** The legacy generator remains dangerous the
+> moment private records exist. Its visibility guard must therefore still be installed
+> **before private records can flow through the legacy path** — the original ADR-001
+> requirement, now placed at Build 05 (PAS-0504) rather than a later phase.
+>
+> Once JSON-LD generates exclusively from `PublishedRepresentation`, the transitional guard
+> becomes defense-in-depth, and may be retired **only** once the legacy path is provably
+> unreachable.
 **Governs:** §XXII, §IX, §X. Enforces INV-3, INV-24.
 **Supersedes:** the Phase 7 placement of visibility enforcement implied by §LVI.
 
@@ -589,10 +613,113 @@ criteria as an expected diff rather than a regression.
 
 ---
 
+## ADR-003 — Clean-sheet backend and platform; migration discipline for the frontend
+
+**Status:** ✅ **CONFIRMED** (architect, resolving the specification fork)
+**Resolves:** the fork recorded in `docs/SPECIFICATION_RECONCILIATION.md` Part 2.
+
+> **Numbering note.** The architect issued this decision under the label "ADR-002". That
+> number was already held by *Protective boundaries move forward with upstream change*,
+> confirmed earlier. This decision is recorded as **ADR-003** to preserve both. Renumber on
+> request; nothing depends on the label.
+
+### Decision
+
+The Clean-Sheet Master Build Specification is **not a competing architecture and is not
+permission to discard the working PAS.** It is the executable decomposition of the same
+canonical architecture, expressed without letting prototype implementation choices constrain
+the target system.
+
+**Backend and platform infrastructure — clean sheet.** Build per PAS Builds 00–37 as
+production infrastructure. There is no production backend worth migrating, so no
+architectural value is gained by preserving the Zustand-as-database pattern, mock parser
+behavior, hardcoded AI responses, fixed extraction mappings, or other prototype internals.
+
+**Frontend — preserve and migrate.** The existing working product experience is an asset and
+**SHALL NOT** be wholesale rewritten merely to conform to the new repository topology.
+
+### Existing UI disposition
+
+The 20 existing components are **implementation assets, not architectural authority.** They
+fall into three dispositions:
+
+| Disposition | Meaning | Examples |
+|---|---|---|
+| **Preserve** | concept remains canonical | Personal PAS, BPAS, Fellowship, Publishing |
+| **Generalize** | concept valid, implementation carries prototype assumptions | Module and Dossier experiences — M01–M08 and d01–d10 may remain *operational* during migration but cease to define the underlying data architecture |
+| **Replace only when superseded** | removed only after the production-backed successor is operational and verified | any component whose replacement has shipped |
+
+### Build 35 reinterpreted
+
+Build 35 does **not** mean "rewrite all eight workspaces from scratch." It means: complete the
+operational workspaces against production PAS services. Existing components **SHALL** be
+reused, refactored or re-pointed where suitable. New components **SHALL** be created where the
+canonical architecture introduces capabilities the prototype does not contain.
+
+Part I §60's information architecture is the **target operating organization**, not an
+instruction to discard every existing route immediately.
+
+### Migration rule — binding for the frontend
+
+`Expand → Migrate → Verify → Contract`. Worked example:
+
+```
+Existing Dossier Manager keeps functioning
+  → build canonical Composition/Dossier backend
+  → connect existing UI to new services
+  → verify behavior
+  → remove associatedDossierIds assumptions
+```
+
+Identically for M01–M08.
+
+> **There must never be a point where a functioning capability is destroyed simply because
+> its replacement appears later in the build sequence.**
+
+### Authority hierarchy (now controlling)
+
+1. **Canonical PAS architecture and the 30 invariants** — govern *what PAS is*.
+2. **Clean-Sheet Master Build Specification, Builds 00–37** — govern *how it is constructed,
+   and in what dependency order*.
+3. **Existing PAS baseline** — provides frontend/product assets to preserve and progressively
+   migrate.
+4. **Reconciliation and ADRs** — record how baseline structures transition into the canonical
+   architecture.
+
+Phases 0–11 are superseded **as implementation sequencing**, but not as architectural
+requirements: Master Specification requirements remain controlling wherever they establish
+invariants, definitions, boundaries or migration protections.
+
+---
+
+## ADR-004 — Origin does not create a governance exemption
+
+**Status:** ✅ **CONFIRMED** (architect). **Closes DISC-2.**
+
+Whether information originates from AI extraction, document extraction, web acquisition,
+connector ingestion, **manual user entry**, Gap Interview, administrator entry, or another PAS
+entity — **origin affects provenance and applicable policy, not whether governance exists.**
+
+User and manual entry receive no privileged route around governance. No additional invariant
+is necessary; Part I §0.22 and PAS-1104 already require a governance decision for every
+governed state change.
+
+CONF-A site 5 (`AuthorityGraphView.tsx:15-39`, SUP-12) is therefore governed by exactly the
+same rule as the four extraction sites.
+
+---
+
 ## Open items requiring owner decision
 
 These are not ambiguities in the specification. They are points where the specification is
 deliberately silent and implementation must not choose unilaterally.
+
+> **Status refresh after ADR-003.** Item 2 is resolved — all four fixtures (P1/P2/P3/O1) are
+> adopted immediately and O1 is no longer deferred. Items 1 and 3 remain open and now have
+> homes: PAS-1002 supplies the verification-requirements table structure (the *content* per
+> class is still an owner decision), and PAS-0604 / Part I §11 require a retention-policy
+> field (the *policy* is still an owner decision). Item 4 is resolved by ADR-003: M01–M08 may
+> remain operational during migration.
 
 1. **Verification requirements per credential class (§IX).** `VERIFIED` means "the applicable
    verification requirement has been satisfied." The specification does not enumerate those
