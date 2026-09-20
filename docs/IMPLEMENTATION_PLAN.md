@@ -80,7 +80,7 @@ re-verify whenever a workspace dependency is added.
 | **PAS-0001** Initialize Production Monorepo | repository root | ✅ **COMPLETE** — see `docs/adr/PAS-0001-REPORT.md` |
 | **PAS-0002** Environment Configuration | `packages/config/` | ✅ **COMPLETE** — see `docs/adr/PAS-0002-REPORT.md` |
 | **PAS-0003** Shared Error Contract | `packages/contracts/src/errors/` | ✅ **COMPLETE** — see `docs/adr/PAS-0003-REPORT.md` |
-| PAS-0004 Correlation Context | `packages/observability/src/correlation/` | pending |
+| **PAS-0004** Correlation Context | `packages/observability/src/correlation/` | ✅ **COMPLETE** — see `docs/adr/PAS-0004-REPORT.md` |
 | PAS-0005 Health and Readiness | `apps/api/src/health/` | pending |
 | PAS-0006 CI Pipeline | `.github/workflows/` | pending |
 
