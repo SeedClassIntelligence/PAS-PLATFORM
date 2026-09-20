@@ -3,7 +3,16 @@
 **Derived from:** `docs/PAS_MASTER_SPECIFICATION.md` v1.0 §LVI–§LIX (controlling)
 **Reconciled against:** `docs/RECONCILIATION.md`
 **Baseline:** `f23d11a` — tag `baseline-prototype-v0`
-**Status:** Phase 0 artifact
+**Status:** ⚠️ **PROVISIONALLY SUPERSEDED** — see `docs/SPECIFICATION_RECONCILIATION.md`
+
+> The PAS **Clean-Sheet** Master Build Specification supplies Builds 00–37 with ticket-level
+> granularity (PAS-0001…PAS-3608) and an explicit dependency chain. Those supersede the
+> Phases 0–11 below, which were interpolated from v1.0 §LVI. The Clean-Sheet monorepo
+> topology (PAS-0001) also supersedes the target tree in this document.
+>
+> This document has **not** been rewritten, because one unresolved fork — clean-sheet build
+> vs. migration posture — would make either rewrite wrong. Phase 0 (complete) and the
+> ADR-001/ADR-002 findings remain valid regardless of that answer.
 
 This document maps the twelve specification phases onto actual repository paths. It does not
 introduce architecture. Where a path does not yet exist, it is proposed as a target location

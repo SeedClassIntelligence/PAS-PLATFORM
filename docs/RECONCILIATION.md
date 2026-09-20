@@ -1151,7 +1151,7 @@ Current status of every flag raised in this reconciliation. **This list is not e
 |---|---|
 | DISC-1 — service classification | ✅ Resolved. Specification controls; classifications corrected to §XLV. |
 | DISC-3 — JSON-LD visibility sequencing | ✅ **Confirmed** as ADR-001 / ADR-002. Settled. |
-| **DISC-2 — §VIII enumeration scope** | ⚠️ **OPEN — awaiting architectural review** |
+| DISC-2 — §VIII enumeration scope | ✅ **CLOSED** — resolved by Clean-Sheet Part I §0.22 and PAS-1104: *every* governed state change requires a governance decision, origin-agnostic. The §VIII enumeration is illustrative, not exhaustive. |
 | Open item 1 — verification requirement registry | ⚠️ OPEN — blocks Phase 3 (`VerificationView`, `VERIFIED` transitions) |
 | Open item 2 — Fixture B and C subjects | ⚠️ OPEN — blocks Phase 5 completion |
 | Open item 3 — source artifact retention policy | ⚠️ OPEN — blocks Phase 4 |
@@ -1164,7 +1164,15 @@ exhaustive, and whether a user-origin creation rule should be stated explicitly 
 §VIII's extraction rule. Phase 3 routes all five through one governed write path, which is
 correct under either reading — so this does not block Phase 1 or Phase 2.
 
-**None of the seven blocks Phase 1 or Phase 2.**
+**Superseding note.** A second controlling document — the PAS **Clean-Sheet** Master Build
+Specification — has since been received and transcribed to
+`docs/PAS_CLEAN_SHEET_BUILD_SPECIFICATION.md`. It agrees with v1.0 on every invariant, closes
+DISC-2, and confirms ADR-001. It also opens one unresolved fork (clean-sheet build vs.
+migration posture) that blocks further planning. See `docs/SPECIFICATION_RECONCILIATION.md`.
+
+The file-by-file classifications in this document remain valid under either answer to that
+fork; only their *disposition* changes — PRESERVE means "preserve in place" under migration,
+and "reference implementation, port later" under clean-sheet.
 
 ---
 
