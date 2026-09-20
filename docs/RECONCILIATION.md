@@ -845,7 +845,7 @@ Largest component in the repository.
 | `SKILL.md` | **DEDUPLICATE** | **Byte-identical** to `CAS-doctrine.md` (`e05b0927…`). One is redundant. Recommend keeping `SKILL.md` (it carries the skill frontmatter) and removing the copy — owner's call, no code impact. |
 | `temp_script.js` (14.7 KB) | REMOVE or RELOCATE | Landing-page demo animation. **Not referenced anywhere** — outside the Vite build entirely. Dead at the repository root. |
 | `temp_script_1.js` (32 KB) | REMOVE or RELOCATE | Second variant of the same. Also unreferenced. |
-| `EXAMPLES/*.html` (6 files, 680 KB) | PRESERVE | Reference PAS renders. Valuable input for Fixtures B and C (§LIX). |
+| `EXAMPLES/*.html` (6 files, 680 KB) | PRESERVE — **fixture source** | Six *organizational* PAS renders: SCIA, Whole Community Solutions, WCS × KG Development × A Solution Group CDC, Anthem Blue Cross Nevada partnership, Wells Fargo submission, team/build dashboard. This is Fixture **O1** source material, not P2/P3 — an earlier revision classified these without reading them and recorded O1 as blocked. |
 | `William_Darnell_Jernigan_IV_*.html` (4 files) | PRESERVE | Fixture A reference renders — the visual ground truth for non-regression. |
 | `PAS_Platform_Light_OliveGreen (10) (1).html` (247 KB) | PRESERVE | Design reference for the STUDIO template. |
 | `dist/` | IGNORED | Build output; gitignored at `f23d11a`. |

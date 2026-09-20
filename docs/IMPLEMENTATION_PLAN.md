@@ -416,11 +416,22 @@ independence.
 | **P1** Multidimensional Operator | WDJIV | exists as seed data in `usePASStore.ts`; relocates to `fixtures/` |
 | **P2** Deep Academic / Research | — | ⛔ **subject needed** |
 | **P3** Skilled Practitioner | — | ⛔ **subject needed** |
-| **O1** Organization / BPAS | — | ⛔ **subject needed — no longer deferred** |
+| **O1** Organization / BPAS | SCIA · WCS · A Solution Group CDC · KG Development | ✅ **source material available in `EXAMPLES/`** — extraction pending Build 22 |
 
 *No fixture defines universal PAS structure.* P2/P3/O1 are a correctness requirement for
 generalization, not a testing nicety — they are what prevent one person's shape from becoming
 the schema (INV-5).
+
+**O1 correction.** An earlier revision of this plan listed O1 as "subject needed". That was
+wrong: `EXAMPLES/` has carried the material since `f23d11a` and was classified without being
+read. It contains six organizational PAS renders — SCIA (Governing Intelligence Architecture),
+Whole Community Solutions, WCS × KG Development × A Solution Group CDC, the Anthem Blue Cross
+Nevada partnership, the Wells Fargo submission, and a team/build-status dashboard — covering
+team, capabilities, programs, agreements, partnerships and outcomes, which is Part I §62's O1
+requirement almost verbatim.
+
+**P2 and P3 remain genuinely blocked.** There is no academic or independent-practitioner
+subject anywhere in the repository. Only O1 moves.
 
 ---
 
@@ -430,7 +441,7 @@ the schema (INV-5).
 |---|---|
 | Verification requirement content per credential class | Build 10 (PAS-1002), `VerificationView` |
 | Source artifact retention/deletion policy | Build 06 (PAS-0604), Build 17 |
-| Fixture P2, P3, O1 subjects | Build 22 (PAS-2205), Build 37 |
+| Fixture **P2** and **P3** subjects (O1 is sourced from `EXAMPLES/`) | Build 22 (PAS-2205), Build 37 |
 
 **None blocks Builds 00–05.** Implementation can proceed through six builds before the first
 decision is required.
