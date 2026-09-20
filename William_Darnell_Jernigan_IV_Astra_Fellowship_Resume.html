@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William Darnell Jernigan IV — Astra AI Safety & Governance Fellowship Resume</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  
+  :root {
+    --bg: #0C0D0E;
+    --card-bg: #141619;
+    --border: #26292E;
+    --gold: #D4AF37;
+    --gold-light: #F3E5AB;
+    --teal: #3A7A6A;
+    --text: #E5E7EB;
+    --text-dim: #9CA3AF;
+    --white: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  }
+
+  /* Top Banner for Print PDF export */
+  .no-print-bar {
+    max-width: 860px;
+    margin: 0 auto 20px auto;
+    background: var(--gold);
+    color: #000;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .no-print-bar button {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  header {
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+  }
+
+  .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .target-role {
+    font-size: 15px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .contact-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+
+  .contact-bar a { color: var(--gold-light); text-decoration: none; }
+
+  /* PAS Live Banner */
+  .pas-live-banner {
+    background: rgba(212,175,55,0.08);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pas-live-banner div strong { color: var(--gold); }
+  .pas-live-banner a {
+    background: var(--gold);
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .summary-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .skill-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .skill-card h4 {
+    font-size: 14px;
+    color: var(--white);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .skill-card p {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .job {
+    margin-bottom: 24px;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+
+  .job-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .job-org {
+    font-size: 13.5px;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .job-date {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .job ul {
+    margin-top: 8px;
+    padding-left: 18px;
+  }
+
+  .job li {
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media print {
+    .no-print-bar { display: none !important; }
+    body { padding: 0 !important; background: #fff !important; color: #000 !important; }
+    .container { border: none !important; box-shadow: none !important; background: #fff !important; color: #000 !important; max-width: 100% !important; padding: 0 !important; }
+    .name { color: #000 !important; }
+    .section-title { color: #854D0E !important; border-bottom-color: #CBD5E1 !important; }
+    .job-title { color: #000 !important; }
+    .job-org { color: #854D0E !important; }
+    .skill-card { background: #F8FAFC !important; border-color: #E2E8F0 !important; }
+    .skill-card h4 { color: #000 !important; }
+    .skill-card p { color: #334155 !important; }
+    .pas-live-banner { background: #FEF3C7 !important; border-color: #D97706 !important; color: #78350F !important; }
+    .pas-live-banner div strong { color: #78350F !important; }
+    .pas-live-banner a { background: #78350F !important; color: #fff !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="no-print-bar">
+  <div>📄 Astra Fellowship AI Safety & Governance Resume</div>
+  <button onclick="window.print()">🖨️ Export PDF / Print</button>
+</div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="name">William Darnell Jernigan IV</div>
+    <div class="target-role">Applicant: Astra Fellowship — Strategy & Governance Stream</div>
+    <div class="contact-bar">
+      <span>📍 Las Vegas, NV</span>
+      <span>📧 <a href="mailto:Ujimamoja@gmail.com">Ujimamoja@gmail.com</a></span>
+      <span>📞 (725) 267-3398</span>
+      <span>💼 <a href="https://linkedin.com/in/wdjernigan" target="_blank">LinkedIn</a></span>
+      <span>🌐 <a href="https://wdjiv-pas.web.app/" target="_blank">wdjiv-pas.web.app</a></span>
+    </div>
+  </header>
+
+  <!-- PAS INTERACTIVE LINK BANNER -->
+  <div class="pas-live-banner">
+    <div>
+      <div style="font-size:13px"><strong>🌐 Interactive Professional Authority System (PAS):</strong></div>
+      <div style="font-size:11.5px;color:var(--text-dim)">Inspect all 8 authority modules, 10 targeted dossiers & Schema.org JSON-LD graph online.</div>
+    </div>
+    <a href="https://wdjiv-pas.web.app/" target="_blank">Inspect PAS Authority Record ↗</a>
+  </div>
+
+  <!-- FELLOWSHIP STATEMENT -->
+  <div class="section-title">Astra Fellowship Statement of Purpose</div>
+  <p class="summary-text">
+    Highly agentic systems architect and executive director specializing in <strong>AI Safety, Governance Frameworks & Institutional Alignment</strong>. Developer of the <strong>Original Seed Protocol & Answer Engine Optimization (AEO) Engine</strong>, an architecture designed to anchor frontier LLM reasoning (OpenAI, Anthropic, Gemini, DeepMind) to verifiable structured schemas (JSON-LD) and prevent hallucinated governance outputs. Seeking to join Constellation's <strong>Astra Fellowship (Strategy & Governance Stream)</strong> to scale empirical AI safety evaluations, institutional governance protocols, and multi-agent risk mitigation frameworks.
+  </p>
+
+  <!-- AI SAFETY & GOVERNANCE CORE CAPABILITIES -->
+  <div class="section-title">AI Safety & Governance Core Focus</div>
+  <div class="grid-2">
+    <div class="skill-card">
+      <h4>🤖 Agnostic AI Engine & Seed Protocol</h4>
+      <p>Architected provider-agnostic AI interfaces (supporting OpenAI GPT-4o, Anthropic Claude 3.5, Gemini 1.5, and local DeepSeek/Ollama) with deterministic Schema.org validation to enforce model alignment.</p>
+    </div>
+    <div class="skill-card">
+      <h4>🏛️ Strategy, Governance & Compliance</h4>
+      <p>10+ years designing multi-agency compliance, point-of-sentencing intervention frameworks (COIP), and 2 CFR 200 federal governance structures for complex, unscoped real-world environments.</p>
+    </div>
+    <div class="skill-card">
+      <h4>🔍 Answer Engine Optimization (AEO)</h4>
+      <p>Pioneered AEO techniques that structure complex domain knowledge into semantic web graphs (`@graph`), enabling frontier search bots (GPTBot, Perplexity, ClaudeBot) to perform accurate evaluation and citations.</p>
+    </div>
+    <div class="skill-card">
+      <h4>⚡ Unscoped Problem Solving & Agentic Execution</h4>
+      <p>Proven track record of building initiatives from scratch under high pressure, securing $1M+ health & housing grants, and establishing institutional partnerships across public and private sectors.</p>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE & SYSTEMS ARCHITECTURE -->
+  <div class="section-title">Systems Architecture & Leadership Experience</div>
+
+  <div class="job">
+    <div class="job-header">
+      <div>
+        <div class="job-title">Founder & Executive Director</div>
+        <div class="job-org">A Solution Group CDC</div>
+      </div>
+      <div class="job-date">2018 — PRESENT | Las Vegas, NV</div>
+    </div>
+    <ul>
+      <li>Pioneered the <strong>Whole Community Solution (WCS) 9-Pillar Framework</strong>, an institutional governance and social determinants blueprint deployed across health, housing, and justice systems.</li>
+      <li>Architected point-of-sentencing diversion systems (COIP Framework) that intervene within 0–72 hours, reducing public system costs by an estimated $1.1M per 20-bed deployment.</li>
+      <li>Designed automated compliance, data reporting, and multi-agency governance protocols adhering to 2 CFR 200 federal standards.</li>
+    </ul>
+    <div class="tag-row">
+      <span class="tag">AI Governance</span>
+      <span class="tag">Systems Architecture</span>
+      <span class="tag">Federal Compliance</span>
+      <span class="tag">Institutional Alignment</span>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <div>
+        <div class="job-title">AI Systems Architect & PAS Developer</div>
+        <div class="job-org">Professional Authority System (PAS Platform)</div>
+      </div>
+      <div class="job-date">2023 — PRESENT</div>
+    </div>
+    <ul>
+      <li>Designed and built the <strong>Professional Authority System (PAS) Engine</strong>, a multi-tenant framework that extracts unstructured real estate (LinkedIn, Drive, Web, Files) into 8 verified authority modules (`M01-M08`).</li>
+      <li>Implemented real-time JSON-LD Schema.org generators that allow AI frontier models (ChatGPT, Perplexity, Claude) to verify credentials without hallucination.</li>
+      <li>Engineered custom branding paradigms (*Personal Authority*, *Governing Intelligence*, *Universal Ecosystem*) for executive and institutional presentations.</li>
+    </ul>
+    <div class="tag-row">
+      <span class="tag">JSON-LD Schema</span>
+      <span class="tag">LLM Evaluation</span>
+      <span class="tag">AEO Strategy</span>
+      <span class="tag">Cognitive Alignment</span>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <div>
+        <div class="job-title">Systems Transformation Consultant & Executive Operator</div>
+        <div class="job-org">Creative Minds Utah / YouthBuild Nevada</div>
+      </div>
+      <div class="job-date">2014 — 2022</div>
+    </div>
+    <ul>
+      <li>Direct-line management of high-acuity residential recovery, workforce pipeline deployment, and community health worker (CHW-1) training integration.</li>
+      <li>Managed inter-agency stakeholder alignment across state DOC, municipal housing authorities, and healthcare networks.</li>
+    </ul>
+  </div>
+
+  <!-- EDUCATION & CREDENTIALS -->
+  <div class="section-title">Education & Credentials</div>
+  <div style="font-size:13px;color:var(--text);line-height:1.8">
+    <div><strong>Certified Community Health Worker (CHW-1)</strong> — Nevada Certification Board / College of Southern Nevada</div>
+    <div><strong>Innovating in Health Care (BUS5.1x) Certificate</strong> — HarvardX (edX)</div>
+    <div><strong>Strengthening CHW Programs Certificate</strong> — HarvardX (edX)</div>
+    <div><strong>OSHA Construction Safety & YouthBuild Leadership Certifications</strong></div>
+  </div>
+
+</div>
+
+</body>
+</html>

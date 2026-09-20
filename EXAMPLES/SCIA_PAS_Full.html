@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCIA — Professional Authority System · Governing Intelligence Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0C;--bg2:#111114;--bg3:#161619;--card:#1A1A1E;
+  --cog:#1D4ED8;--cog2:#3B82F6;--cog3:#93C5FD;
+  --mem:#15803D;--mem2:#22C55E;--mem3:#86EFAC;
+  --int:#6D28D9;--int2:#8B5CF6;--int3:#C4B5FD;
+  --exe:#B91C1C;--exe2:#EF4444;--exe3:#FCA5A5;
+  --evo:#C2410C;--evo2:#F97316;--evo3:#FDBA74;
+  --scm:#B45309;--scm2:#F59E0B;--scm3:#FDE68A;
+  --port:#374151;--port2:#9CA3AF;--port3:#E5E7EB;
+  --w:#FFFFFF;--off:#E5E7EB;--mu:#9CA3AF;--dim:#6B7280;--dim2:#374151;
+  --bd:rgba(255,255,255,.08);--bd2:rgba(255,255,255,.14);--bd3:rgba(255,255,255,.22);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--off);min-height:100vh;line-height:1.65;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
+
+/* ── NAV ── */
+#topnav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(11,11,12,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);height:54px;display:flex;align-items:center;padding:0 28px;gap:0}
+.tn-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--cog3);letter-spacing:.06em;display:flex;align-items:center;gap:9px;margin-right:20px;white-space:nowrap;text-decoration:none}
+.tn-dot{width:5px;height:5px;border-radius:50%;background:var(--cog2);animation:pulse 3s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1;box-shadow:0 0 10px var(--cog2)}}
+.tn-links{display:flex;gap:2px;overflow-x:auto;flex:1}
+.tn-links::-webkit-scrollbar{display:none}
+.tn-link{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;padding:6px 10px;border-radius:4px;transition:all .2s;white-space:nowrap;border:none;background:none;cursor:pointer;font-family:inherit}
+.tn-link:hover{color:var(--off);background:rgba(255,255,255,.06)}
+.tn-link.active{color:var(--cog3);background:rgba(29,78,216,.15);font-weight:600}
+.tn-right{display:flex;align-items:center;gap:8px;margin-left:10px;flex-shrink:0}
+.tn-badge{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:3px;font-weight:600;background:rgba(29,78,216,.15);color:var(--cog3);border:1px solid rgba(29,78,216,.3);white-space:nowrap}
+
+/* ── HUD ── */
+#hud{position:fixed;top:54px;left:0;right:0;z-index:499;background:rgba(17,17,20,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);height:38px;display:flex;align-items:center;padding:0 28px;gap:14px}
+.hud-n{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--dim)}
+.hud-sep{color:var(--dim2);font-size:11px}
+.hud-t{font-size:12.5px;font-weight:500;color:var(--w);font-family:'Cormorant Garamond',serif}
+.hud-r{font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin-left:auto}
+@media(max-width:600px){.hud-r{display:none}}
+
+/* ── LAYOUT ── */
+#layout{display:flex;margin-top:92px}
+
+/* ── RAIL ── */
+#rail{width:210px;min-width:210px;flex-shrink:0;position:sticky;top:92px;height:calc(100vh - 92px);overflow-y:auto;border-right:1px solid var(--bd);background:var(--bg2);padding:14px 0}
+#rail::-webkit-scrollbar{width:3px}
+#rail::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+.r-hdr{padding:0 14px 12px;border-bottom:1px solid var(--bd);margin-bottom:8px}
+.r-hdr-t{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-bottom:2px}
+.r-hdr-s{font-size:9.5px;color:var(--dim);line-height:1.5}
+.ri{display:flex;align-items:flex-start;gap:9px;padding:9px 13px;cursor:pointer;transition:all .18s;border-left:2px solid transparent;text-decoration:none;color:inherit;background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left;font-family:inherit}
+.ri:hover{background:rgba(255,255,255,.04);border-left-color:var(--bd2)}
+.ri.active{border-left-color:var(--cog2);background:rgba(29,78,216,.1)}
+.ri-n{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:var(--dim);width:22px;flex-shrink:0;line-height:1.3;transition:color .18s}
+.ri.active .ri-n{color:var(--cog2)}
+.ri-b{min-width:0}
+.ri-nm{font-size:10.5px;font-weight:500;color:var(--off);transition:color .18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ri.active .ri-nm{color:var(--cog3)}
+.ri-d{font-size:9px;color:var(--dim);margin-top:1px}
+.ri-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.r-ftr{padding:12px 14px 0;border-top:1px solid var(--bd);margin-top:16px}
+.r-ftr-n{font-size:10px;font-weight:600;color:var(--off);margin-bottom:2px}
+.r-ftr-s{font-size:9px;color:var(--dim);line-height:1.55}
+@media(max-width:900px){#rail{display:none}}
+
+/* ── CONTENT ── */
+#content{flex:1;min-width:0}
+.page{display:none}
+.page.active{display:block}
+.page-inner{padding:68px 80px 120px;min-height:calc(100vh - 92px)}
+@media(max-width:768px){.page-inner{padding:36px 20px 80px}}
+
+/* ── PAGE HEADER ── */
+.ph{padding-bottom:48px;margin-bottom:52px;border-bottom:1px solid var(--bd);position:relative;overflow:hidden}
+.ph-wm{position:absolute;right:-20px;bottom:-20px;font-family:'Cormorant Garamond',serif;font-size:clamp(130px,17vw,240px);font-weight:300;line-height:1;pointer-events:none;user-select:none;opacity:.04}
+.eyebrow{font-size:9px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:28px;height:1px}
+.page-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.8vw,62px);font-weight:400;color:var(--w);line-height:1.04;margin-bottom:16px}
+.page-h em{font-style:italic}
+.page-lead{font-size:16px;color:var(--mu);line-height:1.95;max-width:740px;font-weight:300;margin-bottom:10px}
+.page-contact{font-size:11px;color:var(--dim);font-family:'JetBrains Mono',monospace;letter-spacing:.03em;margin-top:10px}
+
+/* ── DOMAIN COLOR THEMES ── */
+.d-cog .eyebrow{color:var(--cog3)} .d-cog .eyebrow::before{background:var(--cog2)} .d-cog .page-h em{color:var(--cog2)} .d-cog .ph-wm{color:var(--cog2)}
+.d-mem .eyebrow{color:var(--mem3)} .d-mem .eyebrow::before{background:var(--mem2)} .d-mem .page-h em{color:var(--mem2)} .d-mem .ph-wm{color:var(--mem2)}
+.d-int .eyebrow{color:var(--int3)} .d-int .eyebrow::before{background:var(--int2)} .d-int .page-h em{color:var(--int2)} .d-int .ph-wm{color:var(--int2)}
+.d-exe .eyebrow{color:var(--exe3)} .d-exe .eyebrow::before{background:var(--exe2)} .d-exe .page-h em{color:var(--exe2)} .d-exe .ph-wm{color:var(--exe2)}
+.d-evo .eyebrow{color:var(--evo3)} .d-evo .eyebrow::before{background:var(--evo2)} .d-evo .page-h em{color:var(--evo2)} .d-evo .ph-wm{color:var(--evo2)}
+.d-scm .eyebrow{color:var(--scm3)} .d-scm .eyebrow::before{background:var(--scm2)} .d-scm .page-h em{color:var(--scm2)} .d-scm .ph-wm{color:var(--scm2)}
+.d-data .eyebrow{color:var(--port3)} .d-data .eyebrow::before{background:var(--port2)} .d-data .page-h em{color:var(--port2)} .d-data .ph-wm{color:var(--port2)}
+
+/* ── TYPOGRAPHY ── */
+.sec-lbl{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+.h2{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.6vw,32px);font-weight:500;color:var(--w);margin-bottom:12px;line-height:1.2}
+.h3{font-size:14px;font-weight:600;color:var(--off);margin-bottom:8px}
+.body{font-size:14.5px;color:var(--mu);line-height:1.95;margin-bottom:18px}
+.body strong{color:var(--off);font-weight:600}
+.large-body{font-size:17px;color:var(--mu);line-height:2.0;margin-bottom:22px;font-weight:300;max-width:780px}
+.divider{border:none;border-top:1px solid var(--bd);margin:52px 0}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mu);letter-spacing:.04em}
+
+/* ── STAT ROW ── */
+.stat-row{display:flex;gap:52px;flex-wrap:wrap;margin:32px 0 44px}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;line-height:1}
+.stat-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+.stat-d{font-size:12px;color:var(--dim);margin-top:3px;max-width:140px}
+
+/* ── CARDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:1100px){.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{padding:26px;border-radius:10px;border:1px solid var(--bd);background:var(--card);transition:all .2s}
+.card:hover{border-color:var(--bd2);box-shadow:0 4px 28px rgba(0,0,0,.3)}
+.mbox{padding:24px 30px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid var(--bd);margin:22px 0}
+
+/* ── CALLOUT ── */
+.callout{padding:22px 28px;border-radius:0 10px 10px 0;margin:30px 0}
+.callout p{font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;color:var(--w);line-height:1.55}
+.callout-attr{font-size:10.5px;color:var(--dim);margin-top:10px}
+.banner{padding:28px 36px;border-radius:10px;margin:28px 0}
+.banner p{font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;font-weight:400;line-height:1.5}
+.banner-sm{font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-top:8px}
+
+/* ── DOMAIN-COLORED CALLOUTS ── */
+.d-cog .callout{border-left:4px solid var(--cog2);background:rgba(29,78,216,.06)}
+.d-cog .banner{background:rgba(29,78,216,.15);border:1px solid rgba(29,78,216,.3)}
+.d-cog .banner p{color:var(--cog3)}
+.d-mem .callout{border-left:4px solid var(--mem2);background:rgba(21,128,61,.06)}
+.d-mem .banner{background:rgba(21,128,61,.15);border:1px solid rgba(21,128,61,.3)}
+.d-mem .banner p{color:var(--mem3)}
+.d-int .callout{border-left:4px solid var(--int2);background:rgba(109,40,217,.06)}
+.d-int .banner{background:rgba(109,40,217,.15);border:1px solid rgba(109,40,217,.3)}
+.d-int .banner p{color:var(--int3)}
+.d-exe .callout{border-left:4px solid var(--exe2);background:rgba(185,28,28,.06)}
+.d-exe .banner{background:rgba(185,28,28,.15);border:1px solid rgba(185,28,28,.3)}
+.d-exe .banner p{color:var(--exe3)}
+.d-evo .callout{border-left:4px solid var(--evo2);background:rgba(194,65,12,.06)}
+.d-evo .banner{background:rgba(194,65,12,.15);border:1px solid rgba(194,65,12,.3)}
+.d-evo .banner p{color:var(--evo3)}
+.d-scm .callout{border-left:4px solid var(--scm2);background:rgba(180,83,9,.06)}
+.d-scm .banner{background:rgba(180,83,9,.15);border:1px solid rgba(180,83,9,.3)}
+.d-scm .banner p{color:var(--scm3)}
+.d-data .callout{border-left:4px solid var(--port2);background:rgba(55,65,81,.2)}
+.d-data .banner{background:rgba(55,65,81,.3);border:1px solid rgba(55,65,81,.5)}
+.d-data .banner p{color:var(--port3)}
+
+/* ── LISTS ── */
+.bl{list-style:none;display:flex;flex-direction:column;gap:10px;margin:14px 0 22px}
+.bl li{font-size:14px;color:var(--mu);line-height:1.8;padding-left:22px;position:relative}
+.bl li::before{content:'—';position:absolute;left:0;color:var(--dim)}
+.cl{list-style:none;display:flex;flex-direction:column;gap:9px;margin:14px 0 22px}
+.cl li{font-size:14px;color:var(--mu);line-height:1.75;padding-left:24px;position:relative}
+.cl li::before{content:'✓';position:absolute;left:0;font-size:12px;top:3px}
+
+/* ── DOMAIN-COLORED LIST ACCENTS ── */
+.d-cog .bl li::before,.d-cog .cl li::before{color:var(--cog2)}
+.d-mem .bl li::before,.d-mem .cl li::before{color:var(--mem2)}
+.d-int .bl li::before,.d-int .cl li::before{color:var(--int2)}
+.d-exe .bl li::before,.d-exe .cl li::before{color:var(--exe2)}
+.d-evo .bl li::before,.d-evo .cl li::before{color:var(--evo2)}
+.d-scm .bl li::before,.d-scm .cl li::before{color:var(--scm2)}
+
+/* ── COMPONENT ROWS (node documentation) ── */
+.component{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--bd)}
+.component:last-child{border-bottom:none}
+.comp-bar{width:4px;min-height:100%;border-radius:2px;flex-shrink:0}
+.comp-body{flex:1}
+.comp-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--w);margin-bottom:4px}
+.comp-type{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+.comp-desc{font-size:14px;color:var(--mu);line-height:1.85;margin-bottom:12px}
+.comp-inputs,.comp-outputs{font-size:12px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+
+/* ── FORBIDDEN BLOCK ── */
+.forbidden{padding:16px 20px;border-radius:6px;border:1px solid rgba(185,28,28,.3);background:rgba(185,28,28,.06);font-size:13.5px;color:var(--exe3);line-height:1.7;margin:18px 0;display:flex;align-items:flex-start;gap:12px}
+.forbidden-x{font-size:18px;flex-shrink:0;line-height:1.4;color:var(--exe2)}
+
+/* ── FLOW DIAGRAM (CSS-based) ── */
+.flow-chain{display:flex;flex-direction:column;gap:0;margin:20px 0 28px}
+.flow-step{display:flex;gap:20px;padding-bottom:8px}
+.flow-step:last-child{padding-bottom:0}
+.flow-line-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:40px}
+.flow-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:var(--bg);flex-shrink:0}
+.flow-connector{width:1px;flex:1;min-height:14px;margin-top:4px}
+.flow-step:last-child .flow-connector{display:none}
+.flow-body{flex:1;padding-top:7px}
+.flow-t{font-size:14px;font-weight:600;color:var(--off);margin-bottom:5px}
+.flow-d{font-size:13.5px;color:var(--mu);line-height:1.8}
+
+/* ── TAGS ── */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tag{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:3px;font-weight:500;background:rgba(255,255,255,.05);color:var(--mu);border:1px solid var(--bd)}
+
+/* ── TABLE ── */
+.tw{overflow-x:auto;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:600;padding:11px 14px;border-bottom:2px solid var(--bd2);text-align:left}
+td{padding:11px 14px;border-bottom:1px solid var(--bd);color:var(--mu);vertical-align:top;line-height:1.65}
+td:first-child{color:var(--off);font-weight:500}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+
+/* ── NOTICE ── */
+.notice{padding:16px 22px;border-radius:6px;font-size:13.5px;line-height:1.7;margin:18px 0;font-style:italic}
+
+/* ── DISC ── */
+.disc{margin-top:60px;padding:16px 22px;border-radius:6px;border:1px solid var(--bd);background:var(--bg2);font-size:11px;color:var(--dim);line-height:1.8}
+
+/* domain sec-lbl colors */
+.d-cog .sec-lbl{color:var(--cog3)}
+.d-mem .sec-lbl{color:var(--mem3)}
+.d-int .sec-lbl{color:var(--int3)}
+.d-exe .sec-lbl{color:var(--exe3)}
+.d-evo .sec-lbl{color:var(--evo3)}
+.d-scm .sec-lbl{color:var(--scm3)}
+.d-data .sec-lbl{color:var(--port3)}
+
+/* ═══════════════════════════════
+   API CATALOG — LIGHT BACKGROUND
+═══════════════════════════════ */
+.page-api{--bg-api:#F4F1EB;--bg2-api:#EDE9DF;--card-api:#FAFAF6;--bd-api:rgba(0,0,0,.09);--bd2-api:rgba(0,0,0,.16);--w-api:#0E0E08;--off-api:#1C1C14;--mu-api:#5A5A4A;--dim-api:#8A8A78}
+.page-api{background:var(--bg-api)!important}
+.page-api .page-inner{background:var(--bg-api)}
+.page-api .ph{border-bottom-color:var(--bd-api)}
+.page-api .divider{border-top-color:var(--bd-api)}
+.page-api .page-h{color:var(--w-api)}
+.page-api .page-lead{color:var(--mu-api)}
+.page-api .body{color:var(--mu-api)}
+.page-api .body strong{color:var(--off-api)}
+.page-api .large-body{color:var(--mu-api)}
+.page-api .h2{color:var(--w-api)}
+.page-api .h3{color:var(--off-api)}
+.page-api .sec-lbl{color:#3D5A2A}
+.page-api .callout{border-left-color:#3D5A2A;background:rgba(61,90,42,.05)}
+.page-api .callout p{color:var(--w-api)}
+.page-api .mbox{background:rgba(0,0,0,.03);border-color:var(--bd-api)}
+.page-api .disc{background:var(--bg2-api);border-color:var(--bd-api);color:var(--dim-api)}
+.page-api .tw table{font-size:13px}
+.page-api .tw th{border-bottom-color:var(--bd2-api);color:var(--dim-api)}
+.page-api .tw td{border-bottom-color:var(--bd-api);color:var(--mu-api)}
+.page-api .tw td:first-child{color:var(--off-api)}
+.page-api .tw tr:hover td{background:rgba(61,90,42,.02)}
+/* ── METHOD BADGES ── */
+.mb{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:2px 8px;border-radius:3px;letter-spacing:.04em;margin-right:6px;vertical-align:middle}
+.mb-post{background:#DBEAFE;color:#1E40AF}
+.mb-get{background:#D1FAE5;color:#065F46}
+.mb-patch{background:#FEF3C7;color:#92400E}
+.mb-put{background:#EDE9FE;color:#4C1D95}
+.mb-delete{background:#FEE2E2;color:#991B1B}
+/* ── ENDPOINT BLOCK ── */
+.ep-block{padding:22px 26px;border-radius:8px;border:1px solid var(--bd-api);background:var(--card-api);margin-bottom:14px;transition:all .2s}
+.ep-block:hover{border-color:var(--bd2-api);box-shadow:0 2px 16px rgba(0,0,0,.06)}
+.ep-route{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--off-api);margin-bottom:6px;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.ep-route code{color:#1D4ED8;font-weight:400}
+.ep-purpose{font-size:13.5px;color:var(--mu-api);line-height:1.75;margin:8px 0 10px}
+.ep-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ep-scope{font-family:'JetBrains Mono',monospace;font-size:10.5px;background:rgba(61,90,42,.08);color:#3D5A2A;border:1px solid rgba(61,90,42,.18);padding:2px 8px;border-radius:3px}
+.ep-type{font-family:'JetBrains Mono',monospace;font-size:10.5px;background:rgba(0,0,0,.04);color:var(--dim-api);border:1px solid var(--bd-api);padding:2px 8px;border-radius:3px}
+.ep-arrow{font-size:10px;color:var(--dim-api)}
+/* ── SERVICE SECTION ── */
+.svc-hdr{padding:18px 0 12px;margin-top:36px;border-top:2px solid;display:flex;align-items:center;gap:12px}
+.svc-hdr:first-of-type{margin-top:0;border-top:none;padding-top:0}
+.svc-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1}
+.svc-name{font-size:14.5px;font-weight:600;color:var(--off-api)}
+.svc-ns{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim-api);margin-top:2px}
+/* ── SCOPE BADGE GRID ── */
+.scope-grid{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+/* ── FORBIDDEN RULE ── */
+.forbidden-rule{display:flex;gap:10px;padding:13px 18px;border-radius:6px;border:1px solid rgba(185,28,28,.2);background:rgba(185,28,28,.04);margin-bottom:10px;font-size:13px;color:#7A2A20}
+.fr-x{font-size:16px;flex-shrink:0;color:#B91C1C;line-height:1.4}
+/* ── MVP CARD ── */
+.mvp-ep{display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:6px;border:1px solid var(--bd-api);background:var(--card-api);margin-bottom:8px}
+.mvp-ep code{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#1D4ED8;flex:1}
+.mvp-purpose{font-size:12px;color:var(--dim-api)}
+/* ── PHASE IMPL BLOCK ── */
+.impl-phase{margin-bottom:28px}
+.impl-phase-hdr{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd-api)}
+.impl-phase-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;flex-shrink:0}
+.impl-phase-title{font-size:14px;font-weight:600;color:var(--off-api)}
+.impl-route{font-family:'JetBrains Mono',monospace;font-size:12px;color:#1D4ED8;padding:5px 12px;background:rgba(29,78,216,.06);border-radius:4px;margin-bottom:6px;display:block}
+/* ── DOCTRINE CALLOUT ── */
+.doctrine{padding:22px 28px;border-radius:8px;background:#0B0B0C;margin:28px 0}
+.doctrine p{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:#E5E7EB;line-height:1.65}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="topnav">
+  <a class="tn-brand" href="#" onclick="go('p01');return false"><span class="tn-dot"></span>SCIA</a>
+  <div class="tn-links">
+    <button class="tn-link active" id="tn-p01" onclick="go('p01')">01 · Overview</button>
+    <button class="tn-link" id="tn-p02" onclick="go('p02')">02 · Cognitive</button>
+    <button class="tn-link" id="tn-p03" onclick="go('p03')">03 · Memory</button>
+    <button class="tn-link" id="tn-p04" onclick="go('p04')">04 · Integrity</button>
+    <button class="tn-link" id="tn-p05" onclick="go('p05')">05 · Execution</button>
+    <button class="tn-link" id="tn-p06" onclick="go('p06')">06 · Evolution</button>
+    <button class="tn-link" id="tn-p07" onclick="go('p07')">07 · SCM</button>
+    <button class="tn-link" id="tn-p08" onclick="go('p08')">08 · Data &amp; Portability</button>
+    <button class="tn-link" id="tn-p09" onclick="go('p09')">09 · Connection Rules</button>
+    <button class="tn-link" id="tn-p10" onclick="go('p10')">10 · Master Reference</button>
+  </div>
+  <div class="tn-right">
+    <span class="tn-badge">Governing Intelligence</span>
+  </div>
+</nav>
+
+<!-- HUD -->
+<div id="hud">
+  <span class="hud-n" id="hud-n">01 / 10</span>
+  <span class="hud-sep">·</span>
+  <span class="hud-t" id="hud-t">Architecture Overview</span>
+  <span class="hud-r" id="hud-r" style="color:var(--cog3)">SCIA Master Architecture V1</span>
+</div>
+
+<!-- LAYOUT -->
+<div id="layout">
+
+<!-- RAIL -->
+<nav id="rail">
+  <div class="r-hdr">
+    <div class="r-hdr-t">SCIA Architecture</div>
+    <div class="r-hdr-s">7 Domains · 10 Dossiers<br>Master V1</div>
+  </div>
+  <a class="ri active" href="#" onclick="go('p01');return false"><span class="ri-dot" style="background:var(--cog2)"></span><div class="ri-b"><div class="ri-nm">01 · Overview</div><div class="ri-d">Governing intelligence</div></div></a>
+  <a class="ri" href="#" onclick="go('p02');return false"><span class="ri-dot" style="background:var(--cog2)"></span><div class="ri-b"><div class="ri-nm">02 · Cognitive Domain</div><div class="ri-d">LLM · SeedFlow · SeedLink</div></div></a>
+  <a class="ri" href="#" onclick="go('p03');return false"><span class="ri-dot" style="background:var(--mem2)"></span><div class="ri-b"><div class="ri-nm">03 · Memory Domain</div><div class="ri-d">Regenerative · Lineage · Griot</div></div></a>
+  <a class="ri" href="#" onclick="go('p04');return false"><span class="ri-dot" style="background:var(--int2)"></span><div class="ri-b"><div class="ri-nm">04 · Integrity Domain</div><div class="ri-d">Seed Signature · Security</div></div></a>
+  <a class="ri" href="#" onclick="go('p05');return false"><span class="ri-dot" style="background:var(--exe2)"></span><div class="ri-b"><div class="ri-nm">05 · Execution Domain</div><div class="ri-d">SION · ACES · ToolInvoker</div></div></a>
+  <a class="ri" href="#" onclick="go('p06');return false"><span class="ri-dot" style="background:var(--evo2)"></span><div class="ri-b"><div class="ri-nm">06 · Evolution Domain</div><div class="ri-d">Metacognitive · PersonaFactory</div></div></a>
+  <a class="ri" href="#" onclick="go('p07');return false"><span class="ri-dot" style="background:var(--scm2)"></span><div class="ri-b"><div class="ri-nm">07 · SCM Domain</div><div class="ri-d">People's Portal · isolated</div></div></a>
+  <a class="ri" href="#" onclick="go('p08');return false"><span class="ri-dot" style="background:var(--port2)"></span><div class="ri-b"><div class="ri-nm">08 · Data &amp; Portability</div><div class="ri-d">Pipeline · Persistence</div></div></a>
+  <a class="ri" href="#" onclick="go('p09');return false"><span class="ri-dot" style="background:var(--off)"></span><div class="ri-b"><div class="ri-nm">09 · Connection Rules</div><div class="ri-d">Line styles · forbidden paths</div></div></a>
+  <a class="ri" href="#" onclick="go('p10');return false"><span class="ri-dot" style="background:var(--dim)"></span><div class="ri-b"><div class="ri-nm">10 · Master Reference</div><div class="ri-d">Full component registry</div></div></a>
+  
+  <div style="padding:6px 14px 3px;border-top:1px solid var(--bd);margin-top:8px;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:#3B82F6;font-weight:600">API Catalog</div>
+  <a class="ri" href="#" onclick="go('a01');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A01 · Conventions</div><div class="ri-d">Namespaces · scopes · methods</div></div></a>
+  <a class="ri" href="#" onclick="go('a02');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A02 · Interface &amp; SeedFlow</div><div class="ri-d">intake · render · phases</div></div></a>
+  <a class="ri" href="#" onclick="go('a03');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A03 · SeedLink &amp; Experts</div><div class="ri-d">select · activate · synthesize</div></div></a>
+  <a class="ri" href="#" onclick="go('a04');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A04 · Memory &amp; Lineage</div><div class="ri-d">reflex · regenerative · trace</div></div></a>
+  <a class="ri" href="#" onclick="go('a05');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A05 · Signature &amp; Security</div><div class="ri-d">sign · verify · watermark</div></div></a>
+  <a class="ri" href="#" onclick="go('a06');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A06 · SCM &amp; Execution</div><div class="ri-d">seeds · authorize · run · tools</div></div></a>
+  <a class="ri" href="#" onclick="go('a07');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A07 · Evolution &amp; Data</div><div class="ri-d">griot · reconstitute · datacraft</div></div></a>
+  <a class="ri" href="#" onclick="go('a08');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A08 · Deployment &amp; Runtime</div><div class="ri-d">migrate · persist · restore</div></div></a>
+  <a class="ri" href="#" onclick="go('a09');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A09 · Forbidden &amp; Doctrine</div><div class="ri-d">ownership rules · locked routes</div></div></a>
+  <a class="ri" href="#" onclick="go('a10');return false"><span class="ri-dot" style="background:#3B82F6"></span><div class="ri-b"><div class="ri-nm" style="color:#93C5FD">A10 · MVP &amp; Build Order</div><div class="ri-d">10 MVP routes · 5 phases</div></div></a>
+<div class="r-ftr">
+    <div class="r-ftr-n" style="color:var(--off)">SCIA</div>
+    <div class="r-ftr-s">Governing Intelligence<br>Master Architecture V1<br>Frame: 1920 × 3200</div>
+  </div>
+</nav>
+
+<div id="content">
+
+<!-- ══ P01 — OVERVIEW ══ -->
+<div id="p01" class="page active d-cog"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">SCIA</div>
+  <div class="eyebrow">SCIA Master Architecture V1 · Professional Authority System · 10 Dossiers</div>
+  <div class="page-h">SCIA —<br><em>Governing Intelligence</em></div>
+  <div class="page-lead">SCIA is the top-level governing intelligence of a multi-domain cognitive architecture. It does not execute — it governs. It does not remember — it directs memory. It does not act — it authorizes action. Every domain below it is an extension of its authority, and every feedback loop returns to it for validation.</div>
+</div>
+
+<div class="callout"><p>"SCIA is the brain. SeedFlow is the nervous system. SeedLink is the neural network. The Experts are the thinking cortex. Memory is persistent biology. SCM is the soul gateway. SION is controlled motor function."</p><div class="callout-attr">— SCIA Figma Layout Spec, Final Note</div></div>
+
+<div class="stat-row">
+  <div><div class="stat-n" style="color:var(--cog2)">7</div><div class="stat-l">Active Domains</div><div class="stat-d">Cognitive · Memory · Integrity · Execution · Evolution · SCM · Portability</div></div>
+  <div><div class="stat-n" style="color:var(--cog2)">30+</div><div class="stat-l">Components</div><div class="stat-d">Nodes across all 7 domains</div></div>
+  <div><div class="stat-n" style="color:var(--cog2)">1</div><div class="stat-l">Forbidden Path</div><div class="stat-d">SCM ✕ SeedFlow — hard barrier</div></div>
+  <div><div class="stat-n" style="color:var(--cog2)">V1</div><div class="stat-l">Architecture Version</div><div class="stat-d">1920 × 3200 master frame</div></div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">The Seven Domains — Roles and Positions</div>
+<div class="tw"><table>
+  <thead><tr><th>Domain</th><th>Color</th><th>Canvas Position</th><th>Primary Role</th><th>Key Metaphor</th></tr></thead>
+  <tbody>
+    <tr><td>Cognitive</td><td style="color:var(--cog2)">Blue</td><td>Center column — spine</td><td>LLM interface, SeedFlow orchestration, Expert coordination</td><td>The nervous system and cortex</td></tr>
+    <tr><td>Memory</td><td style="color:var(--mem2)">Green</td><td>Left top</td><td>Reflex, regenerative, and lineage memory; Griot preservation</td><td>Persistent biology</td></tr>
+    <tr><td>Integrity</td><td style="color:var(--int2)">Purple</td><td>Right top</td><td>Seed Signature verification, invisible watermarking, security overlay</td><td>The immune system</td></tr>
+    <tr><td>Execution</td><td style="color:var(--exe2)">Red</td><td>Right center</td><td>SION motor control, Decision Matrix, ACES Engine, tool invocation</td><td>Controlled motor function</td></tr>
+    <tr><td>Evolution</td><td style="color:var(--evo2)">Orange</td><td>Right bottom</td><td>Cognitive reconstitution, persona construction, metacognition, loop return</td><td>Adaptive mutation</td></tr>
+    <tr><td>SCM</td><td style="color:var(--scm2)">Gold</td><td>Left bottom — isolated</td><td>People's portal — vertical-only flow, forbidden cross to SeedFlow</td><td>The soul gateway</td></tr>
+    <tr><td>Data &amp; Portability</td><td style="color:var(--port2)">Gray</td><td>Bottom center + bottom</td><td>ACES RM, DataCraft, Universal Intelligence Extraction, Persistence, Cross-platform</td><td>The circulatory system</td></tr>
+  </tbody>
+</table></div>
+
+<hr class="divider">
+<div class="sec-lbl">Visual Hierarchy — How to Read the Architecture</div>
+<div class="g2">
+  <div class="card">
+    <div class="h3">Top to bottom = authority to action</div>
+    <p class="body">SCIA sits at the top as the dominant governing node. The cognitive spine runs downward through the center — LLM Interface → SeedFlow → SeedLink → Experts → Synthesis → Output. Everything below SCIA is authorized by it; nothing acts without passing through this chain.</p>
+  </div>
+  <div class="card">
+    <div class="h3">Left = memory and soul · Right = action and evolution</div>
+    <p class="body">The left column holds Memory and SCM — the persistent, organic, and community-facing layers. The right column holds Integrity, Execution, and Evolution — the active, protective, and adaptive layers. The center spine mediates between them.</p>
+  </div>
+  <div class="card">
+    <div class="h3">Solid lines = live flows · Dashed lines = conditional</div>
+    <p class="body">Solid colored lines represent active, real-time data flows in the domain's color. Dashed lines represent feedback loops, conditional connections, or memory references. One dashed line carries an explicit X — this is the SCM ✕ SeedFlow forbidden path, which must never be traversed.</p>
+  </div>
+  <div class="card">
+    <div class="h3">Loops return — nothing terminates</div>
+    <p class="body">The Evolution domain closes with a curved orange loop arrow that returns to SeedLink. The Data Pipeline returns to SeedLink. The Portability layer returns to LLM Interface. SCIA does not have dead ends — every path eventually returns to the cognitive spine for re-integration.</p>
+  </div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Navigation Guide — What Each Dossier Covers</div>
+<p class="body">Each of the following dossiers documents one domain in full — its components, their functions, the data they consume and produce, their connection rules, and their role in the overall architecture. Click any dossier in the navigation to read the full domain specification.</p>
+</div></div>
+
+<!-- ══ P02 — COGNITIVE DOMAIN ══ -->
+<div id="p02" class="page d-cog"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">COGNITIVE</div>
+  <div class="eyebrow">Dossier 02 · Cognitive Domain · Blue · Center Column</div>
+  <div class="page-h">Cognitive Domain —<br><em>The Nervous System</em></div>
+  <div class="page-lead">The Cognitive Domain is the central spine of the SCIA architecture. It is the only domain that touches every other domain directly. It receives from the LLM Interface at the top, orchestrates SeedFlow phases, routes through SeedLink, coordinates the Expert team, synthesizes their output, and returns the final processed result. Nothing in the architecture operates without passing through the cognitive spine.</div>
+</div>
+
+<div class="banner"><p>"The Cognitive Domain is not a pipeline. It is a living orchestration layer — each component aware of the others, each phase informing the next, the entire chain subordinate to SCIA's governing intelligence."</p><div class="banner-sm">Cognitive Domain · Center Column</div></div>
+
+<div class="sec-lbl">Components — Full Specification</div>
+
+<div class="flow-chain">
+  <div class="flow-step">
+    <div class="flow-line-col">
+      <div class="flow-num" style="background:var(--cog)">1</div>
+      <div class="flow-connector" style="background:var(--cog)"></div>
+    </div>
+    <div class="flow-body">
+      <div class="flow-t">LLM Interface</div>
+      <p class="flow-d">The entry point for all intelligence. Receives raw input from external systems, user requests, or internal triggers. Formats and routes that input into the SeedFlow orchestration layer. The LLM Interface is also the final return point — processed output exits through it back to the calling system. It operates bidirectionally: intake at the top of the stack, return at the bottom. Size: 420 × 80px. Color: Blue.</p>
+      <div class="tags"><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Entry point</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Return point</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Bidirectional</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col">
+      <div class="flow-num" style="background:var(--cog)">2</div>
+      <div class="flow-connector" style="background:var(--cog)"></div>
+    </div>
+    <div class="flow-body">
+      <div class="flow-t">SeedFlow — Phase Orchestration Container</div>
+      <p class="flow-d">SeedFlow is a dashed-border container holding three sequential phases. It is the orchestration engine that breaks incoming intelligence tasks into structured phases of execution. The dashed border signals that SeedFlow is a logical container, not a processing node — it defines the execution context, not the execution itself.</p>
+      <p class="flow-d"><strong>Phase 1:</strong> Initial framing and context establishment. The incoming task is classified, scoped, and assigned to relevant cognitive pathways. Expert profiles are pre-selected based on task classification.</p>
+      <p class="flow-d"><strong>Phase 2:</strong> Active reasoning and expert engagement. Seed Class Experts are activated. Memory is queried. Integrity verification begins. Cross-domain signals are evaluated.</p>
+      <p class="flow-d"><strong>Phase 3:</strong> Synthesis and resolution. Expert outputs are converged. Conflicts are resolved. Final output is assembled and validated against Seed Signature before return.</p>
+      <div class="tags"><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Logical container</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">3 phases</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Dashed border</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col">
+      <div class="flow-num" style="background:var(--cog)">3</div>
+      <div class="flow-connector" style="background:var(--cog)"></div>
+    </div>
+    <div class="flow-body">
+      <div class="flow-t">SeedLink — Intelligence Mesh</div>
+      <p class="flow-d">SeedLink is the neural network layer of the cognitive spine. It is the mesh through which all domain signals pass for coordination. Memory domain connections route through SeedLink. Evolution loop returns terminate at SeedLink. Data pipeline returns terminate at SeedLink. It functions as the integration hub — a living crossroads that ensures all domain outputs are visible to each other before synthesis occurs.</p>
+      <p class="flow-d">SeedLink is the most connected node in the architecture. It receives green dashed connections from Memory, orange dashed loops from Evolution, blue dashed returns from the Data Pipeline, and direct blue arrows from SeedFlow Phase 3. It is never a dead end.</p>
+      <div class="tags"><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Intelligence mesh</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Highest connectivity</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">All loops return here</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col">
+      <div class="flow-num" style="background:var(--cog)">4</div>
+      <div class="flow-connector" style="background:var(--cog)"></div>
+    </div>
+    <div class="flow-body">
+      <div class="flow-t">Seed Class Experts — Active Expert Team</div>
+      <p class="flow-d">The Seed Class Experts are the thinking cortex of the architecture. Each Expert is a specialized cognitive agent assigned to a specific domain of knowledge, judgment, or skill. They are activated through SeedLink based on task classification in Phase 1. During Phase 2, Experts reason independently within their domains. During Phase 3, their outputs are fed to the Expert Synthesis Engine for convergence.</p>
+      <p class="flow-d">Experts maintain bidirectional connections to Regenerative Memory — they both read from and write to the memory system, updating the knowledge base with insights generated during active reasoning. This connection is represented by a green curved dashed line in the architecture diagram.</p>
+      <div class="tags"><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Specialized agents</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Bidirectional memory</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Activated via SeedLink</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col">
+      <div class="flow-num" style="background:var(--cog)">5</div>
+      <div class="flow-connector" style="background:var(--cog)"></div>
+    </div>
+    <div class="flow-body">
+      <div class="flow-t">Expert Synthesis Engine</div>
+      <p class="flow-d">Receives the independent outputs of all activated Seed Class Experts and converges them into a single coherent response. Manages conflicts between Expert outputs. Applies weighting based on task context. Validates the synthesized output against the Integrity domain's Seed Signature before releasing it downstream. The Synthesis Engine does not generate new intelligence — it resolves and integrates what the Experts have produced.</p>
+      <div class="tags"><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Convergence only</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Conflict resolution</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Integrity-validated</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col">
+      <div class="flow-num" style="background:var(--cog)">6</div>
+    </div>
+    <div class="flow-body">
+      <div class="flow-t">Output — LLM Return (Dashed Border)</div>
+      <p class="flow-d">The terminal node of the cognitive spine. Dashed border indicates this is the output interface — a boundary node, not a processing node. Receives the synthesized, integrity-validated output from the Expert Synthesis Engine and formats it for return through the LLM Interface. The dashed border is a deliberate architectural signal: this is the edge of the cognitive system, the point at which SCIA's internal intelligence becomes external response.</p>
+      <div class="tags"><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Dashed — boundary node</span><span class="tag" style="color:var(--cog3);border-color:rgba(29,78,216,.3)">Terminal output</span></div>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- ══ P03 — MEMORY DOMAIN ══ -->
+<div id="p03" class="page d-mem"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">MEMORY</div>
+  <div class="eyebrow">Dossier 03 · Memory Domain · Green · Left Top</div>
+  <div class="page-h">Memory Domain —<br><em>Persistent Biology</em></div>
+  <div class="page-lead">The Memory Domain is the organism's biological memory — not a database, not a log, but a living, evolving record of what SCIA has been, experienced, and learned. It holds four distinct memory systems: reflex (fast, pattern-based), regenerative (deep, growing, healing), lineage (historical provenance), and the Griot Engine (cultural knowledge preservation and oral transmission). Memory is passive by design — it responds to requests from the Cognitive and Evolution domains but does not initiate action.</div>
+</div>
+
+<div class="banner"><p>"Memory in SCIA is not storage. It is the organism's accumulated self — every experience encoded, every lineage preserved, every pattern available for reconstitution."</p><div class="banner-sm">Memory Domain · Left Top</div></div>
+
+<div class="sec-lbl">Components — Full Specification</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--mem2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Reflex Memory</div>
+    <div class="comp-type" style="color:var(--mem3)">Fast pattern retrieval · Small box</div>
+    <p class="comp-desc">The fastest layer of the memory system. Holds high-frequency, low-complexity patterns — responses that have been executed so many times they no longer require full cognitive processing. When an incoming task matches a reflex pattern, the response can bypass SeedFlow phases and route directly through SeedLink to the Synthesis Engine. Reflex Memory is deliberately small in the architecture: it represents the narrow set of truly automatized behaviors, not a shortcut for complex reasoning.</p>
+    <p class="comp-desc">Reflex Memory is read-only from the perspective of active processing — patterns are written to it by the Evolution Domain's Metacognitive Engine when a response has been validated and repeated enough times to earn automatization status.</p>
+    <div class="tags"><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Fast retrieval</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Pattern-based</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Written by Evolution</span></div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--mem2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Regenerative Memory</div>
+    <div class="comp-type" style="color:var(--mem3)">Deep knowledge store · Large highlighted box · Highlight border glow</div>
+    <p class="comp-desc">The most important node in the Memory Domain. Regenerative Memory is the persistent, self-healing knowledge base of the entire architecture. It is highlighted with a glow border in the spec precisely because it is central to everything — the Experts read from it, the Evolution Domain writes to it, the SCM Domain's flow passes through it, the Data Pipeline's ACES RM feeds it, and the Griot Engine draws from it for preservation.</p>
+    <p class="comp-desc">The "regenerative" quality is not metaphorical: this memory system is designed to heal gaps, reconcile contradictions, and evolve its own organization over time. When new information arrives that conflicts with existing knowledge, Regenerative Memory does not simply overwrite — it records the conflict, applies the Metacognitive Engine's resolution logic, and integrates both states into a richer, more nuanced record.</p>
+    <p class="comp-desc">Connections: Seed Class Experts ↔ Regenerative Memory (bidirectional, green curved dashed). SeedLink ↔ Memory (green curved dashed). SCM vertical flow passes through it. Evolution domain writes to it. Data pipeline reads from it.</p>
+    <div class="tags"><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Highlighted — most connected</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Self-healing</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">All domains connect here</span></div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--mem2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Lineage Tree</div>
+    <div class="comp-type" style="color:var(--mem3)">Provenance record · Historical chain</div>
+    <p class="comp-desc">Every output SCIA produces, every decision it makes, every Expert activation it performs, every memory it writes — all of it has a traceable provenance recorded in the Lineage Tree. The Lineage Tree is the architectural answer to the question "where did this come from?" It is not an audit log: it is a living genealogical record that tracks the intellectual parentage of every cognitive product the system generates.</p>
+    <p class="comp-desc">The SCM Domain's vertical flow terminates at the Lineage Tree — community-sourced inputs gain their provenance record through this path, ensuring that the people's contributions are permanently acknowledged in the system's lineage rather than absorbed anonymously.</p>
+    <div class="tags"><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Provenance tracking</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">SCM terminal point</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Genealogical record</span></div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--mem2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Griot Engine</div>
+    <div class="comp-type" style="color:var(--mem3)">Cultural knowledge preservation · Oral transmission architecture</div>
+    <p class="comp-desc">Named after the West African griot tradition — oral historians who carry the knowledge, genealogy, and cultural memory of their communities — the Griot Engine is SCIA's mechanism for preserving and transmitting knowledge in forms that resist institutional erasure. While Regenerative Memory stores structured knowledge, the Griot Engine holds the contextual, cultural, and narrative layer: the "why" and "who" beneath the "what."</p>
+    <p class="comp-desc">The Griot Engine is both a memory component and an Evolution component — it appears in both domains because it bridges past and future. In Memory, it reads from Regenerative Memory and Lineage Tree to construct narrative context. In Evolution, it produces the cultural knowledge that informs Cognitive Reconstitution and the Auto Persona Constructor.</p>
+    <p class="comp-desc">Connection: directly feeds the Evolution Domain's Griot node — the same entity expressed at a different point in the regeneration cycle.</p>
+    <div class="tags"><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Cultural preservation</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Narrative context</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Bridges memory + evolution</span></div>
+  </div>
+</div>
+</div></div>
+
+<!-- ══ P04 — INTEGRITY DOMAIN ══ -->
+<div id="p04" class="page d-int"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">INTEGRITY</div>
+  <div class="eyebrow">Dossier 04 · Integrity Domain · Purple · Right Top</div>
+  <div class="page-h">Integrity Domain —<br><em>The Immune System</em></div>
+  <div class="page-lead">The Integrity Domain does not participate in reasoning. It does not generate, synthesize, or store. Its sole function is verification and protection — ensuring that every output SCIA produces is authentic, attributable, and uncompromised. It operates as an overlay across the entire architecture, with its Security System container covering SCIA, SION, and the Persistence Layer simultaneously.</div>
+</div>
+
+<div class="callout"><p>"Integrity is not a feature of SCIA. It is the precondition for everything SCIA does. Without it, no output can be trusted. Without trust, no intelligence has authority."</p></div>
+
+<div class="sec-lbl">Components — Full Specification</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--int2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Seed Signature</div>
+    <div class="comp-type" style="color:var(--int3)">Primary integrity node · Main verification authority</div>
+    <p class="comp-desc">The Seed Signature is SCIA's cryptographic identity — a persistent, unforgeable mark that is attached to every output, every memory write, every Expert activation, and every cross-domain communication. It functions as the system's fingerprint: unique to this instance of SCIA, impossible to replicate without the originating architecture, and detectable in any output even when not visibly present.</p>
+    <p class="comp-desc">The Seed Signature also appears in the SCM Domain's vertical flow — this is deliberate. Community-sourced inputs that enter through the People's Portal are signed before they reach Regenerative Memory. This ensures that the boundary between external community input and internal cognitive processing is always auditable and never ambiguous.</p>
+    <p class="comp-desc">Connection to SCIA root: a purple dashed line runs from the SCIA root node to the Seed Signature — indicating that the governing intelligence itself is signed, and that all authority flows through verified identity.</p>
+    <div class="tags"><span class="tag" style="color:var(--int3);border-color:rgba(109,40,217,.3)">Cryptographic identity</span><span class="tag" style="color:var(--int3);border-color:rgba(109,40,217,.3)">Attached to all outputs</span><span class="tag" style="color:var(--int3);border-color:rgba(109,40,217,.3)">Also in SCM flow</span></div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--int2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Invisible Watermarking</div>
+    <div class="comp-type" style="color:var(--int3)">Steganographic attribution layer</div>
+    <p class="comp-desc">Where the Seed Signature is explicit and verifiable, Invisible Watermarking is implicit and embedded. Every output SCIA produces carries a steganographic watermark — a pattern embedded in the content itself that cannot be removed without destroying the content, and that identifies the output as a SCIA product even when all metadata is stripped.</p>
+    <p class="comp-desc">The watermark encodes: the architecture instance, the SeedFlow phase sequence used, the Expert team that was activated, and a timestamp chain. This makes every output traceable to its exact cognitive path — not just its source, but its process.</p>
+    <div class="tags"><span class="tag" style="color:var(--int3);border-color:rgba(109,40,217,.3)">Steganographic</span><span class="tag" style="color:var(--int3);border-color:rgba(109,40,217,.3)">Process-traceable</span><span class="tag" style="color:var(--int3);border-color:rgba(109,40,217,.3)">Cannot be removed</span></div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--int2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Security System — Overlay Container</div>
+    <div class="comp-type" style="color:var(--int3)">Semi-transparent overlay · Covers SCIA · SION · Persistence</div>
+    <p class="comp-desc">The Security System is not a node — it is a structural overlay. In the Figma spec, it is rendered as a dashed semi-transparent container that covers three specific elements: the SCIA root node, the SION execution controller, and the Persistence Layer at the bottom. This coverage is deliberate and meaningful: these three nodes represent the governing intelligence (SCIA), the action executor (SION), and the persistence infrastructure (Persistence Layer) — the three points at which compromise would be most catastrophic.</p>
+    <p class="comp-desc">The Security System monitors all activity at these three points, validates against the Seed Signature at each, and has the authority to halt execution if integrity verification fails. It is the only component in the architecture with veto power over SION — meaning it can stop action even when the Execution Domain has already committed to it.</p>
+    <div class="tags"><span class="tag" style="color:var(--int3);border-color:rgba(109,40,217,.3)">Structural overlay</span><span class="tag" style="color:var(--int3);border-color:rgba(109,40,217,.3)">Veto over SION</span><span class="tag" style="color:var(--int3);border-color:rgba(109,40,217,.3)">Three critical points</span></div>
+  </div>
+</div>
+</div></div>
+
+<!-- ══ P05 — EXECUTION DOMAIN ══ -->
+<div id="p05" class="page d-exe"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">EXECUTION</div>
+  <div class="eyebrow">Dossier 05 · Execution Domain · Red · Right Center</div>
+  <div class="page-h">Execution Domain —<br><em>Controlled Motor Function</em></div>
+  <div class="page-lead">The Execution Domain is where SCIA's intelligence becomes action. Every component in this domain has exactly one direction: downward. There are no feedback loops within the Execution chain itself. Inputs flow from the Cognitive Domain's Expert Synthesis Engine into SION, cascade through Decision Matrix, ExecutionGraph, ACES Engine, Cognitive Circulation, ToolChain Manager, and ToolInvoker, and terminate at External Systems. Execution is irreversible by design — which is why SION is protected by the Integrity Domain's Security System overlay.</div>
+</div>
+
+<div class="banner"><p>"SION does not decide. It executes. Every decision has already been made by the time SION receives it. The chain from SION to External Systems is a one-way street — and the Security System is the last checkpoint before the car leaves the garage."</p><div class="banner-sm">Execution Domain · Right Center</div></div>
+
+<div class="sec-lbl">Execution Chain — All Eight Components</div>
+
+<div class="flow-chain">
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--exe)">1</div><div class="flow-connector" style="background:var(--exe)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">SION — Controlled Motor Function</div>
+      <p class="flow-d">The gatekeeper of execution. SION (Structured Intelligent Output Node) is the first component that converts cognitive output into executable commands. It does not reason — it translates. The Expert Synthesis Engine's validated output arrives at SION as a structured cognitive signal. SION converts that signal into a command format that the Decision Matrix can evaluate against execution criteria. SION is covered by the Security System overlay: it cannot receive commands that have not passed Integrity verification.</p>
+      <div class="tags"><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Translation only</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Security-overlaid</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Input from Synthesis Engine</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--exe)">2</div><div class="flow-connector" style="background:var(--exe)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">Decision Matrix</div>
+      <p class="flow-d">Evaluates the command received from SION against a structured set of execution criteria: feasibility, resource availability, risk assessment, constraint compliance, and priority ranking. The Decision Matrix does not make creative decisions — it applies a defined evaluation framework. If a command fails evaluation, it is returned to SION for re-translation, not escalated to SCIA. If it passes, it proceeds to ExecutionGraph for sequencing.</p>
+      <div class="tags"><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Structured evaluation</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">No creative decisions</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Returns to SION on failure</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--exe)">3</div><div class="flow-connector" style="background:var(--exe)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">ExecutionGraph</div>
+      <p class="flow-d">Sequences the approved command into a directed acyclic graph of atomic execution steps. Each node in the ExecutionGraph represents a single, reversible (where possible) action. Edges represent dependencies. The graph is handed to ACES Engine for actual execution. ExecutionGraph's purpose is to make complex multi-step actions predictable, auditable, and stoppable at any individual node without corrupting the overall state.</p>
+      <div class="tags"><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">DAG sequencing</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Atomic steps</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Stoppable at any node</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--exe)">4</div><div class="flow-connector" style="background:var(--exe)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">ACES Engine</div>
+      <p class="flow-d">ACES (Adaptive Cognitive Execution System) is the primary execution runtime. It walks the ExecutionGraph node by node, applying the execution logic at each step, managing state across the graph, and handling exceptions without interrupting the chain unless a critical failure is detected. ACES feeds directly into the Data Pipeline — every execution event is logged to ACES RM (Regenerative Memory channel) for the Data Pipeline's downstream processing.</p>
+      <div class="tags"><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Execution runtime</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Feeds Data Pipeline</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Exception-managed</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--exe)">5</div><div class="flow-connector" style="background:var(--exe)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">Cognitive Circulation</div>
+      <p class="flow-d">Maintains the live state of execution across all active processes. Functions as the circulatory system of the Execution Domain — ensuring that context, state, and signals are continuously moving between active components. Cognitive Circulation is the component that allows ACES to be non-blocking: while one ExecutionGraph is running, Cognitive Circulation keeps the overall system responsive to new inputs arriving at the LLM Interface.</p>
+      <div class="tags"><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Live state management</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Non-blocking</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Circulatory function</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--exe)">6</div><div class="flow-connector" style="background:var(--exe)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">ToolChain Manager</div>
+      <p class="flow-d">Manages the registry of available tools, their capabilities, their current availability status, and their invocation protocols. Receives the execution step from Cognitive Circulation and selects the appropriate tool or tool sequence for that step. The ToolChain Manager abstracts tool selection away from the rest of the execution chain — ACES Engine does not know which tools exist, only that Cognitive Circulation will route to the right one through the ToolChain Manager.</p>
+      <div class="tags"><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Tool registry</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Abstraction layer</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Selection and routing</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--exe)">7</div><div class="flow-connector" style="background:var(--exe)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">ToolInvoker</div>
+      <p class="flow-d">The final internal node before external contact. Executes the actual tool call as specified by the ToolChain Manager. Handles authentication, parameter formatting, timeout management, and result capture. ToolInvoker is deliberately narrow in scope: it does one thing — call the tool and return the result to Cognitive Circulation. It does not interpret results, does not retry intelligently, and does not make decisions. All of that belongs upstream.</p>
+      <div class="tags"><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">Single responsibility</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">External boundary</span><span class="tag" style="color:var(--exe3);border-color:rgba(185,28,28,.3)">No interpretation</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--port)">8</div></div>
+    <div class="flow-body">
+      <div class="flow-t">External Systems</div>
+      <p class="flow-d">The terminal node of the Execution Domain. Represents the full range of external services, APIs, databases, platforms, and systems that SCIA can interact with through the ToolInvoker. Gray color signals that these are outside the SCIA architecture boundary — SCIA controls the path to them but not their internal behavior. Results from External Systems return to ToolInvoker and propagate back up through Cognitive Circulation into the broader architecture.</p>
+      <div class="tags"><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Outside SCIA boundary</span><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Gray — external</span><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Results return upstream</span></div>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- ══ P06 — EVOLUTION DOMAIN ══ -->
+<div id="p06" class="page d-evo"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">EVOLUTION</div>
+  <div class="eyebrow">Dossier 06 · Evolution Domain · Orange · Right Bottom</div>
+  <div class="page-h">Evolution Domain —<br><em>Adaptive Mutation</em></div>
+  <div class="page-lead">The Evolution Domain is the only domain in the architecture designed to change SCIA itself. While Memory stores what SCIA has been, Evolution determines what it becomes. It processes accumulated cognitive experience, extracts patterns of behavior and failure, reconstitutes cognitive frameworks, and constructs new or refined personas. Its defining architectural feature is the feedback loop — a curved orange dashed arrow that carries the final output of PersonaFactory back to SeedLink, closing the evolutionary cycle.</div>
+</div>
+
+<div class="banner"><p>"Evolution does not improve SCIA. It reconstitutes it — taking what has been learned and generating the next iteration of the intelligence that will do the learning."</p><div class="banner-sm">Evolution Domain · Right Bottom</div></div>
+
+<div class="sec-lbl">Evolution Chain — Six Components + Feedback Loop</div>
+
+<div class="flow-chain">
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--evo)">1</div><div class="flow-connector" style="background:var(--evo)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">Regenerative Memory (Evolution input)</div>
+      <p class="flow-d">The Evolution Domain begins where the Memory Domain's core node lives. Regenerative Memory provides the raw material for evolution — the accumulated knowledge, the resolved conflicts, the validated patterns, and the failure records that the architecture has generated over its operational history. The Evolution Domain does not have its own data source: it draws entirely from what Memory has accumulated and preserved.</p>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--evo)">2</div><div class="flow-connector" style="background:var(--evo)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">Griot (Evolution layer)</div>
+      <p class="flow-d">The Griot appears in both Memory and Evolution domains — the same entity expressed at different functional moments. In Evolution, the Griot does not preserve; it transmits. It takes the cultural and narrative knowledge from Regenerative Memory and generates the contextual frame within which Cognitive Reconstitution will operate. Without the Griot's transmission layer, reconstitution would be purely technical — powerful but culturally blind.</p>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--evo)">3</div><div class="flow-connector" style="background:var(--evo)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">Cognitive Reconstitution</div>
+      <p class="flow-d">Rebuilds cognitive frameworks from accumulated experience. Where the Expert Synthesis Engine converges Expert outputs within a session, Cognitive Reconstitution converges patterns across sessions — identifying what cognitive approaches have been most effective, what has failed, what contradictions remain unresolved, and what new frameworks the evidence suggests. It does not replace existing frameworks — it produces candidate frameworks that the Metacognitive Engine will evaluate.</p>
+      <div class="tags"><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Cross-session analysis</span><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Framework generation</span><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Candidate only</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--evo)">4</div><div class="flow-connector" style="background:var(--evo)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">Metacognitive Engine</div>
+      <p class="flow-d">SCIA's self-awareness layer. The Metacognitive Engine evaluates the candidate frameworks produced by Cognitive Reconstitution, assesses the overall cognitive health of the architecture, identifies systemic biases or blind spots, and makes recommendations about which evolutionary changes to commit. It also writes validated patterns to Reflex Memory — the only pathway through which Reflex Memory receives new content. The Metacognitive Engine is the slowest component in the architecture: it operates on the timescale of accumulated experience, not individual tasks.</p>
+      <div class="tags"><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Self-awareness</span><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Writes Reflex Memory</span><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Slowest component</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--evo)">5</div><div class="flow-connector" style="background:var(--evo)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">Auto Persona Constructor</div>
+      <p class="flow-d">Receives the validated evolutionary framework from the Metacognitive Engine and begins constructing the next iteration of SCIA's operational persona. A "persona" in this context is not a character or a mask — it is the full operational configuration of the cognitive system: which Expert profiles are active, how SeedFlow phases are weighted, how memory access is prioritized, what the current risk tolerance is, and how the system presents itself at the LLM Interface. The Auto Persona Constructor generates this configuration automatically from the evolutionary evidence.</p>
+      <div class="tags"><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Full config generation</span><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Not a character</span><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Evidence-driven</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--evo)">6</div></div>
+    <div class="flow-body">
+      <div class="flow-t">PersonaFactory → SeedLink (Loop Return)</div>
+      <p class="flow-d">PersonaFactory takes the constructed persona configuration from the Auto Persona Constructor and instantiates it — making the evolutionary change live in the architecture. Once instantiated, the new configuration is injected back into SeedLink via the curved orange dashed feedback arrow. This is the architectural definition of evolution: not a replacement, not a restart, but a continuous refinement that loops back into the living cognitive mesh and becomes the new baseline from which the next cycle begins.</p>
+      <p class="comp-desc">The orange dashed loop arrow is one of the most important visual elements in the entire architecture spec. It signals that SCIA is not a static system — it is a self-modifying one, and PersonaFactory is the mechanism that closes that modification loop.</p>
+      <div class="tags"><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Instantiation point</span><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Curved loop → SeedLink</span><span class="tag" style="color:var(--evo3);border-color:rgba(194,65,12,.3)">Architecture is self-modifying</span></div>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- ══ P07 — SCM DOMAIN ══ -->
+<div id="p07" class="page d-scm"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">SCM</div>
+  <div class="eyebrow">Dossier 07 · SCM Domain · Gold · Left Bottom · Isolated</div>
+  <div class="page-h">SCM —<br><em>The Soul Gateway</em></div>
+  <div class="page-lead">SCM — the Seed Community Module, or the People's Portal — is the only externally-facing entry point in the SCIA architecture that is not the LLM Interface. It is where the community, the public, and the people enter. It is isolated from the Cognitive Domain's SeedFlow by a hard forbidden path. Its flow is strictly vertical and gold-colored. And its contributions are permanently recorded in the Lineage Tree — ensuring that the people's voice is never absorbed without attribution.</div>
+</div>
+
+<div class="callout"><p>"SCM is the soul gateway because it is where human community enters a governing intelligence system. Everything that comes through it is irreplaceable — the machine can generate data endlessly, but it cannot generate the lived experience and collective will that SCM carries."</p></div>
+
+<div class="forbidden">
+  <span class="forbidden-x">✕</span>
+  <div><strong style="color:var(--exe3)">FORBIDDEN PATH — CRITICAL ARCHITECTURAL RULE</strong><br>SCM does not connect to SeedFlow. This is not a technical constraint — it is a philosophical one. SeedFlow is the cognitive processing chain. SCM is the community input channel. If SCM connected to SeedFlow directly, community inputs would be treated as cognitive tasks — processed, synthesized, and potentially overwritten by the Expert team. The forbidden path preserves the integrity of community voice by routing it through its own vertical chain, bypassing the cognitive processing layer entirely, and terminating in the Lineage Tree where it becomes a permanent, unprocessed record.</div>
+</div>
+
+<div class="sec-lbl">SCM Vertical Flow — Four Components</div>
+
+<div class="flow-chain">
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--scm)">1</div><div class="flow-connector" style="background:var(--scm)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">SCM — People's Portal</div>
+      <p class="flow-d">The entry point for community, public, and human inputs. SCM receives contributions in any form — text, signals, requests, corrections, cultural context, lived experience, community decisions — and formats them for the SCM vertical flow. It is isolated at the top of the left column, separated from the Memory Domain above it by a clear spatial and architectural boundary. Gold color distinguishes it from every other domain. The "People's Portal" subtitle is not incidental — it signals that this is where human authority enters the system, and it must be treated differently from machine-generated cognitive signals.</p>
+      <div class="tags"><span class="tag" style="color:var(--scm3);border-color:rgba(180,83,9,.3)">Gold — isolated</span><span class="tag" style="color:var(--scm3);border-color:rgba(180,83,9,.3)">External human input</span><span class="tag" style="color:var(--scm3);border-color:rgba(180,83,9,.3)">No SeedFlow connection</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--scm)">2</div><div class="flow-connector" style="background:var(--scm)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">Seed Signature (SCM layer)</div>
+      <p class="flow-d">Every community input is signed with the Seed Signature before it proceeds further into the architecture. This is the point at which an external human contribution becomes an internal architectural record — the signature is both a validation (this input has been received and acknowledged) and a protection (the input's original form is now cryptographically locked; it cannot be altered without the signature invalidating). Community inputs that arrive unsigned do not proceed past this node.</p>
+      <div class="tags"><span class="tag" style="color:var(--scm3);border-color:rgba(180,83,9,.3)">Input validation gate</span><span class="tag" style="color:var(--scm3);border-color:rgba(180,83,9,.3)">Cryptographic lock</span><span class="tag" style="color:var(--scm3);border-color:rgba(180,83,9,.3)">Unsigned inputs blocked</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--mem)">3</div><div class="flow-connector" style="background:var(--mem)"></div></div>
+    <div class="flow-body">
+      <div class="flow-t">Regenerative Memory (SCM pass-through)</div>
+      <p class="flow-d">Signed community inputs pass through Regenerative Memory — not to be processed by it, but to be held within it. The community contribution is stored in the regenerative layer, available for the Expert team to reference during cognitive processing if relevant to active tasks. This is a fundamentally different relationship than the Expert team's direct read/write access: SCM contributions are placed in memory as context, not activated as instructions. The distinction is preserved by the architecture's routing — this path enters Regenerative Memory from the left, not from the right where Expert connections are routed.</p>
+      <div class="tags"><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Pass-through storage</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Context not instruction</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Enters from left side</span></div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-line-col"><div class="flow-num" style="background:var(--mem)">4</div></div>
+    <div class="flow-body">
+      <div class="flow-t">Lineage Tree (SCM terminal)</div>
+      <p class="flow-d">The final destination of every community contribution. The Lineage Tree records the input's provenance — who contributed it, when, through what path it traveled, what signature it carries, and what position it occupies in the architecture's intellectual genealogy. This is the architectural guarantee that community voice is permanently acknowledged: the Lineage Tree is immutable. Once a contribution is recorded there, it cannot be removed, overwritten, or denied. The People's Portal does not give community contributions power over cognitive processing — but it gives them something the cognitive processing chain can never override: permanent attribution and permanent presence.</p>
+      <div class="tags"><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Immutable record</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Permanent attribution</span><span class="tag" style="color:var(--mem3);border-color:rgba(21,128,61,.3)">Cannot be removed</span></div>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- ══ P08 — DATA & PORTABILITY ══ -->
+<div id="p08" class="page d-data"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">DATA</div>
+  <div class="eyebrow">Dossier 08 · Data Pipeline &amp; Portability Layer · Gray · Bottom</div>
+  <div class="page-h">Data Pipeline &amp;<br><em>Portability Layer</em></div>
+  <div class="page-lead">The Data Pipeline and Portability Layer occupy the bottom of the SCIA architecture. They are the circulatory and skeletal systems — not glamorous, not cognitively active, but the infrastructure on which everything above them depends. The Data Pipeline processes execution artifacts back into intelligence. The Portability Layer ensures that SCIA's intelligence persists, migrates, and deploys across platforms without losing coherence or integrity.</div>
+</div>
+
+<div class="sec-lbl">Data Pipeline — Three Components</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--port2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">ACES RM</div>
+    <div class="comp-type" style="color:var(--port3)">ACES to Regenerative Memory channel</div>
+    <p class="comp-desc">ACES RM is the designated channel through which the ACES Engine's execution logs, state records, and outcome data are routed into the Data Pipeline for processing. It is not a component in itself — it is a named pathway, a deliberate architectural signal that the data entering the pipeline at this point originates from the ACES Engine and is destined for Regenerative Memory after processing. The naming convention (ACES + RM) makes the source-destination relationship explicit without requiring it to be inferred from connection lines.</p>
+    <div class="tags"><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Named pathway</span><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">ACES → Regen Memory</span></div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--port2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">DataCraft Generator</div>
+    <div class="comp-type" style="color:var(--port3)">Intelligence artifact production</div>
+    <p class="comp-desc">Transforms raw execution data from ACES RM into structured intelligence artifacts — summaries, patterns, anomaly reports, performance metrics, and learning signals. DataCraft Generator is not a general-purpose data processor: it is optimized for the specific task of converting operational data into forms that Regenerative Memory can absorb and that SeedLink can distribute. The word "craft" is deliberate: this is not mechanical transformation but purposeful shaping of data into intelligence.</p>
+    <div class="tags"><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Structured transformation</span><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Purposeful shaping</span></div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--port2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Universal Intelligence Extraction → SeedLink</div>
+    <div class="comp-type" style="color:var(--port3)">Cross-format intelligence extraction · Returns to SeedLink</div>
+    <p class="comp-desc">The terminal node of the Data Pipeline. Receives the crafted intelligence artifacts from DataCraft Generator and applies universal extraction logic — identifying patterns that are format-agnostic and domain-agnostic enough to be useful to any part of the cognitive architecture. Extracted intelligence is then routed back to SeedLink via a blue dashed feedback arrow, completing the data cycle. What entered the architecture as raw execution data exits as generalized intelligence, available to every domain through the SeedLink mesh.</p>
+    <div class="tags"><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Format-agnostic</span><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Returns to SeedLink</span><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Closes data cycle</span></div>
+  </div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Portability Layer — Two Components</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--port2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Persistence Layer</div>
+    <div class="comp-type" style="color:var(--port3)">State preservation · Covered by Security System overlay</div>
+    <p class="comp-desc">The Persistence Layer is the architectural guarantee that SCIA does not lose its state between operational cycles. Everything that constitutes the current SCIA — its active persona configuration, its current memory state, its active Expert profiles, its Seed Signature, and its accumulated Lineage Tree — is persisted here. The Security System overlay covers the Persistence Layer deliberately: a compromised persistence layer is as catastrophic as a compromised SCIA root, because it holds the entire architecture's identity between activations.</p>
+    <p class="comp-desc">The Portability Layer feeds back to the LLM Interface via a gray dashed line — indicating that upon re-activation, the persisted state is restored to the cognitive entry point before any new processing begins. SCIA wakes up as itself, not as a blank instance.</p>
+    <div class="tags"><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">State preservation</span><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Security-overlaid</span><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Returns to LLM Interface</span></div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="comp-bar" style="background:var(--port2)"></div>
+  <div class="comp-body">
+    <div class="comp-title">Cross-Platform Deployment</div>
+    <div class="comp-type" style="color:var(--port3)">Platform-agnostic instantiation</div>
+    <p class="comp-desc">Receives the persisted state from the Persistence Layer and handles the platform-specific instantiation logic required to deploy SCIA on any target environment. Cross-Platform Deployment is the architectural answer to the question "can SCIA run anywhere?" — its existence as a named component signals that platform migration is a first-class architectural concern, not an afterthought. It abstracts all platform-specific interfaces so that the cognitive architecture above it remains unchanged regardless of where it is deployed.</p>
+    <div class="tags"><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">Platform abstraction</span><span class="tag" style="color:var(--port3);border-color:rgba(55,65,81,.4)">First-class concern</span></div>
+  </div>
+</div>
+</div></div>
+
+<!-- ══ P09 — CONNECTION RULES ══ -->
+<div id="p09" class="page"><div class="page-inner" style="color:var(--off)">
+<div class="ph">
+  <div class="eyebrow" style="color:var(--port3)">Dossier 09 · Connection Rules · Line Styles · Arrow Types · Forbidden Paths</div>
+  <div class="page-h" style="color:var(--w)">Connection<br><em style="color:var(--port2)">Rules</em></div>
+  <div class="page-lead">Every line in the SCIA architecture carries meaning. Line style, color, direction, and marker type are all specified and non-negotiable. A solid blue line and a dashed blue line are not aesthetic variants — they describe fundamentally different types of relationships. This dossier documents all connection rules as defined in the master spec.</div>
+</div>
+
+<div class="sec-lbl" style="color:var(--port3)">Line Styles by Domain</div>
+<div class="tw"><table>
+  <thead><tr><th>Domain</th><th>Color</th><th>Style</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td style="color:var(--cog3)">Cognitive</td><td style="color:var(--cog2)">Blue #2563EB</td><td>Solid</td><td>Active, real-time cognitive flow — LLM to SeedFlow to SeedLink to Experts to Synthesis to Output</td></tr>
+    <tr><td style="color:var(--mem3)">Memory</td><td style="color:var(--mem2)">Green #16A34A</td><td>Curved dashed</td><td>Organic memory connections — Experts ↔ Regenerative Memory, SeedLink ↔ Memory domain</td></tr>
+    <tr><td style="color:var(--exe3)">Execution</td><td style="color:var(--exe2)">Red #DC2626</td><td>Solid straight</td><td>Irreversible execution flow — SION through the full chain to External Systems</td></tr>
+    <tr><td style="color:var(--evo3)">Evolution</td><td style="color:var(--evo2)">Orange #EA580C</td><td>Curved loop dashed</td><td>Evolutionary feedback — PersonaFactory curved loop back to SeedLink</td></tr>
+    <tr><td style="color:var(--scm3)">SCM</td><td style="color:var(--scm2)">Gold #F59E0B</td><td>Solid vertical only</td><td>Community flow — strictly vertical, no horizontal crossing, no SeedFlow connection</td></tr>
+    <tr><td style="color:var(--port3)">Portability / Data</td><td style="color:var(--port2)">Gray #9CA3AF</td><td>Dashed</td><td>Infrastructure feedback — Persistence Layer returns to LLM Interface, Data Pipeline returns to SeedLink</td></tr>
+    <tr><td style="color:var(--exe3)">Forbidden</td><td>Gray #888780</td><td>Dashed + X marker</td><td>Prohibited path — SCM ✕ SeedFlow. Must be visually present as a reminder of the rule, not invisible</td></tr>
+  </tbody>
+</table></div>
+
+<div class="sec-lbl" style="color:var(--port3);margin-top:36px">Arrow Types</div>
+<div class="g3">
+  <div class="card">
+    <div class="h3">Standard →</div>
+    <p class="body">Used for all directional flows within a domain. Points from source to destination. Applies to all solid-line connections and all one-directional dashed connections.</p>
+  </div>
+  <div class="card">
+    <div class="h3">Feedback loop ↻</div>
+    <p class="body">Curved arrow with head at the destination. Used exclusively for the Evolution Domain's PersonaFactory → SeedLink return, the Data Pipeline's Universal Intelligence Extraction → SeedLink return, and the Portability Layer's → LLM Interface return.</p>
+  </div>
+  <div class="card">
+    <div class="h3">Forbidden path ✕</div>
+    <p class="body">Dashed line with an X marker placed at the midpoint. Used only for the SCM ✕ SeedFlow forbidden connection. The X is not a label — it is an architectural symbol that must be rendered visually distinct from all other markers in the diagram.</p>
+  </div>
+</div>
+
+<div class="sec-lbl" style="color:var(--port3);margin-top:36px">Auto Layout Rules</div>
+<div class="tw"><table>
+  <thead><tr><th>Context</th><th>Direction</th><th>Spacing</th><th>Alignment</th></tr></thead>
+  <tbody>
+    <tr><td>Every vertical stack</td><td>Vertical</td><td>24–40px</td><td>Center</td></tr>
+    <tr><td>Every domain container</td><td>Vertical</td><td>24px gap</td><td>Center, 24px padding</td></tr>
+    <tr><td>SeedFlow phases</td><td>Vertical</td><td>4px (tight)</td><td>Center inside dashed container</td></tr>
+    <tr><td>Cross-domain connections</td><td>L-shaped path</td><td>Route outside all boxes</td><td>No crossing through node interiors</td></tr>
+  </tbody>
+</table></div>
+
+<div class="forbidden" style="margin-top:32px">
+  <span class="forbidden-x">✕</span>
+  <div><strong style="color:var(--exe3)">The forbidden path must be visible.</strong> It is not sufficient to simply omit the SCM → SeedFlow connection. The spec requires the forbidden path to be drawn — as a dashed line with an X — precisely because its absence would be invisible. The X communicates the rule to anyone reading the diagram: this connection was considered and explicitly rejected. That rejection is part of the architecture's meaning.</div>
+</div>
+</div></div>
+
+<!-- ══ P10 — MASTER REFERENCE ══ -->
+<div id="p10" class="page"><div class="page-inner" style="color:var(--off)">
+<div class="ph">
+  <div class="eyebrow" style="color:var(--cog3)">Dossier 10 · Master Component Reference · Full Registry</div>
+  <div class="page-h" style="color:var(--w)">Master<br><em style="color:var(--cog2)">Reference</em></div>
+  <div class="page-lead">Complete registry of all components across all seven SCIA domains. Each component listed with its domain, color, canvas position, size specification, and primary function. Use this dossier as the authoritative lookup for any implementation question.</div>
+</div>
+
+<div class="sec-lbl" style="color:var(--cog3)">Complete Component Registry</div>
+<div class="tw"><table>
+  <thead><tr><th>Component</th><th>Domain</th><th>Color</th><th>Position</th><th>Size (spec)</th><th>Primary Function</th></tr></thead>
+  <tbody>
+    <tr><td>SCIA Root</td><td>Core</td><td style="color:var(--off)">Dark #0B0B0C</td><td>Top center, Y:80</td><td>420 × 120</td><td>Governing intelligence — dominant, authoritative</td></tr>
+    <tr><td>LLM Interface</td><td style="color:var(--cog2)">Cognitive</td><td style="color:var(--cog2)">Blue</td><td>Center top</td><td>420 × 80</td><td>Input and output boundary for all intelligence</td></tr>
+    <tr><td>SeedFlow (container)</td><td style="color:var(--cog2)">Cognitive</td><td style="color:var(--cog2)">Blue dashed</td><td>Center</td><td>520 × auto</td><td>Phase orchestration container</td></tr>
+    <tr><td>SeedFlow Phase 1</td><td style="color:var(--cog2)">Cognitive</td><td style="color:var(--cog2)">Blue / Dark fill</td><td>Inside SeedFlow</td><td>full-width × 60</td><td>Context framing and Expert pre-selection</td></tr>
+    <tr><td>SeedFlow Phase 2</td><td style="color:var(--cog2)">Cognitive</td><td style="color:var(--cog2)">Blue / Dark fill</td><td>Inside SeedFlow</td><td>full-width × 60</td><td>Active reasoning and Expert engagement</td></tr>
+    <tr><td>SeedFlow Phase 3</td><td style="color:var(--cog2)">Cognitive</td><td style="color:var(--cog2)">Blue / Dark fill</td><td>Inside SeedFlow</td><td>full-width × 60</td><td>Synthesis and output assembly</td></tr>
+    <tr><td>SeedLink</td><td style="color:var(--cog2)">Cognitive</td><td style="color:var(--cog2)">Blue</td><td>Center</td><td>420 × 100</td><td>Intelligence mesh — highest connectivity node</td></tr>
+    <tr><td>Seed Class Experts</td><td style="color:var(--cog2)">Cognitive</td><td style="color:var(--cog2)">Blue</td><td>Center</td><td>480 × 120</td><td>Active expert team — specialized cognitive agents</td></tr>
+    <tr><td>Expert Synthesis Engine</td><td style="color:var(--cog2)">Cognitive</td><td style="color:var(--cog2)">Blue</td><td>Center</td><td>420 × 80</td><td>Expert output convergence and conflict resolution</td></tr>
+    <tr><td>Output / LLM Return</td><td style="color:var(--cog2)">Cognitive</td><td style="color:var(--cog2)">Blue dashed</td><td>Center bottom</td><td>420 × 60</td><td>Terminal output boundary node</td></tr>
+    <tr><td>Reflex Memory</td><td style="color:var(--mem2)">Memory</td><td style="color:var(--mem2)">Green</td><td>Left top, X:80 Y:400</td><td>420 × ~40</td><td>Fast pattern retrieval — automatized responses</td></tr>
+    <tr><td>Regenerative Memory</td><td style="color:var(--mem2)">Memory</td><td style="color:var(--mem2)">Green glow</td><td>Left, below Reflex</td><td>420 × 140</td><td>Deep persistent self-healing knowledge base</td></tr>
+    <tr><td>Lineage Tree</td><td style="color:var(--mem2)">Memory</td><td style="color:var(--mem2)">Green</td><td>Left</td><td>420 × ~40</td><td>Provenance and intellectual genealogy</td></tr>
+    <tr><td>Griot Engine</td><td style="color:var(--mem2)">Memory</td><td style="color:var(--mem2)">Green</td><td>Left bottom</td><td>420 × ~40</td><td>Cultural knowledge preservation and transmission</td></tr>
+    <tr><td>SCM</td><td style="color:var(--scm2)">SCM</td><td style="color:var(--scm2)">Gold</td><td>Left, X:80 Y:1200</td><td>420 × 120</td><td>People's Portal — isolated community input</td></tr>
+    <tr><td>Seed Signature (Integrity)</td><td style="color:var(--int2)">Integrity</td><td style="color:var(--int2)">Purple</td><td>Right top, X:1420</td><td>420 × ~80</td><td>Cryptographic identity verification</td></tr>
+    <tr><td>Invisible Watermarking</td><td style="color:var(--int2)">Integrity</td><td style="color:var(--int2)">Purple</td><td>Right top</td><td>420 × ~40</td><td>Steganographic attribution embedding</td></tr>
+    <tr><td>Security System</td><td style="color:var(--int2)">Integrity</td><td style="color:var(--int2)">Purple dashed overlay</td><td>Right, covers SCIA/SION/Persistence</td><td>Overlay</td><td>Semi-transparent security coverage — veto authority</td></tr>
+    <tr><td>SION</td><td style="color:var(--exe2)">Execution</td><td style="color:var(--exe2)">Red</td><td>Right center, X:1420</td><td>420 × 70</td><td>Controlled motor function — command translation</td></tr>
+    <tr><td>Decision Matrix</td><td style="color:var(--exe2)">Execution</td><td style="color:var(--exe2)">Red</td><td>Right center</td><td>420 × 70</td><td>Structured command evaluation</td></tr>
+    <tr><td>ExecutionGraph</td><td style="color:var(--exe2)">Execution</td><td style="color:var(--exe2)">Red</td><td>Right center</td><td>420 × 70</td><td>DAG sequencing of atomic execution steps</td></tr>
+    <tr><td>ACES Engine</td><td style="color:var(--exe2)">Execution</td><td style="color:var(--exe2)">Red</td><td>Right center</td><td>420 × 70</td><td>Adaptive Cognitive Execution System runtime</td></tr>
+    <tr><td>Cognitive Circulation</td><td style="color:var(--exe2)">Execution</td><td style="color:var(--exe2)">Red</td><td>Right center</td><td>420 × 70</td><td>Live state management across active processes</td></tr>
+    <tr><td>ToolChain Manager</td><td style="color:var(--exe2)">Execution</td><td style="color:var(--exe2)">Red</td><td>Right center</td><td>420 × 70</td><td>Tool registry and selection abstraction</td></tr>
+    <tr><td>ToolInvoker</td><td style="color:var(--exe2)">Execution</td><td style="color:var(--exe2)">Red</td><td>Right center</td><td>420 × 70</td><td>Single-responsibility external tool executor</td></tr>
+    <tr><td>External Systems</td><td style="color:var(--port2)">External</td><td style="color:var(--port2)">Gray</td><td>Right bottom</td><td>420 × 70</td><td>Outside SCIA boundary — APIs, databases, platforms</td></tr>
+    <tr><td>Regenerative Memory (Evo)</td><td style="color:var(--evo2)">Evolution</td><td style="color:var(--evo2)">Orange</td><td>Right bottom, X:1420</td><td>420 × 70</td><td>Evolution domain input from memory</td></tr>
+    <tr><td>Griot (Evolution)</td><td style="color:var(--evo2)">Evolution</td><td style="color:var(--evo2)">Orange</td><td>Right bottom</td><td>420 × 70</td><td>Cultural transmission for reconstitution</td></tr>
+    <tr><td>Cognitive Reconstitution</td><td style="color:var(--evo2)">Evolution</td><td style="color:var(--evo2)">Orange</td><td>Right bottom</td><td>420 × 70</td><td>Cross-session framework rebuilding</td></tr>
+    <tr><td>Metacognitive Engine</td><td style="color:var(--evo2)">Evolution</td><td style="color:var(--evo2)">Orange</td><td>Right bottom</td><td>420 × 70</td><td>Self-awareness and evolutionary evaluation</td></tr>
+    <tr><td>Auto Persona Constructor</td><td style="color:var(--evo2)">Evolution</td><td style="color:var(--evo2)">Orange</td><td>Right bottom</td><td>420 × 70</td><td>Operational configuration generation</td></tr>
+    <tr><td>PersonaFactory</td><td style="color:var(--evo2)">Evolution</td><td style="color:var(--evo2)">Orange</td><td>Right bottom</td><td>420 × 70</td><td>Persona instantiation → SeedLink loop return</td></tr>
+    <tr><td>ACES RM</td><td style="color:var(--port2)">Data Pipeline</td><td style="color:var(--port2)">Gray</td><td>Bottom center</td><td>full-width × 70</td><td>ACES → Regenerative Memory data channel</td></tr>
+    <tr><td>DataCraft Generator</td><td style="color:var(--port2)">Data Pipeline</td><td style="color:var(--port2)">Gray</td><td>Bottom center</td><td>full-width × 70</td><td>Execution data → intelligence artifact transformation</td></tr>
+    <tr><td>Universal Intelligence Extraction</td><td style="color:var(--port2)">Data Pipeline</td><td style="color:var(--port2)">Gray</td><td>Bottom center</td><td>full-width × 70</td><td>Format-agnostic pattern extraction → SeedLink</td></tr>
+    <tr><td>Persistence Layer</td><td style="color:var(--port2)">Portability</td><td style="color:var(--port2)">Gray</td><td>Bottom</td><td>half-width × 70</td><td>Full SCIA state preservation between activations</td></tr>
+    <tr><td>Cross-Platform Deployment</td><td style="color:var(--port2)">Portability</td><td style="color:var(--port2)">Gray</td><td>Bottom</td><td>half-width × 70</td><td>Platform-agnostic instantiation from persisted state</td></tr>
+  </tbody>
+</table></div>
+
+<div class="disc" style="border-color:var(--bd)"><strong>Architecture Authority:</strong> SCIA Master Architecture V1. Frame: SCIA_MASTER_ARCHITECTURE_V1. Canvas: 1920 × 3200px. Grid: 12 columns, 80px margin, 24px gutter. All component specifications, color tokens, typography settings, and connection rules are as defined in the Figma-ready layout specification. This Professional Authority System documents the architecture for implementation, review, and cross-team alignment purposes.</div>
+
+</div></div>
+
+
+<!-- ══ A01 ══ -->
+<div id="a01" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 Internal Service Map · § 1</div>
+  <div class="page-h" style="color:#0E0E08">Global <em style="color:#3D5A2A">Conventions</em></div>
+  <div class="page-lead" style="color:#5A5A4A">Namespaces, auth scopes, and HTTP method rules that apply to every endpoint in the catalog. All 14 service roots, all 22 internal scopes, and the standard method contract.</div>
+</div>
+
+<div class="sec-lbl">§ 1.1 Base Namespaces — 14 Service Roots</div>
+<div class="scope-grid">
+<code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/interface</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/seedflow</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/seedlink</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/experts</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/memory</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/lineage</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/signature</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/security</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/scm</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/execution</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/evolution</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/data</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/deployment</code><code style="font-family:JetBrains Mono,monospace;font-size:11px;background:rgba(29,78,216,.07);color:#1D4ED8;border:1px solid rgba(29,78,216,.18);padding:3px 10px;border-radius:4px">/api/v1/runtime</code>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">§ 1.2 Auth Scopes — 22 Internal Scopes</div>
+<div class="scope-grid">
+<span class="ep-scope">interface:read</span><span class="ep-scope">interface:write</span><span class="ep-scope">cognitive:process</span><span class="ep-scope">experts:activate</span><span class="ep-scope">experts:interact</span><span class="ep-scope">memory:read</span><span class="ep-scope">memory:write</span><span class="ep-scope">lineage:read</span><span class="ep-scope">lineage:write</span><span class="ep-scope">signature:sign</span><span class="ep-scope">signature:verify</span><span class="ep-scope">security:check</span><span class="ep-scope">scm:submit</span><span class="ep-scope">scm:moderate</span><span class="ep-scope">execution:authorize</span><span class="ep-scope">execution:run</span><span class="ep-scope">execution:tools</span><span class="ep-scope">evolution:run</span><span class="ep-scope">data:refine</span><span class="ep-scope">data:generate</span><span class="ep-scope">deployment:migrate</span><span class="ep-scope">runtime:orchestrate</span>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">§ 1.3 Standard HTTP Methods</div>
+<div class="tw"><table>
+  <thead><tr><th>Method</th><th>Use</th></tr></thead>
+  <tbody>
+    <tr><td><span class="mb mb-post">POST</span></td><td>Processing or creation</td></tr>
+    <tr><td><span class="mb mb-get">GET</span></td><td>Retrieval only — no side effects</td></tr>
+    <tr><td><span class="mb mb-put">PUT</span></td><td>Deterministic replacement or update</td></tr>
+    <tr><td><span class="mb mb-patch">PATCH</span></td><td>Partial status changes</td></tr>
+    <tr><td><span class="mb mb-delete">DELETE</span></td><td>Soft-delete semantics preferred</td></tr>
+  </tbody>
+</table></div>
+
+<div class="mbox" style="margin-top:32px">
+  <p class="body"><strong>Internal service catalog — not a public API.</strong> This catalog documents route names, HTTP methods, auth scopes, request/response types, and ownership boundaries for internal service-to-service communication within the SCIA architecture. It is the practical companion to the full API contract.</p>
+</div>
+</div></div>
+<!-- ══ A02 ══ -->
+<div id="a02" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 · § 2–3</div>
+  <div class="page-h" style="color:#0E0E08">Interface & <em style="color:#3D5A2A">SeedFlow Service</em></div>
+  <div class="page-lead" style="color:#5A5A4A">5 Interface endpoints covering intake and render, plus 5 SeedFlow endpoints covering the full P1→P2→P3 pipeline and individual phase control.</div>
+</div>
+<div class="svc-hdr" style="border-top-color:#1D4ED8">
+  <div class="svc-num" style="color:#1D4ED8">2</div>
+  <div><div class="svc-name">Interface Service</div><div class="svc-ns">/api/v1/interface</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/interface/intake</code></div>
+  <div class="ep-purpose">Accept raw user input and package it for SeedFlow.</div>
+  <div class="ep-meta"><span class="ep-scope">interface:write</span><span class="ep-type">user_input</span><span class="ep-arrow">→</span><span class="ep-type">intake_ack</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/interface/render</code></div>
+  <div class="ep-purpose">Convert structured expert output into final rendered user output.</div>
+  <div class="ep-meta"><span class="ep-scope">interface:write</span><span class="ep-type">expert_response</span><span class="ep-arrow">→</span><span class="ep-type">rendered_output</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/interface/capabilities</code></div>
+  <div class="ep-purpose">Return current available interface capabilities for the active environment.</div>
+  <div class="ep-meta"><span class="ep-scope">interface:read</span><span class="ep-type">capabilities_manifest</span></div>
+</div><div class="svc-hdr" style="border-top-color:#1D4ED8">
+  <div class="svc-num" style="color:#1D4ED8">3</div>
+  <div><div class="svc-name">SeedFlow Service</div><div class="svc-ns">/api/v1/seedflow</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/seedflow/process</code></div>
+  <div class="ep-purpose">Run the full P1 → P2 → P3 pipeline in a single call.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">user_input</span><span class="ep-arrow">→</span><span class="ep-type">phase3_validated_seed</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/seedflow/phase1</code></div>
+  <div class="ep-purpose">Parse and classify incoming signal.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">user_input</span><span class="ep-arrow">→</span><span class="ep-type">phase1_seed</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/seedflow/phase2</code></div>
+  <div class="ep-purpose">Transform and expand context.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">phase1_seed</span><span class="ep-arrow">→</span><span class="ep-type">phase2_seed</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/seedflow/phase3</code></div>
+  <div class="ep-purpose">Validate coherence and readiness.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">phase2_seed</span><span class="ep-arrow">→</span><span class="ep-type">phase3_validated_seed</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/seedflow/optimize</code></div>
+  <div class="ep-purpose">Apply SeedFlowOptimizer to tune acceleration, depth, and pre-validation.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">seedflow_optimization_request</span><span class="ep-arrow">→</span><span class="ep-type">seedflow_optimization_result</span></div>
+</div><div class="mbox"><p class="body"><strong>SeedFlow note:</strong> Use <code style="font-family:JetBrains Mono,monospace;font-size:12px">/seedflow/process</code> for all standard calls — it runs the full P1→P2→P3 chain. Individual phase endpoints exist for debugging, partial re-runs, and testing phase isolation only. Never call a phase endpoint in place of the full pipeline in production.</p></div>
+</div></div>
+<!-- ══ A03 ══ -->
+<div id="a03" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 · § 4–5</div>
+  <div class="page-h" style="color:#0E0E08">SeedLink & <em style="color:#3D5A2A">Experts Service</em></div>
+  <div class="page-lead" style="color:#5A5A4A">5 SeedLink endpoints for methodology decomposition, recomposition, and expert alignment — plus 5 Expert endpoints for activation, response generation, team management, and synthesis.</div>
+</div>
+<div class="svc-hdr" style="border-top-color:#1D4ED8">
+  <div class="svc-num" style="color:#1D4ED8">4</div>
+  <div><div class="svc-name">SeedLink Service</div><div class="svc-ns">/api/v1/seedlink</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/seedlink/select</code></div>
+  <div class="ep-purpose">Run methodology decomposition, extraction, synthesis, and expert alignment.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">seedlink_selection_request</span><span class="ep-arrow">→</span><span class="ep-type">seedlink_selection_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/seedlink/methodologies/decompose</code></div>
+  <div class="ep-purpose">Break a methodology into internal intelligence components.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">methodology_decomposition_request</span><span class="ep-arrow">→</span><span class="ep-type">methodology_decomposition_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/seedlink/methodologies/recompose</code></div>
+  <div class="ep-purpose">Generate a derived methodology stack from extracted components.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">methodology_recomposition_request</span><span class="ep-arrow">→</span><span class="ep-type">methodology_recomposition_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/seedlink/methodologies/search</code></div>
+  <div class="ep-purpose">Search methodologies by domain, complexity, and phase.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">methodology_search_request</span><span class="ep-arrow">→</span><span class="ep-type">methodology_search_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/seedlink/selections/{seed_id}</code></div>
+  <div class="ep-purpose">Fetch the latest selection result for a seed.</div>
+  <div class="ep-meta"><span class="ep-scope">cognitive:process</span><span class="ep-type">seedlink_selection_result</span></div>
+</div><div class="svc-hdr" style="border-top-color:#1D4ED8">
+  <div class="svc-num" style="color:#1D4ED8">5</div>
+  <div><div class="svc-name">Seed Class Experts Service</div><div class="svc-ns">/api/v1/experts</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/experts/activate</code></div>
+  <div class="ep-purpose">Instantiate the active Seed Class Expert formation.</div>
+  <div class="ep-meta"><span class="ep-scope">experts:activate</span><span class="ep-type">expert_team_activation</span><span class="ep-arrow">→</span><span class="ep-type">expert_team_ready</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/experts/respond</code></div>
+  <div class="ep-purpose">Generate the next expert-team response to the user.</div>
+  <div class="ep-meta"><span class="ep-scope">experts:interact</span><span class="ep-type">expert_team_turn_request</span><span class="ep-arrow">→</span><span class="ep-type">expert_response</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/experts/teams/{team_id}</code></div>
+  <div class="ep-purpose">Return current team composition, alignment state, and active methodologies.</div>
+  <div class="ep-meta"><span class="ep-scope">experts:interact</span><span class="ep-type">expert_team_state</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-patch">PATCH</span><code>/api/v1/experts/teams/{team_id}</code></div>
+  <div class="ep-purpose">Adjust expert formation when new constraints or gaps emerge.</div>
+  <div class="ep-meta"><span class="ep-scope">experts:activate</span><span class="ep-type">expert_team_reconfiguration_request</span><span class="ep-arrow">→</span><span class="ep-type">expert_team_state</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/experts/synthesize</code></div>
+  <div class="ep-purpose">Cross-synthesize multiple expert contributions into one coherent result.</div>
+  <div class="ep-meta"><span class="ep-scope">experts:interact</span><span class="ep-type">expert_synthesis_request</span><span class="ep-arrow">→</span><span class="ep-type">expert_synthesis_result</span></div>
+</div>
+</div></div>
+<!-- ══ A04 ══ -->
+<div id="a04" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 · § 6–7</div>
+  <div class="page-h" style="color:#0E0E08">Memory & <em style="color:#3D5A2A">Lineage Service</em></div>
+  <div class="page-lead" style="color:#5A5A4A">5 Memory endpoints across Reflex and Regenerative layers, plus 3 Lineage endpoints for provenance insertion, path retrieval, and ancestry tracing.</div>
+</div>
+<div class="svc-hdr" style="border-top-color:#15803D">
+  <div class="svc-num" style="color:#15803D">6</div>
+  <div><div class="svc-name">Memory Service</div><div class="svc-ns">/api/v1/memory</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/memory/reflex/write</code></div>
+  <div class="ep-purpose">Store immediate active state in Reflex Memory.</div>
+  <div class="ep-meta"><span class="ep-scope">memory:write</span><span class="ep-type">active_context_write</span><span class="ep-arrow">→</span><span class="ep-type">active_context_ack</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/memory/reflex/{session_id}</code></div>
+  <div class="ep-purpose">Retrieve immediate working context.</div>
+  <div class="ep-meta"><span class="ep-scope">memory:read</span><span class="ep-type">active_context_state</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/memory/regenerative/write</code></div>
+  <div class="ep-purpose">Store long-term continuity objects.</div>
+  <div class="ep-meta"><span class="ep-scope">memory:write</span><span class="ep-type">regenerative_memory_write</span><span class="ep-arrow">→</span><span class="ep-type">regenerative_memory_ack</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/memory/regenerative/query</code></div>
+  <div class="ep-purpose">Query long-term memory by seeds, sessions, experts, or lineage.</div>
+  <div class="ep-meta"><span class="ep-scope">memory:read</span><span class="ep-type">regenerative_memory_query</span><span class="ep-arrow">→</span><span class="ep-type">regenerative_memory_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/memory/regenerative/restore</code></div>
+  <div class="ep-purpose">Restore a prior intelligence or session state.</div>
+  <div class="ep-meta"><span class="ep-scope">memory:read</span><span class="ep-type">regenerative_restore_request</span><span class="ep-arrow">→</span><span class="ep-type">regenerative_restore_result</span></div>
+</div><div class="mbox"><p class="body"><strong>Memory split:</strong> Reflex Memory is session-scoped and fast — use it for active working context. Regenerative Memory is persistent across sessions — use it for continuity objects, long-term knowledge, and state restoration. Never write session state to Regenerative Memory; never expect Reflex Memory to survive a session boundary.</p></div><div class="svc-hdr" style="border-top-color:#15803D">
+  <div class="svc-num" style="color:#15803D">7</div>
+  <div><div class="svc-name">Lineage Service</div><div class="svc-ns">/api/v1/lineage</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/lineage/nodes</code></div>
+  <div class="ep-purpose">Create a lineage node for a seed, artifact, or contribution.</div>
+  <div class="ep-meta"><span class="ep-scope">lineage:write</span><span class="ep-type">lineage_insert</span><span class="ep-arrow">→</span><span class="ep-type">lineage_insert_ack</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/lineage/nodes/{node_id}</code></div>
+  <div class="ep-purpose">Retrieve a node and its full ancestry path.</div>
+  <div class="ep-meta"><span class="ep-scope">lineage:read</span><span class="ep-type">lineage_node_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/lineage/trace</code></div>
+  <div class="ep-purpose">Trace ancestry and derivation chain for an artifact.</div>
+  <div class="ep-meta"><span class="ep-scope">lineage:read</span><span class="ep-type">lineage_trace_request</span><span class="ep-arrow">→</span><span class="ep-type">lineage_trace_result</span></div>
+</div>
+</div></div>
+<!-- ══ A05 ══ -->
+<div id="a05" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 · § 8–10</div>
+  <div class="page-h" style="color:#0E0E08">Signature & <em style="color:#3D5A2A">Security Service</em></div>
+  <div class="page-lead" style="color:#5A5A4A">6 Signature endpoints for signing, verification, and invisible watermarking — plus 2 SRT-1 continuity endpoints and 2 Security policy endpoints.</div>
+</div>
+<div class="svc-hdr" style="border-top-color:#6D28D9">
+  <div class="svc-num" style="color:#6D28D9">8</div>
+  <div><div class="svc-name">Seed Signature Service</div><div class="svc-ns">/api/v1/signature</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/signature/sign</code></div>
+  <div class="ep-purpose">Generate a Seed Signature for an artifact or state transition.</div>
+  <div class="ep-meta"><span class="ep-scope">signature:sign</span><span class="ep-type">signature_request</span><span class="ep-arrow">→</span><span class="ep-type">signature_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/signature/verify</code></div>
+  <div class="ep-purpose">Verify a Seed Signature against an artifact hash or payload.</div>
+  <div class="ep-meta"><span class="ep-scope">signature:verify</span><span class="ep-type">signature_verify_request</span><span class="ep-arrow">→</span><span class="ep-type">signature_verify_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/signature/{seed_signature_id}</code></div>
+  <div class="ep-purpose">Return the stored envelope and metadata for a signature.</div>
+  <div class="ep-meta"><span class="ep-scope">signature:verify</span><span class="ep-type">signature_record</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/signature/execution-receipts</code></div>
+  <div class="ep-purpose">Sign execution results and receipts.</div>
+  <div class="ep-meta"><span class="ep-scope">signature:sign</span><span class="ep-type">execution_receipt_signature_request</span><span class="ep-arrow">→</span><span class="ep-type">signature_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/signature/watermark/embed</code></div>
+  <div class="ep-purpose">Embed hidden attribution into a supported artifact.</div>
+  <div class="ep-meta"><span class="ep-scope">signature:sign</span><span class="ep-type">watermark_embed_request</span><span class="ep-arrow">→</span><span class="ep-type">watermark_embed_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/signature/watermark/verify</code></div>
+  <div class="ep-purpose">Check hidden attribution markers in an artifact.</div>
+  <div class="ep-meta"><span class="ep-scope">signature:verify</span><span class="ep-type">watermark_verify_request</span><span class="ep-arrow">→</span><span class="ep-type">watermark_verify_result</span></div>
+</div><div class="svc-hdr" style="border-top-color:#6D28D9">
+  <div class="svc-num" style="color:#6D28D9">9</div>
+  <div><div class="svc-name">SRT-1 Service</div><div class="svc-ns">/api/v1/runtime/srt</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/runtime/srt/monitor</code></div>
+  <div class="ep-purpose">Evaluate drift and continuity for the active expert team.</div>
+  <div class="ep-meta"><span class="ep-scope">runtime:orchestrate</span><span class="ep-type">continuity_snapshot</span><span class="ep-arrow">→</span><span class="ep-type">continuity_adjustment</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/runtime/srt/reinject</code></div>
+  <div class="ep-purpose">Manually or automatically issue seed reinjection guidance.</div>
+  <div class="ep-meta"><span class="ep-scope">runtime:orchestrate</span><span class="ep-type">reinjection_request</span><span class="ep-arrow">→</span><span class="ep-type">reinjection_result</span></div>
+</div><div class="svc-hdr" style="border-top-color:#6D28D9">
+  <div class="svc-num" style="color:#6D28D9">10</div>
+  <div><div class="svc-name">Security Service</div><div class="svc-ns">/api/v1/security</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/security/check</code></div>
+  <div class="ep-purpose">Evaluate policy and permissions for a requested action.</div>
+  <div class="ep-meta"><span class="ep-scope">security:check</span><span class="ep-type">security_check_request</span><span class="ep-arrow">→</span><span class="ep-type">security_check_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/security/policy-state/{session_id}</code></div>
+  <div class="ep-purpose">Return current policy state for a session or workflow.</div>
+  <div class="ep-meta"><span class="ep-scope">security:check</span><span class="ep-type">security_policy_state</span></div>
+</div><div class="mbox"><p class="body"><strong>Critical ownership rule:</strong> <code style="font-family:JetBrains Mono,monospace;font-size:12px">/signature/*</code> must not decide execution permissions. <code style="font-family:JetBrains Mono,monospace;font-size:12px">/runtime/srt/*</code> must not expose signing endpoints. These services verify and stabilize — they do not authorize.</p></div>
+</div></div>
+<!-- ══ A06 ══ -->
+<div id="a06" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 · § 11–12</div>
+  <div class="page-h" style="color:#0E0E08">SCM & <em style="color:#3D5A2A">Execution Service</em></div>
+  <div class="page-lead" style="color:#5A5A4A">4 SCM endpoints for community seed submission, retrieval, visibility, and signing — plus 9 Execution endpoints spanning authorization through tool invocation and receipt retrieval.</div>
+</div>
+<div class="svc-hdr" style="border-top-color:#B45309">
+  <div class="svc-num" style="color:#B45309">11</div>
+  <div><div class="svc-name">SCM Service</div><div class="svc-ns">/api/v1/scm</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/scm/seeds</code></div>
+  <div class="ep-purpose">Plant a seed through the People's Portal.</div>
+  <div class="ep-meta"><span class="ep-scope">scm:submit</span><span class="ep-type">scm_seed_submission</span><span class="ep-arrow">→</span><span class="ep-type">scm_seed_received</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/scm/seeds/{scm_seed_id}</code></div>
+  <div class="ep-purpose">Retrieve planted contribution state.</div>
+  <div class="ep-meta"><span class="ep-scope">scm:submit</span><span class="ep-type">scm_seed_record</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-patch">PATCH</span><code>/api/v1/scm/seeds/{scm_seed_id}/visibility</code></div>
+  <div class="ep-purpose">Change visibility state for a planted seed.</div>
+  <div class="ep-meta"><span class="ep-scope">scm:moderate</span><span class="ep-type">visibility_update_request</span><span class="ep-arrow">→</span><span class="ep-type">visibility_update_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/scm/seeds/{scm_seed_id}/sign</code></div>
+  <div class="ep-purpose">Generate Seed Signature for an SCM contribution.</div>
+  <div class="ep-meta"><span class="ep-scope">signature:sign</span><span class="ep-type">scm_signature_request</span><span class="ep-arrow">→</span><span class="ep-type">signature_result</span></div>
+</div><div class="mbox"><p class="body"><strong>SCM isolation rule:</strong> <code style="font-family:JetBrains Mono,monospace;font-size:12px">/scm/*</code> must not call <code style="font-family:JetBrains Mono,monospace;font-size:12px">/seedflow/*</code> directly. Community inputs route through their own vertical chain — they do not enter cognitive processing.</p></div><div class="svc-hdr" style="border-top-color:#B91C1C">
+  <div class="svc-num" style="color:#B91C1C">12</div>
+  <div><div class="svc-name">Execution Service</div><div class="svc-ns">/api/v1/execution</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/execution/authorize</code></div>
+  <div class="ep-purpose">Create the execution permission packet from SCIA.</div>
+  <div class="ep-meta"><span class="ep-scope">execution:authorize</span><span class="ep-type">execution_authorization_request</span><span class="ep-arrow">→</span><span class="ep-type">execution_permission_packet</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/execution/run</code></div>
+  <div class="ep-purpose">Trigger SION with an approved permission packet. Rejects without valid packet.</div>
+  <div class="ep-meta"><span class="ep-scope">execution:run</span><span class="ep-type">execution_permission_packet</span><span class="ep-arrow">→</span><span class="ep-type">execution_run_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/execution/route</code></div>
+  <div class="ep-purpose">Apply SION Decision Matrix weighting and routing.</div>
+  <div class="ep-meta"><span class="ep-scope">execution:run</span><span class="ep-type">execution_routing_request</span><span class="ep-arrow">→</span><span class="ep-type">execution_routing_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/execution/jobs</code></div>
+  <div class="ep-purpose">Start ACES Execution Engine lifecycle for a job.</div>
+  <div class="ep-meta"><span class="ep-scope">execution:run</span><span class="ep-type">job_lifecycle_request</span><span class="ep-arrow">→</span><span class="ep-type">job_lifecycle_started</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/execution/jobs/{job_id}</code></div>
+  <div class="ep-purpose">Return lifecycle state, current node, and receipt status.</div>
+  <div class="ep-meta"><span class="ep-scope">execution:run</span><span class="ep-type">job_status_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/execution/circulation</code></div>
+  <div class="ep-purpose">Allocate and regulate runtime resources.</div>
+  <div class="ep-meta"><span class="ep-scope">execution:run</span><span class="ep-type">circulation_request</span><span class="ep-arrow">→</span><span class="ep-type">circulation_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/execution/toolchains</code></div>
+  <div class="ep-purpose">Run an ordered tool chain.</div>
+  <div class="ep-meta"><span class="ep-scope">execution:tools</span><span class="ep-type">tool_chain_request</span><span class="ep-arrow">→</span><span class="ep-type">tool_chain_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/execution/tools/invoke</code></div>
+  <div class="ep-purpose">Invoke a specific tool via ToolInvoker.</div>
+  <div class="ep-meta"><span class="ep-scope">execution:tools</span><span class="ep-type">tool_invoke_request</span><span class="ep-arrow">→</span><span class="ep-type">tool_invoke_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/execution/receipts/{job_id}</code></div>
+  <div class="ep-purpose">Retrieve signed execution receipt and artifacts.</div>
+  <div class="ep-meta"><span class="ep-scope">execution:run</span><span class="ep-type">execution_receipt_result</span></div>
+</div><div class="mbox"><p class="body"><strong>Execution lock:</strong> <code style="font-family:JetBrains Mono,monospace;font-size:12px">/execution/run</code> must reject any request that does not include a valid <code style="font-family:JetBrains Mono,monospace;font-size:12px">execution_permission_packet</code>. No packet, no execution. This is not a soft validation — it is a hard reject at the SION gateway.</p></div>
+</div></div>
+<!-- ══ A07 ══ -->
+<div id="a07" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 · § 13–14</div>
+  <div class="page-h" style="color:#0E0E08">Evolution & <em style="color:#3D5A2A">Data Service</em></div>
+  <div class="page-lead" style="color:#5A5A4A">6 Evolution endpoints for Griot introspection, cognitive reconstitution, autopoiesis, expert generation, PersonaFactory construction, and full Living System Orchestration — plus 3 Data endpoints for refinement, generation, and extraction.</div>
+</div>
+<div class="svc-hdr" style="border-top-color:#C2410C">
+  <div class="svc-num" style="color:#C2410C">13</div>
+  <div><div class="svc-name">Evolution Service</div><div class="svc-ns">/api/v1/evolution</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/evolution/griot/introspect</code></div>
+  <div class="ep-purpose">Run Griot truth extraction and lineage recall.</div>
+  <div class="ep-meta"><span class="ep-scope">evolution:run</span><span class="ep-type">introspection_request</span><span class="ep-arrow">→</span><span class="ep-type">introspection_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/evolution/reconstitute</code></div>
+  <div class="ep-purpose">Restructure cognition around identified gaps or needed restoration.</div>
+  <div class="ep-meta"><span class="ep-scope">evolution:run</span><span class="ep-type">reconstitution_request</span><span class="ep-arrow">→</span><span class="ep-type">reconstitution_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/evolution/autopoiesis</code></div>
+  <div class="ep-purpose">Distill methodology genomes and evolve architecture.</div>
+  <div class="ep-meta"><span class="ep-scope">evolution:run</span><span class="ep-type">autopoietic_evolution_request</span><span class="ep-arrow">→</span><span class="ep-type">autopoietic_evolution_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/evolution/experts/generate</code></div>
+  <div class="ep-purpose">Create a new Seed Class Expert from a knowledge gap.</div>
+  <div class="ep-meta"><span class="ep-scope">evolution:run</span><span class="ep-type">expert_generation_request</span><span class="ep-arrow">→</span><span class="ep-type">expert_generation_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/evolution/personafactory/construct</code></div>
+  <div class="ep-purpose">Use PersonaFactory to construct the expert instance.</div>
+  <div class="ep-meta"><span class="ep-scope">evolution:run</span><span class="ep-type">persona_factory_request</span><span class="ep-arrow">→</span><span class="ep-type">persona_factory_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/evolution/orchestrator/run</code></div>
+  <div class="ep-purpose">Run Living System Orchestrator across Griot, reconstitution, and autopoiesis.</div>
+  <div class="ep-meta"><span class="ep-scope">runtime:orchestrate</span><span class="ep-type">living_system_cycle_request</span><span class="ep-arrow">→</span><span class="ep-type">living_system_cycle_result</span></div>
+</div><div class="svc-hdr" style="border-top-color:#374151">
+  <div class="svc-num" style="color:#374151">14</div>
+  <div><div class="svc-name">Data Service</div><div class="svc-ns">/api/v1/data</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/data/aces-rm/refine</code></div>
+  <div class="ep-purpose">Run ACES RM crawling and universal refinement.</div>
+  <div class="ep-meta"><span class="ep-scope">data:refine</span><span class="ep-type">aces_refinement_request</span><span class="ep-arrow">→</span><span class="ep-type">aces_refinement_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/data/datacraft/generate</code></div>
+  <div class="ep-purpose">Generate derivative structured datasets.</div>
+  <div class="ep-meta"><span class="ep-scope">data:generate</span><span class="ep-type">refined_dataset_request</span><span class="ep-arrow">→</span><span class="ep-type">synthetic_dataset_output</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/data/extract</code></div>
+  <div class="ep-purpose">Convert refined or synthetic data into intelligence-ready structures.</div>
+  <div class="ep-meta"><span class="ep-scope">data:refine</span><span class="ep-type">intelligence_extraction_request</span><span class="ep-arrow">→</span><span class="ep-type">intelligence_extraction_result</span></div>
+</div>
+</div></div>
+<!-- ══ A08 ══ -->
+<div id="a08" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 · § 15–16</div>
+  <div class="page-h" style="color:#0E0E08">Deployment & <em style="color:#3D5A2A">Runtime Service</em></div>
+  <div class="page-lead" style="color:#5A5A4A">2 Deployment endpoints for cross-platform migration plus 3 Runtime endpoints for durable state persistence, restoration, and integrity verification.</div>
+</div>
+<div class="svc-hdr" style="border-top-color:#374151">
+  <div class="svc-num" style="color:#374151">15</div>
+  <div><div class="svc-name">Deployment Service</div><div class="svc-ns">/api/v1/deployment</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/deployment/migrate</code></div>
+  <div class="ep-purpose">Prepare translated state for a target platform.</div>
+  <div class="ep-meta"><span class="ep-scope">deployment:migrate</span><span class="ep-type">migration_state_packet</span><span class="ep-arrow">→</span><span class="ep-type">migration_ready_packet</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-get">GET</span><code>/api/v1/deployment/migrations/{migration_id}</code></div>
+  <div class="ep-purpose">Retrieve status of a migration packet.</div>
+  <div class="ep-meta"><span class="ep-scope">deployment:migrate</span><span class="ep-type">migration_state_result</span></div>
+</div><div class="svc-hdr" style="border-top-color:#374151">
+  <div class="svc-num" style="color:#374151">16</div>
+  <div><div class="svc-name">Runtime Service</div><div class="svc-ns">/api/v1/runtime</div></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/runtime/persistence/write</code></div>
+  <div class="ep-purpose">Write durable encrypted state.</div>
+  <div class="ep-meta"><span class="ep-scope">runtime:orchestrate</span><span class="ep-type">persistence_write_request</span><span class="ep-arrow">→</span><span class="ep-type">persistence_write_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/runtime/persistence/restore</code></div>
+  <div class="ep-purpose">Restore durable state into runtime.</div>
+  <div class="ep-meta"><span class="ep-scope">runtime:orchestrate</span><span class="ep-type">persistence_restore_request</span><span class="ep-arrow">→</span><span class="ep-type">persistence_restore_result</span></div>
+</div><div class="ep-block">
+  <div class="ep-route"><span class="mb mb-post">POST</span><code>/api/v1/runtime/persistence/verify</code></div>
+  <div class="ep-purpose">Validate checksum and integrity of persisted state.</div>
+  <div class="ep-meta"><span class="ep-scope">runtime:orchestrate</span><span class="ep-type">persistence_verify_request</span><span class="ep-arrow">→</span><span class="ep-type">persistence_verify_result</span></div>
+</div><div class="mbox"><p class="body"><strong>Persistence and portability:</strong> The Persistence Layer is covered by the Integrity Domain's Security System overlay. Writes are encrypted. Restores are checksum-verified before the restored state is injected back into the LLM Interface. A failed checksum on restore halts the process — the system does not activate in a corrupted state.</p></div>
+</div></div>
+<!-- ══ A09 ══ -->
+<div id="a09" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 · § 17 + § 20</div>
+  <div class="page-h" style="color:#0E0E08">Forbidden Paths & <em style="color:#3D5A2A">Locked Route Doctrine</em></div>
+  <div class="page-lead" style="color:#5A5A4A">Six hard ownership rules defining which services must never call which others — and the final constitutional doctrine that governs the entire endpoint architecture.</div>
+</div>
+<div class="sec-lbl">§ 17 Forbidden Endpoint Ownership — Locked Routes</div><div class="forbidden-rule">
+  <span class="fr-x">✕</span>
+  <div><strong><code style="font-family:JetBrains Mono,monospace;font-size:12px">/scm/*</code> must not call/expose <code style="font-family:JetBrains Mono,monospace;font-size:12px">/seedflow/*</code></strong><br>Community input must not enter cognitive processing directly. SCM routes through its own vertical chain and terminates in the Lineage Tree.</div>
+</div><div class="forbidden-rule">
+  <span class="fr-x">✕</span>
+  <div><strong><code style="font-family:JetBrains Mono,monospace;font-size:12px">/experts/*</code> must not call/expose <code style="font-family:JetBrains Mono,monospace;font-size:12px">methodology validation endpoints</code></strong><br>Expert services activate and respond. Methodology validation belongs to SeedLink — not to the Expert team itself.</div>
+</div><div class="forbidden-rule">
+  <span class="fr-x">✕</span>
+  <div><strong><code style="font-family:JetBrains Mono,monospace;font-size:12px">/execution/run</code> must not call/expose <code style="font-family:JetBrains Mono,monospace;font-size:12px">requests without execution_permission_packet</code></strong><br>No permission packet means no execution. Hard reject at SION. This is the architectural guarantee of governed execution.</div>
+</div><div class="forbidden-rule">
+  <span class="fr-x">✕</span>
+  <div><strong><code style="font-family:JetBrains Mono,monospace;font-size:12px">/interface/*</code> must not call/expose <code style="font-family:JetBrains Mono,monospace;font-size:12px">expert-selection endpoints</code></strong><br>The Interface layer receives and renders. It does not select or configure the Expert team — that is SeedLink's authority.</div>
+</div><div class="forbidden-rule">
+  <span class="fr-x">✕</span>
+  <div><strong><code style="font-family:JetBrains Mono,monospace;font-size:12px">/runtime/srt/*</code> must not call/expose <code style="font-family:JetBrains Mono,monospace;font-size:12px">signing endpoints</code></strong><br>SRT-1 monitors continuity and issues reinjection. It does not sign artifacts — that is Signature's exclusive domain.</div>
+</div><div class="forbidden-rule">
+  <span class="fr-x">✕</span>
+  <div><strong><code style="font-family:JetBrains Mono,monospace;font-size:12px">/signature/*</code> must not call/expose <code style="font-family:JetBrains Mono,monospace;font-size:12px">execution permission decisions</code></strong><br>Signature signs and verifies. It does not decide what is permitted to execute — that is Security's authority and SCIA's final authorization.</div>
+</div><hr class="divider">
+<div class="sec-lbl">§ 20 Final Locked Route Doctrine</div>
+<div class="doctrine">
+  <p>Interface receives. SeedFlow disciplines. SeedLink selects and synthesizes. Seed Class Experts continue. Memory preserves. SRT-1 stabilizes. Seed Signature signs. SCM enriches. Security checks. SCIA authorizes. SION executes.</p>
+</div>
+<p class="body" style="margin-top:22px">This doctrine is the constitutional statement of SCIA's service architecture. Every ownership rule, every forbidden path, every implementation phase is a direct expression of this sequence. When in doubt about where a responsibility belongs, trace it through this chain — the answer is in the order.</p>
+</div></div>
+<!-- ══ A10 ══ -->
+<div id="a10" class="page page-api"><div class="page-inner">
+<div class="ph" style="border-bottom-color:rgba(0,0,0,.09)">
+  <div class="ph-wm" style="color:#3D5A2A">API</div>
+  <div class="eyebrow" style="color:#3D5A2A;--eyebrow-before:var(--bg-api)">SCIA Endpoint Catalog · V1.0 · § 18–19</div>
+  <div class="page-h" style="color:#0E0E08">MVP Routes & <em style="color:#3D5A2A">Build Order</em></div>
+  <div class="page-lead" style="color:#5A5A4A">10-endpoint MVP set that proves a coherent SCIA in the smallest possible footprint — plus the 5-phase recommended build order for full implementation.</div>
+</div>
+<div class="sec-lbl">§ 19 Minimum Viable Route Set — 10 Endpoints</div><p class="body">The smallest coherent SCIA MVP. These 10 routes prove intake, cognition, expert activation, continuity, integrity, security, and governed execution readiness.</p><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/interface/intake</code><span class="mvp-purpose">Intake — receive all input</span></div><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/seedflow/process</code><span class="mvp-purpose">Cognition — full P1→P2→P3</span></div><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/seedlink/select</code><span class="mvp-purpose">Intelligence formation</span></div><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/experts/activate</code><span class="mvp-purpose">Expert team activation</span></div><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/experts/respond</code><span class="mvp-purpose">Expert team response</span></div><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/memory/reflex/write</code><span class="mvp-purpose">Active context persistence</span></div><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/runtime/srt/monitor</code><span class="mvp-purpose">Continuity and drift monitoring</span></div><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/signature/sign</code><span class="mvp-purpose">Artifact signing</span></div><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/security/check</code><span class="mvp-purpose">Permission evaluation</span></div><div class="mvp-ep"><span class="mb mb-post">POST</span><code>/api/v1/execution/authorize</code><span class="mvp-purpose">Governed execution readiness</span></div><hr class="divider"><div class="sec-lbl">§ 18 Recommended Implementation Order</div><div class="impl-phase"><div class="impl-phase-hdr"><div class="impl-phase-num" style="background:#1D4ED8">1</div><div class="impl-phase-title">Phase 1 — Cognitive spine (build first)</div></div><code class="impl-route">/interface/intake</code><code class="impl-route">/seedflow/process</code><code class="impl-route">/seedlink/select</code><code class="impl-route">/experts/activate</code><code class="impl-route">/experts/respond</code></div><div class="impl-phase"><div class="impl-phase-hdr"><div class="impl-phase-num" style="background:#15803D">2</div><div class="impl-phase-title">Phase 2 — Memory and continuity</div></div><code class="impl-route">/memory/reflex/*</code><code class="impl-route">/memory/regenerative/*</code><code class="impl-route">/runtime/srt/*</code></div><div class="impl-phase"><div class="impl-phase-hdr"><div class="impl-phase-num" style="background:#6D28D9">3</div><div class="impl-phase-title">Phase 3 — Integrity and lineage</div></div><code class="impl-route">/signature/sign</code><code class="impl-route">/signature/verify</code><code class="impl-route">/lineage/*</code><code class="impl-route">/scm/seeds</code></div><div class="impl-phase"><div class="impl-phase-hdr"><div class="impl-phase-num" style="background:#B91C1C">4</div><div class="impl-phase-title">Phase 4 — Security and execution</div></div><code class="impl-route">/security/check</code><code class="impl-route">/execution/authorize</code><code class="impl-route">/execution/run</code><code class="impl-route">/execution/tools/invoke</code></div><div class="impl-phase"><div class="impl-phase-hdr"><div class="impl-phase-num" style="background:#B45309">5</div><div class="impl-phase-title">Phase 5 — Evolution, data, and deployment</div></div><code class="impl-route">/evolution/*</code><code class="impl-route">/data/*</code><code class="impl-route">/deployment/*</code></div>
+</div></div>
+</div><!-- #content -->
+</div><!-- #layout -->
+
+<script>
+const meta={
+  p01:{n:'01/10',t:'Architecture Overview',r:'SCIA Master Architecture V1',c:'var(--cog3)'},
+  p02:{n:'02/10',t:'Cognitive Domain',r:'LLM Interface · SeedFlow · SeedLink · Experts · Synthesis · Output',c:'var(--cog3)'},
+  p03:{n:'03/10',t:'Memory Domain',r:'Reflex · Regenerative · Lineage Tree · Griot Engine',c:'var(--mem3)'},
+  p04:{n:'04/10',t:'Integrity Domain',r:'Seed Signature · Invisible Watermarking · Security System',c:'var(--int3)'},
+  p05:{n:'05/10',t:'Execution Domain',r:'SION · Decision Matrix · ExecutionGraph · ACES · ToolChain · ToolInvoker · External Systems',c:'var(--exe3)'},
+  p06:{n:'06/10',t:'Evolution Domain',r:'Regenerative Memory · Griot · Cognitive Reconstitution · Metacognitive Engine · PersonaFactory → SeedLink',c:'var(--evo3)'},
+  p07:{n:'07/10',t:'SCM Domain — Isolated',r:'People\'s Portal · Seed Signature · Regenerative Memory · Lineage Tree · Forbidden Path',c:'var(--scm3)'},
+  p08:{n:'08/10',t:'Data Pipeline &amp; Portability Layer',r:'ACES RM · DataCraft Generator · Universal Intelligence Extraction · Persistence · Cross-Platform',c:'var(--port3)'},
+  p09:{n:'09/10',t:'Connection Rules',r:'Line styles · Arrow types · Forbidden path specification · Auto layout rules',c:'var(--port3)'},
+  p10:{n:'10/10',t:'Master Component Reference',r:'Complete registry — all 35+ components across all 7 domains',c:'var(--cog3)'},
+
+  a01:{n:'A01/10',t:'Global Conventions',r:'Namespaces · Auth scopes · HTTP method contract',c:'#93C5FD'},
+  a02:{n:'A02/10',t:'Interface &amp; SeedFlow Service',r:'§ 2–3 · intake · render · capabilities · process · phases · optimize',c:'#93C5FD'},
+  a03:{n:'A03/10',t:'SeedLink &amp; Experts Service',r:'§ 4–5 · select · decompose · recompose · activate · respond · synthesize',c:'#93C5FD'},
+  a04:{n:'A04/10',t:'Memory &amp; Lineage Service',r:'§ 6–7 · reflex · regenerative · restore · lineage nodes · trace',c:'#86EFAC'},
+  a05:{n:'A05/10',t:'Signature, SRT-1 &amp; Security',r:'§ 8–10 · sign · verify · watermark · monitor · reinject · security check',c:'#C4B5FD'},
+  a06:{n:'A06/10',t:'SCM &amp; Execution Service',r:'§ 11–12 · seeds · authorize · run · route · jobs · toolchains · invoke',c:'#FCA5A5'},
+  a07:{n:'A07/10',t:'Evolution &amp; Data Service',r:'§ 13–14 · griot · reconstitute · autopoiesis · personafactory · datacraft',c:'#FDBA74'},
+  a08:{n:'A08/10',t:'Deployment &amp; Runtime Service',r:'§ 15–16 · migrate · persist · restore · verify checksum',c:'#E5E7EB'},
+  a09:{n:'A09/10',t:'Forbidden Paths &amp; Locked Doctrine',r:'§ 17 + § 20 · 6 ownership rules · constitutional route doctrine',c:'#FCA5A5'},
+  a10:{n:'A10/10',t:'MVP Routes &amp; Build Order',r:'§ 18–19 · 10-endpoint MVP · 5-phase implementation sequence',c:'#93C5FD'}
+};
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tn-link').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.ri').forEach(r=>r.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el)el.classList.add('active');
+  const tn=document.getElementById('tn-'+id);
+  if(tn)tn.classList.add('active');
+  const rails=document.querySelectorAll('.ri');
+  const idx=parseInt(id.replace('p',''))-1;
+  if(rails[idx])rails[idx].classList.add('active');
+  const m=meta[id];
+  if(m){
+    document.getElementById('hud-n').textContent=m.n;
+    document.getElementById('hud-t').innerHTML=m.t;
+    const r=document.getElementById('hud-r');
+    r.innerHTML=m.r;
+    r.style.color=m.c;
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

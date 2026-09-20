@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Dashboard — WCS Ecosystem Build Status</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #F7F3ED;
+  --bg2:     #EEE8DF;
+  --bg3:     #E5DDD2;
+  --bg4:     #D8CFC2;
+  --ink:     #1A1510;
+  --ink2:    #2E2820;
+  --ink3:    #48403A;
+  --muted:   #7A6E64;
+  --dim:     #B0A898;
+  --gold:    #9A6800;
+  --ltgold:  #C48A10;
+  --teal:    #0A6058;
+  --ltteal:  #0E8A78;
+  --blue:    #1A3A7A;
+  --ltblue:  #2A5AAA;
+  --coral:   #B83A20;
+  --ltcoral: #D85030;
+  --purple:  #4A2A8A;
+  --ltpurp:  #7A5ACA;
+  --green:   #1A5A30;
+  --ltgreen: #2A8A50;
+  --amber:   #8A4A00;
+  --ltamber: #C07020;
+  --border:  rgba(154,104,0,0.15);
+  --borderl: rgba(154,104,0,0.08);
+  --done-bg: #ECFDF5; --done-bd: rgba(26,90,48,0.3);  --done-txt: #1A5A30;
+  --prog-bg: #FFF8EC; --prog-bd: rgba(138,74,0,0.3);  --prog-txt: #8A4A00;
+  --open-bg: #F2F5FC; --open-bd: rgba(26,58,122,0.2); --open-txt: #1A3A7A;
+  --blk-bg:  #FFF2EF; --blk-bd:  rgba(184,58,32,0.3); --blk-txt:  #B83A20;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;min-height:100vh}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(247,243,237,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center}
+.nav-logo{font-family:'Playfair Display',serif;font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--gold);padding:0 24px;height:100%;display:flex;align-items:center;border-right:1px solid var(--border);white-space:nowrap;flex-shrink:0}
+.navs{display:flex;overflow-x:auto;scrollbar-width:none;height:100%;padding:0 6px}
+.navs::-webkit-scrollbar{display:none}
+.nl{font-family:'DM Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:0 13px;height:100%;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+.nl:hover,.nl.on{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px;padding-right:20px;flex-shrink:0}
+.last-saved{font-family:'DM Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:.06em}
+
+/* HERO */
+.hero-header{background:linear-gradient(135deg,#2A1C10 0%,#142030 100%);padding:44px 60px 40px;position:relative;overflow:hidden}
+.hero-header::after{content:'BUILD';position:absolute;right:-10px;bottom:-20px;font-family:'Playfair Display',serif;font-size:160px;font-weight:700;font-style:italic;color:rgba(255,255,255,.03);line-height:1;pointer-events:none;user-select:none}
+@media(max-width:768px){.hero-header{padding:30px 22px}}
+.hero-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(200,170,100,.7);margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.hero-tag::before{content:'';width:28px;height:1px;background:rgba(200,170,100,.5)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3.2vw,40px);font-weight:400;line-height:1.1;color:#F0EAD8;margin-bottom:8px}
+.hero-title em{font-style:italic;color:#E8B030}
+.hero-sub{font-size:13.5px;color:rgba(220,210,190,.65);max-width:560px;line-height:1.7}
+
+/* OVERVIEW */
+.overview{padding:22px 60px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;gap:0;flex-wrap:wrap}
+@media(max-width:768px){.overview{padding:16px 22px}}
+.ov-stat{flex:1;min-width:110px;padding:14px 20px;border-right:1px solid var(--border)}
+.ov-stat:last-child{border-right:none}
+.ov-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;line-height:1;margin-bottom:3px}
+.ov-l{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ov-bar{margin-top:8px;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.ov-fill{height:100%;border-radius:2px;transition:width .7s ease}
+
+/* MAIN GRID */
+.main{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 52px)}
+@media(max-width:900px){.main{grid-template-columns:1fr}}
+
+/* SIDEBAR */
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:20px 0;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--dim) transparent}
+@media(max-width:900px){.sidebar{display:none}}
+.sb-head{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:10px 18px 5px}
+.sb-link{display:flex;align-items:center;gap:9px;padding:8px 18px;text-decoration:none;font-size:12px;color:var(--ink3);transition:all .15s;border-left:2px solid transparent;cursor:pointer}
+.sb-link:hover{background:var(--bg3);color:var(--ink)}
+.sb-link.active{background:rgba(154,104,0,.08);border-left-color:var(--gold);color:var(--gold)}
+.sb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sb-count{margin-left:auto;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);background:var(--bg3);padding:2px 6px;border-radius:8px}
+
+/* CONTENT */
+.content{padding:28px 44px 80px}
+@media(max-width:768px){.content{padding:20px 18px 60px}}
+
+/* LEGEND */
+.legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:11px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:5px;margin-bottom:22px}
+.legend-lbl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.leg{display:flex;align-items:center;gap:6px;cursor:pointer;padding:3px 6px;border-radius:3px;transition:background .15s}
+.leg:hover{background:var(--bg3)}
+.leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.leg-txt{font-size:11.5px;color:var(--ink3)}
+.legend-hint{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--dim);margin-left:auto}
+
+/* SECTION BLOCK */
+.section-block{margin-bottom:36px;scroll-margin-top:68px}
+.rv{opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.rv.vis{opacity:1;transform:none}
+.section-hdr{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:11px;border-bottom:1px solid var(--border)}
+.sh-icon{width:30px;height:30px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.sh-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:500;color:var(--ink)}
+.sh-sub{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.sh-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.sh-pct{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);font-style:italic}
+.sh-bar{width:72px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.sh-fill{height:100%;border-radius:2px;transition:width .5s ease}
+
+/* TASK */
+.task-list{display:flex;flex-direction:column;gap:5px}
+.task{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border-radius:5px;border:1px solid;cursor:pointer;transition:all .18s;position:relative;user-select:none}
+.task:hover{transform:translateY(-1px);box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.task.done {background:var(--done-bg);border-color:var(--done-bd)}
+.task.prog {background:var(--prog-bg);border-color:var(--prog-bd)}
+.task.open {background:var(--open-bg);border-color:var(--open-bd)}
+.task.block{background:var(--blk-bg);border-color:var(--blk-bd)}
+
+.chk{width:20px;height:20px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:11px;font-weight:700;transition:all .2s;border:1.5px solid}
+.task.done  .chk{background:var(--ltgreen);border-color:var(--ltgreen);color:#fff}
+.task.prog  .chk{background:var(--ltamber);border-color:var(--ltamber);color:#fff}
+.task.open  .chk{background:transparent;border-color:var(--ltblue);color:transparent}
+.task.block .chk{background:var(--ltcoral);border-color:var(--ltcoral);color:#fff}
+
+.task-body{flex:1;min-width:0}
+.task-title{font-size:13.5px;font-weight:500;color:var(--ink);margin-bottom:3px;line-height:1.4}
+.task.done .task-title{text-decoration:line-through;color:var(--muted)}
+.task-desc{font-size:12px;color:var(--ink3);line-height:1.6}
+.task.done .task-desc{color:var(--dim)}
+.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.owner{font-family:'DM Mono',monospace;font-size:9px;padding:2px 8px;border-radius:9px;letter-spacing:.04em}
+.ow-f{background:rgba(154,104,0,.1);color:var(--gold)}
+.ow-j{background:rgba(26,58,122,.1);color:var(--ltblue)}
+.ow-a{background:rgba(184,58,32,.1);color:var(--ltcoral)}
+.ow-all{background:rgba(74,42,138,.1);color:var(--ltpurp)}
+.ow-atty{background:rgba(26,90,48,.1);color:var(--ltgreen)}
+.pri{font-family:'DM Mono',monospace;font-size:8.5px;padding:2px 7px;border-radius:2px;letter-spacing:.06em;text-transform:uppercase}
+.p1{background:rgba(184,58,32,.09);color:var(--ltcoral);border:1px solid rgba(184,58,32,.18)}
+.p2{background:rgba(138,74,0,.09);color:var(--ltamber);border:1px solid rgba(138,74,0,.18)}
+.p3{background:rgba(26,58,122,.09);color:var(--ltblue);border:1px solid rgba(26,58,122,.18)}
+.badge{font-family:'DM Mono',monospace;font-size:8.5px;padding:2px 7px;border-radius:2px}
+.bd-done {background:var(--done-bg);color:var(--done-txt);border:1px solid var(--done-bd)}
+.bd-prog {background:var(--prog-bg);color:var(--prog-txt);border:1px solid var(--prog-bd)}
+.bd-open {background:var(--open-bg);color:var(--open-txt);border:1px solid var(--open-bd)}
+.bd-block{background:var(--blk-bg); color:var(--blk-txt); border:1px solid var(--blk-bd)}
+.hint{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--dim);position:absolute;right:11px;top:11px;opacity:0;transition:opacity .2s}
+.task:hover .hint{opacity:1}
+
+/* NOTES */
+.notes-area{margin-top:28px;padding:18px 22px;background:var(--bg2);border:1px solid var(--border);border-radius:5px}
+.notes-head{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.notes-input{width:100%;min-height:76px;resize:vertical;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:11px 13px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);line-height:1.6;outline:none;transition:border-color .2s}
+.notes-input:focus{border-color:var(--gold)}
+.notes-input::placeholder{color:var(--dim)}
+.notes-btn{margin-top:8px;padding:7px 18px;background:var(--gold);color:#fff;border:none;border-radius:3px;font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.notes-btn:hover{background:var(--ltgold)}
+
+/* TOAST */
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#F0EAD8;padding:9px 18px;border-radius:3px;font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.06em;opacity:0;transition:all .28s;z-index:999;pointer-events:none;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+
+<nav>
+  <div class="nav-logo">WCS Build Tracker</div>
+  <div class="navs">
+    <a class="nl" href="#entities">Entities</a>
+    <a class="nl" href="#t1">Agreements T1</a>
+    <a class="nl" href="#t2">Agreements T2</a>
+    <a class="nl" href="#t3">Agreements T3</a>
+    <a class="nl" href="#clinical">Clinical</a>
+    <a class="nl" href="#anthem">Anthem</a>
+    <a class="nl" href="#campus">Campus</a>
+    <a class="nl" href="#team">Team Actions</a>
+  </div>
+  <div class="nav-right">
+    <span class="last-saved" id="last-saved">No saves yet</span>
+  </div>
+</nav>
+
+<div class="hero-header">
+  <div class="hero-tag">KG Development × A Solution Group CDC — Internal Team Dashboard</div>
+  <h1 class="hero-title">Ecosystem Build Status.<br><em>What's done. What's next. What's blocking.</em></h1>
+  <p class="hero-sub">Click any item to cycle its status — Not Started → In Progress → Done → Needs Attention. Progress saves in your browser automatically. Every team member sees the same tracker.</p>
+</div>
+
+<!-- OVERVIEW BAR -->
+<div class="overview">
+  <div class="ov-stat">
+    <div class="ov-n" id="ov-done" style="color:var(--ltgreen)">0</div>
+    <div class="ov-l">Completed</div>
+    <div class="ov-bar"><div class="ov-fill" id="fill-done" style="background:var(--ltgreen);width:0%"></div></div>
+  </div>
+  <div class="ov-stat">
+    <div class="ov-n" id="ov-prog" style="color:var(--ltamber)">0</div>
+    <div class="ov-l">In Progress</div>
+    <div class="ov-bar"><div class="ov-fill" id="fill-prog" style="background:var(--ltamber);width:0%"></div></div>
+  </div>
+  <div class="ov-stat">
+    <div class="ov-n" id="ov-open" style="color:var(--ltblue)">0</div>
+    <div class="ov-l">Not Started</div>
+    <div class="ov-bar"><div class="ov-fill" id="fill-open" style="background:var(--ltblue);width:0%"></div></div>
+  </div>
+  <div class="ov-stat">
+    <div class="ov-n" id="ov-block" style="color:var(--ltcoral)">0</div>
+    <div class="ov-l">Needs Attention</div>
+    <div class="ov-bar"><div class="ov-fill" id="fill-block" style="background:var(--ltcoral);width:0%"></div></div>
+  </div>
+  <div class="ov-stat">
+    <div class="ov-n" id="ov-pct" style="color:var(--gold)">0%</div>
+    <div class="ov-l">Overall Complete</div>
+    <div class="ov-bar"><div class="ov-fill" id="fill-total" style="background:var(--gold);width:0%"></div></div>
+  </div>
+</div>
+
+<div class="main">
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-head">Entities</div>
+  <a class="sb-link" href="#entities"><div class="sb-dot" style="background:var(--ltcoral)"></div>5 Entities<span class="sb-count" id="sc-entities">—</span></a>
+  <div class="sb-head" style="margin-top:8px">Legal Agreements</div>
+  <a class="sb-link" href="#t1"><div class="sb-dot" style="background:var(--ltcoral)"></div>Tier 1 · Before Money Moves<span class="sb-count" id="sc-t1">—</span></a>
+  <a class="sb-link" href="#t2"><div class="sb-dot" style="background:var(--ltamber)"></div>Tier 2 · Before Opening<span class="sb-count" id="sc-t2">—</span></a>
+  <a class="sb-link" href="#t3"><div class="sb-dot" style="background:var(--ltblue)"></div>Tier 3 · Governance<span class="sb-count" id="sc-t3">—</span></a>
+  <div class="sb-head" style="margin-top:8px">Operations</div>
+  <a class="sb-link" href="#clinical"><div class="sb-dot" style="background:var(--ltblue)"></div>Clinical Setup<span class="sb-count" id="sc-clinical">—</span></a>
+  <a class="sb-link" href="#anthem"><div class="sb-dot" style="background:var(--ltteal)"></div>Anthem Partnership<span class="sb-count" id="sc-anthem">—</span></a>
+  <a class="sb-link" href="#campus"><div class="sb-dot" style="background:var(--ltpurp)"></div>Campus Development<span class="sb-count" id="sc-campus">—</span></a>
+  <a class="sb-link" href="#team"><div class="sb-dot" style="background:var(--gold)"></div>Team Actions<span class="sb-count" id="sc-team">—</span></a>
+</aside>
+
+<div class="content">
+
+<div class="legend rv">
+  <span class="legend-lbl">Filter:</span>
+  <div class="leg" onclick="filter('all')"><div class="leg-dot" style="background:var(--dim)"></div><span class="leg-txt">All</span></div>
+  <div class="leg" onclick="filter('done')"><div class="leg-dot" style="background:var(--ltgreen)"></div><span class="leg-txt">Done</span></div>
+  <div class="leg" onclick="filter('prog')"><div class="leg-dot" style="background:var(--ltamber)"></div><span class="leg-txt">In Progress</span></div>
+  <div class="leg" onclick="filter('open')"><div class="leg-dot" style="background:var(--ltblue)"></div><span class="leg-txt">Not Started</span></div>
+  <div class="leg" onclick="filter('block')"><div class="leg-dot" style="background:var(--ltcoral)"></div><span class="leg-txt">Needs Attention</span></div>
+  <span class="legend-hint">Click any task to update its status</span>
+</div>
+
+<!-- helper macro for a task -->
+<script>
+// Build task HTML dynamically so we stay DRY
+function t(id,sec,title,desc,owners,pri,status='open'){
+  const ST={open:['open','bd-open','Not Started',''],prog:['prog','bd-prog','In Progress','…'],done:['done','bd-done','Done','✓'],block:['block','bd-block','Needs Attention','!']};
+  const [cls,bdg,lbl,icon]=ST[status];
+  const ow=owners.map(([txt,c])=>`<span class="owner ${c}">${txt}</span>`).join('');
+  const pc={'p1':'p1','p2':'p2','p3':'p3'}[pri]||'p3';
+  const plbl={'p1':'Priority 1','p2':'Tier 2','p3':'Tier 3'}[pri]||pri;
+  document.write(`<div class="task ${cls}" data-id="${id}" data-sec="${sec}" onclick="cycle(this)">
+    <div class="chk">${icon}</div>
+    <div class="task-body">
+      <div class="task-title">${title}</div>
+      <div class="task-desc">${desc}</div>
+      <div class="meta">${ow}<span class="pri ${pc}">${plbl}</span><span class="badge ${bdg}">${lbl}</span></div>
+    </div>
+    <span class="hint">click to update</span>
+  </div>`);
+}
+</script>
+
+<!-- ═══ ENTITY FORMATION ═══ -->
+<div class="section-block rv" id="entities">
+  <div class="section-hdr">
+    <div class="sh-icon" style="background:rgba(184,58,32,.1)">🏛️</div>
+    <div><div class="sh-title">Entity Formation</div><div class="sh-sub">5 entities · the legal foundation</div></div>
+    <div class="sh-right"><span class="sh-pct" id="pct-entities">0%</span><div class="sh-bar"><div class="sh-fill" id="sfill-entities" style="background:var(--ltcoral)"></div></div></div>
+  </div>
+  <div class="task-list" id="tl-entities">
+    <script>
+      t('e1','entities','WCS Framework IP LLC — founder\'s single-member LLC','Form the LLC that holds all WCS Framework IP, WCSN methodology, and brand. The founder\'s primary equity vehicle. Must exist before the IP License Agreement (Agreement 01) can be signed.',[['Founder','ow-f'],['IP Attorney','ow-atty']],'p1');
+      t('e2','entities','A Solution Group CDC — confirm 501(c)(3) active status','Verify IRS determination letter is current, EIN active, Nevada and Wisconsin state registrations current. Confirm articles of incorporation and bylaws are attorney-reviewed and up to date.',[['Founder','ow-f']],'p1');
+      t('e3','entities','Jamie\'s Medical Entity — PC/PLLC formation (NP-owned, 100%)','Form the PC/PLLC Jamie owns entirely. Must comply with Nevada corporate practice of medicine rules. Healthcare attorney required. No KG principal involvement — AKS compliance.',[['Jamie','ow-j'],['HC Attorney','ow-atty']],'p1');
+      t('e4','entities','WCS Health Management LLC — MSO (Founder + Anthony co-own)','Form the Management Services Organization co-owned by founder and Anthony. Provides non-clinical admin services to Jamie\'s entity. CPOM compliance and AKS review required.',[['Founder','ow-f'],['Anthony','ow-a'],['HC Attorney','ow-atty']],'p1');
+      t('e5','entities','KG Development — confirm structure and initiate Jamie\'s separation','Verify KG entity status. Initiate Jamie\'s transition from active principal to passive/exited interest. Most sensitive AKS issue in the ecosystem. Healthcare attorney only.',[['Jamie','ow-j'],['Anthony','ow-a'],['HC Attorney — URGENT','ow-atty']],'p1');
+    </script>
+  </div>
+</div>
+
+<!-- ═══ TIER 1 AGREEMENTS ═══ -->
+<div class="section-block rv" id="t1">
+  <div class="section-hdr">
+    <div class="sh-icon" style="background:rgba(184,58,32,.1)">⚖️</div>
+    <div><div class="sh-title">Agreements — Tier 1</div><div class="sh-sub">Must exist before any money moves between entities</div></div>
+    <div class="sh-right"><span class="sh-pct" id="pct-t1">0%</span><div class="sh-bar"><div class="sh-fill" id="sfill-t1" style="background:var(--ltcoral)"></div></div></div>
+  </div>
+  <div class="task-list" id="tl-t1">
+    <script>
+      t('t1-1','t1','Agreement 01 — IP Ownership & License Agreement','Founder IP LLC → ASG CDC. Documents founder ownership of WCS Framework, licenses to ASG CDC at fair market value. The load-bearing document for the founder\'s equity position. Sign before everything else.',[['Founder','ow-f'],['IP Attorney','ow-atty']],'p1');
+      t('t1-2','t1','Agreement 02 — Conflicts of Interest Policy + Disclosure','Founder → ASG CDC Board. Documents every outside financial interest (IP LLC, MSO, KG consulting) and gets board approval. IRS Form 990 requires this. Independent board members must approve — founder cannot self-approve.',[['Founder','ow-f'],['Nonprofit Atty','ow-atty']],'p1');
+      t('t1-3','t1','Agreement 03 — Executive Director Employment Agreement','ASG CDC Board → Founder. Board-set, benchmarked compensation. Must be approved by independent board members. ED salary is the most scrutinized Form 990 line item.',[['Founder + Board','ow-f'],['Nonprofit Atty','ow-atty']],'p1');
+      t('t1-4','t1','Agreement 04 — Co-Developer Agreement (Advent campus)','ASG CDC ↔ KG Development. ASG as co-developer, 1–2% co-dev fee from KG\'s development budget. Must be signed BEFORE groundbreaking (July 2026). Unlocks LIHTC nonprofit set-asides, HUD preferences, QAP scoring.',[['Founder','ow-f'],['Anthony','ow-a']],'p1');
+      t('t1-5','t1','Agreement 05 — Clinical Services Agreement','ASG CDC ↔ Jamie\'s Medical Entity. CHW service delivery, clinical supervision, revenue split on CHW Medicaid billing. AKS compliance critical — compensation for documented services only, never referral volume.',[['Founder','ow-f'],['Jamie','ow-j'],['HC Attorney — AKS','ow-atty']],'p1');
+      t('t1-6','t1','Agreement 06 — CHW Supervision Agreement','Jamie\'s Medical Entity → Darnell. Clinical supervisory relationship, supervision frequency, scope of CHW practice. Nevada Medicaid requires this to bill CHW services under NP supervision.',[['Jamie','ow-j'],['HC Attorney','ow-atty']],'p1');
+      t('t1-7','t1','Agreement 07 — MSO Services Agreement','WCS Health Management LLC → Jamie\'s Medical Entity. Non-clinical admin services at documented fair market value. CPOM and AKS review required. How founder and Anthony participate in clinical revenue legally.',[['Founder','ow-f'],['Anthony','ow-a'],['Jamie','ow-j'],['HC Attorney — CPOM+AKS','ow-atty']],'p1');
+    </script>
+  </div>
+</div>
+
+<!-- ═══ TIER 2 AGREEMENTS ═══ -->
+<div class="section-block rv" id="t2">
+  <div class="section-hdr">
+    <div class="sh-icon" style="background:rgba(138,74,0,.1)">📋</div>
+    <div><div class="sh-title">Agreements — Tier 2</div><div class="sh-sub">Must exist before campus opens · August 2027</div></div>
+    <div class="sh-right"><span class="sh-pct" id="pct-t2">0%</span><div class="sh-bar"><div class="sh-fill" id="sfill-t2" style="background:var(--ltamber)"></div></div></div>
+  </div>
+  <div class="task-list" id="tl-t2">
+    <script>
+      t('t2-1','t2','Agreement 08 — Jamie\'s Separation from Active KG Role','Jamie → KG Development. Most sensitive document in the ecosystem. AKS exposure from Jamie owning both KG (developer) and a Medicaid-billing medical entity. Healthcare attorney only — not a general business attorney.',[['Jamie','ow-j'],['Anthony','ow-a'],['HC Attorney — MOST URGENT','ow-atty']],'p1');
+      t('t2-2','t2','Agreement 09 — Space License / Sublease Agreements (2 separate)','KG → ASG CDC and KG → Jamie\'s entity — two separate agreements at documented fair market value. Below-market from for-profit to related nonprofit creates IRS private benefit issues.',[['Anthony','ow-a'],['Founder','ow-f'],['Jamie','ow-j']],'p2');
+      t('t2-3','t2','Agreement 10 — Founder\'s Personal Consulting Agreement with KG','Founder IP LLC → KG Development. Direct personal income stream separate from ASG\'s co-dev fee. WCS strategy, community relationships, deal design. Board disclosure and approval required before signing.',[['Founder','ow-f'],['Anthony','ow-a']],'p2');
+      t('t2-4','t2','Agreement 11 — Darnell Employment Agreement','ASG CDC → Darnell. Role, compensation, CHW supervision relationship with Jamie, confidentiality. Must align with CHW Supervision Agreement (Agreement 06).',[['Founder','ow-f']],'p2');
+      t('t2-5','t2','Agreement 12 — Anthem Clinical Partner Sponsorship Agreement','ASG CDC + Jamie\'s Medical Entity → Anthem. Both entities named. $1M allocation, named partner status, credentialing timeline, quarterly reporting. HC attorney review mandatory before execution.',[['All Parties','ow-all'],['HC Attorney — AKS','ow-atty']],'p2');
+    </script>
+  </div>
+</div>
+
+<!-- ═══ TIER 3 AGREEMENTS ═══ -->
+<div class="section-block rv" id="t3">
+  <div class="section-hdr">
+    <div class="sh-icon" style="background:rgba(26,58,122,.1)">📌</div>
+    <div><div class="sh-title">Agreements — Tier 3</div><div class="sh-sub">Governance and long-term protection</div></div>
+    <div class="sh-right"><span class="sh-pct" id="pct-t3">0%</span><div class="sh-bar"><div class="sh-fill" id="sfill-t3" style="background:var(--ltblue)"></div></div></div>
+  </div>
+  <div class="task-list" id="tl-t3">
+    <script>
+      t('t3-1','t3','Agreement 13 — ASG CDC Bylaws with Founder Protections','Board composition clause, supermajority for ED role changes, IP license as operating condition. Prevents any future board from running ASG without honoring the founder\'s IP agreement.',[['Founder + Board','ow-f'],['Nonprofit Atty','ow-atty']],'p3');
+      t('t3-2','t3','Agreement 14 — Master Partnership Framework (ASG ↔ KG — all campuses)','Overarching agreement for all campuses. Every new campus activates automatically under master terms. Per-campus co-developer agreement is a supplement to this master.',[['Founder','ow-f'],['Anthony','ow-a']],'p3');
+      t('t3-3','t3','Agreement 15 — WCS Framework National Replication License','Founder IP LLC → Third-party organizations, cities, MCOs. Template license for national deployments. Converts WCS Framework into a compounding national royalty stream.',[['Founder','ow-f'],['IP Attorney','ow-atty']],'p3');
+    </script>
+  </div>
+</div>
+
+<!-- ═══ CLINICAL SETUP ═══ -->
+<div class="section-block rv" id="clinical">
+  <div class="section-hdr">
+    <div class="sh-icon" style="background:rgba(26,58,122,.1)">🏥</div>
+    <div><div class="sh-title">Clinical Setup</div><div class="sh-sub">Jamie's credentialing · Darnell's certification · EHR · FQHC pathway</div></div>
+    <div class="sh-right"><span class="sh-pct" id="pct-clinical">0%</span><div class="sh-bar"><div class="sh-fill" id="sfill-clinical" style="background:var(--ltblue)"></div></div></div>
+  </div>
+  <div class="task-list" id="tl-clinical">
+    <script>
+      t('cl-1','clinical','Jamie — Nevada NP license current and active','Verify NP license status, renewal dates, required CE. Active Nevada license is the prerequisite for every other clinical action item.',[['Jamie','ow-j']],'p1');
+      t('cl-2','clinical','Jamie — Anthem Medicaid credentialing application submitted','Submit NP credentialing application to Anthem Nevada Medicaid as PCP. 90–120 day timeline — initiate at LOI execution. Every day of delay is a day the HEDIS closure engine doesn\'t run.',[['Jamie','ow-j']],'p1');
+      t('cl-3','clinical','Jamie — Anthem Medicaid credentialing approved and active','Anthem PCP designation confirmed. Attribution and HEDIS billing active. Patient panel formally established in Anthem\'s network.',[['Jamie','ow-j']],'p1');
+      t('cl-4','clinical','Darnell — CHW certification current and documented','Verify CHW certification meets Nevada Medicaid requirements. Required for CHW service billing under Jamie\'s NP supervision.',[['Founder','ow-f']],'p1');
+      t('cl-5','clinical','Darnell — Nevada Medicaid CHW credentialing under Jamie\'s supervision','Submit CHW credentialing to Nevada Medicaid. Agreement 06 (CHW Supervision Agreement) must be executed first.',[['Founder','ow-f'],['Jamie','ow-j']],'p1');
+      t('cl-6','clinical','EHR system selected and configured','Select EHR supporting Medicaid billing, HEDIS tracking, care plan documentation, CHW logging, and telehealth. Telehealth required for pipeline population before campus opens.',[['Jamie','ow-j'],['Founder','ow-f']],'p2');
+      t('cl-7','clinical','FQHC Look-Alike — begin pre-application assessment (Year 2 target)','Engage HRSA consultant. Pre-application documentation started. Enhanced PPS reimbursement, 340B pricing, and Section 330 grants depend on this. Target: file 2028.',[['Jamie','ow-j'],['Founder','ow-f']],'p3');
+    </script>
+  </div>
+</div>
+
+<!-- ═══ ANTHEM ═══ -->
+<div class="section-block rv" id="anthem">
+  <div class="section-hdr">
+    <div class="sh-icon" style="background:rgba(14,138,120,.1)">🤝</div>
+    <div><div class="sh-title">Anthem Partnership</div><div class="sh-sub">$1M Clinical Partner Sponsorship + Master Agreement</div></div>
+    <div class="sh-right"><span class="sh-pct" id="pct-anthem">0%</span><div class="sh-bar"><div class="sh-fill" id="sfill-anthem" style="background:var(--ltteal)"></div></div></div>
+  </div>
+  <div class="task-list" id="tl-anthem">
+    <script>
+      t('an-1','anthem','Anthem meeting requested — decision-maker in the room','Request meeting with Anthem Nevada Medicaid leadership. All three presenting: founder, Jamie (NP), and Anthony (KG). One meeting, all parties, authorized decision-maker.',[['All Three','ow-all']],'p1');
+      t('an-2','anthem','Anthem alignment meeting held','Full system demonstration. Populations reviewed. Credentialing pathway confirmed. Reporting framework agreed in principle. Master agreement structure introduced.',[['All Three','ow-all']],'p1');
+      t('an-3','anthem','Letter of Intent signed — $1M confirmed','LOI executed. Named partner status confirmed. Credentialing initiated as parallel workstreams. Quarterly reporting framework agreed. Target: 30 days after alignment meeting.',[['All Parties','ow-all'],['HC Attorney','ow-atty']],'p1');
+      t('an-4','anthem','Data sharing MOU and HIPAA BAA executed','Mutual data sharing agreement governing member attribution, HEDIS reporting, and CHW outcome documentation. HIPAA BAA required.',[['Founder','ow-f'],['Jamie','ow-j'],['HC Attorney','ow-atty']],'p2');
+      t('an-5','anthem','Master Partnership Agreement executed','Anthem preferred MCO status at all future campuses in states where they operate Medicaid. Activates automatically as new campuses are announced.',[['All Parties','ow-all'],['HC Attorney','ow-atty']],'p2');
+      t('an-6','anthem','First quarterly outcome report delivered to Anthem','Q1 report: pipeline SDOH screening results, benefit activation rates, attributed member count, telehealth engagement. First proof the model is working before the campus opens.',[['Founder','ow-f']],'p2');
+    </script>
+  </div>
+</div>
+
+<!-- ═══ CAMPUS DEVELOPMENT ═══ -->
+<div class="section-block rv" id="campus">
+  <div class="section-hdr">
+    <div class="sh-icon" style="background:rgba(74,42,138,.1)">🏗️</div>
+    <div><div class="sh-title">Campus — Advent Las Vegas</div><div class="sh-sub">3460 N. Rancho Drive · Groundbreaking July 2026 · Opens August 2027</div></div>
+    <div class="sh-right"><span class="sh-pct" id="pct-campus">0%</span><div class="sh-bar"><div class="sh-fill" id="sfill-campus" style="background:var(--ltpurp)"></div></div></div>
+  </div>
+  <div class="task-list" id="tl-campus">
+    <script>
+      t('ca-1','campus','Site control confirmed — 3460 N. Rancho Drive','Purchase agreement, ground lease, or equivalent site control instrument executed. KG Development leads.',[['Anthony','ow-a']],'p1');
+      t('ca-2','campus','LIHTC application submitted with ASG CDC as co-developer','Nevada Housing Division LIHTC application filed. ASG CDC named as co-developer with documented community services integration plan. QAP scoring advantages from WCS Framework.',[['Anthony','ow-a'],['Founder','ow-f']],'p1');
+      t('ca-3','campus','LIHTC award confirmed — financing fully stacked','Nevada Housing Division allocation confirmed. Development financing complete. Ready for financial close and groundbreaking.',[['Anthony','ow-a']],'p1');
+      t('ca-4','campus','Groundbreaking — July 2026','Construction begins. Workforce pipeline Stage 1 participants on site. All Tier 1 legal agreements must be executed before this date.',[['Anthony','ow-a'],['Founder','ow-f']],'p1');
+      t('ca-5','campus','Clinic build-out specification completed','Digital Health Clinic space designed to Jamie\'s clinical specifications. Anthem\'s $500K to fund. Exam rooms, telehealth stations, CHW space, medical equipment layout.',[['Jamie','ow-j'],['Anthony','ow-a']],'p2');
+      t('ca-6','campus','Campus opens — August 2027','All 50 units ready. Clinic operational with pre-built panel. Childcare center licensed. Community rooms available for Anthem events. CHW serving all three populations simultaneously.',[['All Parties','ow-all']],'p1');
+    </script>
+  </div>
+</div>
+
+<!-- ═══ TEAM ACTIONS ═══ -->
+<div class="section-block rv" id="team">
+  <div class="section-hdr">
+    <div class="sh-icon" style="background:rgba(154,104,0,.1)">👥</div>
+    <div><div class="sh-title">Team Actions</div><div class="sh-sub">Three professionals needed simultaneously · Board · Milwaukee · IP assignment</div></div>
+    <div class="sh-right"><span class="sh-pct" id="pct-team">0%</span><div class="sh-bar"><div class="sh-fill" id="sfill-team" style="background:var(--gold)"></div></div></div>
+  </div>
+  <div class="task-list" id="tl-team">
+    <script>
+      t('tm-1','team','Healthcare attorney — engaged and fully briefed','Priority 1 professional. AKS analysis, Nevada CPOM, Jamie\'s separation from KG, MSO agreement, all clinical contracts, Anthem agreement review. Nothing clinical executes without this attorney.',[['All Parties','ow-all']],'p1');
+      t('tm-2','team','Nonprofit / tax-exempt attorney — engaged and fully briefed','ASG CDC governance, bylaws with founder protections, private inurement, ED compensation benchmarking, IP license review, Milwaukee entity status, Wisconsin foreign qualification.',[['Founder','ow-f']],'p1');
+      t('tm-3','team','CPA — tax-exempt + healthcare specialist — engaged','Multi-entity tax structure, IP vehicle selection, MSO fee documentation, ED compensation benchmarking, CHW billing revenue split, FQHC financial planning, multi-state filing.',[['Founder','ow-f']],'p1');
+      t('tm-4','team','WCS Framework IP — formal assignment to founder\'s LLC','IP attorney formally documents and assigns all WCS Framework IP, WCSN methodology, and brand to founder\'s LLC. Prerequisite for Agreement 01 and all future replication licensing.',[['Founder','ow-f'],['IP Attorney','ow-atty']],'p1');
+      t('tm-5','team','ASG CDC board — independent members recruited and seated','Recruit genuinely independent board members to approve related-party transactions (IP license fee, ED compensation, KG consulting). IRS requires independence. Nonprofit attorney guides composition.',[['Founder','ow-f']],'p2');
+      t('tm-6','team','Milwaukee campus — entity and legal status confirmed with attorneys','Confirm ASG CDC Milwaukee satellite vs. separate entity. Foreign qualification in Wisconsin if needed. Foundation strategy. Wisconsin state registration. Same legal requirements apply as Las Vegas.',[['Founder','ow-f'],['Nonprofit Atty','ow-atty']],'p2');
+    </script>
+  </div>
+</div>
+
+<!-- NOTES -->
+<div class="notes-area rv">
+  <div class="notes-head">Team Notes — shared across all sessions</div>
+  <textarea class="notes-input" id="team-notes" placeholder="Attorney contacts, meeting takeaways, blockers, next action items, open questions..."></textarea>
+  <button class="notes-btn" onclick="saveNotes()">Save Notes</button>
+</div>
+
+</div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+const STATS = ['open','prog','done','block'];
+const STAT_LBL  = {open:'Not Started',prog:'In Progress',done:'Done',block:'Needs Attention'};
+const STAT_ICON = {open:'',prog:'…',done:'✓',block:'!'};
+const STAT_BDG  = {open:'bd-open',prog:'bd-prog',done:'bd-done',block:'bd-block'};
+
+const SECTIONS = {
+  entities:['e1','e2','e3','e4','e5'],
+  t1:['t1-1','t1-2','t1-3','t1-4','t1-5','t1-6','t1-7'],
+  t2:['t2-1','t2-2','t2-3','t2-4','t2-5'],
+  t3:['t3-1','t3-2','t3-3'],
+  clinical:['cl-1','cl-2','cl-3','cl-4','cl-5','cl-6','cl-7'],
+  anthem:['an-1','an-2','an-3','an-4','an-5','an-6'],
+  campus:['ca-1','ca-2','ca-3','ca-4','ca-5','ca-6'],
+  team:['tm-1','tm-2','tm-3','tm-4','tm-5','tm-6'],
+};
+
+function loadState(){ try{ return JSON.parse(localStorage.getItem('wcs-tracker')||'{}'); }catch(e){return{};} }
+function saveState(s){ localStorage.setItem('wcs-tracker',JSON.stringify(s)); stamp(); }
+
+function stamp(){
+  const now=new Date();
+  document.getElementById('last-saved').textContent='Saved '+now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+}
+
+function applyState(){
+  const st=loadState();
+  document.querySelectorAll('.task').forEach(el=>{
+    const id=el.dataset.id;
+    if(st[id]) setStatus(el,st[id],false);
+  });
+  updateCounters();
+}
+
+function cycle(el){
+  const cur=STATS.find(s=>el.classList.contains(s))||'open';
+  const nxt=STATS[(STATS.indexOf(cur)+1)%STATS.length];
+  setStatus(el,nxt,true);
+  updateCounters();
+  toast(STAT_LBL[nxt]);
+}
+
+function setStatus(el,s,save){
+  STATS.forEach(x=>el.classList.remove(x));
+  el.classList.add(s);
+  el.querySelector('.chk').textContent=STAT_ICON[s];
+  const b=el.querySelector('.badge');
+  if(b){b.className='badge '+STAT_BDG[s];b.textContent=STAT_LBL[s];}
+  if(save){const st=loadState();st[el.dataset.id]=s;saveState(st);}
+}
+
+function updateCounters(){
+  const all=document.querySelectorAll('.task');
+  let d=0,p=0,o=0,b=0;
+  all.forEach(t=>{
+    if(t.classList.contains('done'))d++;
+    else if(t.classList.contains('prog'))p++;
+    else if(t.classList.contains('block'))b++;
+    else o++;
+  });
+  const total=all.length, pct=total?Math.round(d/total*100):0;
+  set('ov-done',d); set('ov-prog',p); set('ov-open',o); set('ov-block',b);
+  set('ov-pct',pct+'%');
+  w('fill-done',d/total*100); w('fill-prog',p/total*100);
+  w('fill-open',o/total*100); w('fill-block',b/total*100);
+  w('fill-total',pct);
+
+  // Per section
+  Object.entries(SECTIONS).forEach(([sec,ids])=>{
+    let sd=0,st=0;
+    ids.forEach(id=>{
+      const el=document.querySelector(`[data-id="${id}"]`);
+      if(!el)return; st++;
+      if(el.classList.contains('done'))sd++;
+    });
+    const sp=st?Math.round(sd/st*100):0;
+    set('pct-'+sec,sp+'%'); w('sfill-'+sec,sp);
+    const sc=document.getElementById('sc-'+sec);
+    if(sc) sc.textContent=sd+'/'+st;
+  });
+}
+
+function set(id,v){ const el=document.getElementById(id); if(el) el.textContent=v; }
+function w(id,pct){ const el=document.getElementById(id); if(el) el.style.width=pct+'%'; }
+
+function filter(s){
+  document.querySelectorAll('.task').forEach(t=>{
+    t.style.display=(s==='all'||t.classList.contains(s))?'':'none';
+  });
+}
+
+let _tt;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent='→ '+msg; el.classList.add('show');
+  clearTimeout(_tt); _tt=setTimeout(()=>el.classList.remove('show'),1700);
+}
+
+function saveNotes(){
+  localStorage.setItem('wcs-notes',document.getElementById('team-notes').value);
+  toast('Notes saved'); stamp();
+}
+
+// Scroll spy — nav
+const navLinks=document.querySelectorAll('nav .nl');
+new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){
+    navLinks.forEach(l=>l.classList.remove('on'));
+    const l=document.querySelector(`.nl[href="#${e.target.id}"]`);
+    if(l){l.classList.add('on');l.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}
+  }});
+},{threshold:.2}).observe.call(
+  new IntersectionObserver(()=>{}),document.body
+);
+const secEls=document.querySelectorAll('.section-block');
+const nobs=new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){
+    navLinks.forEach(l=>l.classList.remove('on'));
+    const l=document.querySelector(`.nl[href="#${e.target.id}"]`);
+    if(l){l.classList.add('on');l.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}
+    document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+    const sl=document.querySelector(`.sb-link[href="#${e.target.id}"]`);
+    if(sl) sl.classList.add('active');
+  }});
+},{threshold:.25});
+secEls.forEach(s=>nobs.observe(s));
+
+// Reveal
+new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
+},{threshold:.05}).observe.call(
+  new IntersectionObserver(()=>{}),document.body
+);
+const robs=new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
+},{threshold:.04});
+document.querySelectorAll('.rv').forEach(el=>robs.observe(el));
+
+// Init
+applyState();
+const n=localStorage.getItem('wcs-notes');
+if(n) document.getElementById('team-notes').value=n;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+/**
+ * GOOGLE MATERIAL 3 / ANTIGRAVITY DESIGN TOKENS
+ */
+
+:root {
+  /* System Colors */
+  --pas-sys-color-primary: #B59453;
+  --pas-sys-color-on-primary: #FFFFFF;
+  --pas-sys-color-surface: #0C0D0E;
+  --pas-sys-color-surface-container: #141619;
+  --pas-sys-color-surface-variant: #1E2024;
+  --pas-sys-color-border: #26292E;
+  
+  /* Status Colors */
+  --pas-sys-color-success: #4A8A58;
+  --pas-sys-color-info: #3A7A6A;
+  --pas-sys-color-warning: #D4AF37;
+  --pas-sys-color-error: #C85A48;
+
+  /* Typography Scale */
+  --pas-font-serif: 'Cormorant Garamond', serif;
+  --pas-font-sans: 'Outfit', sans-serif;
+  --pas-font-mono: 'JetBrains Mono', monospace;
+}

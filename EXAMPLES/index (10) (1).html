@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whole Community Solutions — Universal Ecosystem</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07101F; --bg2:#0A1628; --bg3:#0D2040; --bg4:#111830;
+  --gold:#E8A020; --ltgold:#F5C842; --golddk:#8A5800;
+  --teal:#0E8A7A; --ltteal:#2DBAAA; --tealdk:#074A42;
+  --blue:#1B4F8A; --ltblue:#4A9EDB;
+  --coral:#C04830; --ltcoral:#E07858;
+  --purple:#5A3A9A; --ltpurple:#9A7ADA;
+  --green:#2A7A4A; --ltgreen:#5ACA8A;
+  --amber:#B07010; --ltamber:#E8A838;
+  --pink:#8A3A72; --ltpink:#CA6AAA;
+  --slate:#3A5878; --ltslate:#6A9ACA;
+  --white:#FFFFFF; --off:#F0F4FA; --muted:#7A9CC0; --dim:#3A5A7A;
+  --border:rgba(74,158,219,0.1); --bordg:rgba(232,160,32,0.2);
+  --bordt:rgba(14,138,122,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--off);overflow-x:hidden;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:52px;
+  background:rgba(7,16,31,0.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);display:flex;align-items:center}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold);
+  padding:0 22px;height:100%;display:flex;align-items:center;
+  border-right:1px solid var(--border);white-space:nowrap;flex-shrink:0}
+.navs{display:flex;overflow-x:auto;scrollbar-width:none;height:100%;padding:0 4px}
+.navs::-webkit-scrollbar{display:none}
+.nl{font-size:10px;font-weight:400;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;padding:0 12px;height:100%;
+  display:flex;align-items:center;border-bottom:2px solid transparent;
+  transition:all .2s;white-space:nowrap}
+.nl:hover,.nl.on{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ── SHARED ── */
+section{padding:80px 60px;border-bottom:1px solid var(--border);scroll-margin-top:52px}
+@media(max-width:768px){section{padding:56px 24px}}
+.sl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,50px);
+  font-weight:400;color:var(--white);line-height:1.08;margin-bottom:16px}
+.si{font-size:15px;color:var(--muted);line-height:1.75;max-width:700px;margin-bottom:40px;font-weight:300}
+.rv{opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s}
+.rv.vis{opacity:1;transform:translateY(0)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr}}
+
+/* ── INFO BOXES ── */
+.ib{border-radius:10px;padding:14px 18px;font-size:13px;line-height:1.75;margin-top:14px}
+.ib strong{font-weight:500;display:block;margin-bottom:4px}
+.iw{background:rgba(232,160,32,.07);border:1px solid var(--bordg);color:#D4A040}
+.in{background:rgba(74,158,219,.07);border:1px solid var(--border);color:var(--muted)}
+.is{background:rgba(14,138,122,.07);border:1px solid var(--bordt);color:#5DCAA5}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:104px 60px 80px;position:relative;border-bottom:1px solid var(--border);overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 8% 65%,rgba(14,138,122,.1) 0%,transparent 50%),
+    radial-gradient(ellipse at 88% 25%,rgba(27,79,138,.11) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 50%,rgba(232,160,32,.03) 0%,transparent 55%)}
+.hero-lbl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:18px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(46px,7vw,84px);
+  font-weight:400;line-height:.97;color:var(--white);max-width:1000px;margin-bottom:26px}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:16px;color:var(--muted);line-height:1.75;max-width:640px;margin-bottom:40px;font-weight:300}
+.hstats{display:flex;gap:44px;flex-wrap:wrap;margin-bottom:44px}
+.hsn{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);font-weight:400;line-height:1}
+.hsl{font-size:10px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-top:5px}
+.pills{display:flex;gap:10px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;padding:10px 22px;border-radius:40px;
+  font-size:12px;text-decoration:none;transition:all .2s;border:1px solid;cursor:pointer}
+.pg{border-color:var(--gold);color:var(--gold)}.pg:hover{background:var(--gold);color:var(--bg)}
+.pm{border-color:var(--border);color:var(--muted)}.pm:hover{border-color:var(--ltblue);color:var(--ltblue)}
+
+/* ── WCS RING / VISUAL ── */
+.wcs-visual{position:relative;margin:40px auto;max-width:680px;height:600px}
+.wcs-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:160px;height:160px;border-radius:50%;
+  background:var(--bg3);border:2px solid var(--gold);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;z-index:10;cursor:pointer;transition:all .3s}
+.wcs-center:hover{background:rgba(232,160,32,.08);transform:translate(-50%,-50%) scale(1.05)}
+.wcs-center-title{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold);line-height:1.2;margin-bottom:4px}
+.wcs-center-sub{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.wcs-pillar{position:absolute;width:108px;height:108px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;cursor:pointer;transition:all .25s;
+  border:1px solid;padding:8px;z-index:5}
+.wcs-pillar:hover{transform:scale(1.1);z-index:20}
+.wcs-pillar-num{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;line-height:1;margin-bottom:4px}
+.wcs-pillar-name{font-size:9px;font-weight:500;line-height:1.3;letter-spacing:.02em}
+.wcs-line{position:absolute;top:50%;left:50%;transform-origin:0 0;
+  height:1px;background:rgba(74,158,219,.15);z-index:1;pointer-events:none}
+
+/* ── PILLAR CARDS ── */
+.pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:600px){.pillar-grid{grid-template-columns:1fr 1fr}}
+.pc{padding:18px;border-radius:10px;border:1px solid var(--border);
+  background:var(--bg3);transition:all .2s;cursor:pointer}
+.pc:hover{transform:translateY(-2px)}
+.pc-num{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--dim);line-height:1;margin-bottom:7px}
+.pc-name{font-size:13px;font-weight:500;color:var(--white);margin-bottom:4px}
+.pc-desc{font-size:11px;color:var(--dim);line-height:1.55}
+
+/* ── ENTITY STRIP ── */
+.entity-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.entity-strip::-webkit-scrollbar{display:none}
+.entity-chip{flex-shrink:0;padding:10px 18px;border-radius:30px;border:1px solid;
+  font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+
+/* ── SECTOR TABS ── */
+.sector-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.stab{padding:9px 18px;border-radius:6px;cursor:pointer;
+  font-size:12px;border:1px solid var(--border);color:var(--muted);
+  transition:all .2s;display:flex;align-items:center;gap:8px}
+.stab:hover{border-color:var(--muted)}
+.stab.on{color:var(--white);font-weight:500}
+.stab-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.spanel{display:none}
+.spanel.on{display:block}
+
+/* ── SECTOR CARDS ── */
+.sector-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:700px){.sector-layout{grid-template-columns:1fr}}
+.scard{background:var(--bg3);border-radius:12px;border:1px solid var(--border);padding:24px}
+.scard-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:500;margin-bottom:8px}
+.scard-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);margin-bottom:12px;line-height:1.25}
+.scard-body{font-size:13px;color:var(--muted);line-height:1.72}
+.scard-body strong{color:var(--off);font-weight:500}
+.benefit-list{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.benefit-list li{font-size:13px;color:var(--muted);padding-left:16px;position:relative;line-height:1.55}
+.benefit-list li::before{content:'›';position:absolute;left:0;font-weight:500}
+.entity-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;
+  border-radius:20px;font-size:11px;font-weight:500;margin:3px;border:1px solid}
+.return-box{margin-top:16px;padding:14px 18px;border-radius:8px;border:1px solid}
+.return-box .rb-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:500;margin-bottom:6px;color:var(--gold)}
+.return-box .rb-body{font-size:13px;line-height:1.7;color:var(--muted)}
+
+/* ── ACCORD ── */
+.acc{display:flex;flex-direction:column;gap:7px}
+.ai{background:var(--bg3);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s}
+.ai.open{border-color:var(--bordg)}
+.ah{display:flex;align-items:center;gap:10px;padding:13px 17px;cursor:pointer;transition:background .15s}
+.ah:hover{background:rgba(74,158,219,.04)}
+.anum{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--dim);min-width:24px}
+.ainfo{flex:1}
+.atit{font-size:13px;font-weight:500;color:var(--white);margin-bottom:1px}
+.asub{font-size:11px;color:var(--muted)}
+.achv{font-size:13px;color:var(--dim);transition:transform .2s}
+.ai.open .achv{transform:rotate(90deg)}
+.ab{display:none;padding:0 17px 17px 51px;border-top:1px solid var(--border)}
+.ai.open .ab{display:block}
+.ab p{font-size:13px;color:var(--muted);line-height:1.72;margin-top:11px}
+.ab strong{color:var(--off);font-weight:500}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.tag{font-size:10px;padding:3px 8px;border-radius:4px;background:rgba(74,158,219,.07);color:var(--dim);border:1px solid var(--border)}
+
+/* ── HOW IT WORKS FLOW ── */
+.how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;position:relative}
+.how-step{padding:24px 20px;background:var(--bg3);border:1px solid var(--border);
+  border-right:none;position:relative}
+.how-step:last-child{border-right:1px solid var(--border);border-radius:0 10px 10px 0}
+.how-step:first-child{border-radius:10px 0 0 10px}
+.how-step-n{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--dim);line-height:1;margin-bottom:10px}
+.how-step-title{font-size:13px;font-weight:500;color:var(--white);margin-bottom:6px}
+.how-step-body{font-size:12px;color:var(--dim);line-height:1.6}
+.how-arrow{position:absolute;right:-1px;top:50%;transform:translateY(-50%);
+  width:12px;height:12px;border-top:1px solid var(--border);border-right:1px solid var(--border);
+  transform:translateY(-50%) rotate(45deg);background:var(--bg);z-index:5}
+@media(max-width:600px){.how-steps{grid-template-columns:1fr}
+  .how-step{border-right:1px solid var(--border);border-bottom:none;border-radius:0}
+  .how-step:first-child{border-radius:10px 10px 0 0}
+  .how-step:last-child{border-radius:0 0 10px 10px;border-bottom:1px solid var(--border)}}
+
+/* ── ENTITIES SECTION ── */
+.entity-card{background:var(--bg3);border-radius:12px;border:1px solid var(--border);overflow:hidden;transition:all .2s}
+.entity-card:hover{transform:translateY(-2px)}
+.ech{padding:18px 22px 14px;border-bottom:1px solid var(--border)}
+.ect{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin-bottom:6px}
+.ecn{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;color:var(--white);line-height:1.2}
+.ecb{padding:18px 22px}
+.ecr{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;
+  border-bottom:1px solid rgba(74,158,219,.07);gap:12px}
+.ecr:last-child{border:none}
+.eck{font-size:11px;color:var(--dim);flex-shrink:0}
+.ecv{font-size:11px;color:var(--off);text-align:right}
+
+/* FOOTER */
+footer{padding:40px 60px;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fb{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold)}
+.fn{font-size:11px;color:var(--dim)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Whole Community Solutions</div>
+  <div class="navs">
+    <a class="nl" href="#vision">Vision</a>
+    <a class="nl" href="#catalyst">The Development</a>
+    <a class="nl" href="#community">Community Impact</a>
+    <a class="nl" href="#framework">WCS Framework</a>
+    <a class="nl" href="#how">How It Works</a>
+    <a class="nl" href="#sectors">By Sector</a>
+    <a class="nl" href="#entities">The Entities</a>
+    <a class="nl" href="#chw">The CHW</a>
+    <a class="nl" href="#pipeline">Workforce Pipeline</a>
+    <a class="nl" href="#scale">Scale</a>
+    <a class="nl" href="#benefits">Benefits Activation</a>
+    <a class="nl" href="#advent">Advent Case Study</a>
+    <a class="nl" href="#partner">Partner With Us</a>
+  </div>
+</nav>
+
+<!-- ── HERO / VISION ── -->
+<section class="hero" id="vision">
+  <div class="hero-lbl">A Solution Group CDC × KG Development Group — Whole Community Solutions</div>
+  <h1 class="hero-title">We are developers<br>with a greater purpose.<br><em>The development is the catalyst.</em></h1>
+  <p class="hero-sub">KG Development Group builds the physical infrastructure. A Solution Group CDC deploys the community operating system inside it. Jamie's clinic delivers the healthcare. Together they produce something no single industry has ever produced alone — a community where housing is stable, healthcare is accessible, childcare is available, jobs are real, and the path to independence is built into the place itself.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:36px;max-width:860px">
+    <div style="background:var(--bg3);border:1px solid rgba(192,72,48,.3);border-radius:10px;padding:16px 18px">
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ltcoral);font-weight:500;margin-bottom:8px">The development</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6">Housing. Clinic. Childcare. Community rooms. Workforce training site. KG builds the campus that makes the whole system possible.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(14,138,122,.3);border-radius:10px;padding:16px 18px">
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ltteal);font-weight:500;margin-bottom:8px">The community</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6">Real jobs. Stable housing. Healthcare on-site. Childcare that unlocks work. A city and county that gains tax-contributing residents instead of dependent ones.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(74,158,219,.3);border-radius:10px;padding:16px 18px">
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ltblue);font-weight:500;margin-bottom:8px">The services</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6">Primary care. Behavioral health. Workforce navigation. Benefits activation. Financial literacy. Every service integrated — not siloed.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.3);border-radius:10px;padding:16px 18px">
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px">The system</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6">The WCS Framework. Nine pillars. One CHW. Every sector aligned behind the same community outcome — and documented proof of every result.</div>
+    </div>
+  </div>
+
+  <div class="hstats">
+    <div><div class="hsn">9</div><div class="hsl">WCS pillars</div></div>
+    <div><div class="hsn">5</div><div class="hsl">Integrated entities</div></div>
+    <div><div class="hsn">8</div><div class="hsl">Sectors served</div></div>
+    <div><div class="hsn">National</div><div class="hsl">Replicable model</div></div>
+  </div>
+  <div class="pills">
+    <a class="pill pg" href="#catalyst">The development</a>
+    <a class="pill pm" href="#community">Community impact</a>
+    <a class="pill pm" href="#sectors">See your sector</a>
+    <a class="pill pm" href="#partner">Partner with us</a>
+  </div>
+</section>
+
+<!-- ── THE DEVELOPMENT AS CATALYST ── -->
+<section id="catalyst">
+  <div class="sl">The Development Is the Catalyst</div>
+  <h2 class="st">KG Development Group doesn't just build buildings.<br>It builds the conditions for community transformation.</h2>
+  <p class="si">Most developers build housing and move on. KG Development Group builds campuses — physical environments specifically designed to co-locate everything a community needs to stabilize, grow, and thrive. The development is not the product. The development is what makes the product possible.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+    <div style="background:var(--bg3);border:1px solid rgba(192,72,48,.3);border-radius:12px;padding:26px">
+      <div class="sl" style="color:var(--ltcoral);margin-bottom:10px">What KG builds — and why it matters</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--white);line-height:1.3;margin-bottom:14px">The campus is not housing with services attached. It is an integrated community platform — built to specification for the WCS Framework to operate inside.</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+        <li style="font-size:13px;color:var(--muted);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ltcoral)">›</span><strong style="color:var(--off);font-weight:500">Residential housing</strong> — intergenerational, affordable, stable. The foundation everything else builds on.</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ltcoral)">›</span><strong style="color:var(--off);font-weight:500">Digital health clinic</strong> — Jamie's medical entity operates inside the campus. Primary care where members live.</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ltcoral)">›</span><strong style="color:var(--off);font-weight:500">Childcare center</strong> — the upstream unlock. Without childcare, parents cannot enter the workforce. Without workforce, the community cannot grow.</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ltcoral)">›</span><strong style="color:var(--off);font-weight:500">Community rooms</strong> — financial literacy nights, employer connection events, health awareness, banking access. The civic infrastructure of the campus.</li>
+        <li style="font-size:13px;color:var(--muted);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ltcoral)">›</span><strong style="color:var(--off);font-weight:500">Workforce training site</strong> — the construction site itself is Stage 1 of the workforce pipeline. Participants train on the project that will serve their community.</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.2);border-radius:10px;padding:20px">
+        <div class="sl" style="color:var(--gold);margin-bottom:8px">Developers with greater purpose</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">KG Development Group is not a nonprofit. It is a for-profit developer that builds affordable housing campuses specifically designed for WCS Framework deployment. The purpose is baked into the project design — not added on after the fact. Every unit, every room, every square foot is planned with the community operating system in mind.</p>
+      </div>
+      <div style="background:var(--bg3);border:1px solid rgba(14,138,122,.2);border-radius:10px;padding:20px">
+        <div class="sl" style="color:var(--ltteal);margin-bottom:8px">What the nonprofit co-developer relationship unlocks</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">A Solution Group CDC serves as co-developer on every KG campus — not as a checkbox, but as a genuine community operating partner. This unlocks LIHTC nonprofit set-asides, HUD program preferences, QAP scoring advantages, and grant pools that for-profit-only developers cannot access. KG and ASG together reach funding that neither reaches alone.</p>
+      </div>
+      <div style="background:var(--bg3);border:1px solid rgba(74,158,219,.2);border-radius:10px;padding:20px">
+        <div class="sl" style="color:var(--ltblue);margin-bottom:8px">The medical entity inside the development</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">Jamie's medical entity operates the Digital Health Clinic inside the KG campus. The clinic is not adjacent to the housing — it is part of it. Primary care, HEDIS closure, CHW clinical supervision, and Medicaid billing are built into the campus infrastructure. WCS Health Management LLC (MSO) provides the administrative support that keeps the clinic operational.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.25);border-radius:12px;padding:24px">
+    <div class="sl" style="color:var(--gold);margin-bottom:12px">The five entities — how they wrap around the development</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px">
+      <div style="padding:14px;border-radius:8px;border:1px solid rgba(192,72,48,.25);background:rgba(192,72,48,.04)">
+        <div style="font-size:11px;color:var(--ltcoral);font-weight:500;margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase">KG Development Group</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55">Builds the campus. Every project. The physical catalyst that activates the entire system.</div>
+      </div>
+      <div style="padding:14px;border-radius:8px;border:1px solid rgba(14,138,122,.25);background:rgba(14,138,122,.04)">
+        <div style="font-size:11px;color:var(--ltteal);font-weight:500;margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase">A Solution Group CDC</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55">Deploys the WCS Framework, CHW model, workforce pipeline, and community programs inside the campus.</div>
+      </div>
+      <div style="padding:14px;border-radius:8px;border:1px solid rgba(74,158,219,.25);background:rgba(74,158,219,.04)">
+        <div style="font-size:11px;color:var(--ltblue);font-weight:500;margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase">Jamie's Medical Entity</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55">Operates the on-campus clinic. Primary care, HEDIS closure, Medicaid billing, and CHW clinical supervision.</div>
+      </div>
+      <div style="padding:14px;border-radius:8px;border:1px solid rgba(90,58,154,.25);background:rgba(90,58,154,.04)">
+        <div style="font-size:11px;color:var(--ltpurple);font-weight:500;margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase">WCS Health Management LLC</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55">MSO co-owned by founder and Anthony. Non-clinical admin support for the medical entity. The founder and Anthony's equity in the clinical operation.</div>
+      </div>
+      <div style="padding:14px;border-radius:8px;border:1px solid rgba(232,160,32,.25);background:rgba(232,160,32,.04)">
+        <div style="font-size:11px;color:var(--gold);font-weight:500;margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase">WCS Framework IP LLC</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55">Founder's IP entity. Owns the WCS Framework. Licenses to ASG CDC. Royalties from every campus and every national adopter.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMMUNITY IMPACT ── -->
+<section id="community">
+  <div class="sl">Community Impact</div>
+  <h2 class="st">What the community gains.<br>What the city and county gain.<br>What the region gains.</h2>
+  <p class="si">The WCS Framework is not a social services program. It is an economic development strategy with a community operating system built inside it. Every campus produces outcomes that reshape the community it serves — and the city and county that surround it.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:20px">
+
+    <div style="background:var(--bg3);border:1px solid rgba(192,72,48,.25);border-radius:10px;padding:20px" class="rv">
+      <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ltcoral);font-weight:500;margin-bottom:10px">Jobs</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:8px">Real employment. Living wages. Career pathways.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">The workforce pipeline produces skilled trades workers from the community the campus serves — trained on the actual KG construction project, employed in the local market, earning wages that recirculate in the local economy. These are not temporary jobs. They are career entry points.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid rgba(27,79,138,.25);border-radius:10px;padding:20px" class="rv">
+      <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ltblue);font-weight:500;margin-bottom:10px">Housing</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:8px">Stable housing as health infrastructure.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Intergenerational affordable housing for working families, seniors, and youth aging out of foster care. Housing stability reduces emergency department utilization, improves chronic disease management, and creates the foundation for every other WCS pillar to operate. It is not a welfare program. It is a community investment.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid rgba(14,138,122,.25);border-radius:10px;padding:20px" class="rv">
+      <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ltteal);font-weight:500;margin-bottom:10px">Services</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:8px">Integrated services that actually connect.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Primary care, behavioral health, childcare, workforce development, financial literacy, transportation navigation, benefits activation — all co-located, all coordinated through the CHW. Not a referral directory. A living system where every service knows what the others are doing and nobody falls through the gap.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid rgba(42,122,74,.25);border-radius:10px;padding:20px" class="rv">
+      <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ltgreen);font-weight:500;margin-bottom:10px">City and County</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:8px">Tax base grows. Dependency shrinks.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Every resident who moves from Medicaid to employer insurance, from unemployment to a skilled trade, from instability to a stable lease — that is a city that gains a taxpayer and loses a cost. Every campus produces dozens of those outcomes annually. Multiplied across a national model, the fiscal impact at the city and county level is transformational.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid rgba(90,58,154,.25);border-radius:10px;padding:20px" class="rv">
+      <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ltpurple);font-weight:500;margin-bottom:10px">Childcare</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:8px">The upstream unlock for every other outcome.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Without childcare, parents cannot work. Without work, families remain dependent. The on-campus childcare center is not a amenity — it is the mechanism that makes workforce participation possible for the majority of residents who are parents. Childcare is economic development. It is health policy. It is the single highest-leverage upstream investment in any community.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.25);border-radius:10px;padding:20px" class="rv">
+      <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px">Economic mobility</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:8px">The goal every sector shares.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">A family that enters this campus on Medicaid, without employment, without stable healthcare, without a career pathway — and exits with a living wage, employer insurance, homeownership education, and documented financial stability — that family changed the trajectory of every person in it. That is what the WCS Framework produces. And it is documented, per person, per pillar, every quarter.</div>
+    </div>
+
+  </div>
+
+  <div class="ib is rv">
+    <strong>What no single industry could produce alone</strong>
+    A health plan improves health outcomes but cannot provide housing. A developer builds housing but cannot provide healthcare. An employer needs workers but cannot remove the barriers that prevent them from showing up. A city funds programs but cannot connect them. The WCS Framework connects all of it — and the development is the catalyst that makes the connection physical, permanent, and replicable.
+  </div>
+</section>
+
+<!-- ── THE FRAMEWORK ── -->
+<section id="framework">
+  <div class="sl">The WCS Framework</div>
+  <h2 class="st">Nine pillars. One operating system.<br>Any community. Any market.</h2>
+  <p class="si">The Whole Community Solution Framework is not a program — it is an operating system for community transformation. It is proprietary, replicable, and designed to be deployed in partnership with any organization that serves communities. Every pillar addresses a root cause. Together, they eliminate the conditions that produce inequality, poor health outcomes, and economic instability.</p>
+
+  <div class="pillar-grid">
+    <div class="pc rv" style="border-color:rgba(27,79,138,.3)">
+      <div class="pc-num" style="color:var(--ltblue)">1</div>
+      <div class="pc-name">Affordable Housing &amp; Economic Development</div>
+      <div class="pc-desc">Stable housing as the foundation of health. Financial literacy. Homeownership pathways. Asset-building from the ground up.</div>
+    </div>
+    <div class="pc rv" style="border-color:rgba(90,58,154,.3)">
+      <div class="pc-num" style="color:var(--ltpurple)">2</div>
+      <div class="pc-name">Mental &amp; Emotional Balance</div>
+      <div class="pc-desc">Behavioral health screening. Warm handoffs to licensed therapists. Trauma-informed care. Crisis navigation and peer support.</div>
+    </div>
+    <div class="pc rv" style="border-color:rgba(14,138,122,.3)">
+      <div class="pc-num" style="color:var(--ltteal)">3</div>
+      <div class="pc-name">Advanced Skills &amp; Technology</div>
+      <div class="pc-desc">Skilled trades training. Digital literacy. Certification pathways. Technology access for workforce readiness.</div>
+    </div>
+    <div class="pc rv" style="border-color:rgba(138,58,114,.3)">
+      <div class="pc-num" style="color:var(--ltpink)">4</div>
+      <div class="pc-name">Cultural Heritage &amp; Activities</div>
+      <div class="pc-desc">Culturally competent care. Community identity honored. Relationships built on genuine trust and belonging.</div>
+    </div>
+    <div class="pc rv" style="border-color:rgba(232,160,32,.3)">
+      <div class="pc-num" style="color:var(--gold)">5</div>
+      <div class="pc-name">Physical Health &amp; Nutrition</div>
+      <div class="pc-desc">Primary care. Preventive screenings. Food security navigation. Value-added benefit activation including meal delivery, OTC, and wellness programs.</div>
+    </div>
+    <div class="pc rv" style="border-color:rgba(42,122,74,.3)">
+      <div class="pc-num" style="color:var(--ltgreen)">6</div>
+      <div class="pc-name">Education &amp; Workforce Development</div>
+      <div class="pc-desc">Four-stage pipeline: Exposure → Readiness → Apprenticeship → Employment. From Medicaid-dependent to independently insured.</div>
+    </div>
+    <div class="pc rv" style="border-color:rgba(74,158,219,.3)">
+      <div class="pc-num" style="color:var(--ltslate)">7</div>
+      <div class="pc-name">Environmental Sustainability</div>
+      <div class="pc-desc">Green workforce opportunities. Energy assistance programs. Utility cost reduction. Sustainable community practices that lower household costs.</div>
+    </div>
+    <div class="pc rv" style="border-color:rgba(176,112,16,.3)">
+      <div class="pc-num" style="color:var(--ltamber)">8</div>
+      <div class="pc-name">Transportation &amp; Connectivity</div>
+      <div class="pc-desc">Transportation benefit activation. Medical appointment access. Rideshare navigation. Telehealth connectivity for communities without clinical access.</div>
+    </div>
+    <div class="pc rv" style="border-color:rgba(192,72,48,.3)">
+      <div class="pc-num" style="color:var(--ltcoral)">9</div>
+      <div class="pc-name">Community Engagement &amp; Empowerment</div>
+      <div class="pc-desc">Event convening. Financial literacy nights. Banking access workshops. Employer connection events. Community power built and sustained over time.</div>
+    </div>
+  </div>
+
+  <div class="ib in rv" style="margin-top:20px">
+    <strong>The three-tier Solutionologist network (WCSN)</strong>
+    <strong style="color:var(--off);font-weight:400;font-size:13px">Tier 1 — Community Solutionologists:</strong> Community Health Workers, peer mentors, parent leaders. The trusted first relationship every participant has. The CHW activates everything.<br>
+    <strong style="color:var(--off);font-weight:400;font-size:13px">Tier 2 — Core Solutionologists:</strong> Clinicians, therapists, legal advocates, educators, workforce specialists. Licensed experts deployed by the CHW on behalf of each participant.<br>
+    <strong style="color:var(--off);font-weight:400;font-size:13px">Tier 3 — Supporting Solutionologists:</strong> Agency directors, judges, school principals, policy actors. Systems-level change agents engaged when individual navigation requires institutional change.<br><br>
+    One CHW. One trusted relationship. The entire network — all three tiers, all nine pillars — deployed behind it.
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section id="how">
+  <div class="sl">How It Works</div>
+  <h2 class="st">A deployable system — not a one-time program.</h2>
+  <p class="si">The WCS Framework travels with us to every community we enter. It is not built from scratch each time — it is activated. The same structure, the same network, the same operating model. Customized to each market. Consistent in its results.</p>
+
+  <div class="how-steps rv">
+    <div class="how-step">
+      <div class="how-step-n">01</div>
+      <div class="how-step-title">Physical anchor established</div>
+      <div class="how-step-body">KG Development Group builds the campus — housing, clinic, childcare, community rooms. The physical infrastructure that makes everything else possible.</div>
+      <div class="how-arrow"></div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-n">02</div>
+      <div class="how-step-title">Community operating system activated</div>
+      <div class="how-step-body">A Solution Group CDC deploys the WCS Framework — CHW assigned, SDOH screening begins, workforce pipeline opens, programs launch.</div>
+      <div class="how-arrow"></div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-n">03</div>
+      <div class="how-step-title">Clinical infrastructure opens</div>
+      <div class="how-step-body">Jamie's medical entity delivers primary care, HEDIS closure, and CHW clinical supervision. Medicaid billing begins. FQHC pathway initiated.</div>
+      <div class="how-arrow"></div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-n">04</div>
+      <div class="how-step-title">Partners plug in</div>
+      <div class="how-step-body">MCOs, employers, cities, foundations, and corporations align with the pillar(s) most relevant to their mission. Every partner gets documented outcomes.</div>
+      <div class="how-arrow"></div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-n">05</div>
+      <div class="how-step-title">Outcomes compound</div>
+      <div class="how-step-body">Data accumulates. Every HEDIS measure closed. Every workforce graduate documented. Every barrier removed. Every community stronger. Every campus replicates the model.</div>
+    </div>
+  </div>
+
+  <div class="ib iw rv" style="margin-top:20px">
+    <strong>The CHW is the activation point for the entire system</strong>
+    Every pillar, every expert network, every partner relationship — it all flows through one trusted relationship: the Community Health Worker. The CHW does not refer people to the system. The CHW deploys the system around every person they serve. That is what makes this model different from every other community investment any industry has ever made.
+  </div>
+</section>
+
+<!-- ── BY SECTOR ── -->
+<section id="sectors">
+  <div class="sl">Value By Sector</div>
+  <h2 class="st">Every industry. Every entry point.<br>One ecosystem.</h2>
+  <p class="si">Click your sector. See the problem we solve for you, what you plug into, what you receive, and what partnership looks like.</p>
+
+  <div class="sector-nav">
+    <div class="stab on" onclick="showSector('mco')" data-sector="mco"><div class="stab-dot" style="background:var(--ltblue)"></div>Health Plans / MCOs</div>
+    <div class="stab" onclick="showSector('dev')" data-sector="dev"><div class="stab-dot" style="background:var(--ltcoral)"></div>Real Estate &amp; Housing</div>
+    <div class="stab" onclick="showSector('gov')" data-sector="gov"><div class="stab-dot" style="background:var(--ltteal)"></div>Cities &amp; Government</div>
+    <div class="stab" onclick="showSector('found')" data-sector="found"><div class="stab-dot" style="background:var(--ltpurple)"></div>Foundations &amp; Philanthropy</div>
+    <div class="stab" onclick="showSector('corp')" data-sector="corp"><div class="stab-dot" style="background:var(--ltgreen)"></div>Corporate / ESG</div>
+    <div class="stab" onclick="showSector('work')" data-sector="work"><div class="stab-dot" style="background:var(--ltamber)"></div>Employers &amp; Workforce</div>
+    <div class="stab" onclick="showSector('health')" data-sector="health"><div class="stab-dot" style="background:var(--ltpink)"></div>Health Systems &amp; FQHCs</div>
+    <div class="stab" onclick="showSector('fin')" data-sector="fin"><div class="stab-dot" style="background:var(--ltslate)"></div>Banks &amp; Financial Institutions</div>
+  </div>
+
+  <!-- MCO -->
+  <div class="spanel on" id="sp-mco">
+    <div class="sector-layout">
+      <div class="scard rv" style="border-color:rgba(74,158,219,.25)">
+        <div class="scard-label" style="color:var(--ltblue)">The problem you face</div>
+        <div class="scard-title">Members carry insurance cards they never use.</div>
+        <div class="scard-body">Preventable ED visits driving PMPM above benchmark. HEDIS gaps accumulating. CMS quality withholds mounting. Members without a trusted clinical home. Value-added benefits paid for but never activated. Workforce-capable members remaining dependent indefinitely.</div>
+        <ul class="benefit-list" style="margin-top:12px">
+          <li style="color:var(--ltblue)">No primary care relationship inside the member's daily life</li>
+          <li style="color:var(--ltblue)">Referrals that leak — documented, never completed</li>
+          <li style="color:var(--ltblue)">SDOH barriers driving avoidable clinical costs every day</li>
+          <li style="color:var(--ltblue)">No infrastructure that produces the economic mobility story CMS demands</li>
+        </ul>
+      </div>
+      <div class="scard rv" style="border-color:rgba(232,160,32,.25)">
+        <div class="scard-label" style="color:var(--gold)">What the WCS ecosystem gives you</div>
+        <div class="scard-title">An attributed member community with a clinical home, a CHW, and a workforce pipeline.</div>
+        <div class="scard-body">250–300 Medicaid members per campus across three populations: campus residents, workforce pipeline participants, and broader community users. Every member with a designated PCP. Every HEDIS gap closed in real time at every visit. Every referral tracked to completion. Every value-added benefit activated. Every workforce graduate documented as a CMS success story.</div>
+        <div class="return-box" style="border-color:var(--bordg)">
+          <div class="rb-label">Projected annual return — single campus</div>
+          <div class="rb-body">$2M–$3.4M in HEDIS improvement, ED avoidance, PMPM reduction, and quality withhold recovery. Against a $1M Clinical Partner Sponsorship investment. 2:1 to 3.4:1 ROI.</div>
+        </div>
+      </div>
+    </div>
+    <div class="g3 rv" style="margin-top:12px">
+      <div class="scard" style="border-color:rgba(74,158,219,.15)">
+        <div class="scard-label" style="color:var(--ltblue)">What you plug into</div>
+        <ul class="benefit-list">
+          <li>Jamie's credentialed NP practice — your members designate her as PCP</li>
+          <li>Real-time HEDIS closure at every clinical encounter</li>
+          <li>Network-first referrals — documented, tracked, outcomes reported back</li>
+          <li>CHW who activates every benefit you already paid for</li>
+          <li>Community rooms for branded member engagement events</li>
+        </ul>
+      </div>
+      <div class="scard" style="border-color:rgba(74,158,219,.15)">
+        <div class="scard-label" style="color:var(--ltblue)">The entities that serve you</div>
+        <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">
+          <span class="entity-badge" style="border-color:rgba(74,158,219,.3);color:var(--ltblue)">Jamie's Medical Entity — clinical billing</span>
+          <span class="entity-badge" style="border-color:rgba(14,138,122,.3);color:var(--ltteal)">ASG CDC — CHW, workforce, programs</span>
+          <span class="entity-badge" style="border-color:rgba(192,72,48,.3);color:var(--ltcoral)">KG Development — the physical campus</span>
+        </div>
+      </div>
+      <div class="scard" style="border-color:rgba(74,158,219,.15)">
+        <div class="scard-label" style="color:var(--gold)">The master opportunity</div>
+        <div class="scard-body">Preferred health plan status at every future campus in every state where you operate Medicaid. The $1M at Advent is the cost of entry into a national pipeline that compounds with every campus we complete. First-mover access. Every campus. Every market.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REAL ESTATE -->
+  <div class="spanel" id="sp-dev">
+    <div class="sector-layout">
+      <div class="scard rv" style="border-color:rgba(192,72,48,.25)">
+        <div class="scard-label" style="color:var(--ltcoral)">The problem you face</div>
+        <div class="scard-title">You build housing. But housing alone doesn't stabilize communities.</div>
+        <div class="scard-body">Affordable housing developments without integrated services produce buildings, not communities. Residents with unstable health, no workforce pathway, and no support network cycle out. Quality of life metrics lag. Investors and funders increasingly demand social outcomes alongside financial returns. LIHTC allocators award points for nonprofit co-developer involvement and community services integration — and most developers cannot demonstrate either substantively.</div>
+        <ul class="benefit-list" style="margin-top:12px">
+          <li style="color:var(--ltcoral)">Funding pools locked to nonprofit co-developer involvement</li>
+          <li style="color:var(--ltcoral)">Housing without health and workforce infrastructure underperforms</li>
+          <li style="color:var(--ltcoral)">Community benefit requirements increasing from HUD, states, and cities</li>
+        </ul>
+      </div>
+      <div class="scard rv" style="border-color:rgba(232,160,32,.25)">
+        <div class="scard-label" style="color:var(--gold)">What the WCS ecosystem gives you</div>
+        <div class="scard-title">A substantive nonprofit co-developer and a community operating system that makes your development perform.</div>
+        <div class="scard-body">ASG CDC serves as co-developer on every campus — not a shell on the application, but a genuine community operating partner delivering the WCS Framework, CHW model, and workforce pipeline inside your development. This unlocks LIHTC nonprofit set-asides, HUD program preferences, and QAP scoring advantages that for-profit-only developments cannot access.</div>
+        <div class="return-box" style="border-color:var(--bordg)">
+          <div class="rb-label">What this unlocks financially per campus</div>
+          <div class="rb-body">Access to LIHTC nonprofit set-aside credits. HUD 4% + 9% tax-exempt bond advantages. CDBG and HOME program eligibility. QAP scoring points for community services integration. Better investor relationships for Opportunity Zone deals.</div>
+        </div>
+      </div>
+    </div>
+    <div class="g3 rv" style="margin-top:12px">
+      <div class="scard" style="border-color:rgba(192,72,48,.15)">
+        <div class="scard-label" style="color:var(--ltcoral)">The KG model — what it looks like from inside</div>
+        <div class="scard-body">KG Development Group is the for-profit developer. ASG CDC is the nonprofit co-developer. The construction site is the first stage of the workforce pipeline — training participants on the actual project. The campus delivers housing, a digital health clinic, a childcare center, and community activation space simultaneously. This is what integrated development looks like.</div>
+      </div>
+      <div class="scard" style="border-color:rgba(192,72,48,.15)">
+        <div class="scard-label" style="color:var(--ltcoral)">What you plug into</div>
+        <ul class="benefit-list">
+          <li>ASG CDC as your nonprofit co-developer — substantive, documented, LIHTC-qualifying</li>
+          <li>WCS Framework deployment inside your development</li>
+          <li>Workforce pipeline that trains in your construction environment</li>
+          <li>Clinical and childcare infrastructure that differentiates your project</li>
+          <li>Grant funding flowing to ASG that supplements development economics</li>
+        </ul>
+      </div>
+      <div class="scard" style="border-color:rgba(192,72,48,.15)">
+        <div class="scard-label" style="color:var(--gold)">The national model</div>
+        <div class="scard-body">Every market KG and ASG enter together, the same structure replicates. Same co-developer relationship. Same WCS Framework deployment. Same workforce pipeline. Same clinical and childcare infrastructure. Different community. Same results.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOVERNMENT -->
+  <div class="spanel" id="sp-gov">
+    <div class="sector-layout">
+      <div class="scard rv" style="border-color:rgba(14,138,122,.25)">
+        <div class="scard-label" style="color:var(--ltteal)">The problem you face</div>
+        <div class="scard-title">You fund programs that don't talk to each other.</div>
+        <div class="scard-body">Every city has a housing department, a health department, a workforce development office, and a social services division — operating in separate silos, with separate budgets, serving the same people. Residents navigate between them alone. Outcomes are measured individually, not holistically. The same family touches five systems and falls through the gaps of all of them. Community investment produces reports, not transformation.</div>
+        <ul class="benefit-list" style="margin-top:12px">
+          <li style="color:var(--ltteal)">Siloed programs that never integrate</li>
+          <li style="color:var(--ltteal)">Residents navigating every system without support</li>
+          <li style="color:var(--ltteal)">Outcomes tracked by program, not by person</li>
+          <li style="color:var(--ltteal)">Economic mobility investment that doesn't produce mobility</li>
+        </ul>
+      </div>
+      <div class="scard rv" style="border-color:rgba(232,160,32,.25)">
+        <div class="scard-label" style="color:var(--gold)">What the WCS ecosystem gives you</div>
+        <div class="scard-title">An integrated community infrastructure that does what your departments were designed to do — together.</div>
+        <div class="scard-body">The WCS Framework operates across all nine pillars simultaneously inside a physical campus. Housing, health, childcare, workforce, transportation, mental health, financial literacy, environmental sustainability, and community engagement — in one place, delivered through one trusted relationship. Cities partner with ASG CDC to deploy this model in their most underserved neighborhoods, using existing funding streams (CDBG, HOME, Choice Neighborhoods) as the capital structure.</div>
+        <div class="return-box" style="border-color:var(--bordg)">
+          <div class="rb-label">What cities get</div>
+          <div class="rb-body">Documented population-level outcomes across every pillar. Reduced emergency service utilization. Increased workforce participation and tax base contribution. A community anchor institution that attracts further private investment. A replicable model for every underserved neighborhood.</div>
+        </div>
+      </div>
+    </div>
+    <div class="g2 rv" style="margin-top:12px">
+      <div class="scard" style="border-color:rgba(14,138,122,.15)">
+        <div class="scard-label" style="color:var(--ltteal)">Funding mechanisms cities can use</div>
+        <ul class="benefit-list">
+          <li>HUD Choice Neighborhoods Initiative — ASG's WCS Framework is purpose-built for the community transformation component</li>
+          <li>CDBG and HOME program funds — nonprofit co-developer requirement satisfied by ASG CDC</li>
+          <li>State workforce development contracts — DOL WIOA funding for the four-stage pipeline</li>
+          <li>Medicaid 1115 waiver program grants — SDOH interventions and housing-adjacent health services</li>
+          <li>Economic development bonds and tax increment financing — campus as anchor investment</li>
+        </ul>
+      </div>
+      <div class="scard" style="border-color:rgba(14,138,122,.15)">
+        <div class="scard-label" style="color:var(--ltteal)">The Milwaukee / multi-city model</div>
+        <div class="scard-body" style="margin-top:8px">ASG CDC operates across multiple markets. The Milwaukee entity provides grantmaking capacity for multi-city expansion. Every new city that brings KG and ASG in activates the same proven framework — the WCS operating system, the WCSN expert network, the CHW deployment model, and the clinical infrastructure — customized to the local market, consistent in design and outcomes.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOUNDATIONS -->
+  <div class="spanel" id="sp-found">
+    <div class="sector-layout">
+      <div class="scard rv" style="border-color:rgba(90,58,154,.25)">
+        <div class="scard-label" style="color:var(--ltpurple)">The problem you face</div>
+        <div class="scard-title">You fund solutions that solve one thing and leave the rest.</div>
+        <div class="scard-body">Foundations invest in community health, or workforce development, or affordable housing, or early childhood programs — rarely all of them together. The organizations you fund produce program-level outcomes that don't translate to community-level transformation. Your grantees compete with each other for the same population. Integration is the missing piece in every portfolio.</div>
+        <ul class="benefit-list" style="margin-top:12px">
+          <li style="color:var(--ltpurple)">Grant programs that address symptoms, not root causes</li>
+          <li style="color:var(--ltpurple)">No connective tissue between health, housing, and workforce investments</li>
+          <li style="color:var(--ltpurple)">Outcome reporting that reflects activity, not transformation</li>
+        </ul>
+      </div>
+      <div class="scard rv" style="border-color:rgba(232,160,32,.25)">
+        <div class="scard-label" style="color:var(--gold)">What the WCS ecosystem gives you</div>
+        <div class="scard-title">A grantee that integrates every pillar of community wellbeing — and proves it with data.</div>
+        <div class="scard-body">ASG CDC's WCS Framework is the connective tissue you've been trying to fund through separate grants. One organization. Nine pillars. One CHW as the delivery mechanism. SDOH data captured at every participant interaction. Workforce outcomes documented. Health outcomes measured. Economic mobility tracked. This is what transformative community investment looks like — not a program, an operating system.</div>
+        <div class="return-box" style="border-color:var(--bordg)">
+          <div class="rb-label">What your investment produces</div>
+          <div class="rb-body">Quarterly SDOH outcome data. Workforce pipeline completion rates. HEDIS-quality health metrics. Economic mobility documentation. A replicable model for every community in your portfolio. Evidence that integration produces outcomes that siloed programs cannot.</div>
+        </div>
+      </div>
+    </div>
+    <div class="g2 rv" style="margin-top:12px">
+      <div class="scard" style="border-color:rgba(90,58,154,.15)">
+        <div class="scard-label" style="color:var(--ltpurple)">Where foundations plug in</div>
+        <ul class="benefit-list">
+          <li>Direct grants to ASG CDC for CHW program expansion, workforce pipeline, and community health initiatives</li>
+          <li>Capital grants for clinic and childcare infrastructure at new campuses</li>
+          <li>Multi-year operating support for WCS Framework deployment in new markets</li>
+          <li>Capacity-building grants for WCSN network development in target communities</li>
+          <li>Research and evaluation partnerships to document the model's outcomes for national replication</li>
+        </ul>
+      </div>
+      <div class="scard" style="border-color:rgba(90,58,154,.15)">
+        <div class="scard-label" style="color:var(--ltpurple)">The foundation / ASG CDC relationship</div>
+        <div class="scard-body" style="margin-top:8px">ASG CDC's Milwaukee entity and the potential ASG Foundation structure create a grantmaking arm that can receive foundation endowments and redeploy them as grants to ASG CDC's programs in new markets. This creates a philanthropic capital pipeline that activates new campuses before Medicaid billing and development fees are operational — the critical bridge funding that makes national replication financially viable.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORPORATE ESG -->
+  <div class="spanel" id="sp-corp">
+    <div class="sector-layout">
+      <div class="scard rv" style="border-color:rgba(42,122,74,.25)">
+        <div class="scard-label" style="color:var(--ltgreen)">The problem you face</div>
+        <div class="scard-title">Your ESG commitments need to produce real outcomes — not just reports.</div>
+        <div class="scard-body">Corporate community investment programs are increasingly scrutinized for impact. Investors, employees, and regulators demand evidence of genuine community transformation, not branding exercises. Companies need community partners who can document outcomes, demonstrate scale, and connect corporate investment to measurable social returns. Most community organizations cannot provide that. We can.</div>
+        <ul class="benefit-list" style="margin-top:12px">
+          <li style="color:var(--ltgreen)">ESG reporting requirements demanding documented community impact</li>
+          <li style="color:var(--ltgreen)">CRA obligations requiring demonstrated low-income community investment</li>
+          <li style="color:var(--ltgreen)">Employee engagement and retention tied to community purpose</li>
+          <li style="color:var(--ltgreen)">Supply chain and workforce diversity goals requiring pipeline infrastructure</li>
+        </ul>
+      </div>
+      <div class="scard rv" style="border-color:rgba(232,160,32,.25)">
+        <div class="scard-label" style="color:var(--gold)">What the WCS ecosystem gives you</div>
+        <div class="scard-title">A documented, measurable, scalable community investment with your brand at the center.</div>
+        <div class="scard-body">Corporate partners align with the WCS Framework pillars most relevant to their mission — workforce development, healthcare access, financial literacy, environmental sustainability. The CHW activates corporate partner benefits and resources on behalf of community members. Community rooms host corporate partner events. The workforce pipeline produces trained candidates for corporate hiring pipelines. Every outcome is documented, reported, and ESG-attributable.</div>
+        <div class="return-box" style="border-color:var(--bordg)">
+          <div class="rb-label">What corporate partners receive</div>
+          <div class="rb-body">Named community partner status. Documented social impact metrics for ESG reporting. Direct access to skilled trades workforce pipeline graduates. CRA credit for qualifying community investments. Employee volunteer and engagement opportunities. A community story that is real — not manufactured.</div>
+        </div>
+      </div>
+    </div>
+    <div class="g2 rv" style="margin-top:12px">
+      <div class="scard" style="border-color:rgba(42,122,74,.15)">
+        <div class="scard-label" style="color:var(--ltgreen)">Corporate partnership models</div>
+        <ul class="benefit-list">
+          <li><strong style="color:var(--off)">Workforce pipeline sponsors</strong> — fund readiness and apprenticeship stages, receive trained candidates for your hiring pipeline</li>
+          <li><strong style="color:var(--off)">Childcare partners</strong> — subsidize childcare for your employees who are also community residents; get talent retention benefits</li>
+          <li><strong style="color:var(--off)">Financial literacy partners</strong> — banks and credit unions deliver community events; meet CRA obligations with documented outcomes</li>
+          <li><strong style="color:var(--off)">Health plan employers</strong> — offer WCS-campus access as an employee benefit for low-income workforce segments</li>
+          <li><strong style="color:var(--off)">Technology partners</strong> — donate or subsidize digital infrastructure for telehealth, workforce training platforms, and CHW documentation tools</li>
+        </ul>
+      </div>
+      <div class="scard" style="border-color:rgba(42,122,74,.15)">
+        <div class="scard-label" style="color:var(--ltgreen)">The WCS MSO connection</div>
+        <div class="scard-body" style="margin-top:8px">WCS Health Management LLC — the Management Services Organization co-owned by the founder and Anthony — is the for-profit entity through which corporate technology, operational, and service partnerships are structured. Corporate partners who want to provide services to the ecosystem can contract with the MSO at arms-length, creating a business-to-business relationship that is clean, documented, and scalable to every new campus.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMPLOYERS / WORKFORCE -->
+  <div class="spanel" id="sp-work">
+    <div class="sector-layout">
+      <div class="scard rv" style="border-color:rgba(176,112,16,.25)">
+        <div class="scard-label" style="color:var(--ltamber)">The problem you face</div>
+        <div class="scard-title">You need skilled workers. The community needs employment. The pipeline doesn't exist.</div>
+        <div class="scard-body">Construction, trades, healthcare, logistics, and manufacturing sectors face persistent skilled labor shortages. The workforce is in the community — but health barriers, childcare gaps, transportation failures, and no clear pathway from exposure to employment mean that potential workers never reach you. Traditional workforce programs hand people a certificate and release them. That is not a pipeline. That is a handoff.</div>
+        <ul class="benefit-list" style="margin-top:12px">
+          <li style="color:var(--ltamber)">Skilled labor shortages that grow with every completed project</li>
+          <li style="color:var(--ltamber)">Training programs that don't address the barriers that cause dropout</li>
+          <li style="color:var(--ltamber)">No infrastructure connecting community workforce readiness to employer need</li>
+        </ul>
+      </div>
+      <div class="scard rv" style="border-color:rgba(232,160,32,.25)">
+        <div class="scard-label" style="color:var(--gold)">What the WCS ecosystem gives you</div>
+        <div class="scard-title">A four-stage pipeline that removes every barrier between a community member and your job opening.</div>
+        <div class="scard-body">The WCS workforce pipeline moves participants from first exposure to long-term employment — and a CHW stays active at every stage to ensure they complete it. Health gaps closed. Childcare secured. Transportation navigated. Every SDOH barrier that would cause dropout identified and removed before it stops someone. You receive workforce-ready candidates who have been stabilized, credentialed, and supported from Day 1 of their pipeline journey.</div>
+        <div class="return-box" style="border-color:var(--bordg)">
+          <div class="rb-label">What employers receive</div>
+          <div class="rb-body">Workforce-ready pipeline graduates. Reduced training dropout rates. Diverse talent pipeline from underrepresented communities. Documented social impact for ESG and stakeholder reporting. First access to graduates in your sector and region.</div>
+        </div>
+      </div>
+    </div>
+    <div class="g2 rv" style="margin-top:12px">
+      <div class="scard" style="border-color:rgba(176,112,16,.15)">
+        <div class="scard-label" style="color:var(--ltamber)">The four stages — what you get at each one</div>
+        <ul class="benefit-list">
+          <li><strong style="color:var(--off)">Stage 1 — Exposure:</strong> Participants observe real work environments (KG construction sites). You identify candidates early.</li>
+          <li><strong style="color:var(--off)">Stage 2 — Readiness:</strong> Health gaps closed. Childcare and transportation secured. Benefits activated. Barriers removed before they become your problem.</li>
+          <li><strong style="color:var(--off)">Stage 3 — Apprenticeship:</strong> Formal training in your sector. Wages begin. CHW maintains stability throughout.</li>
+          <li><strong style="color:var(--off)">Stage 4 — Employment:</strong> You hire a stabilized, trained, documented worker. They bring employer-sponsored insurance. They exit Medicaid. This is the outcome story.</li>
+        </ul>
+      </div>
+      <div class="scard" style="border-color:rgba(176,112,16,.15)">
+        <div class="scard-label" style="color:var(--ltamber)">Employer partnership models</div>
+        <ul class="benefit-list">
+          <li>Sponsor pipeline stages — fund readiness and apprenticeship for candidates in your sector</li>
+          <li>Commit to hire — guarantee employment offers for pipeline graduates who meet your criteria</li>
+          <li>Childcare subsidies — support childcare for working parents in your workforce; improve retention</li>
+          <li>Participate in WCSN — join the employer tier of the Solutionologist network; receive CHW warm referrals of job-ready candidates</li>
+          <li>Apprenticeship program partnership — register your program with DOL through ASG CDC's WIOA relationship</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEALTH SYSTEMS -->
+  <div class="spanel" id="sp-health">
+    <div class="sector-layout">
+      <div class="scard rv" style="border-color:rgba(138,58,114,.25)">
+        <div class="scard-label" style="color:var(--ltpink)">The problem you face</div>
+        <div class="scard-title">You treat the patient. You can't treat the conditions they go home to.</div>
+        <div class="scard-body">Hospitals and FQHCs deliver clinical excellence inside their walls — and watch their patients return to the same housing instability, food insecurity, transportation failures, and social isolation that produced the crisis in the first place. Social determinants of health drive 80% of health outcomes. Clinical intervention alone cannot move that number. You need a community infrastructure partner — not a referral directory, but a system that closes the loop.</div>
+        <ul class="benefit-list" style="margin-top:12px">
+          <li style="color:var(--ltpink)">SDOH screening without the navigation infrastructure to act on it</li>
+          <li style="color:var(--ltpink)">Referrals that never complete — leakage with no follow-through</li>
+          <li style="color:var(--ltpink)">Readmission rates driven by social conditions, not clinical failure</li>
+          <li style="color:var(--ltpink)">Value-based care requirements demanding SDOH integration you cannot staff alone</li>
+        </ul>
+      </div>
+      <div class="scard rv" style="border-color:rgba(232,160,32,.25)">
+        <div class="scard-label" style="color:var(--gold)">What the WCS ecosystem gives you</div>
+        <div class="scard-title">A CHW-anchored SDOH navigation infrastructure that closes every referral loop you open.</div>
+        <div class="scard-body">ASG CDC's CHW model does not receive referrals — it owns outcomes. When a health system warm-handoffs a patient to ASG, the CHW takes over: housing stabilization, food access, transportation, mental health navigation, benefits activation. The loop closes and the outcome comes back. For FQHCs specifically, the WCS model is a natural extension of enabling services — which are a qualifying component of FQHC Look-Alike designation and enhanced reimbursement.</div>
+        <div class="return-box" style="border-color:var(--bordg)">
+          <div class="rb-label">What health systems receive</div>
+          <div class="rb-body">Closed referral loops with documented outcomes. Reduced readmission rates. SDOH data that satisfies CMS and payer requirements. FQHC enabling services partnership. A community partner that can do what your clinical team cannot.</div>
+        </div>
+      </div>
+    </div>
+    <div class="g2 rv" style="margin-top:12px">
+      <div class="scard" style="border-color:rgba(138,58,114,.15)">
+        <div class="scard-label" style="color:var(--ltpink)">The Jamie / ASG clinical model in context</div>
+        <div class="scard-body" style="margin-top:8px">Jamie's medical entity provides primary care inside the WCS campus — not in competition with health systems, but as the community-level clinical home that feeds into the broader network. All referrals go within the Anthem/MCO network first, then to health system partners. ASG CDC's CHW ensures those referrals complete. Health systems gain a trusted community partner that drives volume, reduces unnecessary ED use, and documents SDOH navigation on every patient interaction.</div>
+      </div>
+      <div class="scard" style="border-color:rgba(138,58,114,.15)">
+        <div class="scard-label" style="color:var(--ltpink)">FQHC partnership opportunity</div>
+        <div class="scard-body" style="margin-top:8px">For existing FQHCs, ASG CDC's CHW model and WCS Framework can serve as the community outreach and enabling services layer that strengthens FQHC designations and satisfies Uniform Data System reporting requirements. For health systems pursuing FQHC Look-Alike designation, ASG CDC's enabling services infrastructure and Jamie's clinical model together create a complete application package. Enhanced PPS reimbursement. 340B drug pricing. Section 330 grant eligibility.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANKS / FINANCIAL -->
+  <div class="spanel" id="sp-fin">
+    <div class="sector-layout">
+      <div class="scard rv" style="border-color:rgba(58,88,120,.25)">
+        <div class="scard-label" style="color:var(--ltslate)">The problem you face</div>
+        <div class="scard-title">Your CRA obligations require community investment. Your community investment needs to produce outcomes.</div>
+        <div class="scard-body">Banks face Community Reinvestment Act requirements to demonstrate lending, investment, and service to low- and moderate-income communities. The quality of CRA evidence is under increasing regulatory scrutiny. Transactional relationships — a donation here, a financial literacy event there — no longer satisfy examiners who want to see systematic, sustained, documented community engagement. You need a partner who can prove it.</div>
+        <ul class="benefit-list" style="margin-top:12px">
+          <li style="color:var(--ltslate)">CRA examination standards increasing — documentation must be systematic</li>
+          <li style="color:var(--ltslate)">Community investment with no measurable social return</li>
+          <li style="color:var(--ltslate)">Underbanked populations in your market generating no commercial relationship</li>
+        </ul>
+      </div>
+      <div class="scard rv" style="border-color:rgba(232,160,32,.25)">
+        <div class="scard-label" style="color:var(--gold)">What the WCS ecosystem gives you</div>
+        <div class="scard-title">Systematic, documented CRA-qualifying community investment with direct access to underbanked populations.</div>
+        <div class="scard-body">The WCS Framework's financial literacy and economic development pillar creates structured access to community members who have never had a banking relationship. CHWs bring banking partners into community events — not as sponsors but as active educators. Financial institutions participate in the WCSN as Tier 2 Core Solutionologists, delivering credit-building, homeownership education, and banking access services that generate CRA credit, documented client relationships, and long-term commercial opportunity.</div>
+        <div class="return-box" style="border-color:var(--bordg)">
+          <div class="rb-label">What financial institutions receive</div>
+          <div class="rb-body">Documented CRA-qualifying community service activities. Direct access to underbanked populations in structured, trusted settings. New account relationships and credit-building clients. CDFI investment opportunities aligned with affordable housing campus development.</div>
+        </div>
+      </div>
+    </div>
+    <div class="g2 rv" style="margin-top:12px">
+      <div class="scard" style="border-color:rgba(58,88,120,.15)">
+        <div class="scard-label" style="color:var(--ltslate)">Partnership models for financial institutions</div>
+        <ul class="benefit-list">
+          <li>WCSN Tier 2 Solutionologist participation — provide banking and credit education at community events</li>
+          <li>CDFI investment in campus development financing alongside KG's LIHTC structure</li>
+          <li>Homeownership pathway programs — connect workforce pipeline graduates to first-time homebuyer education</li>
+          <li>Small business lending pipeline — residents and graduates who need business capital are warm-referred by CHWs</li>
+          <li>Financial literacy event hosting — bank branch staff participate in monthly community room sessions</li>
+        </ul>
+      </div>
+      <div class="scard" style="border-color:rgba(58,88,120,.15)">
+        <div class="scard-label" style="color:var(--ltslate)">The economic mobility pipeline</div>
+        <div class="scard-body" style="margin-top:8px">The WCS workforce pipeline is a financial institution's most valuable long-term community investment. A participant who enters the pipeline on Medicaid — no banking relationship, no credit history, no stable income — and exits with a living wage, employer insurance, and documented financial literacy training is exactly the banking customer your community investment was supposed to produce. The pipeline creates that customer. The CHW brings them to you.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE FIVE ENTITIES ── -->
+<section id="entities">
+  <div class="sl">The Five Entities</div>
+  <h2 class="st">The delivery mechanism for the WCS Framework — in any market.</h2>
+  <p class="si">Five legally distinct entities, five roles, one integrated system. Every partner in every sector engages with one or more of these entities depending on what they need. Together they make the WCS Framework operational at any scale.</p>
+
+  <div class="g4">
+    <div class="entity-card rv" style="border-color:rgba(14,138,122,.25)">
+      <div class="ech"><div class="ect" style="color:var(--ltteal)">Nonprofit 501(c)(3)</div><div class="ecn">A Solution Group CDC</div></div>
+      <div class="ecb">
+        <div class="ecr"><span class="eck">Role</span><span class="ecv">Community operating system</span></div>
+        <div class="ecr"><span class="eck">Deploys</span><span class="ecv">WCS Framework · CHW model · workforce pipeline</span></div>
+        <div class="ecr"><span class="eck">Grant power</span><span class="ecv">HRSA · HUD · DOL · SAMHSA · foundations</span></div>
+        <div class="ecr"><span class="eck">Co-developer</span><span class="ecv">Qualifies KG for LIHTC nonprofit set-asides</span></div>
+        <div class="ecr"><span class="eck">Any sector</span><span class="ecv">Government · health · philanthropy · employer</span></div>
+      </div>
+    </div>
+    <div class="entity-card rv" style="border-color:rgba(232,160,32,.25)">
+      <div class="ech"><div class="ect" style="color:var(--gold)">For-Profit LLC — Founder</div><div class="ecn">WCS Framework IP LLC</div></div>
+      <div class="ecb">
+        <div class="ecr"><span class="eck">Holds</span><span class="ecv">WCS IP · WCSN methodology · brand</span></div>
+        <div class="ecr"><span class="eck">Licenses to</span><span class="ecv">ASG CDC · third-party adopters · MCOs</span></div>
+        <div class="ecr"><span class="eck">Revenue</span><span class="ecv">IP license fees · replication royalties</span></div>
+        <div class="ecr"><span class="eck">Scale story</span><span class="ecv">Every new adopter generates royalty income</span></div>
+        <div class="ecr"><span class="eck">Any sector</span><span class="ecv">Any org that adopts WCS in any market</span></div>
+      </div>
+    </div>
+    <div class="entity-card rv" style="border-color:rgba(74,158,219,.25)">
+      <div class="ech"><div class="ect" style="color:var(--ltblue)">PC/PLLC — Jamie</div><div class="ecn">Jamie's Medical Entity</div></div>
+      <div class="ecb">
+        <div class="ecr"><span class="eck">Role</span><span class="ecv">Clinical engine — all Medicaid billing</span></div>
+        <div class="ecr"><span class="eck">Delivers</span><span class="ecv">Primary care · HEDIS · care plans · CHW billing</span></div>
+        <div class="ecr"><span class="eck">Revenue</span><span class="ecv">Fee-for-service · CHW billing · FQHC uplift</span></div>
+        <div class="ecr"><span class="eck">MSO client</span><span class="ecv">WCS Health Management LLC provides admin</span></div>
+        <div class="ecr"><span class="eck">Any sector</span><span class="ecv">MCOs · health systems · FQHCs · government</span></div>
+      </div>
+    </div>
+    <div class="entity-card rv" style="border-color:rgba(192,72,48,.25)">
+      <div class="ech"><div class="ect" style="color:var(--ltcoral)">For-Profit — Jamie + Anthony</div><div class="ecn">KG Development Group</div></div>
+      <div class="ecb">
+        <div class="ecr"><span class="eck">Role</span><span class="ecv">Physical asset builder</span></div>
+        <div class="ecr"><span class="eck">Delivers</span><span class="ecv">Site · construction · campus · workforce site</span></div>
+        <div class="ecr"><span class="eck">LIHTC</span><span class="ecv">ASG co-developer unlocks nonprofit set-asides</span></div>
+        <div class="ecr"><span class="eck">Revenue</span><span class="ecv">Developer fees · construction · real estate</span></div>
+        <div class="ecr"><span class="eck">Any sector</span><span class="ecv">Real estate · government · employers · MCOs</span></div>
+      </div>
+    </div>
+    <div class="entity-card rv" style="border-color:rgba(90,58,154,.25)">
+      <div class="ech"><div class="ect" style="color:var(--ltpurple)">For-Profit MSO — Founder + Anthony</div><div class="ecn">WCS Health Management LLC</div></div>
+      <div class="ecb">
+        <div class="ecr"><span class="eck">Role</span><span class="ecv">Management Services Organization</span></div>
+        <div class="ecr"><span class="eck">Serves</span><span class="ecv">Jamie's medical entity — non-clinical admin</span></div>
+        <div class="ecr"><span class="eck">Services</span><span class="ecv">Billing · HR · facilities · scheduling · IT</span></div>
+        <div class="ecr"><span class="eck">Why it exists</span><span class="ecv">Founder + Anthony participate in clinical revenue — legally clean</span></div>
+        <div class="ecr"><span class="eck">Any sector</span><span class="ecv">Corporate · technology · operational partners</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE CHW ── -->
+<section id="chw">
+  <div class="sl">The CHW — The Activation Point</div>
+  <h2 class="st">One trusted relationship.<br>The entire system deployed behind it.</h2>
+  <p class="si">Every partner in every sector benefits from this one role. The Community Health Worker is not a referral coordinator. The CHW is the operational engine that activates the WCS Framework for every person they serve — across all nine pillars, simultaneously, from Day 1 through stabilization.</p>
+
+  <div class="g2">
+    <div>
+      <div class="sl" style="margin-bottom:12px">14 service domains — across all nine pillars</div>
+      <div class="acc">
+        <div class="ai rv"><div class="ah" onclick="toggle(this)"><div class="anum">1–3</div><div class="ainfo"><div class="atit">Intake, trust, and care navigation</div><div class="asub">Community engagement · SDOH screening · clinical care plan navigation</div></div><div class="achv">›</div></div><div class="ab"><p><strong>Community engagement and trust-building:</strong> The CHW is a trusted member of the community they serve — not an outsider with a clipboard. Every participant relationship begins here.<br><br><strong>Intake and SDOH screening:</strong> Every participant is screened across all nine WCS pillars using the CMS Accountable Health Communities tool. Barriers identified. Pathways designed.<br><br><strong>Care navigation:</strong> Clinical care plans owned by Jamie. CHW executes navigation against that plan. Every appointment kept. Every prescription filled. Every follow-up completed.</p></div></div>
+        <div class="ai rv"><div class="ah" onclick="toggle(this)"><div class="anum">4–6</div><div class="ainfo"><div class="atit">Benefits, resources, and stabilization</div><div class="asub">Benefits activation · resource mobilization · housing stabilization</div></div><div class="achv">›</div></div><div class="ab"><p><strong>Benefits activation:</strong> Every value-added benefit the participant's insurance plan covers — gym memberships, OTC allowances, transportation, prenatal support, tutoring, meal delivery, Costco memberships — activated. Most members never knew these existed.<br><br><strong>Resource mobilization:</strong> The CHW builds the actual path — not a list of phone numbers. Warm handoffs. Follow-through. Accountability. The journey does not end at referral.<br><br><strong>Housing stabilization support:</strong> Tenancy rights education. Financial literacy for rent management. Connection to housing legal advocates when needed.</p></div></div>
+        <div class="ai rv"><div class="ah" onclick="toggle(this)"><div class="anum">7–10</div><div class="ainfo"><div class="atit">Workforce, family, and connectivity</div><div class="asub">Workforce navigation · childcare linkage · transportation · follow-up</div></div><div class="achv">›</div></div><div class="ab"><p><strong>Workforce pipeline navigation:</strong> Every pipeline participant has a CHW from Day 1 of exposure through the day they start their first permanent job. The CHW owns that journey end to end.<br><br><strong>Childcare and family support linkage:</strong> Parents cannot work without childcare. The CHW secures it. This is the upstream unlock for every workforce outcome.<br><br><strong>Transportation and documentation support:</strong> Anthem transport benefits activated. Rideshare navigation. Medical appointment logistics. Missing documentation obtained.<br><br><strong>Follow-up and accountability:</strong> The CHW checks in. Every milestone is tracked. No participant falls through without someone noticing.</p></div></div>
+        <div class="ai rv"><div class="ah" onclick="toggle(this)"><div class="anum">11–14</div><div class="ainfo"><div class="atit">Community, education, and coordination</div><div class="asub">Events · insurance literacy · telehealth · multi-system coordination</div></div><div class="achv">›</div></div><div class="ab"><p><strong>Community education events:</strong> The CHW convenes financial literacy nights, banking access workshops, employer connection events, health awareness sessions — bringing expertise to 40 people at once, then following up individually with the 12 who need the most support.<br><br><strong>Insurance literacy and value-added benefit activation:</strong> Most members use their insurance card twice a year. The CHW unlocks everything it contains.<br><br><strong>Telehealth onboarding:</strong> Every participant connected to Jamie's practice through telehealth before the physical clinic opens. The patient panel is pre-established from Day 1.<br><br><strong>Multi-system coordination:</strong> Housing, health, workforce, legal, financial, education — the CHW coordinates across all systems simultaneously, on behalf of every person they serve.</p></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sl" style="margin-bottom:12px">Why the CHW model is different</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="scard rv" style="border-color:rgba(232,160,32,.2)">
+          <div class="scard-label" style="color:var(--gold)">Not a referral coordinator</div>
+          <div class="scard-body">Most community health programs refer people to services. A CHW with a list of phone numbers is just a well-meaning search engine. The WCS CHW builds the actual path — warm handoff, scheduled appointment, accompanied navigation, follow-through to outcome. The loop closes every time.</div>
+        </div>
+        <div class="scard rv" style="border-color:rgba(14,138,122,.2)">
+          <div class="scard-label" style="color:var(--ltteal)">Medicaid-billable through Jamie's NP license</div>
+          <div class="scard-body">CHW services documented against Jamie's clinical care plans are billable to Medicaid under NP supervision. This converts the CHW from a grant-funded cost center into a Medicaid revenue line — making the model financially self-sustaining independent of philanthropy.</div>
+        </div>
+        <div class="scard rv" style="border-color:rgba(74,158,219,.2)">
+          <div class="scard-label" style="color:var(--ltblue)">Activates all three tiers — one relationship</div>
+          <div class="scard-body">The CHW activates Tier 1 community relationships, Tier 2 licensed experts (clinicians, attorneys, educators, bankers), and Tier 3 systems actors (agency directors, judges, employers) on behalf of every participant. One person. The entire WCSN deployed behind them.</div>
+        </div>
+        <div class="scard rv" style="border-color:rgba(90,58,154,.2)">
+          <div class="scard-label" style="color:var(--ltpurple)">Deploys before the building opens</div>
+          <div class="scard-body">The CHW is assigned on Day 1 of the workforce pipeline — months before the campus opens. The model does not wait for construction. It is generating documented outcomes, attributable members, and activated benefits before the first resident moves in.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WORKFORCE PIPELINE ── -->
+<section id="pipeline">
+  <div class="sl">The Workforce Pipeline</div>
+  <h2 class="st">The most powerful outcome story<br>in any sector.</h2>
+  <p class="si">A community member enters this pipeline without employment, without employer insurance, without a documented career path. They exit with a living wage, employer-sponsored health coverage, and no dependence on public benefits. Every sector at this table benefits from that outcome.</p>
+
+  <div class="acc">
+    <div class="ai rv" style="border-color:rgba(27,79,138,.3)">
+      <div class="ah" onclick="toggle(this)" style="background:rgba(27,79,138,.04)">
+        <div class="anum" style="color:var(--ltblue)">01</div>
+        <div class="ainfo"><div class="atit">Exposure</div><div class="asub">Real-world site observation · SDOH screening · CHW assigned Day 1 · no prerequisites</div></div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What happens:</strong> Participants are introduced to skilled trades through real-world observation on KG's active construction site — before any classroom requirement. The construction site is Stage 1. SDOH screening is completed. CHW is assigned on Day 1.</p>
+        <p><strong>Who benefits:</strong> Employers get early candidate identification. MCOs get member attribution started. Cities get economic mobility documentation from Day 1. Foundations get SDOH baseline data.</p>
+        <div class="tags"><span class="tag">KG construction site</span><span class="tag">SDOH screening</span><span class="tag">CHW Day 1</span><span class="tag">No prerequisites</span><span class="tag">Activates pre-opening</span></div>
+      </div>
+    </div>
+    <div class="ai rv" style="border-color:rgba(14,138,122,.3)">
+      <div class="ah" onclick="toggle(this)" style="background:rgba(14,138,122,.04)">
+        <div class="anum" style="color:var(--ltteal)">02</div>
+        <div class="ainfo"><div class="atit">Readiness</div><div class="asub">Every barrier removed · health gaps closed · childcare secured · benefits activated</div></div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What happens:</strong> Every identified barrier is addressed systematically. Health gaps closed at Jamie's clinic. Childcare secured through the on-campus center. Transportation navigated. Every value-added benefit the participant's insurance covers is activated — often for the first time.</p>
+        <p><strong>Who benefits:</strong> MCOs get HEDIS closure and benefit activation ROI. Employers get dropout-resistant candidates. Childcare partners get engaged clients. Financial institutions get participants entering financial literacy programming.</p>
+        <div class="tags"><span class="tag">Clinical visits</span><span class="tag">HEDIS closure</span><span class="tag">Benefits activation</span><span class="tag">Childcare secured</span><span class="tag">Transportation navigated</span></div>
+      </div>
+    </div>
+    <div class="ai rv" style="border-color:rgba(90,58,154,.3)">
+      <div class="ah" onclick="toggle(this)" style="background:rgba(90,58,154,.04)">
+        <div class="anum" style="color:var(--ltpurple)">03</div>
+        <div class="ainfo"><div class="atit">Apprenticeship</div><div class="asub">Formal skilled trades · wages begin · CHW stays active · stability maintained</div></div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What happens:</strong> Formal apprenticeship in skilled trades. Wages begin. The CHW remains active throughout — monitoring stability, addressing emergencies, maintaining the clinical relationship with Jamie. Healthcare utilization shifts from reactive to preventive.</p>
+        <p><strong>Who benefits:</strong> Employers get engaged, supported apprentices. MCOs see PMPM dropping. Cities see tax contributions beginning. Workforce agencies meet DOL WIOA outcome requirements.</p>
+        <div class="tags"><span class="tag">Formal apprenticeship</span><span class="tag">Wages start</span><span class="tag">CHW active</span><span class="tag">HEDIS tracked</span><span class="tag">WIOA qualifying</span></div>
+      </div>
+    </div>
+    <div class="ai rv" style="border-color:rgba(232,160,32,.3)">
+      <div class="ah" onclick="toggle(this)" style="background:rgba(232,160,32,.04)">
+        <div class="anum" style="color:var(--gold)">04</div>
+        <div class="ainfo"><div class="atit">Employment</div><div class="asub">Long-term job secured · employer insurance obtained · Medicaid exit documented</div></div>
+        <div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What happens:</strong> Long-term employment secured. Employer provides health insurance. The participant exits Medicaid. The CHW documents the full journey. This is the outcome every sector in this ecosystem was working toward.</p>
+        <p><strong>Who benefits — everyone:</strong> MCOs lose a member but gain a documented CMS success story. Employers gain a stable, trained worker. Cities gain a taxpaying resident no longer dependent on public services. Foundations gain their proof point. Banks gain a new customer with income and banking needs. The community gains economic power it did not have before.</p>
+        <div class="tags"><span class="tag">Employer insurance</span><span class="tag">Medicaid exit</span><span class="tag">CMS story documented</span><span class="tag">Every sector wins</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCALE ── -->
+<section id="scale">
+  <div class="sl">National Scale</div>
+  <h2 class="st">Advent is the proof of concept.<br>Every community is the market.</h2>
+  <p class="si">The WCS Framework is not a Las Vegas story. It is a replication model. The same nine pillars. The same three-tier network. The same CHW deployment. The same clinical structure. The same workforce pipeline. In every market where KG builds and ASG operates — and eventually in every market where any organization licenses the framework.</p>
+
+  <div class="g4">
+    <div class="scard rv">
+      <div class="scard-label" style="color:var(--gold)">Now — Advent, Las Vegas</div>
+      <div class="scard-title">The proof of concept</div>
+      <div class="scard-body">All five entities operational. 250+ Medicaid members. $1M Anthem Clinical Partner Sponsorship. Workforce pipeline active before opening. All 15 legal agreements in place. Outcomes documented before the building opens.</div>
+    </div>
+    <div class="scard rv">
+      <div class="scard-label" style="color:var(--gold)">Next — Master agreements</div>
+      <div class="scard-title">The legal infrastructure</div>
+      <div class="scard-body">Master Partnership Framework between ASG and KG activates on every campus. Anthem Master Agreement gives preferred MCO status in every market. The legal structure is built once and replicates automatically. Every new campus executes under established terms.</div>
+    </div>
+    <div class="scard rv">
+      <div class="scard-label" style="color:var(--gold)">Milwaukee — Foundation strategy</div>
+      <div class="scard-title">The capital bridge</div>
+      <div class="scard-body">ASG CDC's Milwaukee entity provides grantmaking capital for multi-market expansion. The foundation structure can fund new market activation before Medicaid billing and development fees are operational — the critical bridge that makes rapid replication financially viable.</div>
+    </div>
+    <div class="scard rv">
+      <div class="scard-label" style="color:var(--gold)">Scale — WCS Framework nationally</div>
+      <div class="scard-title">The compounding royalty</div>
+      <div class="scard-body">Every organization that licenses the WCS Framework generates IP royalty income. Every new MCO partnership replicates the Anthem model. Every workforce graduate is a CMS success story. The framework compounds with every adopter, every campus, every community it enters.</div>
+    </div>
+  </div>
+
+  <div class="ib is rv" style="margin-top:20px">
+    <strong>What makes this different from every other community model</strong>
+    Most models solve for one pillar. One clinic. One workforce program. One housing project. The WCS Framework solves for all nine simultaneously — and it is designed to replicate. The physical asset changes. The operating system does not. That is why the WCS Framework is not a program. It is infrastructure. And infrastructure is what every sector in every industry needs most.
+  </div>
+</section>
+
+<!-- ── PARTNER WITH US ── -->
+<section id="partner">
+  <div class="sl">Partner With Us</div>
+  <h2 class="st">Every sector has an entry point.<br>Every entry point produces outcomes.</h2>
+  <p class="si">Whether you are a health plan, a developer, a city, a foundation, a corporation, an employer, a health system, or a financial institution — there is a specific, documented, return-generating way for you to plug into this ecosystem. The question is not whether the WCS Framework can serve your mission. The question is how quickly you want to start.</p>
+
+  <div class="g3">
+    <div class="scard rv" style="border-color:rgba(232,160,32,.2)">
+      <div class="scard-label" style="color:var(--gold)">For health plans and MCOs</div>
+      <ul class="benefit-list">
+        <li>Clinical Partner Sponsorship — fund clinic and childcare infrastructure, receive 250+ attributed members</li>
+        <li>Master Partnership Agreement — preferred MCO status at every future campus nationally</li>
+        <li>HEDIS and PMPM outcome reporting quarterly</li>
+      </ul>
+    </div>
+    <div class="scard rv" style="border-color:rgba(192,72,48,.2)">
+      <div class="scard-label" style="color:var(--ltcoral)">For real estate developers</div>
+      <ul class="benefit-list">
+        <li>Co-developer partnership — ASG CDC as your nonprofit co-developer on qualifying projects</li>
+        <li>LIHTC and HUD program access through substantive nonprofit involvement</li>
+        <li>WCS Framework deployment inside your development from Day 1</li>
+      </ul>
+    </div>
+    <div class="scard rv" style="border-color:rgba(14,138,122,.2)">
+      <div class="scard-label" style="color:var(--ltteal)">For cities and government</div>
+      <ul class="benefit-list">
+        <li>CDBG, HOME, and Choice Neighborhoods partnership</li>
+        <li>Workforce development contract — WIOA-eligible four-stage pipeline</li>
+        <li>Integrated community development model for your most underserved neighborhoods</li>
+      </ul>
+    </div>
+    <div class="scard rv" style="border-color:rgba(90,58,154,.2)">
+      <div class="scard-label" style="color:var(--ltpurple)">For foundations</div>
+      <ul class="benefit-list">
+        <li>Direct grants to ASG CDC for CHW, workforce, and health equity programs</li>
+        <li>Capital grants for clinic and childcare infrastructure at new campuses</li>
+        <li>Multi-year operating support for WCS Framework deployment in new markets</li>
+      </ul>
+    </div>
+    <div class="scard rv" style="border-color:rgba(42,122,74,.2)">
+      <div class="scard-label" style="color:var(--ltgreen)">For corporations</div>
+      <ul class="benefit-list">
+        <li>Named community partner — ESG-attributable outcomes, documented and reported</li>
+        <li>Workforce pipeline sponsorship — fund stages, receive trained candidates</li>
+        <li>WCSN participation — your services delivered to community members through CHW warm referrals</li>
+      </ul>
+    </div>
+    <div class="scard rv" style="border-color:rgba(176,112,16,.2)">
+      <div class="scard-label" style="color:var(--ltamber)">For employers</div>
+      <ul class="benefit-list">
+        <li>Pipeline stage sponsorship — fund readiness and apprenticeship for your sector</li>
+        <li>Commitment to hire — guarantee offers for pipeline graduates who meet your criteria</li>
+        <li>WCSN Tier 2 Solutionologist participation — receive warm referrals of job-ready candidates</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ib iw rv" style="margin-top:24px;max-width:860px">
+    <strong>One operating system. Every community. Every sector.</strong>
+    The WCS Framework is deployable in any market where housing, health, workforce, and community need intersect — which is every market. Every partner plugs into the same system. Every partner receives documented outcomes. Every partner participates in something that compounds with scale. That is the offer. That is what no other community investment in any sector provides.
+  </div>
+</section>
+
+<!-- ── VALUE-ADDED BENEFITS ACTIVATION ── -->
+<section id="benefits">
+  <div class="sl">The Hidden ROI — Value-Added Benefits Activation</div>
+  <h2 class="st">MCOs already paid for these benefits.<br>Almost nobody is using them.</h2>
+  <p class="si">Every Medicaid managed care organization prices value-added benefits into the per-member-per-month rate they receive from the state. They budget for them. They negotiate contracts around them. And in most markets, the vast majority of those benefits sit unclaimed — because no one ever told the member they existed. The CHW changes that entirely.</p>
+
+  <!-- THE CORE INSIGHT -->
+  <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.3);border-radius:14px;padding:32px;margin-bottom:20px" class="rv">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px">The reality most MCOs live with</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);line-height:1.3;margin-bottom:14px">Most Medicaid members use their insurance card twice a year. Once for a sick visit. Once for a prescription.</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75">That is the entire relationship most members have with their health plan. The gym membership goes unused. The OTC allowance expires. The transportation benefit sits unclaimed. The prenatal support program nobody enrolled in. The tutoring benefit no parent ever knew about. The meal delivery service. The Costco membership. The doula services. The home safety equipment for seniors.</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">These benefits were priced into the PMPM. The MCO already paid for them. They generate no outcome. They improve no quality score. They reduce no utilization. They simply expire — unused, every single year, for every member who never knew they existed.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ltteal);font-weight:500;margin-bottom:14px">What the CHW does differently</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);line-height:1.3;margin-bottom:14px">The CHW studies the plan. Knows every benefit. Activates every one for every member — personally, in their home language, in their community.</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75">This is not outreach. It is not a flyer. It is not a robocall. The CHW sits with the member, opens the plan documentation, and walks through every benefit the member is entitled to — one by one, until every benefit that applies is activated. Then the CHW follows up to make sure it was actually used.</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">For the MCO, this is not a new cost. The CHW is converting sunk cost into measurable return. Every benefit activated is a dollar that was already spent — now producing an outcome instead of expiring unused.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE BENEFITS THEMSELVES -->
+  <div class="sl" style="margin-bottom:12px">What members discover they already had — and never used</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:20px">
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltblue)">Gym memberships</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Free or subsidized gym and fitness access. Reduces chronic disease risk, improves mental health, lowers long-term utilization. Already in the plan. Almost never activated.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltteal)">OTC allowances</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Monthly over-the-counter benefit cards — pain relievers, vitamins, first aid, personal care, sometimes groceries. Hundreds of dollars per year per member sitting in the plan, unclaimed.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltpurple)">Prenatal support</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Prenatal vitamins, doula services, baby supplies, maternal health coaching, breastfeeding support. Among the most valuable benefits in any Medicaid plan — and among the least utilized.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltamber)">Tutoring &amp; education</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Free tutoring for children, GED preparation, digital literacy courses, educational support programs. Directly tied to workforce readiness and long-term income trajectory. Almost universally unknown to members.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltgreen)">Meal delivery</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Medically tailored meal programs for members with chronic conditions — diabetes, heart disease, kidney disease. Proven to reduce hospitalizations. Expensive to operate. Funded in the plan. Rarely claimed.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltcoral)">Transportation</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Non-emergency medical transportation to appointments, rides to the pharmacy, to the specialist, to the lab. One of the most impactful benefits for reducing missed appointments — and one of the most consistently underused.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltslate)">Retail memberships</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Costco, Sam's Club, or similar warehouse memberships in select plans — enabling bulk food purchasing that reduces per-meal cost, improves nutrition, and stretches household budgets for working families.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltpink)">Senior safety &amp; wellness</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Home safety equipment for seniors — grab bars, non-slip mats, alert devices, medication management tools. Prevents falls, reduces emergency care, keeps seniors independent longer. Budgeted for. Not used.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltblue)">Dental &amp; vision extras</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Coverage beyond the standard Medicaid dental and vision floors — additional cleanings, eyeglass allowances, hearing aids, fluoride treatments. Improved dental health reduces systemic disease. Members don't know the extras exist.</div>
+    </div>
+
+  </div>
+
+  <!-- THE FINANCIAL LOGIC -->
+  <div style="background:var(--bg3);border:1px solid rgba(14,138,122,.3);border-radius:12px;padding:26px;margin-bottom:16px" class="rv">
+    <div class="sl" style="color:var(--ltteal);margin-bottom:14px">The financial logic — why this is a cost savings argument, not a cost increase</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ltteal);font-weight:500;margin-bottom:8px">What the MCO already did</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">The MCO negotiated value-added benefits into the plan. They priced them into the PMPM they receive from the state. They budgeted for utilization. In most markets, utilization came in far below that budget. The money is already spent. The outcome was never produced.</p>
+      </div>
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px">What benefit activation does</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">When the CHW activates benefits, members use them. Gym memberships reduce chronic disease risk. Meal delivery reduces hospitalizations. Transportation eliminates missed appointments. OTC benefits reduce out-of-pocket burden. Every benefit used produces a health outcome the MCO was trying to achieve with that investment.</p>
+      </div>
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ltblue);font-weight:500;margin-bottom:8px">The net effect on the MCO</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">Quality scores improve. HEDIS measures close. ED utilization drops. PMPM falls. The MCO was paying for these outcomes — and not getting them. Benefit activation is the mechanism that delivers what was already budgeted for. It is not a new line item. It is the ROI on an existing investment.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW THE CHW DOES IT -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px" class="rv">
+    <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.2);border-radius:10px;padding:22px">
+      <div class="sl" style="color:var(--gold);margin-bottom:10px">How the CHW activates benefits — at the individual level</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75">The CHW learns the specific benefit package of every MCO serving their population. Not generically — specifically. Which OTC card vendor. Which gym network. Which transportation broker. Which meal program. How to enroll. What documentation is required. What the deadline is.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">Then the CHW sits with each member and walks through it personally. In plain language. In their language if needed. Until the member understands what they have and how to use it. Then the CHW follows up to make sure they did.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">This is not scalable through a brochure or a phone tree. It requires a trusted human relationship. That is what the CHW model provides — and what no automated outreach system can replicate.</p>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.2);border-radius:10px;padding:22px">
+      <div class="sl" style="color:var(--gold);margin-bottom:10px">How the CHW activates benefits — at the community level</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75">Beyond individual activation, the CHW convenes community events specifically designed around insurance literacy. Not a generic health fair — a structured session where 40 members sit down, open their plan documentation, and the CHW walks the room through every benefit category together.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">MCO representatives can be present. Benefit enrollment can happen on the spot. Questions get answered in real time. The CHW follows up individually with the members who need the most help navigating the process.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">One event. Forty members. Hundreds of benefits activated. Zero new budget required from the MCO.</p>
+    </div>
+  </div>
+
+  <!-- THE SUMMARY ARGUMENT -->
+  <div class="ib iw rv" style="margin-top:16px">
+    <strong>The argument for every MCO in every market</strong>
+    You have already paid for these benefits. They are sitting in the plan right now — budgeted, contracted, and unclaimed. The CHW model activates them. When members use their gym membership, their chronic disease risk drops. When they use transportation, they make it to their appointment. When they use meal delivery, their A1C improves. When they enroll in prenatal support, maternal outcomes get better. None of this costs the MCO a dollar more than they already committed. It converts sunk cost into documented return — improving quality scores, reducing utilization, and producing the outcomes the plan was designed to deliver. The CHW is not an expense. The CHW is the activation key to the investment you already made.
+  </div>
+</section>
+
+<!-- ── ADVENT CASE STUDY ── -->
+<section id="advent">
+  <div class="sl">Case Study — Advent UMC Campus</div>
+  <h2 class="st">Las Vegas, Nevada.<br>Where the model becomes real.</h2>
+  <p class="si">The Advent United Methodist Church campus at 3460 North Rancho Drive is the first full deployment of the WCS ecosystem. Every entity operational. Every agreement in place. Every sector engaged. This is not a proposal — it is a proof of concept in motion.</p>
+
+  <!-- THE CAMPUS VISUAL OVERVIEW -->
+  <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.25);border-radius:14px;overflow:hidden;margin-bottom:20px" class="rv">
+    <div style="padding:24px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:6px">Advent UMC Campus — Las Vegas, NV</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--white)">3460 North Rancho Drive</div>
+      </div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
+        <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold)">July 2026</div><div style="font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Construction begins</div></div>
+        <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold)">Aug 2027</div><div style="font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Campus opens</div></div>
+        <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold)">50</div><div style="font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Residential units</div></div>
+        <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold)">250+</div><div style="font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Medicaid members</div></div>
+      </div>
+    </div>
+
+    <!-- CAMPUS COMPONENTS GRID -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0">
+      <div style="padding:22px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltcoral);font-weight:500;margin-bottom:8px">KG Development</div>
+        <div style="font-size:14px;font-weight:500;color:var(--white);margin-bottom:6px">Residential Housing</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6">26 two-bedroom units for working families. 18 one-bedrooms. 6 studios. 10 supportive units for youth aging out of foster care — minimum 6-month CHW engagement commitment.</div>
+      </div>
+      <div style="padding:22px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltblue);font-weight:500;margin-bottom:8px">Jamie's Medical Entity</div>
+        <div style="font-size:14px;font-weight:500;color:var(--white);margin-bottom:6px">Digital Health Clinic</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6">Anthem-funded — $500K capital. Jamie, NP, as credentialed PCP. HEDIS gaps closed at every visit. CHW services billed under NP license. FQHC Look-Alike pathway in Year 2. Open to surrounding community via telehealth.</div>
+      </div>
+      <div style="padding:22px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltteal);font-weight:500;margin-bottom:8px">ASG CDC</div>
+        <div style="font-size:14px;font-weight:500;color:var(--white);margin-bottom:6px">Childcare Center</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6">Anthem-funded — $500K capital. Serves campus residents, workforce participants, and surrounding community. CCDF subsidies, Head Start eligibility, employer partnerships. The upstream unlock that makes workforce participation possible.</div>
+      </div>
+      <div style="padding:22px 24px;border-bottom:1px solid var(--border)">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px">ASG CDC + Anthem</div>
+        <div style="font-size:14px;font-weight:500;color:var(--white);margin-bottom:6px">Community Rooms</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6">Available to Anthem for branded member engagement events. Financial literacy nights. Banking access workshops. Employer connection events. Health awareness. Insurance literacy. Community activation space open to all.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THREE PHASES -->
+  <div class="sl" style="margin-bottom:12px">The three phases — what happens before, during, and after construction</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">
+    <div style="background:var(--bg3);border:1px solid rgba(27,79,138,.3);border-radius:10px;padding:22px" class="rv">
+      <div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ltblue);font-weight:500;margin-bottom:6px">Phase 1 — Now through July 2026</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:10px">The workforce pipeline activates before the building exists.</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltblue)">›</span>100+ participants entering the skilled trades pipeline from the broader Las Vegas community</li>
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltblue)">›</span>CHW assigned Day 1 — SDOH screening, barrier removal, benefits activation</li>
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltblue)">›</span>Jamie begins telehealth relationships with pipeline participants — pre-establishing the patient panel</li>
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltblue)">›</span>Anthem-reportable outcomes generated before the clinic opens its doors</li>
+      </ul>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(90,58,154,.3);border-radius:10px;padding:22px" class="rv">
+      <div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ltpurple);font-weight:500;margin-bottom:6px">Phase 2 — July 2026 through August 2027</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:10px">Construction. 100+ workers building the campus that will serve them.</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltpurple)">›</span>Workforce participants in active apprenticeship on the actual development project</li>
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltpurple)">›</span>CHW model continues and deepens — wages begin, stability tracked</li>
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltpurple)">›</span>Anthem attributed member count growing — monthly outcome reporting active</li>
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltpurple)">›</span>Legal agreements executed — 15 documents governing all entity relationships</li>
+      </ul>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(14,138,122,.3);border-radius:10px;padding:22px" class="rv">
+      <div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ltteal);font-weight:500;margin-bottom:6px">Phase 3 — August 2027 forward</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:10px">Full ecosystem operational. All five entities active simultaneously.</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltteal)">›</span>Residents move in — pre-established patient panel walks into the clinic on Day 1</li>
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltteal)">›</span>HEDIS gap closure engine turns on — every visit, every measure, in real time</li>
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltteal)">›</span>CHW serving all three populations simultaneously — residents, workforce, community</li>
+        <li style="font-size:12px;color:var(--muted);padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--ltteal)">›</span>$2.8M–$5.9M annual ecosystem revenue — self-sustaining through Medicaid, grants, and development relationships</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- THE THREE POPULATIONS -->
+  <div class="sl" style="margin-bottom:12px">The three populations — who the campus serves</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">
+    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--border);padding:20px" class="rv">
+      <div style="font-size:28px;font-family:'Cormorant Garamond',serif;color:var(--gold);margin-bottom:4px">100+</div>
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Campus residents</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Working families, seniors, and foster youth across 50 units. Daily clinical touchpoint. CHW from move-in day. Childcare enabling workforce participation. Anthem attribution through Jamie's PCP designation.</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--border);padding:20px" class="rv">
+      <div style="font-size:28px;font-family:'Cormorant Garamond',serif;color:var(--gold);margin-bottom:4px">100+</div>
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Workforce participants</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Community members from broader Las Vegas moving through the four-stage skilled trades pipeline. Not residents. CHW-assigned Day 1. SDOH-screened. Anthem-attributable. Exit outcome: employer insurance and Medicaid exit — documented for CMS.</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--border);padding:20px" class="rv">
+      <div style="font-size:28px;font-family:'Cormorant Garamond',serif;color:var(--gold);margin-bottom:4px">Broader</div>
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Community users</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Neighborhood residents who access the clinic, community events, telehealth, and CHW navigation without living on campus. Anthem members in the catchment area reached through branded community room programming.</div>
+    </div>
+  </div>
+
+  <!-- THE ANTHEM PARTNERSHIP -->
+  <div style="background:var(--bg3);border:1px solid rgba(74,158,219,.3);border-radius:12px;padding:26px;margin-bottom:20px" class="rv">
+    <div class="sl" style="color:var(--ltblue);margin-bottom:12px">The Anthem Clinical Partner Sponsorship — $1,000,000</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ltblue);margin-bottom:8px;font-weight:500">The ask</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:7px;background:rgba(27,79,138,.12);border:1px solid rgba(74,158,219,.2)">
+            <div style="font-size:13px;color:var(--off)">Digital Health Clinic — build-out, equipment, EHR, operations</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ltblue);white-space:nowrap;margin-left:12px">$500,000</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:7px;background:rgba(14,138,122,.1);border:1px solid rgba(14,138,122,.25)">
+            <div style="font-size:13px;color:var(--off)">Childcare Center — build-out, equipment, licensing, operations</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ltteal);white-space:nowrap;margin-left:12px">$500,000</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:7px;background:rgba(232,160,32,.08);border:1px solid var(--bordg)">
+            <div style="font-size:13px;font-weight:500;color:var(--off)">Total Clinical Partner Sponsorship</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);white-space:nowrap;margin-left:12px">$1,000,000</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:500">Projected return to Anthem</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(74,158,219,.1)"><span style="font-size:12px;color:var(--muted)">Avoidable ED visits (−40%)</span><span style="font-size:12px;color:var(--gold)">$780K–$1.1M</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(74,158,219,.1)"><span style="font-size:12px;color:var(--muted)">Preventable hospitalizations (−38%)</span><span style="font-size:12px;color:var(--gold)">$540K–$810K</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(74,158,219,.1)"><span style="font-size:12px;color:var(--muted)">Chronic disease complications reduced</span><span style="font-size:12px;color:var(--gold)">$200K–$400K</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(74,158,219,.1)"><span style="font-size:12px;color:var(--muted)">BH crisis / inpatient events (−40%)</span><span style="font-size:12px;color:var(--gold)">$360K–$600K</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(74,158,219,.1)"><span style="font-size:12px;color:var(--muted)">HEDIS quality withhold recovery</span><span style="font-size:12px;color:var(--gold)">$150K–$500K</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0"><span style="font-size:13px;font-weight:500;color:var(--off)">Total projected annual return</span><span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold)">$2.03M–$3.41M</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px 16px;background:rgba(232,160,32,.06);border-radius:8px;border:1px solid var(--bordg)">
+      <div style="font-size:12px;color:#D4A040;line-height:1.7"><strong style="font-weight:500;color:var(--gold)">The master agreement opportunity:</strong> Advent is the proof of concept. A Master Partnership Agreement gives Anthem preferred health plan status at every future campus KG and ASG build in states where Anthem operates Medicaid. The $1M at Advent is the cost of entry into a national pipeline that compounds with every campus completed.</div>
+    </div>
+  </div>
+
+  <!-- REVENUE ARCHITECTURE -->
+  <div class="sl" style="margin-bottom:12px">Annual revenue — Advent at full operation</div>
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:800px" class="rv">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--bg3);border-radius:7px;border:1px solid var(--border)"><div><div style="font-size:13px;color:var(--off)">Medicaid fee-for-service billing</div><div style="font-size:11px;color:var(--dim)">Jamie's medical entity</div></div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold)">$400K–$800K/yr</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--bg3);border-radius:7px;border:1px solid var(--border)"><div><div style="font-size:13px;color:var(--off)">CHW service billing under NP supervision</div><div style="font-size:11px;color:var(--dim)">Jamie's entity — share to ASG CDC</div></div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold)">$120K–$240K/yr</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--bg3);border-radius:7px;border:1px solid var(--border)"><div><div style="font-size:13px;color:var(--off)">FQHC Look-Alike reimbursement uplift</div><div style="font-size:11px;color:var(--dim)">Year 2 target — 2–4× standard Medicaid rates on same visits</div></div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold)">$150K–$400K/yr</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--bg3);border-radius:7px;border:1px solid var(--border)"><div><div style="font-size:13px;color:var(--off)">Federal + state grants (HRSA, HUD, DOL, SAMHSA)</div><div style="font-size:11px;color:var(--dim)">ASG CDC — competitive because of integrated model on physical campus</div></div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold)">$200K–$500K/yr</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--bg3);border-radius:7px;border:1px solid var(--border)"><div><div style="font-size:13px;color:var(--off)">CCDF + childcare subsidies + Head Start</div><div style="font-size:11px;color:var(--dim)">ASG CDC</div></div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold)">$180K–$360K/yr</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--bg3);border-radius:7px;border:1px solid var(--border)"><div><div style="font-size:13px;color:var(--off)">MSO management fee</div><div style="font-size:11px;color:var(--dim)">WCS Health Management LLC — founder + Anthony</div></div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold)">$80K–$160K/yr</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--bg3);border-radius:7px;border:1px solid var(--border)"><div><div style="font-size:13px;color:var(--off)">WCS Framework licensing + KG co-developer + consulting</div><div style="font-size:11px;color:var(--dim)">Founder IP LLC — IP license, co-dev fee, personal consulting</div></div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold)">$250K–$790K/yr</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(232,160,32,.06);border-radius:7px;border:1px solid var(--bordg);margin-top:4px"><div><div style="font-size:15px;font-weight:500;color:var(--off)">Total ecosystem — Advent at full operation</div><div style="font-size:11px;color:var(--dim)">Excluding KG developer fee (project-based). Multiplies with every campus.</div></div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);white-space:nowrap;margin-left:12px">$2.8M–$5.9M/yr</div></div>
+  </div>
+
+  <div class="ib iw rv" style="margin-top:20px;max-width:800px">
+    <strong>Advent is not the destination — it is the proof</strong>
+    Every outcome documented at Advent becomes the evidence base for the next campus. Every attributed member, every HEDIS measure closed, every workforce graduate, every grant awarded — it all compounds into a national model that any city, any MCO, any developer, any employer can engage with. The development was the catalyst. The proof is what travels.
+  </div>
+</section>
+
+<footer>
+  <div class="fb">Whole Community Solutions — A Solution Group CDC × KG Development Group</div>
+  <div class="fn">Proprietary · Confidential · 2026 · All rights reserved</div>
+</footer>
+
+<script>
+function toggle(h){h.parentElement.classList.toggle('open')}
+
+function showSector(id){
+  document.querySelectorAll('.stab').forEach(t=>{
+    t.classList.toggle('on', t.dataset.sector===id)
+  });
+  document.querySelectorAll('.spanel').forEach(p=>{
+    p.classList.toggle('on', p.id==='sp-'+id)
+  });
+}
+
+// Scroll reveal
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})
+},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// Active nav
+const secs=document.querySelectorAll('section[id]');
+const nls=document.querySelectorAll('.nl');
+const nobs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      nls.forEach(l=>l.classList.remove('on'));
+      const l=document.querySelector(`.nl[href="#${e.target.id}"]`);
+      if(l){l.classList.add('on');l.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}
+    }
+  })
+},{threshold:.2});
+secs.forEach(s=>nobs.observe(s));
+</script>
+</body>
+</html>

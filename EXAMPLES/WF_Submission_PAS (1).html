@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Place Called Home — Wells Fargo Housing Affordability Breakthrough Challenge 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F1EB;--bg2:#EDE9DF;--bg3:#E5E0D0;--card:#FAFAF6;
+  --gold:#3D5A2A;--gd:#527A38;--gl:#2A3E1C;--gg:rgba(61,90,42,.06);
+  --amber:#8B6914;--amb2:#C4921E;
+  --teal:#1E4A40;--td:#2A6655;
+  --navy:#1A2840;--red:#7A2A20;
+  --w:#0E0E08;--off:#1C1C14;--mu:#5A5A4A;--dim:#8A8A78;--dim2:#B8B4A0;
+  --bd:rgba(61,90,42,.11);--bd2:rgba(61,90,42,.22);--bd3:rgba(61,90,42,.38);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--off);min-height:100vh;line-height:1.65;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.3}
+
+/* NAV */
+#topnav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(244,241,235,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);height:54px;display:flex;align-items:center;padding:0 28px;gap:0}
+.tn-brand{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--gold);letter-spacing:.04em;display:flex;align-items:center;gap:9px;margin-right:20px;white-space:nowrap;text-decoration:none}
+.tn-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 3s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1;box-shadow:0 0 8px rgba(61,90,42,.5)}}
+.tn-links{display:flex;gap:2px;overflow-x:auto;flex:1}
+.tn-links::-webkit-scrollbar{display:none}
+.tn-link{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none;padding:6px 10px;border-radius:4px;transition:all .2s;white-space:nowrap;border:none;background:none;cursor:pointer;font-family:inherit}
+.tn-link:hover{color:var(--gold);background:var(--gg)}
+.tn-link.active{color:var(--gold);background:rgba(61,90,42,.08);font-weight:600}
+.tn-right{display:flex;align-items:center;gap:8px;margin-left:10px;flex-shrink:0}
+.tn-badge{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:3px;font-weight:600;background:rgba(61,90,42,.09);color:var(--gd);border:1px solid var(--bd2);white-space:nowrap}
+.tn-cta{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--bg);background:var(--gold);padding:7px 16px;border-radius:4px;border:none;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
+.tn-cta:hover{background:var(--gl)}
+
+/* HUD */
+#hud{position:fixed;top:54px;left:0;right:0;z-index:499;background:rgba(250,250,246,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);height:38px;display:flex;align-items:center;padding:0 28px;gap:14px}
+.hud-n{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--dim2)}
+.hud-sep{color:var(--dim2);font-size:11px}
+.hud-t{font-size:12.5px;font-weight:500;color:var(--w);font-family:'Cormorant Garamond',serif}
+.hud-r{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gd);font-weight:500;margin-left:auto}
+@media(max-width:600px){.hud-r{display:none}}
+
+/* LAYOUT */
+#layout{display:flex;margin-top:92px}
+
+/* RAIL */
+#rail{width:210px;min-width:210px;flex-shrink:0;position:sticky;top:92px;height:calc(100vh - 92px);overflow-y:auto;border-right:1px solid var(--bd);background:var(--card);padding:14px 0}
+#rail::-webkit-scrollbar{width:3px}
+#rail::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+.r-hdr{padding:0 14px 12px;border-bottom:1px solid var(--bd);margin-bottom:8px}
+.r-hdr-t{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-bottom:2px}
+.r-hdr-s{font-size:9.5px;color:var(--dim2);line-height:1.5}
+.ri{display:flex;align-items:flex-start;gap:9px;padding:9px 13px;cursor:pointer;transition:all .18s;border-left:2px solid transparent;text-decoration:none;color:inherit}
+.ri:hover{background:var(--gg);border-left-color:var(--bd2)}
+.ri.active{background:rgba(61,90,42,.08);border-left-color:var(--gold)}
+.ri-n{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:var(--dim2);width:22px;flex-shrink:0;line-height:1.3;transition:color .18s}
+.ri.active .ri-n,.ri:hover .ri-n{color:var(--gd)}
+.ri-b{min-width:0}
+.ri-nm{font-size:10.5px;font-weight:500;color:var(--off);line-height:1.3;transition:color .18s}
+.ri.active .ri-nm{color:var(--gold)}
+.ri-d{font-size:9px;color:var(--dim);margin-top:1px;line-height:1.4}
+.r-grp{padding:6px 14px 3px;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.r-ftr{padding:12px 14px 0;border-top:1px solid var(--bd);margin-top:16px}
+.r-ftr-n{font-size:10px;font-weight:600;color:var(--off);margin-bottom:2px}
+.r-ftr-s{font-size:9px;color:var(--dim);line-height:1.55}
+@media(max-width:900px){#rail{display:none}}
+
+/* CONTENT */
+#content{flex:1;min-width:0}
+.page{display:none}
+.page.active{display:block}
+.page-inner{padding:68px 80px 120px;min-height:calc(100vh - 92px)}
+@media(max-width:768px){.page-inner{padding:36px 20px 80px}}
+
+/* PAGE HEADER */
+.ph{padding-bottom:48px;margin-bottom:52px;border-bottom:1px solid var(--bd);position:relative;overflow:hidden}
+.ph-wm{position:absolute;right:-20px;bottom:-20px;font-family:'Cormorant Garamond',serif;font-size:clamp(130px,17vw,240px);font-weight:300;color:rgba(61,90,42,.035);line-height:1;pointer-events:none;user-select:none}
+.eyebrow{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gd);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--gd)}
+.page-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.8vw,62px);font-weight:400;color:var(--w);line-height:1.04;margin-bottom:16px}
+.page-h em{font-style:italic;color:var(--gold)}
+.page-lead{font-size:16px;color:var(--mu);line-height:1.95;max-width:740px;font-weight:300;margin-bottom:10px}
+.page-contact{font-size:11px;color:var(--dim);font-family:'JetBrains Mono',monospace;letter-spacing:.03em;margin-top:10px}
+
+/* TYPOGRAPHY */
+.sec-lbl{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gd);font-weight:700;margin-bottom:12px}
+.h2{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.6vw,32px);font-weight:500;color:var(--w);margin-bottom:12px;line-height:1.2}
+.h3{font-size:14px;font-weight:600;color:var(--off);margin-bottom:8px}
+.body{font-size:14.5px;color:var(--mu);line-height:1.95;margin-bottom:18px}
+.body strong{color:var(--off);font-weight:600}
+.body em{font-style:italic}
+.large-body{font-size:17px;color:var(--mu);line-height:2.0;margin-bottom:22px;font-weight:300;max-width:780px}
+.divider{border:none;border-top:1px solid var(--bd);margin:52px 0}
+.sec-gap{margin-top:52px}
+
+/* STAT ROWS */
+.stat-row{display:flex;gap:52px;flex-wrap:wrap;margin:32px 0 44px}
+.stat-blk{text-align:left}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--gold);line-height:1}
+.stat-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+.stat-d{font-size:12px;color:var(--mu);margin-top:3px;max-width:140px}
+
+/* CARDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:1100px){.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{padding:28px;border-radius:10px;border:1px solid var(--bd);background:var(--card);transition:all .2s}
+.card:hover{border-color:var(--bd2);box-shadow:0 4px 28px rgba(0,0,0,.07)}
+.ca{border-top:3px solid var(--gold)}
+.ct{border-top:3px solid var(--teal)}
+.cam{border-top:3px solid var(--amber)}
+.cn{border-top:3px solid var(--navy)}
+.cr{border-top:3px solid var(--red)}
+.mbox{padding:24px 30px;border-radius:8px;background:rgba(61,90,42,.05);border:1px solid var(--bd2);margin:22px 0}
+
+/* CALLOUT / BANNER */
+.callout{border-left:4px solid var(--gold);padding:22px 28px;background:rgba(61,90,42,.04);border-radius:0 10px 10px 0;margin:30px 0}
+.callout p{font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;color:var(--w);line-height:1.55}
+.callout-attr{font-size:10.5px;color:var(--dim);margin-top:10px}
+.banner{padding:28px 36px;border-radius:10px;background:var(--gold);color:var(--bg);margin:28px 0}
+.banner p{font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;font-weight:400;line-height:1.5}
+.banner-sm{font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.75;margin-top:8px}
+.notice{padding:16px 22px;border-radius:6px;border:1px solid rgba(139,105,20,.25);background:rgba(139,105,20,.05);font-size:13.5px;color:var(--amber);line-height:1.7;margin:18px 0;font-style:italic}
+
+/* LISTS */
+.bl{list-style:none;display:flex;flex-direction:column;gap:10px;margin:14px 0 22px}
+.bl li{font-size:14px;color:var(--mu);line-height:1.8;padding-left:22px;position:relative}
+.bl li::before{content:'—';position:absolute;left:0;color:var(--gd);font-weight:300}
+.cl{list-style:none;display:flex;flex-direction:column;gap:9px;margin:14px 0 22px}
+.cl li{font-size:14px;color:var(--mu);line-height:1.75;padding-left:24px;position:relative}
+.cl li::before{content:'✓';position:absolute;left:0;color:var(--gold);font-weight:700;font-size:12px;top:3px}
+.nl{list-style:none;counter-reset:nl;display:flex;flex-direction:column;gap:16px;margin:18px 0 24px}
+.nl li{font-size:14px;color:var(--mu);line-height:1.8;padding-left:36px;position:relative;counter-increment:nl}
+.nl li::before{content:counter(nl);position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;line-height:24px;text-align:center}
+
+/* TABLE */
+.tw{overflow-x:auto;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:600;padding:11px 16px;border-bottom:2px solid var(--bd2);text-align:left}
+td{padding:12px 16px;border-bottom:1px solid var(--bd);color:var(--mu);vertical-align:top;line-height:1.65}
+td:first-child{color:var(--off);font-weight:500}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(61,90,42,.02)}
+
+/* TAGS */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tag{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:3px;font-weight:500;background:var(--bg2);color:var(--mu);border:1px solid var(--bd)}
+.tg{background:rgba(61,90,42,.08);color:var(--gd);border-color:rgba(61,90,42,.2)}
+.tt{background:rgba(30,74,64,.07);color:var(--td);border-color:rgba(30,74,64,.2)}
+.ta{background:rgba(139,105,20,.07);color:var(--amber);border-color:rgba(139,105,20,.2)}
+.tn{background:rgba(26,40,64,.07);color:var(--navy);border-color:rgba(26,40,64,.2)}
+
+/* PHASES / TIMELINE */
+.phase-stack{display:flex;flex-direction:column;gap:0;margin:20px 0 28px}
+.phase-row{display:flex;gap:22px;padding-bottom:28px}
+.phase-row:last-child{padding-bottom:0}
+.phase-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:44px}
+.phase-num{width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;flex-shrink:0}
+.phase-connector{width:1px;background:var(--bd2);flex:1;min-height:16px;margin-top:4px}
+.phase-row:last-child .phase-connector{display:none}
+.phase-body{flex:1;padding-top:8px}
+.phase-t{font-size:14px;font-weight:600;color:var(--off);margin-bottom:6px}
+.phase-timing{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gd);font-weight:600;margin-bottom:8px}
+.phase-d{font-size:14px;color:var(--mu);line-height:1.85}
+
+/* COST COMPARE */
+.cc{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin:26px 0}
+@media(max-width:600px){.cc{grid-template-columns:1fr}}
+.cc-box{padding:28px;border-radius:10px;text-align:center}
+.cc-p{background:rgba(61,90,42,.07);border:1px solid var(--bd2)}
+.cc-c{background:rgba(122,42,32,.06);border:1px solid rgba(122,42,32,.15)}
+.cc-vs{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--dim);text-align:center}
+.cc-amt{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:400;line-height:1;margin-bottom:8px}
+.cc-g{color:var(--gold)}
+.cc-r{color:var(--red)}
+.cc-l{font-size:12px;color:var(--mu)}
+.cc-sub{font-size:11px;color:var(--dim);margin-top:6px}
+
+/* PARTNER BLOCK */
+.partner{padding:32px;border-radius:12px;border:1px solid var(--bd);background:var(--card);margin-bottom:20px}
+.partner-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.partner-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--w)}
+.partner-role{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gd);font-weight:600;margin-bottom:8px}
+.badge{font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;padding:4px 10px;border-radius:3px;font-weight:700}
+.b-live{background:rgba(27,107,58,.1);color:#1B6B3A;border:1px solid rgba(27,107,58,.25)}
+.b-active{background:rgba(61,90,42,.1);color:var(--gd);border:1px solid var(--bd2)}
+.b-pending{background:rgba(139,105,20,.1);color:var(--amber);border:1px solid rgba(139,105,20,.2)}
+
+/* EXECUTION RECORD */
+.exec-item{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--bd)}
+.exec-item:last-child{border-bottom:none}
+.exec-bar{width:4px;min-height:100%;border-radius:2px;background:var(--gold);flex-shrink:0}
+.exec-body{flex:1}
+.exec-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--w);margin-bottom:4px}
+.exec-org{font-size:12px;font-weight:600;color:var(--gd);margin-bottom:2px}
+.exec-meta{font-size:10.5px;color:var(--dim);letter-spacing:.04em;margin-bottom:12px}
+
+/* BUDGET ROW */
+.budget-item{display:flex;align-items:flex-start;gap:18px;padding:20px 0;border-bottom:1px solid var(--bd)}
+.budget-item:last-child{border-bottom:none}
+.budget-pct{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:var(--gold);line-height:1;width:72px;flex-shrink:0;text-align:center}
+.budget-bar-col{display:flex;flex-direction:column;justify-content:center;width:6px;flex-shrink:0;align-self:stretch}
+.budget-bar{width:6px;border-radius:3px;background:var(--gold)}
+.budget-body{flex:1}
+.budget-cat{font-size:14.5px;font-weight:600;color:var(--off);margin-bottom:5px}
+.budget-desc{font-size:13.5px;color:var(--mu);line-height:1.75}
+.budget-amt{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--gold);text-align:right;align-self:center;flex-shrink:0;min-width:110px}
+
+/* SAVINGS TABLE */
+.savings-row{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--bd)}
+.savings-row:last-child{border-bottom:none}
+.savings-label{font-size:13.5px;color:var(--mu)}
+.savings-amt{font-size:14px;font-weight:600;color:var(--off)}
+.savings-total{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0;margin-top:8px;border-top:2px solid var(--bd2)}
+.savings-total-l{font-size:14px;font-weight:600;color:var(--off)}
+.savings-total-n{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--gold)}
+
+/* DISC */
+.disc{margin-top:60px;padding:16px 22px;border-radius:6px;border:1px solid var(--bd);background:var(--bg2);font-size:11px;color:var(--dim);line-height:1.8}
+.disc strong{color:var(--mu);font-weight:500}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav id="topnav">
+  <a class="tn-brand" href="#" onclick="go('p01');return false"><span class="tn-dot"></span>A Place Called Home</a>
+  <div class="tn-links">
+    <button class="tn-link active" id="tn-p01" onclick="go('p01')">01 · Submission Cover</button>
+    <button class="tn-link" id="tn-p02" onclick="go('p02')">02 · The Problem</button>
+    <button class="tn-link" id="tn-p03" onclick="go('p03')">03 · The Innovation</button>
+    <button class="tn-link" id="tn-p04" onclick="go('p04')">04 · Existing Results</button>
+    <button class="tn-link" id="tn-p05" onclick="go('p05')">05 · Evidence Base</button>
+    <button class="tn-link" id="tn-p06" onclick="go('p06')">06 · The Advent Model</button>
+    <button class="tn-link" id="tn-p07" onclick="go('p07')">07 · COIP Architecture</button>
+    <button class="tn-link" id="tn-p08" onclick="go('p08')">08 · Scale Strategy</button>
+    <button class="tn-link" id="tn-p09" onclick="go('p09')">09 · Grant Deployment</button>
+    <button class="tn-link" id="tn-p10" onclick="go('p10')">10 · Economic Impact</button>
+  </div>
+  <div class="tn-right">
+    <span class="tn-badge">Deadline May 15, 2026</span>
+    <button class="tn-cta" onclick="go('p09')">Grant Ask</button>
+  </div>
+</nav>
+
+<!-- HUD -->
+<div id="hud">
+  <span class="hud-n" id="hud-n">01 / 10</span>
+  <span class="hud-sep">·</span>
+  <span class="hud-t" id="hud-t">Submission Cover</span>
+  <span class="hud-r" id="hud-r">Wells Fargo Housing Affordability Breakthrough Challenge · Service Delivery &amp; Programs</span>
+</div>
+
+<!-- LAYOUT -->
+<div id="layout">
+
+<!-- RAIL -->
+<nav id="rail">
+  <div class="r-hdr">
+    <div class="r-hdr-t">Wells Fargo 2026</div>
+    <div class="r-hdr-s">Housing Affordability<br>Breakthrough Challenge</div>
+  </div>
+  <a class="ri active" href="#" onclick="go('p01');return false"><span class="ri-n">01</span><div class="ri-b"><div class="ri-nm">Submission Cover</div><div class="ri-d">Entry · overview · navigation</div></div></a>
+  <a class="ri" href="#" onclick="go('p02');return false"><span class="ri-n">02</span><div class="ri-b"><div class="ri-nm">The Problem We Solve</div><div class="ri-d">Timing failure · housing crisis</div></div></a>
+  <a class="ri" href="#" onclick="go('p03');return false"><span class="ri-n">03</span><div class="ri-b"><div class="ri-nm">The Innovation</div><div class="ri-d">What makes this different</div></div></a>
+  <div class="r-grp">Three Criteria</div>
+  <a class="ri" href="#" onclick="go('p04');return false"><span class="ri-n">04</span><div class="ri-b"><div class="ri-nm">Existing Results</div><div class="ri-d">Criterion 1 · executed proof</div></div></a>
+  <a class="ri" href="#" onclick="go('p05');return false"><span class="ri-n">05</span><div class="ri-b"><div class="ri-nm">Evidence Base</div><div class="ri-d">Criterion 2 · ROI · data</div></div></a>
+  <a class="ri" href="#" onclick="go('p08');return false"><span class="ri-n">08</span><div class="ri-b"><div class="ri-nm">Scale Strategy</div><div class="ri-d">Criterion 3 · replication</div></div></a>
+  <div class="r-grp">Model Detail</div>
+  <a class="ri" href="#" onclick="go('p06');return false"><span class="ri-n">06</span><div class="ri-b"><div class="ri-nm">The Advent Model</div><div class="ri-d">Site · pipeline · partners</div></div></a>
+  <a class="ri" href="#" onclick="go('p07');return false"><span class="ri-n">07</span><div class="ri-b"><div class="ri-nm">COIP Architecture</div><div class="ri-d">Sentencing intercept</div></div></a>
+  <a class="ri" href="#" onclick="go('p09');return false"><span class="ri-n">09</span><div class="ri-b"><div class="ri-nm">Grant Deployment</div><div class="ri-d">$2M · budget · use of funds</div></div></a>
+  <a class="ri" href="#" onclick="go('p10');return false"><span class="ri-n">10</span><div class="ri-b"><div class="ri-nm">Economic Impact</div><div class="ri-d">Outcomes · savings · mobility</div></div></a>
+  <div class="r-ftr">
+    <div class="r-ftr-n">A Solution Group CDC</div>
+    <div class="r-ftr-s">William Darnell Jernigan IV<br>Founder &amp; Executive Director<br>Las Vegas, NV · 725-267-3398</div>
+  </div>
+</nav>
+
+<div id="content">
+
+<!-- ══════════════════════════════════
+     PAGE 01 — SUBMISSION COVER
+══════════════════════════════════ -->
+<div id="p01" class="page active"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">HOME</div>
+  <div class="eyebrow">Wells Fargo Housing Affordability Breakthrough Challenge 2026 · Service Delivery &amp; Programs</div>
+  <div class="page-h">A Place Called Home —<br><em>The Advent Housing-First<br>Workforce &amp; Stabilization Model</em></div>
+  <div class="page-lead">A Housing-First Workforce Development model that prevents family housing destabilization at the moment of sentencing — before housing is ever lost — and guarantees employment before a parent comes home. Submitted under the Service Delivery &amp; Programs category by A Solution Group CDC.</div>
+  <div class="page-contact">A Solution Group CDC · William Darnell Jernigan IV · 725-267-3398 · Las Vegas, NV</div>
+</div>
+
+<div class="stat-row">
+  <div class="stat-blk"><div class="stat-n">$2M</div><div class="stat-l">Grant Ask</div><div class="stat-d">Service Delivery &amp; Programs</div></div>
+  <div class="stat-blk"><div class="stat-n">22:1</div><div class="stat-l">Prevention ROI</div><div class="stat-d">$61,500 vs $1.36M downstream cost</div></div>
+  <div class="stat-blk"><div class="stat-n">$7.1M</div><div class="stat-l">Annual System Savings</div><div class="stat-d">Government + healthcare combined</div></div>
+  <div class="stat-blk"><div class="stat-n">Q1 2026</div><div class="stat-l">Groundbreaking</div><div class="stat-d">A Place Called Home · Active</div></div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">The Organizing Thesis</div>
+<div class="h2">We Did Not Solve a Housing Problem by Building Housing Faster</div>
+<p class="large-body">We solved it by correcting the timing failure that turns predictable family crises into housing emergencies. Every housing stabilization program in the United States activates after destabilization. Ours activates at the exact moment collapse becomes predictable — within 72 hours of sentencing — and ensures that employment and stability are in place before the moment of return.</p>
+<p class="body">This is not a reentry program with housing components bolted on. It is a housing stabilization architecture with workforce development embedded as the economic engine, and a sentencing intercept built in as the prevention mechanism. The Advent site, the KG Development pipeline, and the A Solution Group CDC service model function as a single integrated system — not three separate programs.</p>
+
+<div class="callout">
+  <p>"Every housing program activates after families collapse. Ours activates before housing is lost. That is the innovation."</p>
+  <div class="callout-attr">— William Darnell Jernigan IV, Founder &amp; Executive Director, A Solution Group CDC</div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Three Partners · One System</div>
+<div class="g3">
+  <div class="card ca">
+    <div class="h3">A Solution Group CDC</div>
+    <p class="body">Lead organization. 501(c)(3). Author of the WCS framework, COIP sentencing intercept model, and the full 30-page ASG Reentry Demonstration Framework. 850+ pages of operational IP authored and deployed.</p>
+  </div>
+  <div class="card ct">
+    <div class="h3">KG Development Group</div>
+    <p class="body">Construction and employment partner. Active affordable housing developer in Las Vegas. Confirmed partnership on A Place Called Home. Groundbreaking Q1 2026. 30% minimum local/reentry hiring floor, MOU-backed.</p>
+  </div>
+  <div class="card cam">
+    <div class="h3">Advent United Methodist Church</div>
+    <p class="body">Physical site and community anchor. Church-owned property designated as live training facility under executed MOU. Asset transitioning to permanent community ownership upon project completion.</p>
+  </div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Submission Navigation — What Each Page Covers</div>
+<p class="body">This submission is organized as ten complete sections. Each section fully develops one aspect of the model. The three Wells Fargo scoring criteria each receive their own dedicated section with full documentation rather than abbreviated talking points.</p>
+<div class="tw"><table>
+  <thead><tr><th>Section</th><th>Content</th><th>Scoring Criterion</th></tr></thead>
+  <tbody>
+    <tr><td>02 · The Problem We Solve</td><td>The housing timing failure — why every existing program is structurally late</td><td>Context</td></tr>
+    <tr><td>03 · The Innovation</td><td>What this model does differently and why it qualifies as a breakthrough</td><td>Context</td></tr>
+    <tr><td>04 · Existing Results</td><td>Full execution record from 2020–2022 origin phase through active Q1 2026 groundbreaking</td><td>Criterion 1</td></tr>
+    <tr><td>05 · Evidence Base</td><td>22:1 ROI, $7.1M savings, 22 years of national data, federal statute alignment</td><td>Criterion 2</td></tr>
+    <tr><td>06 · The Advent Model</td><td>Physical site, training pipeline, employment guarantee, and partner structure in full</td><td>Model Detail</td></tr>
+    <tr><td>07 · COIP Architecture</td><td>The sentencing intercept — root cause of housing destabilization and how it is corrected</td><td>Model Detail</td></tr>
+    <tr><td>08 · Scale Strategy</td><td>Developer replication framework, WCS licensing, and Solutionologist pipeline (Sections 14–16)</td><td>Criterion 3</td></tr>
+    <tr><td>09 · Grant Deployment</td><td>Detailed $2M use of funds, budget categories, and Year 1 deliverables</td><td>Financials</td></tr>
+    <tr><td>10 · Economic Impact</td><td>Individual family outcomes, government cost reduction, and community wealth building</td><td>Outcomes</td></tr>
+  </tbody>
+</table></div>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+     PAGE 02 — THE PROBLEM
+══════════════════════════════════ -->
+<div id="p02" class="page"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">TIMING</div>
+  <div class="eyebrow">Page 02 · The Problem We Solve</div>
+  <div class="page-h">Every Housing Stabilization<br><em>Program in America Is Late</em></div>
+  <div class="page-lead">Not underfunded. Not poorly designed. Structurally late. The moment they activate — at release, at shelter entry, at eviction — the damage has already cascaded through families, children, schools, and communities. This is the problem the Advent model is designed to correct.</div>
+</div>
+
+<div class="sec-lbl">The Scale of the Problem</div>
+<p class="large-body">In the United States, 2.7 million children currently have a parent in jail or prison. Approximately 1 in 14 children will experience parental incarceration at some point during childhood. Despite the scale, predictability, and lifelong consequences of this harm, there is no national protection category, no mandatory federal intervention, and no coordinated response at the moment it begins.</p>
+<p class="body">This is not a gap in resources. It is a gap in timing. Every system that encounters the downstream consequences — foster care, emergency housing, juvenile justice, behavioral health, workforce instability — spends enormous resources responding to harm that was predictable from the moment a parent was sentenced. No system intervenes at that moment.</p>
+
+<div class="callout">
+  <p>"When a parent is sentenced, courts record the existence of children — yet trigger no required housing stabilization, benefit enrollment, or family monitoring. That single omission produces a predictable cascade that every downstream system is forced to absorb."</p>
+  <div class="callout-attr">— ASG CDC Cross-System Impact Analysis</div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">The Cascade — What Happens Without Intervention</div>
+<p class="body">Children of incarcerated parents do not fail because of personal deficits. They fail because systems have already failed them. The sequence is predictable, documented, and preventable:</p>
+
+<ol class="nl">
+  <li><strong>Parent is sentenced.</strong> Courts document the existence of dependent children. No intervention is triggered. The family is on its own from this moment forward.</li>
+  <li><strong>Housing destabilizes immediately.</strong> Income is lost or reduced. Rent goes unpaid. Eviction proceedings begin — often within 30 to 60 days. Children move between family members, neighbors, emergency shelter. Stability ends.</li>
+  <li><strong>Educational continuity breaks.</strong> Children change schools when housing changes. Academic progress halts. Behavioral issues emerge. Special education pathways are entered. Graduation becomes less likely.</li>
+  <li><strong>Behavioral health crises emerge.</strong> Trauma from sudden parental loss, housing instability, and caregiver stress goes unaddressed. Children develop anxiety, depression, PTSD. Mental health services are not coordinated. Crises escalate.</li>
+  <li><strong>Foster care entry occurs.</strong> When caregiver stability collapses, children enter the foster care system. The average cost: $150,000 to $250,000 over three years. The damage to the child: irreversible without intensive intervention.</li>
+  <li><strong>Juvenile justice contact follows.</strong> Children without stable housing, education, or mental health support are exponentially more likely to enter the juvenile justice system. The cycle begins its next generation.</li>
+  <li><strong>2–10 years later, the parent is released.</strong> Traditional reentry systems activate now. By this point, the family has already cycled through multiple failing systems. The housing the parent returns to does not exist. The child has already been damaged. The "reentry program" is managing consequences it could have prevented.</li>
+</ol>
+
+<hr class="divider">
+<div class="sec-lbl">The Cross-System Cost</div>
+<p class="body">Children entering one at-risk system due to parental incarceration show a 40–85% probability of entering additional systems. The downstream cost over 18 years, per family, is documented at approximately $1.36 million across foster care, behavioral health, special education, emergency housing, juvenile justice, and adult criminal justice.</p>
+
+<div class="cc">
+  <div class="cc-box cc-p"><div class="cc-amt cc-g">$61,500</div><div class="cc-l">Prevention investment per family</div><div class="cc-sub">Full 5-phase COIP intervention including Family Navigator, housing stabilization, and reintegration support</div></div>
+  <div class="cc-vs">vs.</div>
+  <div class="cc-box cc-c"><div class="cc-amt cc-r">$1,360,000</div><div class="cc-l">Downstream crisis cost per family</div><div class="cc-sub">Foster care, behavioral health, special education, emergency housing, juvenile justice, adult incarceration over 18 years</div></div>
+</div>
+
+<p class="body">The return on prevention investment is 22:1. That figure is not a modeling assumption. It is derived from nationally documented per-capita costs across each downstream system and validated against intervention cost data from comparable CHW and family navigator programs.</p>
+
+<hr class="divider">
+<div class="sec-lbl">Why Housing Is the Right Frame</div>
+<p class="body">Housing is not the only outcome affected by parental incarceration — but it is the hinge point. When housing destabilizes, everything else follows. When housing is preserved, families have a platform from which every other intervention becomes possible. Education works better with stable housing. Employment is more accessible. Behavioral health improves. Children stay in school.</p>
+<p class="body">The Advent model treats housing stability as the primary outcome — not a byproduct of employment, not a result of sobriety, not a consequence of compliance. Housing stability is the mission. Employment and the sentencing intercept are the mechanisms that make it durable.</p>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+     PAGE 03 — THE INNOVATION
+══════════════════════════════════ -->
+<div id="p03" class="page"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">ADVENT</div>
+  <div class="eyebrow">Page 03 · The Innovation</div>
+  <div class="page-h">What Makes This<br><em>a Breakthrough</em></div>
+  <div class="page-lead">The Advent model is not an incremental improvement on existing housing programs. It is a structural correction to the timing failure that all existing programs share. Three specific innovations distinguish it from every other model currently operating in the field.</div>
+</div>
+
+<div class="sec-lbl">Innovation 1 — The Sentencing Intercept</div>
+<div class="h2">Activating at the Moment of Predictable Risk — Not After Collapse</div>
+<p class="large-body">No existing housing program activates at sentencing. Emergency shelters, housing vouchers, rapid rehousing, and transitional housing all activate after housing has been lost — days, months, or years after the moment when intervention was still possible at low cost and high impact.</p>
+<p class="body">The COIP sentencing intercept changes the activation point. Within 0–72 hours of sentencing, a Mandatory Child Impact Assessment is completed and a Family Navigator is assigned. Within 30 days, housing continuity is confirmed, benefits are enrolled, and trauma screening is underway. The family never loses housing — so it never needs emergency housing. Children never enter foster care as a consequence of housing loss. The downstream cascade never begins.</p>
+<p class="body">This is the innovation that makes every other component of the Advent model possible. Without it, workforce development and housing construction are downstream interventions that arrive after the damage. With it, they become part of a prevention architecture that holds families together from the beginning.</p>
+<div class="tags" style="margin-bottom:28px"><span class="tag tg">0–72 hour activation</span><span class="tag tg">No existing program does this</span><span class="tag tt">Prevents housing loss — does not respond to it</span><span class="tag ta">22:1 ROI on prevention investment</span></div>
+
+<hr class="divider">
+<div class="sec-lbl">Innovation 2 — Developer-Anchored Employment</div>
+<div class="h2">Employment Is Not Promised. It Is Guaranteed.</div>
+<p class="large-body">Most workforce development programs train participants and release them into a job market. Placement rates vary. Employment quality varies. Retention collapses without structural support. The innovation in the Advent model is not training — it is the guaranteed employment pipeline anchored to an active construction project.</p>
+<p class="body">KG Development Group has committed to a 30% minimum hiring floor from the local/reentry population on the A Place Called Home project. That commitment is MOU-backed, quarterly-audit-compliant, and active as of Q1 2026. Participants who complete the 12-week OSHA training program on the Advent UMC site are placed directly onto the construction site — not into a job search. Housing stability is secured not by subsidizing rent, but by generating income that sustains rent.</p>
+<p class="body">The wage progression model — $18/hr at entry, $28/hr within 24 months — combined with union apprenticeship pathways through the Carpenters, IBEW, and UA, means that participants are not just housed. They are building careers in a sector that offers sustained middle-class income.</p>
+<div class="tags" style="margin-bottom:28px"><span class="tag tg">30% hiring floor · MOU-backed</span><span class="tag tt">$18/hr entry → $28/hr within 24 months</span><span class="tag ta">Union apprenticeship: Carpenters · IBEW · UA</span><span class="tag tn">23% annual ROI documented</span></div>
+
+<hr class="divider">
+<div class="sec-lbl">Innovation 3 — Built-In Replication Architecture</div>
+<div class="h2">The Template Is the Product</div>
+<p class="large-body">The Advent model is not a local program hoping to replicate. It was designed as a deployable template from the beginning. Sections 14, 15, and 16 of the ASG Reentry Demonstration Framework define the developer partnership replication criteria, the WCS licensing and methodology integrity protocol, and the Solutionologist workforce training pipeline — before any replication was attempted.</p>
+<p class="body">That is unusual. Most programs define replication strategy after achieving local success. This model defined it as part of the architecture. The criteria for replication are specific and enforceable: 100+ unit projects, 30% hiring commitments, MOU-backed wage standards, quarterly audit compliance. Any developer meeting those criteria in any market is a potential replication site. The workforce pipeline — the Solutionologist certification structure — ensures that the human infrastructure scales with the model.</p>
+<div class="tags"><span class="tag tg">Section 14: Developer replication criteria</span><span class="tag tt">Section 15: WCS licensing protocol</span><span class="tag ta">Section 16: Solutionologist certification pipeline</span></div>
+
+<hr class="divider">
+<div class="sec-lbl">Why This Qualifies as a Breakthrough</div>
+<p class="body">The Wells Fargo Breakthrough Challenge asks for proven, ready-to-scale solutions that transform current practice and increase housing choice and access. This model transforms current practice in three specific ways:</p>
+<ul class="cl">
+  <li>It moves the activation point from post-collapse to pre-collapse — a structural change, not a program enhancement</li>
+  <li>It replaces conditional job placement with guaranteed employment anchored to an active construction pipeline</li>
+  <li>It encodes replication architecture into the framework document rather than treating scale as a future goal</li>
+</ul>
+<p class="body">Past winners of this challenge have included programs supporting reentry housing — this model is the upstream version of that work, intervening before reentry is necessary and before housing is lost. It is not competing with those programs. It is the correction that makes them less necessary.</p>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+     PAGE 04 — EXISTING RESULTS (CRITERION 1)
+══════════════════════════════════ -->
+<div id="p04" class="page"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">PROOF</div>
+  <div class="eyebrow">Page 04 · Criterion 1: Existing Results</div>
+  <div class="page-h">We Did Not Build<br><em>a Concept</em></div>
+  <div class="page-lead">This criterion asks for demonstrated results. The execution record below spans 2020 to present — from community-led residential rehabilitation before any institutional funding existed, to an active groundbreaking with a confirmed developer partner. Every item documented here was executed under real-world conditions, not simulated.</div>
+</div>
+
+<div class="banner">
+  <p>"This model was built — and proved it works — before this grant was offered."</p>
+  <div class="banner-sm">The origin phase predates all institutional engagement</div>
+</div>
+
+<div class="sec-lbl">Execution Record — Chronological</div>
+
+<div class="exec-item">
+  <div class="exec-bar" style="background:var(--teal)"></div>
+  <div class="exec-body">
+    <div class="exec-title">Community-Led Workforce &amp; Housing Execution — Origin Phase</div>
+    <div class="exec-org">A Solution Group CDC | Las Vegas, NV</div>
+    <div class="exec-meta">2020–2022 · Pre-Institutional · Community Self-Funded</div>
+    <p class="body">This is the origin proof of the Housing-First Workforce model. Before any foundation funding, before any government contract, before any institutional engagement, ASG CDC executed a live workforce training and residential rehabilitation program in the community.</p>
+    <p class="body"><strong>What was delivered:</strong></p>
+    <ul class="bl">
+      <li>30+ paid jobs created for community members through active residential rehabilitation projects — not simulated job training, but live employment on active sites</li>
+      <li>OSHA 10 and OSHA 30 certifications delivered to 15+ youth on working construction and rehabilitation sites, creating portable credentials with immediate employment value</li>
+      <li>Direct partnership with Mother Pauline Dorsey — a community property owner — to rehabilitate distressed residential properties while embedding local residents into paid skilled-labor roles</li>
+      <li>Integrated workforce participation into blight removal, habitability restoration, and neighborhood revitalization — the site was the classroom, and the neighborhood improvement was the outcome</li>
+      <li>Demonstrated that community-led redevelopment is viable without top-down program delivery, without grant funding as a prerequisite, and without institutional sponsorship as a gatekeeper</li>
+    </ul>
+    <p class="body"><strong>Why this matters for this submission:</strong> This phase establishes that the model's proponents did not build a concept and seek funding. They built the system, proved feasibility, and are now seeking resources to scale what they already know works. Public officials engaged the work after execution was visible — not as co-designers or operators.</p>
+    <div class="tags"><span class="tag tt">Before any institutional funding</span><span class="tag tg">30+ paid jobs created</span><span class="tag tg">15+ youth OSHA-certified</span><span class="tag ta">Live site — not simulated training</span></div>
+  </div>
+</div>
+
+<div class="exec-item">
+  <div class="exec-bar" style="background:var(--gold)"></div>
+  <div class="exec-body">
+    <div class="exec-title">A Place Called Home — Active Implementation Launch</div>
+    <div class="exec-org">ASG CDC × KG Development Group × Advent United Methodist Church | Las Vegas, NV</div>
+    <div class="exec-meta">2025–2026 · Active · Q1 2026 Groundbreaking Confirmed</div>
+    <p class="body">The current implementation phase represents the full Advent model in active deployment. Every component documented in this submission is live, executed, or confirmed — not planned, not modeled, not aspirational.</p>
+    <ul class="bl">
+      <li><strong>KG Development Group partnership executed:</strong> Active developer with affordable housing pipeline confirmed as the employment engine for the model. Developer partnership agreement signed. Groundbreaking confirmed for Q1 2026. This is not a letter of intent — it is an active construction timeline.</li>
+      <li><strong>Advent UMC property MOU executed:</strong> Church-owned property in Las Vegas designated as the live pre-construction training site. Agreement executed. Site is active for training deployment. Upon project completion, the asset transitions to permanent community ownership.</li>
+      <li><strong>18-month workforce pipeline designed and launched:</strong> Co-designed with KG Development to align training timelines with construction phases. 12-week program, 240–320 paid training hours, OSHA 10/30 certification, multi-trade exposure (carpentry, electrical, plumbing/HVAC, solar, weatherization).</li>
+      <li><strong>Community Benefit Agreement standards integrated:</strong> Local hiring requirements, living wage minimums, wage progression guarantees, and benefits standards embedded into the developer MOU. Quarterly audit compliance structure established.</li>
+      <li><strong>Target population recruitment underway:</strong> Justice-impacted citizens, veterans, housing-insecure adults, unemployed and underemployed residents in Las Vegas.</li>
+    </ul>
+    <div class="tags"><span class="tag tg">Groundbreaking Q1 2026 — Active</span><span class="tag tg">Developer MOU executed</span><span class="tag tt">Advent UMC MOU executed</span><span class="tag ta">CBA standards embedded</span></div>
+  </div>
+</div>
+
+<div class="exec-item">
+  <div class="exec-bar" style="background:var(--navy)"></div>
+  <div class="exec-body">
+    <div class="exec-title">High-Acuity Residential Program Operations</div>
+    <div class="exec-org">Creative Minds Utah | Utah</div>
+    <div class="exec-meta">2025 · Residential Recovery · Multi-Site Operations</div>
+    <p class="body">Operational authority for a multi-site residential recovery program serving 56 adults with severe substance use disorders and justice involvement. This record establishes the principal architect's capacity to operate complex, high-risk programs at scale without safety failures — a critical proof point for a model that will serve a high-vulnerability population.</p>
+    <ul class="bl">
+      <li>Held daily operational responsibility for 56 residents across 2 single-family homes and 6 apartment units simultaneously</li>
+      <li>Maintained program stability with zero major safety failures under 24/7 conditions, continuous risk exposure, and limited institutional support</li>
+      <li>Executed real-time crisis response for behavioral emergencies, relapse events, and medical incidents without escalation failure</li>
+      <li>Coordinated transportation and compliance across healthcare, behavioral health, probation/parole, courts, and employment simultaneously</li>
+      <li>Concurrently authored 450+ pages of original operational documentation — a Stage-Based Recovery Curriculum, a full Policies and Procedures Manual, a staff training system, QA frameworks, crisis response tiers, and compliance architecture — all while carrying life-safety responsibility for 56 residents</li>
+    </ul>
+    <div class="tags"><span class="tag tg">56 residents · zero major safety failures</span><span class="tag tt">Multi-site operational authority</span><span class="tag ta">450+ pages authored concurrently</span><span class="tag tn">24/7 crisis response</span></div>
+  </div>
+</div>
+
+<div class="exec-item">
+  <div class="exec-bar" style="background:var(--amber)"></div>
+  <div class="exec-body">
+    <div class="exec-title">Residential Reentry Program Design — DC DOC</div>
+    <div class="exec-org">Nehemiah Project / DC Department of Corrections</div>
+    <div class="exec-meta">2025 · 150+ Page Proposal · PREA-Compliant Architecture</div>
+    <p class="body">Sole author of a 150+ page, 15-section PREA-compliant proposal for a 20-bed residential reentry program for adult males returning from DC DOC incarceration. Designed complete service delivery model, clinical integration, staffing plans, governance, emergency preparedness, and outcome evaluation frameworks. Projected $1.1 million in annual public savings through recidivism reduction. Established a scalable blueprint for DOC contracting statewide.</p>
+    <div class="tags"><span class="tag tg">150+ pages sole-authored</span><span class="tag tt">PREA-compliant architecture</span><span class="tag ta">$1.1M annual savings projected</span></div>
+  </div>
+</div>
+
+<div class="exec-item">
+  <div class="exec-bar" style="background:var(--teal)"></div>
+  <div class="exec-body">
+    <div class="exec-title">Bruce 222 Resource Center — Community Health Operations</div>
+    <div class="exec-org">Bruce 222 Whole Community Solution Resource Center | Las Vegas, NV</div>
+    <div class="exec-meta">2022–2024 · Community Stabilization · Crisis Response</div>
+    <p class="body">Directed stabilization services across health access, behavioral health, housing, workforce, and reentry lanes at a community resource center serving Las Vegas residents. Administered Narcan 11+ times during overdose crises with coordinated post-crisis stabilization and referral into long-term recovery and housing support. This engagement established deep community trust and field-tested the CHW navigation model that is the operational backbone of the Advent service architecture.</p>
+    <div class="tags"><span class="tag tg">Narcan administered 11+ times</span><span class="tag tt">Multi-lane community stabilization</span><span class="tag ta">Housing · workforce · reentry · health</span></div>
+  </div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Summary of Execution Proof</div>
+<div class="stat-row">
+  <div class="stat-blk"><div class="stat-n">850+</div><div class="stat-l">Pages Authored</div><div class="stat-d">Original IP across all program components</div></div>
+  <div class="stat-blk"><div class="stat-n">56</div><div class="stat-l">Residents Managed</div><div class="stat-d">Zero major safety failures in 24/7 operations</div></div>
+  <div class="stat-blk"><div class="stat-n">30+</div><div class="stat-l">Jobs Created</div><div class="stat-d">Origin phase — before institutional funding</div></div>
+  <div class="stat-blk"><div class="stat-n">2020</div><div class="stat-l">Origin Year</div><div class="stat-d">Model was built before this grant was offered</div></div>
+</div>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+     PAGE 05 — EVIDENCE BASE (CRITERION 2)
+══════════════════════════════════ -->
+<div id="p05" class="page"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">DATA</div>
+  <div class="eyebrow">Page 05 · Criterion 2: Evidence Base</div>
+  <div class="page-h">The Numbers Are<br><em>Documented — Not Projected</em></div>
+  <div class="page-lead">The evidence base for this submission draws on national data synthesized through the ASG Reentry Demonstration Framework, documented operational outcomes from executed program deployments, and federal statute alignment verified against existing funding mechanisms. None of the figures below are assumptions.</div>
+</div>
+
+<div class="sec-lbl">Prevention Economics</div>
+<div class="h2">The Core Financial Argument — 22:1 Return on Investment</div>
+<p class="body">The 22:1 ROI documented for the COIP sentencing intercept is derived from the comparison of two cost structures: the full cost of a prevention-first family stabilization intervention versus the documented downstream system costs across all at-risk pathways for a family without intervention.</p>
+
+<div class="cc">
+  <div class="cc-box cc-p">
+    <div class="cc-amt cc-g">$61,500</div>
+    <div class="cc-l">Full COIP Prevention Investment Per Family</div>
+    <div class="cc-sub" style="margin-top:12px;text-align:left">
+      <ul class="bl" style="margin:0">
+        <li>Family Navigator (CHW): 24 months of navigation and coordination</li>
+        <li>Acute housing stabilization and benefit enrollment</li>
+        <li>Quarterly judicial review coordination over incarceration period</li>
+        <li>Pre-release reunification preparation (6 months)</li>
+        <li>Post-release intensive support (12–24 months)</li>
+        <li>Trauma screening and mental health coordination</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cc-vs">vs.</div>
+  <div class="cc-box cc-c">
+    <div class="cc-amt cc-r">$1,360,000</div>
+    <div class="cc-l">Documented Downstream Crisis Cost Per Family (18 Years)</div>
+    <div class="cc-sub" style="margin-top:12px;text-align:left">
+      <ul class="bl" style="margin:0">
+        <li>Foster care placements (avg 3 years): $150,000–$250,000</li>
+        <li>Juvenile justice involvement: $88,000–$180,000</li>
+        <li>Behavioral health services: $40,000–$120,000</li>
+        <li>Special education: $60,000–$150,000</li>
+        <li>Emergency housing/homelessness: $30,000–$100,000</li>
+        <li>Adult criminal justice (if cycle repeats): $250,000–$500,000+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="notice">Cross-system risk multiplier: Children entering one system due to parental incarceration show 40–85% probability of entering additional systems. Each additional system entry compounds the downstream cost and the human damage.</div>
+
+<hr class="divider">
+<div class="sec-lbl">Annual System Savings — $7.1 Million</div>
+<div class="h2">Quantified Government and Healthcare Burden Reduction</div>
+<p class="body">Sections 19 and Appendix C of the ASG Reentry Demonstration Framework document specific cost reduction mechanisms and quantified annual savings. The following figures are grounded in nationally documented per-capita costs across each system and validated through the framework's economic analysis.</p>
+
+<div class="g2" style="margin:22px 0">
+  <div class="card ca">
+    <div class="sec-lbl">Government Cost Reduction</div>
+    <div class="savings-row"><span class="savings-label">Incarceration reduction — 100 individuals annually</span><span class="savings-amt">$3,100,000</span></div>
+    <div class="savings-row"><span class="savings-label">Emergency housing services eliminated</span><span class="savings-amt">$350,000</span></div>
+    <div class="savings-row"><span class="savings-label">Welfare caseload transition to earned wages</span><span class="savings-amt">$450,000</span></div>
+    <div class="savings-row"><span class="savings-label">Administrative efficiency — CHW offloads intake</span><span class="savings-amt">$500,000</span></div>
+    <div class="savings-total"><span class="savings-total-l">Total Annual Government Savings</span><span class="savings-total-n">$4,400,000</span></div>
+  </div>
+  <div class="card ct">
+    <div class="sec-lbl">Healthcare System Relief</div>
+    <div class="savings-row"><span class="savings-label">Emergency department diversion — 300 visits</span><span class="savings-amt">$1,500,000</span></div>
+    <div class="savings-row"><span class="savings-label">Hospital readmissions avoided — 40 episodes</span><span class="savings-amt">$800,000</span></div>
+    <div class="savings-row"><span class="savings-label">Psychiatric crisis prevention</span><span class="savings-amt">$320,000</span></div>
+    <div class="savings-row"><span class="savings-label">Provider efficiency — CHW care coordination</span><span class="savings-amt">$400,000</span></div>
+    <div class="savings-total"><span class="savings-total-l">Total Annual Healthcare Savings</span><span class="savings-total-n">$3,020,000</span></div>
+  </div>
+</div>
+
+<div class="banner">
+  <p>Combined annual burden reduction across government and healthcare systems: $7,100,000+</p>
+  <div class="banner-sm">Source: ASG Reentry Demonstration Framework · Sections 19, Appendix C</div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Federal Statute Alignment — Immediate Grant Eligibility</div>
+<p class="body">The Advent model does not require new legislation, new programs, or new administrative infrastructure. It deploys against existing federal funding streams. The following table documents the specific statutes, the agencies that administer them, and their direct application to this model.</p>
+<div class="tw"><table>
+  <thead><tr><th>Statute</th><th>Agency</th><th>Program</th><th>Application to This Model</th><th>Housing Outcome</th></tr></thead>
+  <tbody>
+    <tr><td>34 U.S.C. §10631</td><td>DOJ</td><td>Reentry Demonstration Projects</td><td>COIP sentencing intercept · Family Navigator workforce</td><td>Prevents housing loss at sentencing — primary prevention mechanism</td></tr>
+    <tr><td>42 U.S.C. §5305</td><td>HUD</td><td>Community Development Block Grant</td><td>Family stabilization · housing continuity · neighborhood revitalization</td><td>Housing continuity secured within 30 days of sentencing</td></tr>
+    <tr><td>29 U.S.C. §3151–3174</td><td>DOL</td><td>WIOA — Workforce Innovation &amp; Opportunity Act</td><td>Pre-construction training pipeline · OSHA certification · apprenticeship placement</td><td>Employment income secures long-term housing stability</td></tr>
+    <tr><td>42 U.S.C. §671</td><td>HHS</td><td>Title IV-E — Child Welfare Prevention</td><td>Family Navigator prevents foster care entry · child stabilization services</td><td>Children remain in stable housing — foster care entry prevented</td></tr>
+    <tr><td>Second Chance Act</td><td>DOJ</td><td>Reentry support and family reunification</td><td>Post-release housing and family reintegration · 12–24 month support</td><td>Housing confirmed pre-release — no gap upon return</td></tr>
+    <tr><td>Medicaid 1115 Waiver</td><td>CMS/HHS</td><td>Community Health Worker integration</td><td>CHW navigation to primary care · crisis prevention · health continuity</td><td>Health stability reduces housing-destabilizing crisis events</td></tr>
+  </tbody>
+</table></div>
+
+<hr class="divider">
+<div class="sec-lbl">National Data Foundation</div>
+<p class="body">The evidence base for the COIP model draws on more than two decades of national research on children of incarcerated parents. The key data points that anchor the submission:</p>
+<ul class="bl">
+  <li>2.7 million children currently have a parent in jail or prison in the United States (Pew Charitable Trusts, Annie E. Casey Foundation)</li>
+  <li>1 in 14 children will experience parental incarceration at some point in childhood (Sentencing Project)</li>
+  <li>Children of incarcerated parents are 6 times more likely to be incarcerated themselves (Bureau of Justice Statistics)</li>
+  <li>40–85% cross-system risk rate: children entering one at-risk system are highly likely to enter others (Child Trends, Urban Institute)</li>
+  <li>Average foster care cost per child: $150,000–$250,000 over 3 years (Child Welfare Information Gateway)</li>
+  <li>Average cost of juvenile incarceration: $88,000–$180,000 per year (Justice Policy Institute)</li>
+  <li>CHW interventions show documented cost savings of $2.28–$11.67 per $1 invested across healthcare and social services (CDC, Robert Wood Johnson Foundation)</li>
+</ul>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+     PAGE 06 — THE ADVENT MODEL
+══════════════════════════════════ -->
+<div id="p06" class="page"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">MODEL</div>
+  <div class="eyebrow">Page 06 · The Advent Design &amp; Service Model</div>
+  <div class="page-h">Site · Training · Employment<br><em>Permanent Community Asset</em></div>
+  <div class="page-lead">The Advent model is the physical and operational expression of the Housing-First Workforce architecture. It integrates a community-anchored training site, a developer-guaranteed employment pipeline, and a comprehensive service layer into a single, replicable system. Every component is active or confirmed.</div>
+</div>
+
+<div class="sec-lbl">The Physical Model — How It Works</div>
+<div class="h2">Five Stages. One Integrated Flow.</div>
+<p class="body">The Advent model moves participants through a continuous pipeline — from training on a live site, to guaranteed employment on an active construction project, to wage-backed housing stability, to union career advancement. Each stage is confirmed and active, not aspirational.</p>
+
+<div class="phase-stack">
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">1</div><div class="phase-connector"></div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Site Activation</div>
+      <div class="phase-t">Advent UMC Property — Live Training Facility</div>
+      <p class="phase-d">The Advent United Methodist Church has designated its property in Las Vegas as the live training site for the pre-construction workforce program. This is not a classroom simulation — it is an active site where participants work on real structural and rehabilitation tasks under supervisor oversight, building genuine skills and credentials. The MOU between Advent UMC and ASG CDC is executed. The property is active. Upon completion of the broader A Place Called Home project, this asset transitions to permanent community ownership — the community gains an asset, not just a program.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">MOU executed</span><span class="tag tg">Active training site</span><span class="tag tt">Transitions to permanent community asset</span></div>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">2</div><div class="phase-connector"></div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Pre-Construction Training Program</div>
+      <div class="phase-t">12-Week Paid Program — OSHA 10/30 — Multi-Trade</div>
+      <p class="phase-d">The training program is a 12-week, 240–320 hour paid program that delivers OSHA 10 and OSHA 30 certification alongside multi-trade construction skills. Participants are compensated during training — not placed on unpaid "apprenticeships" that undermine housing stability. Trade specializations include carpentry, electrical, plumbing and HVAC, solar and weatherization, and roofing. Credentials earned include OSHA certifications, NCCER, HUD-approved credentials, CompTIA and ETA certifications. The certification portfolio creates portable workforce value that extends beyond a single employer or project.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">Paid during training</span><span class="tag tg">OSHA 10/30 · NCCER · HUD credentials</span><span class="tag tt">Carpentry · electrical · plumbing/HVAC · solar</span></div>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">3</div><div class="phase-connector"></div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Guaranteed Employment</div>
+      <div class="phase-t">KG Development — Direct Site Placement</div>
+      <p class="phase-d">Upon completing the training program, participants are placed directly onto the KG Development A Place Called Home construction site. This is not a job referral. It is a guaranteed placement backed by a developer commitment with a 30% minimum local and reentry hiring floor, MOU enforcement, quarterly audit compliance, and wage progression guarantees. Entry wage of $18/hr. Advancement to $28/hr within 24 months. Community Benefit Agreement standards for benefits and advancement opportunities. Living wage enforcement — not minimum wage compliance.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">30% hiring floor · MOU-backed</span><span class="tag tg">$18/hr entry · $28/hr within 24 months</span><span class="tag tt">Direct site placement — not a referral</span><span class="tag ta">Quarterly audit compliance</span></div>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">4</div><div class="phase-connector"></div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Career Advancement</div>
+      <div class="phase-t">Union Apprenticeship Pathways — Long-Term Stability</div>
+      <p class="phase-d">Participants are eligible for union apprenticeship pathways through the Carpenters Local, IBEW (International Brotherhood of Electrical Workers), and UA (United Association of Plumbers and Pipefitters). These pathways lead to sustained middle-class income — not the precarious employment that traps most reentry populations. WOTC (Work Opportunity Tax Credit) and Silver State Works incentives are integrated to reduce employer cost and improve retention. Entrepreneurship support and cooperative business development are available for participants who advance to supervisory roles.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">Carpenters · IBEW · UA pathways</span><span class="tag tt">WOTC and Silver State Works integration</span><span class="tag ta">Supervisory advancement tracks</span></div>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">5</div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Housing Stability Confirmed</div>
+      <div class="phase-t">Income-Based Stability — Not Subsidy-Dependent</div>
+      <p class="phase-d">Housing stability in the Advent model is not produced by rent subsidies. It is produced by employment income at a living wage, with a career progression that sustains and grows that income over time. This distinction matters: subsidy-dependent housing stability ends when the subsidy ends. Income-based housing stability compounds as wages increase and assets are built. Participants in the union apprenticeship tracks are building toward homeownership — the ultimate housing stability outcome. Community Benefit Agreement standards ensure that the housing produced by the A Place Called Home development is accessible to the workforce that built it.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">Income-based stability — not subsidy-dependent</span><span class="tag tt">Wage progression compounds housing security</span><span class="tag ta">23% annual ROI on workforce model</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Target Population</div>
+<p class="body">The Advent workforce pipeline is designed to serve populations that face the highest barriers to employment and housing stability:</p>
+<ul class="cl">
+  <li>Justice-impacted citizens — individuals with felony records who are systematically excluded from construction and trade employment without explicit employer commitment</li>
+  <li>Individuals currently incarcerated whose families are served by the COIP sentencing intercept — workforce preparation begins during incarceration, so employment is confirmed before release</li>
+  <li>Veterans experiencing housing instability — military skills translate directly to construction trades with targeted certification support</li>
+  <li>Unemployed and underemployed adults in low-income neighborhoods — participants do not need to be justice-involved to benefit from the pipeline</li>
+  <li>Housing-insecure residents at immediate risk of eviction — emergency stabilization combined with workforce entry prevents shelter entry</li>
+</ul>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+     PAGE 07 — COIP ARCHITECTURE
+══════════════════════════════════ -->
+<div id="p07" class="page"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">COIP</div>
+  <div class="eyebrow">Page 07 · COIP Architecture — The Upstream Engine</div>
+  <div class="page-h">The Point-of-Sentencing<br><em>Housing Stabilization System</em></div>
+  <div class="page-lead">The COIP sentencing intercept is the mechanism that makes the Advent model a housing prevention system rather than a housing response program. It is not an add-on. It is the root-cause correction — the intervention that stops the cascade before it starts. This page documents the full architecture, the five phases, and the judicial accountability structure.</div>
+</div>
+
+<div class="sec-lbl">The Core Insight</div>
+<div class="h2">Housing Instability Has a Predictable Trigger. The System Has Been Ignoring It.</div>
+<p class="large-body">Every downstream housing instability that costs governments, communities, and families enormous resources is preceded by a traceable upstream event. For the 2.7 million children with incarcerated parents, that event is sentencing. The moment a parent is sentenced, housing destabilization becomes statistically predictable. Yet at that exact moment, no system intervenes.</p>
+<p class="body">Courts document the existence of dependent children at sentencing. They do not activate stabilization. Child welfare agencies do not receive automatic notification. Housing authorities are not alerted. Benefits navigation does not begin. The family is left to manage on its own — and in the majority of cases, it cannot.</p>
+<p class="body">The COIP sentencing intercept inserts a mandatory, structured response at that exact moment. What follows is not a new program — it is a timing correction applied to an existing crisis that every system is already paying for.</p>
+
+<hr class="divider">
+<div class="sec-lbl">The Five-Phase Architecture</div>
+<p class="body">The ASG Reentry Demonstration Framework defines a five-phase, 13-step implementation system for the COIP sentencing intercept. Each phase has specific actions, responsible parties, accountability structures, and outcome metrics. The phases below represent the full deployment model — not a simplified summary.</p>
+
+<div class="phase-stack">
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">1</div><div class="phase-connector"></div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Phase 1 · 0–72 Hours Post-Sentencing</div>
+      <div class="phase-t">Sentencing Intercept — Mandatory Child Impact Assessment</div>
+      <p class="phase-d">At sentencing, a Mandatory Child Impact Assessment is completed for all defendants with dependent minor children. The assessment identifies all dependent children, their current living situation, primary caregiver capacity, immediate financial risks, housing status, and benefit enrollment gaps. Within 24 hours of sentencing, a Family Navigator — a trained Community Health Worker with lived experience — is assigned as the single point of coordination for the family. The Navigator makes immediate contact with the caregiver, conducts a needs assessment, and begins housing continuity verification.</p>
+      <p class="phase-d" style="margin-top:10px"><strong>Accountability structure:</strong> Navigator reports to the court via quarterly judicial review hearings. The judge maintains oversight across the incarceration period — not just at sentencing and release.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">Mandatory Child Impact Assessment at sentencing</span><span class="tag tg">Family Navigator assigned within 24 hours</span><span class="tag tt">Court oversight activated immediately</span></div>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">2</div><div class="phase-connector"></div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Phase 2 · First 30 Days</div>
+      <div class="phase-t">Acute Family Stabilization</div>
+      <p class="phase-d">Within the first 30 days, the Family Navigator secures housing continuity — meaning the family is confirmed in stable housing and not at immediate risk of eviction. Caregiver income stability is assessed and emergency support activated where necessary. Benefits enrollment is completed: TANF, SNAP, Medicaid, and any applicable housing assistance. Initial trauma screening is completed for children and caregivers. School stability is confirmed — children remain in the same school unless relocation is in their best interest. Employment and benefit continuity for the incarcerated parent's household are stabilized to the extent possible.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">Housing continuity confirmed within 30 days</span><span class="tag tt">TANF · SNAP · Medicaid enrolled</span><span class="tag ta">School stability confirmed</span></div>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">3</div><div class="phase-connector"></div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Phase 3 · Duration of Incarceration</div>
+      <div class="phase-t">Sustained Support — Quarterly Judicial Accountability</div>
+      <p class="phase-d">Every 90 days during the incarceration period, a court-ordered judicial review hearing convenes with the judge, the Family Navigator, the caregiver, and child welfare representatives where relevant. The hearing reviews housing stability, children's school and behavioral health status, caregiver employment and income, and any emerging risks. The Navigator coordinates across child welfare, education, healthcare, and community partners throughout this period — not just at quarterly reviews. Visitation is facilitated where safe and therapeutically appropriate. Ongoing trauma-informed support is maintained for children and caregivers.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">Quarterly judicial review hearings</span><span class="tag tt">Cross-agency coordination throughout</span><span class="tag ta">Trauma-informed support maintained</span></div>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">4</div><div class="phase-connector"></div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Phase 4 · Final 6 Months Pre-Release</div>
+      <div class="phase-t">Reunification Preparation</div>
+      <p class="phase-d">Beginning six months before the projected release date, the Family Navigator coordinates a structured reunification preparation process. Housing is confirmed pre-release — meaning the returning parent knows exactly where they are going before they walk out the door, not after they are released into homelessness. Employment is confirmed or actively arranged — in the Advent model, this means placement in the KG Development workforce pipeline is confirmed before release, so the first day out is also the first day of work. Parenting preparation and family counseling are provided. Child welfare oversight is maintained through the transition. Benefit continuity is ensured so there is no gap in coverage at release.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">Housing confirmed before release</span><span class="tag tg">Employment confirmed before release</span><span class="tag tt">Parenting preparation and family counseling</span></div>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-line"><div class="phase-num">5</div></div>
+    <div class="phase-body">
+      <div class="phase-timing">Phase 5 · 12–24 Months Post-Release</div>
+      <div class="phase-t">Full Reintegration — Verified Case Closure</div>
+      <p class="phase-d">For 12–24 months following release, the Family Navigator maintains intensive monitoring and stabilization support. Housing and employment stability are tracked. Children's school and behavioral health status are monitored. The family is connected to community supports — mutual aid, peer networks, cultural programming, and civic engagement opportunities. Case closure requires verified satisfaction of specific criteria: stable housing for minimum 12 months, sustained employment with documented wage progression, children confirmed in stable educational and behavioral health situations, and family self-assessed readiness for reduced support. There is no administrative case closure based on a time limit.</p>
+      <div class="tags" style="margin-top:10px"><span class="tag tg">12–24 months intensive monitoring</span><span class="tag tt">Verified case closure — not time-limited</span><span class="tag ta">Housing · employment · children all confirmed stable</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">The Family Navigator Role</div>
+<div class="h2">The Human Infrastructure That Carries the Model</div>
+<p class="body">The Family Navigator is the operational core of the COIP architecture. This is a Community Health Worker (CHW) role with a specific profile: lived experience with the justice system or parental incarceration, training in trauma-informed care and systems navigation, and assignment to a specific family from the moment of sentencing through case closure. The Navigator is not a caseworker who rotates families. They are a consistent human relationship — often the first stable, trustworthy institutional contact a family has experienced.</p>
+<p class="body">The CHW certification pipeline — defined in Section 13 and Appendix D of the ASG Reentry Demonstration Framework — establishes specific training requirements, scope-of-practice boundaries, supervision structures, and advancement pathways. The pipeline progresses from entry-level CHW (40 hours initial training) through Peer Specialist (120 hours) and CHW Supervisor (240 hours) to Solutionologist Candidate (480 hours) — creating a workforce development track within the service delivery model itself.</p>
+<div class="tags"><span class="tag tg">Lived experience required — not just preferred</span><span class="tag tt">Consistent assignment — not rotating caseload</span><span class="tag ta">Court-accountable through quarterly review hearings</span><span class="tag tn">40–480 hours certification pipeline</span></div>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+     PAGE 08 — SCALE STRATEGY (CRITERION 3)
+══════════════════════════════════ -->
+<div id="p08" class="page"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">SCALE</div>
+  <div class="eyebrow">Page 08 · Criterion 3: Strategy to Scale</div>
+  <div class="page-h">The Advent Model Is a<br><em>Deployable Template —<br>Not a Local Program</em></div>
+  <div class="page-lead">Replication architecture is not a future goal for this model. It is built into the framework document. Sections 14, 15, and 16 of the ASG Reentry Demonstration Framework define developer partnership replication criteria, WCS licensing and methodology integrity protocols, and the Solutionologist workforce certification pipeline — all documented before any replication was attempted.</div>
+</div>
+
+<div class="sec-lbl">Replication Engine 1 — Developer Partnership Framework</div>
+<div class="h2">Section 14: Any Developer. Any City. Same Model.</div>
+<p class="large-body">The KG Development partnership in Las Vegas is not a unique relationship that required unique conditions to produce. It is the first deployment of a defined developer partnership framework that can be replicated with any developer meeting the specified criteria in any underserved market.</p>
+<p class="body">Section 14 of the ASG Reentry Demonstration Framework defines the following replication criteria with specificity:</p>
+
+<div class="g2" style="margin:18px 0 28px">
+  <div class="card ca">
+    <div class="h3">Developer Identification Criteria</div>
+    <ul class="bl">
+      <li><strong>Project scale:</strong> 100+ units of affordable or supportive housing in underserved communities</li>
+      <li><strong>Community impact:</strong> Demonstrated commitment to local hiring and community benefit</li>
+      <li><strong>Financial capacity:</strong> Ability to meet employment quota and wage requirements with performance guarantees</li>
+      <li><strong>Timeline alignment:</strong> Construction schedule compatible with workforce training program length</li>
+      <li><strong>Local procurement:</strong> Willingness to source 40%+ of materials from community-based businesses</li>
+    </ul>
+  </div>
+  <div class="card ct">
+    <div class="h3">Partnership Development Process</div>
+    <ul class="bl">
+      <li><strong>Phase 1 — Developer Engagement (30 days):</strong> Target identification, capacity assessment, initial outreach, partnership opportunity presentation</li>
+      <li><strong>Phase 2 — Community Benefit Negotiation (60 days):</strong> Employment quotas, wage standards, training integration, legal documentation, binding agreements</li>
+      <li><strong>Phase 3 — Implementation &amp; Monitoring (Ongoing):</strong> Workforce preparation, quarterly hiring compliance audits, performance tracking, quality assurance</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card cam" style="padding:28px;margin-bottom:28px">
+  <div class="h3">Employment Creation Requirements — Non-Negotiable</div>
+  <p class="body">These standards are binding and enforceable across every replication site. They are not targets or aspirations — they are MOU-enforced commitments:</p>
+  <ul class="cl">
+    <li>Minimum 30% of total construction workforce from local reentry and impacted population pipeline</li>
+    <li>All jobs tethered to credentialed workforce training programs — no informal employment</li>
+    <li>Living wage minimums with quarterly compliance tracking — not minimum wage compliance</li>
+    <li>Entry-level to supervisory advancement guarantees in writing, with timelines specified</li>
+    <li>Local business procurement targets at 40% minimum for materials and subcontracting</li>
+    <li>Bonus incentives for developers who exceed hiring and diversity goals</li>
+    <li>Community resident oversight of developer performance through accountability structure</li>
+  </ul>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Replication Engine 2 — WCS Licensing Structure</div>
+<div class="h2">Section 15: Methodology Fidelity That Prevents Scale from Becoming Dilution</div>
+<p class="body">The most common failure mode of scaled social programs is dilution — the model spreads to new sites but loses its essential elements along the way. Practitioners are trained inadequately, nine pillars are reduced to three, the accountability structures are removed because they are inconvenient, and the program that produces results at one site produces nothing at five others.</p>
+<p class="body">Section 15 of the ASG Reentry Demonstration Framework is specifically designed to prevent this. The WCS Licensing Compliance Framework establishes:</p>
+<ul class="bl">
+  <li><strong>Territorial license specifications:</strong> Primary territory (Las Vegas/Southern Nevada) with defined expansion rights requiring originator approval. Geographic expansion is not automatic — it is earned through demonstrated fidelity at existing sites</li>
+  <li><strong>WCS framework attribution:</strong> Proper credit to William Darnell Jernigan IV as WCS Framework originator is required at all sites. This is not vanity — it is the accountability chain that links every site back to the framework's quality standards</li>
+  <li><strong>Methodology fidelity requirements:</strong> The nine-pillar integration is non-negotiable. Sites may adapt delivery to local cultural contexts and populations — but they may not reduce the nine-pillar structure or remove community control elements</li>
+  <li><strong>Prohibited modifications:</strong> Framework dilution (reducing nine-pillar integration), attribution removal, and commercial exploitation without explicit permission are contractually prohibited at all licensed sites</li>
+</ul>
+<p class="body">The licensing structure means that when ASG CDC certifies a Solutionologist in a new city, that person is deploying the same model — not a local interpretation of it. The model scales without losing what makes it work.</p>
+
+<hr class="divider">
+<div class="sec-lbl">Replication Engine 3 — Solutionologist Pipeline</div>
+<div class="h2">Section 16: The Workforce Replication Engine Built Into the Framework</div>
+<p class="body">Most programs that attempt to scale face a human capital problem: the people who know how to run the model are in one city, and the new site has no one trained to carry it. The Solutionologist pipeline solves this before replication begins.</p>
+<div class="tw"><table>
+  <thead><tr><th>Tier</th><th>Role</th><th>Training Hours</th><th>Requirements</th><th>Function in Replication</th></tr></thead>
+  <tbody>
+    <tr><td>Entry</td><td>Community Health Worker (CHW)</td><td>40 hours</td><td>Core navigation + cultural competency + scope of practice</td><td>First deployment layer — community trust and navigation at scale</td></tr>
+    <tr><td>Intermediate</td><td>Peer Specialist</td><td>120 hours</td><td>Advanced navigation + trauma-informed care + peer support excellence</td><td>Complex case management and community organizing capacity</td></tr>
+    <tr><td>Advanced</td><td>CHW Supervisor / Coordinator</td><td>240 hours</td><td>Leadership + program coordination + mentorship training</td><td>Site management and CHW development — new sites can operate independently</td></tr>
+    <tr><td>Leadership</td><td>Solutionologist Candidate</td><td>480 hours</td><td>WCS methodology mastery + professional excellence + community leadership</td><td>Full framework deployment authority — replication complete at this tier</td></tr>
+  </tbody>
+</table></div>
+<p class="body">Each Solutionologist is required to mentor 2–3 CHWs who are advancing toward professional roles. This creates an organic growth structure: one trained Solutionologist can deploy in a new city and begin building local capacity immediately. The workforce replication engine is self-propagating by design.</p>
+
+<hr class="divider">
+<div class="sec-lbl">Scale Trajectory</div>
+<div class="g4" style="margin:20px 0">
+  <div class="card ca"><div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:500;color:var(--gold);margin-bottom:6px">Year 1</div><div class="h3">100 Families · Las Vegas Pilot</div><p class="body">Full five-phase COIP deployment, Advent workforce pipeline, KG Development employment guarantees. Complete data collection and longitudinal tracking established.</p></div>
+  <div class="card ct"><div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:500;color:var(--td);margin-bottom:6px">Years 2–3</div><div class="h3">500–1,000 Families · Regional</div><p class="body">Multi-county or multi-jurisdiction replication. First Solutionologists certified and deployed in new sites. Comparative analysis across sites begins.</p></div>
+  <div class="card cam"><div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:500;color:var(--amber);margin-bottom:6px">Years 4–5</div><div class="h3">Multi-State · National Hub</div><p class="body">National technical assistance hub established at ASG CDC. Federal policy recommendations developed. First longitudinal evaluation reporting published.</p></div>
+  <div class="card cn"><div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:500;color:var(--navy);margin-bottom:6px">Year 8+</div><div class="h3">Self-Sustaining · Community Wealth</div><p class="body">Developer partnership revenue and WCS licensing fees support ongoing operations. Community land trusts generating asset appreciation. Cooperative businesses creating resident equity.</p></div>
+</div>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+     PAGE 09 — GRANT DEPLOYMENT
+══════════════════════════════════ -->
+<div id="p09" class="page"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">$2M</div>
+  <div class="eyebrow">Page 09 · Grant Deployment · $2 Million Use of Funds</div>
+  <div class="page-h">$2 Million —<br><em>How It Deploys</em></div>
+  <div class="page-lead">The $2 million Wells Fargo grant funds Year 1 of the A Place Called Home model — standing up the Solutionologist Network, launching the Advent workforce training program, deploying the COIP Family Navigator pilot in a target jurisdiction, and establishing the technology and evaluation infrastructure that supports longitudinal tracking. Every dollar is accounted for against a specific deliverable.</div>
+</div>
+
+<div class="sec-lbl">Budget Structure Overview</div>
+<div class="stat-row">
+  <div class="stat-blk"><div class="stat-n">$2M</div><div class="stat-l">Total Grant Ask</div><div class="stat-d">Wells Fargo · Service Delivery &amp; Programs</div></div>
+  <div class="stat-blk"><div class="stat-n">5</div><div class="stat-l">Budget Categories</div><div class="stat-d">Personnel · Workforce · COIP · Technology · Admin</div></div>
+  <div class="stat-blk"><div class="stat-n">Year 1</div><div class="stat-l">Deployment Period</div><div class="stat-d">100 families · Advent site · KG pipeline active</div></div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Line-Item Budget — All Five Categories</div>
+
+<div class="budget-item">
+  <div class="budget-pct">40%</div>
+  <div class="budget-bar-col"><div class="budget-bar" style="height:90px"></div></div>
+  <div class="budget-body">
+    <div class="budget-cat">Solutionologist Network &amp; Personnel</div>
+    <p class="budget-desc">Funds 8 Core Solutionologists across the nine WCS pillars plus 6 CHW Coordinators providing supervision and training for the Family Navigator workforce. Includes support staff (administrative, data management, communications), full benefits and payroll taxes, and professional development hours required for certification maintenance. This is the human infrastructure that carries every other component — without it, the model has no one to deliver it.</p>
+    <ul class="bl" style="margin-top:12px">
+      <li>8 Core Solutionologists — professional leadership across housing, workforce, mental health, environmental justice, cultural preservation, civic engagement, justice reform, and community connection pillars</li>
+      <li>6 CHW Coordinators — supervision, training, and quality assurance for the Family Navigator workforce</li>
+      <li>4 support staff — administrative support, data management, compliance documentation</li>
+      <li>Full benefits, payroll taxes, workers' compensation, and professional development included</li>
+    </ul>
+  </div>
+  <div class="budget-amt">$800,000</div>
+</div>
+
+<div class="budget-item">
+  <div class="budget-pct">25%</div>
+  <div class="budget-bar-col"><div class="budget-bar" style="height:68px;background:var(--teal)"></div></div>
+  <div class="budget-body">
+    <div class="budget-cat">Workforce Development Program — Advent Site</div>
+    <p class="budget-desc">Funds Year 1 operations of the pre-construction training program on the Advent UMC site — including participant stipends during training, instructor compensation, certification costs, site operations, materials and equipment, and multi-trade curriculum delivery. OSHA 10/30 certification fees, NCCER registration, and union coordination costs are included. This budget category funds what makes the employment guarantee possible — without the training program, there is no certified workforce to place.</p>
+    <ul class="bl" style="margin-top:12px">
+      <li>Participant stipends during 12-week training period — participants are compensated, not asked to train without income</li>
+      <li>OSHA 10/30 certification fees, NCCER registration, HUD credential costs for all Year 1 participants</li>
+      <li>Instructor compensation — licensed trade professionals delivering multi-trade curriculum</li>
+      <li>Advent UMC site operations — materials, tools, site safety, utilities during training period</li>
+      <li>Union coordination and apprenticeship pathway facilitation</li>
+    </ul>
+  </div>
+  <div class="budget-amt">$500,000</div>
+</div>
+
+<div class="budget-item">
+  <div class="budget-pct">20%</div>
+  <div class="budget-bar-col"><div class="budget-bar" style="height:56px;background:var(--navy)"></div></div>
+  <div class="budget-body">
+    <div class="budget-cat">COIP Pilot Deployment — Family Navigator Workforce</div>
+    <p class="budget-desc">Funds Year 1 deployment of the COIP sentencing intercept in the target jurisdiction — including Family Navigator compensation and benefits for the initial cohort, Child Impact Assessment protocol development and training, court coordination infrastructure, Mandatory Assessment implementation support, and judicial review hearing facilitation. This budget category funds the housing prevention mechanism — the component that stops the cascade before it starts. Without Family Navigator deployment, the Advent workforce model is a good training program. With it, it is a housing prevention system.</p>
+    <ul class="bl" style="margin-top:12px">
+      <li>Family Navigator (CHW) compensation and benefits for Year 1 pilot cohort — 100 families requires approximately 4–6 full-time navigators</li>
+      <li>Child Impact Assessment protocol training for court staff and judicial partners</li>
+      <li>Court coordination infrastructure — judicial review hearing scheduling, documentation systems, cross-agency coordination protocols</li>
+      <li>Target jurisdiction engagement and partnership formalization</li>
+      <li>CHW certification and training for all Family Navigators deployed in Year 1</li>
+    </ul>
+  </div>
+  <div class="budget-amt">$400,000</div>
+</div>
+
+<div class="budget-item">
+  <div class="budget-pct">10%</div>
+  <div class="budget-bar-col"><div class="budget-bar" style="height:38px;background:var(--amber)"></div></div>
+  <div class="budget-body">
+    <div class="budget-cat">Technology &amp; Evaluation Infrastructure</div>
+    <p class="budget-desc">Funds the community-controlled data and evaluation systems required by Section 17 of the ASG Framework — including the CHW mobile data platform (tablet-based data entry system for field navigation), community dashboard (real-time performance visualization accessible to residents and funders), longitudinal outcome tracking systems, and the privacy-protected analytics infrastructure that enables five-year and twenty-year evaluation. This budget category is what makes this submission replicable rather than anecdotal — without documentation systems, results cannot be validated or transferred to new sites.</p>
+    <ul class="bl" style="margin-top:12px">
+      <li>CHW mobile data platform — tablet-based system for real-time field data entry by Family Navigators</li>
+      <li>Community dashboard — resident-accessible performance visualization updated in real-time</li>
+      <li>Longitudinal tracking systems — individual family outcome tracking across all five COIP phases</li>
+      <li>Privacy-protected analytics — aggregate analysis while protecting individual participant privacy</li>
+      <li>Cultural documentation tools — digital storytelling and traditional knowledge preservation</li>
+    </ul>
+  </div>
+  <div class="budget-amt">$200,000</div>
+</div>
+
+<div class="budget-item">
+  <div class="budget-pct">5%</div>
+  <div class="budget-bar-col"><div class="budget-bar" style="height:24px;background:var(--dim)"></div></div>
+  <div class="budget-body">
+    <div class="budget-cat">Administrative, Legal &amp; Compliance</div>
+    <p class="budget-desc">Covers federal reporting requirements, NDA and IP protection enforcement, regulatory compliance management, contract management and legal review, liability insurance, performance bonds, and Attorney General release process compliance per Section 18.1 of the ASG Framework. This is the smallest category because administrative overhead has been deliberately minimized — the model's design routes the maximum possible share of resources to direct service delivery and personnel.</p>
+  </div>
+  <div class="budget-amt">$100,000</div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Matching Funds &amp; Leveraged Investment</div>
+<p class="body">The $2 million Wells Fargo grant is designed to leverage substantial additional investment. Appendix E of the ASG Framework documents a public-private investment model with the following structure for full-scale implementation:</p>
+<div class="tw"><table>
+  <thead><tr><th>Source</th><th>Percentage</th><th>Annual Amount</th><th>Use Case</th></tr></thead>
+  <tbody>
+    <tr><td>Federal (HUD · DOJ · DOL)</td><td>50%</td><td>$2,500,000</td><td>Capital projects + core programming</td></tr>
+    <tr><td>Developer Equity (KG Development)</td><td>25%</td><td>$1,250,000</td><td>Workforce development + site preparation</td></tr>
+    <tr><td>Private Foundations</td><td>15%</td><td>$750,000</td><td>Cultural + wraparound services</td></tr>
+    <tr><td>Earned Revenue</td><td>10%</td><td>$500,000</td><td>Real estate + workforce reinvestment</td></tr>
+    <tr><td><strong>Total Investment</strong></td><td><strong>100%</strong></td><td><strong>$5,000,000</strong></td><td>Comprehensive system development</td></tr>
+  </tbody>
+</table></div>
+<p class="body">The Wells Fargo $2 million grant serves as the catalytic investment that establishes proof of full-model deployment, generates the longitudinal data required for federal alignment, and demonstrates the model's operation at sufficient scale to attract the larger public investment that makes it self-sustaining.</p>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+     PAGE 10 — ECONOMIC IMPACT
+══════════════════════════════════ -->
+<div id="p10" class="page"><div class="page-inner">
+<div class="ph">
+  <div class="ph-wm">IMPACT</div>
+  <div class="eyebrow">Page 10 · Economic Mobility &amp; Community Impact</div>
+  <div class="page-h">Individual Families →<br><em>Stable Housing →<br>Economic Mobility →<br>Systems Change</em></div>
+  <div class="page-lead">The Wells Fargo challenge asks for proposals that increase economic mobility for individuals, families, and communities. This page documents what that looks like in specific, measurable terms — from the individual family stabilized on Day 1, to the community wealth built over 20 years, to the government cost reduction that frees public resources for reinvestment.</div>
+</div>
+
+<div class="sec-lbl">Individual &amp; Family Outcomes</div>
+<div class="h2">What Happens to the Families This Model Serves</div>
+<p class="body">These are the specific outcomes tracked for each family served by the A Place Called Home model. They are not aggregate statistics — they are individual family outcomes that compose into community transformation when replicated at scale.</p>
+
+<div class="g2" style="margin:20px 0 32px">
+  <div class="card ca">
+    <div class="h3">Housing Outcomes</div>
+    <ul class="cl">
+      <li>Housing stability confirmed within 30 days of sentencing — before housing is lost, not after</li>
+      <li>90% housing stabilization rate target in Year 1 — families remain in their homes through the incarceration period</li>
+      <li>No gap housing upon release — returning parent confirmed in stable housing before release date</li>
+      <li>Long-term housing security through employment income — not subsidy-dependent stability</li>
+      <li>Pathway to homeownership through union apprenticeship wage progression for participants who advance to journeyman level</li>
+    </ul>
+  </div>
+  <div class="card ct">
+    <div class="h3">Economic Outcomes</div>
+    <ul class="cl">
+      <li>Wage-guaranteed employment from day of release — not after a job search period</li>
+      <li>Entry wage: $18/hr minimum — above living wage for Las Vegas metro area</li>
+      <li>Wage progression: $28/hr within 24 months of employment — documented in developer MOU</li>
+      <li>Union apprenticeship pathways: middle-class career tracks in construction trades with defined advancement</li>
+      <li>23% annual ROI on workforce program — documented through reduced emergency housing, justice, and unemployment costs</li>
+    </ul>
+  </div>
+  <div class="card cam">
+    <div class="h3">Children's Outcomes</div>
+    <ul class="cl">
+      <li>School continuity maintained — children remain in the same school through the incarceration period wherever possible</li>
+      <li>Foster care entry prevented — housing stability removes the primary trigger for foster care involvement</li>
+      <li>Trauma screening completed within 30 days of sentencing — mental health support activated early, not after crisis</li>
+      <li>Family Navigator as consistent adult relationship — one stable, trustworthy institutional contact through the full period</li>
+      <li>40–85% cross-system risk reduction — when housing is stable, children are dramatically less likely to enter additional at-risk systems</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Community Wealth Building</div>
+<div class="h2">Beyond Individual Families — Neighborhood and Community Transformation</div>
+<p class="body">The Advent model does not just stabilize families. At scale, it produces structural changes in the communities where it operates:</p>
+<ul class="bl">
+  <li><strong>Community land trust development:</strong> The Advent UMC property transition to community ownership is the first example of a broader strategy of acquiring distressed properties and converting them to community-held assets through rehabilitation work performed by program participants</li>
+  <li><strong>Cooperative business development:</strong> Participants who advance to supervisory roles are supported in launching cooperative businesses — shared ownership enterprises that generate ongoing income for resident stakeholders rather than extracting value to outside owners</li>
+  <li><strong>Local economic circulation:</strong> The 40% local procurement requirement means that developer spending circulates within the community rather than flowing to distant suppliers — creating multiplier effects in neighborhood economies</li>
+  <li><strong>Intergenerational knowledge transfer:</strong> The Solutionologist network's mentorship structure ensures that skills, credentials, and community knowledge are passed from experienced practitioners to the next generation of community leaders — not captured in institutional silos</li>
+  <li><strong>Civic engagement and resident governance:</strong> The community-controlled data and evaluation system gives residents real authority over program performance assessment — not just feedback mechanisms that are ignored</li>
+</ul>
+
+<hr class="divider">
+<div class="sec-lbl">Long-Term Return on Investment</div>
+<div class="h2">The Financial Case for This Grant — Over 20 Years</div>
+<p class="body">Appendix E of the ASG Reentry Demonstration Framework documents a long-term ROI analysis with three investment phases:</p>
+<div class="g3" style="margin:18px 0 28px">
+  <div class="card ca">
+    <div class="h3">Years 1–3 · Infrastructure Investment</div>
+    <p class="body">Total investment: $15 million. This phase establishes the Solutionologist network, deploys the COIP pilot, launches the Advent workforce pipeline, and builds the evaluation infrastructure. The $2 million Wells Fargo grant covers Year 1 of this phase.</p>
+  </div>
+  <div class="card ct">
+    <div class="h3">Years 4–7 · Return Realization</div>
+    <p class="body">Annual savings: $7.1 million+. Program maturation and cost savings compound. Developer partnership revenues begin. Federal funding streams aligned. Community land trust properties generating appreciation. Cooperative businesses producing resident income.</p>
+  </div>
+  <div class="card cam">
+    <div class="h3">Year 8+ · Self-Sustaining</div>
+    <p class="body">Operations are funded by a combination of developer partnership revenue, WCS licensing fees, community real estate appreciation, cooperative business income, and federal alignment contracts. External philanthropy is no longer required for core operations.</p>
+  </div>
+</div>
+
+<div class="banner">
+  <p>At full scale: 500+ individuals annually with improved housing, employment, and health outcomes. 200+ families achieving economic mobility and intergenerational asset building. Systems-level policy transformation with a replicable national model.</p>
+  <div class="banner-sm">Source: ASG Reentry Demonstration Framework · Appendix E</div>
+</div>
+
+<hr class="divider">
+<div class="sec-lbl">Closing Statement</div>
+<div class="callout">
+  <p>"We are not asking Wells Fargo to fund an idea. We are asking Wells Fargo to scale a system that is already working — one that was built before this grant was offered, by an operator who carried 56 high-risk residents without a safety failure, authored 850 pages of IP, and broke ground on an affordable housing project in Q1 2026. The innovation is real. The execution is documented. The need is unambiguous. The return is 22:1."</p>
+  <div class="callout-attr">— William Darnell Jernigan IV, Founder &amp; Executive Director, A Solution Group CDC · 725-267-3398</div>
+</div>
+
+<div class="disc"><strong>Disclaimer:</strong> All frameworks, methodologies, and materials described in this submission are the intellectual property of A Solution Group CDC unless otherwise contracted in writing. All projections and ROI metrics are based on executed work, modeled analysis, and nationally documented data. References to partner organizations denote confirmed agreements and active partnerships as of the submission date. Materials are provided for professional evaluation and submission purposes only.</div>
+
+</div></div>
+
+</div><!-- #content -->
+</div><!-- #layout -->
+
+<script>
+const meta={
+  p01:{n:'01 / 10',t:'Submission Cover',r:'Wells Fargo Housing Affordability Breakthrough Challenge · Service Delivery &amp; Programs'},
+  p02:{n:'02 / 10',t:'The Problem We Solve',r:'Housing timing failure · Why every existing program is structurally late'},
+  p03:{n:'03 / 10',t:'The Innovation',r:'What makes this a breakthrough · Three specific structural innovations'},
+  p04:{n:'04 / 10',t:'Criterion 1 · Existing Results',r:'Executed proof 2020–present · Before institutional funding'},
+  p05:{n:'05 / 10',t:'Criterion 2 · Evidence Base',r:'22:1 ROI · $7.1M savings · Federal statute alignment · National data'},
+  p06:{n:'06 / 10',t:'The Advent Model',r:'Site · Training · Employment · Permanent Community Asset'},
+  p07:{n:'07 / 10',t:'COIP Architecture',r:'Five-phase sentencing intercept · The upstream housing prevention engine'},
+  p08:{n:'08 / 10',t:'Criterion 3 · Scale Strategy',r:'Developer replication · WCS licensing · Solutionologist pipeline · Sections 14–16'},
+  p09:{n:'09 / 10',t:'Grant Deployment · $2M',r:'Line-item budget · Year 1 deliverables · Matching funds structure'},
+  p10:{n:'10 / 10',t:'Economic Mobility &amp; Community Impact',r:'Individual families · Community wealth · Systems change · 20-year ROI'}
+};
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tn-link').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.ri').forEach(r=>r.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el)el.classList.add('active');
+  const tn=document.getElementById('tn-'+id);
+  if(tn)tn.classList.add('active');
+  const rails=document.querySelectorAll('.ri');
+  const idx=parseInt(id.replace('p',''))-1;
+  if(rails[idx])rails[idx].classList.add('active');
+  const m=meta[id];
+  if(m){
+    document.getElementById('hud-n').textContent=m.n;
+    document.getElementById('hud-t').innerHTML=m.t;
+    document.getElementById('hud-r').innerHTML=m.r;
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

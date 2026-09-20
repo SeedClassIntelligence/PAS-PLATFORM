@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whole Community Solutions — KG Development × A Solution Group CDC</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #F5F0E8;
+  --navy2:   #EDE6DA;
+  --navy3:   #E4DCCF;
+  --blue:    #1B4F8A;
+  --ltblue:  #2A6AAA;
+  --gold:    #9A6800;
+  --ltgold:  #C08010;
+  --teal:    #0A6058;
+  --ltteal:  #0E8A78;
+  --coral:   #B83A20;
+  --purple:  #4A3A8A;
+  --green:   #1A5A30;
+  --white:   #1A1410;
+  --off:     #2E2820;
+  --muted:   #5A4A38;
+  --dim:     #8A7A68;
+  --border:  rgba(154,104,0,0.15);
+  --borderg: rgba(154,104,0,0.25);
+  --bordert: rgba(10,96,88,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--off);min-height:100vh;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(245,240,232,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--gold);padding:0 24px;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;white-space:nowrap;letter-spacing:.02em}
+.nav-scroll{display:flex;overflow-x:auto;scrollbar-width:none;height:100%;padding:0 8px}
+.nav-scroll::-webkit-scrollbar{display:none}
+.nl{font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none;padding:0 14px;height:100%;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+.nl:hover,.nl.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ── SHARED ── */
+section{padding:80px 60px;border-bottom:1px solid var(--border);scroll-margin-top:54px}
+@media(max-width:768px){section{padding:56px 24px}}
+.sl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,48px);font-weight:400;color:var(--white);line-height:1.1;margin-bottom:16px}
+.si{font-size:15px;color:var(--muted);line-height:1.75;max-width:680px;margin-bottom:44px;font-weight:300}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+@media(max-width:700px){.grid2,.grid3{grid-template-columns:1fr}}
+
+/* ── INFO BOXES ── */
+.ib{border-radius:10px;padding:16px 20px;font-size:13px;line-height:1.75;margin-top:16px}
+.ib strong{font-weight:500;display:block;margin-bottom:4px}
+.iw{background:rgba(154,104,0,.08);border:1px solid var(--borderg);color:#7A5200}
+.in{background:rgba(27,79,138,.07);border:1px solid var(--border);color:var(--ltblue)}
+.is{background:rgba(10,96,88,.07);border:1px solid var(--bordert);color:#0A6058}
+.ie{background:rgba(184,58,32,.07);border:1px solid rgba(184,58,32,.3);color:#B83A20}
+
+/* ── CARDS ── */
+.card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .2s,border-color .2s;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card:hover{transform:translateY(-2px)}
+.ch{padding:20px 24px 16px;border-bottom:1px solid var(--border)}
+.ct{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin-bottom:7px}
+.cn{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--white);line-height:1.2}
+.cb{padding:20px 24px}
+.cr{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(74,158,219,.07);gap:12px}
+.cr:last-child{border:none}
+.ck{font-size:11px;color:var(--dim);flex-shrink:0}
+.cv{font-size:12px;color:var(--off);text-align:right}
+
+/* ── ACCORDION ── */
+.acc{display:flex;flex-direction:column;gap:8px}
+.ai{background:var(--navy2);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.ai.open{border-color:rgba(154,104,0,.4)}
+.ah{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;transition:background .15s}
+.ah:hover{background:rgba(154,104,0,.05)}
+.anum{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--dim);min-width:26px}
+.ainfo{flex:1}
+.atitle{font-size:14px;font-weight:500;color:var(--white);margin-bottom:2px}
+.aparties{font-size:11px;color:var(--muted)}
+.abadge{font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.bred{background:rgba(184,58,32,.1);color:#B83A20;border:1px solid rgba(184,58,32,.25)}
+.bamber{background:rgba(154,104,0,.1);color:var(--gold);border:1px solid var(--borderg)}
+.bblue{background:rgba(27,79,138,.09);color:var(--ltblue);border:1px solid var(--border)}
+.achev{font-size:14px;color:var(--dim);transition:transform .2s}
+.ai.open .achev{transform:rotate(90deg)}
+.ab{display:none;padding:0 18px 18px 56px;border-top:1px solid var(--border)}
+.ai.open .ab{display:block}
+.ab p{font-size:13px;color:var(--muted);line-height:1.75;margin-top:12px}
+.ab strong{color:var(--off);font-weight:500}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.tag{font-size:11px;padding:3px 9px;border-radius:4px;background:rgba(154,104,0,.07);color:var(--muted);border:1px solid var(--border)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 60px 80px;position:relative;border-bottom:1px solid var(--border);background:linear-gradient(160deg,#EEE8DC 0%,#F5F0E8 60%,#EDE6DA 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 60%,rgba(10,96,88,.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 25%,rgba(27,79,138,.07) 0%,transparent 55%);pointer-events:none}
+.hero-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:20px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(46px,7vw,80px);font-weight:400;line-height:1.0;color:var(--white);max-width:880px;margin-bottom:28px}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:17px;color:var(--muted);line-height:1.75;max-width:640px;margin-bottom:44px;font-weight:300}
+.hero-stats{display:flex;gap:44px;flex-wrap:wrap;margin-bottom:44px}
+.hsn{font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--gold);font-weight:400;line-height:1}
+.hsl{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:5px}
+.pills{display:flex;gap:10px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;padding:10px 22px;border-radius:40px;font-size:13px;text-decoration:none;transition:all .2s;border:1px solid;cursor:pointer}
+.pill-g{border-color:var(--gold);color:var(--gold)}
+.pill-g:hover{background:var(--gold);color:#fff}
+.pill-m{border-color:var(--border);color:var(--muted)}
+.pill-m:hover{border-color:var(--ltgold);color:var(--ltgold)}
+
+/* ── WCS PILLARS ── */
+.pillar-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:600px){.pillar-wrap{grid-template-columns:1fr 1fr}}
+.pillar{padding:18px;border-radius:8px;border:1px solid var(--border);background:var(--navy2);transition:border-color .2s,transform .2s;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.pillar:hover{transform:translateY(-2px)}
+.pnum{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--dim);line-height:1;margin-bottom:8px}
+.pname{font-size:13px;font-weight:500;color:var(--white);margin-bottom:5px}
+.pdesc{font-size:11px;color:var(--dim);line-height:1.55}
+
+/* ── ENTITY COLORS ── */
+.c-teal .ct{color:var(--teal)} .c-teal:hover{border-color:var(--teal)}
+.c-blue .ct{color:var(--ltblue)} .c-blue:hover{border-color:var(--ltblue)}
+.c-gold .ct{color:var(--gold)} .c-gold:hover{border-color:var(--gold)}
+.c-coral .ct{color:var(--coral)} .c-coral:hover{border-color:var(--coral)}
+.c-purple .ct{color:#9A8ADA} .c-purple:hover{border-color:#9A8ADA}
+.c-green .ct{color:#5ACA8A} .c-green:hover{border-color:#5ACA8A}
+
+/* ── PEOPLE ── */
+.person{background:var(--navy2);border-radius:12px;border:1px solid var(--border);padding:26px;transition:transform .2s}
+.person:hover{transform:translateY(-2px)}
+.pname2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--white);margin-bottom:4px}
+.prole{font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.5}
+.pbullets{list-style:none;display:flex;flex-direction:column;gap:6px}
+.pbullets li{font-size:12px;color:var(--dim);line-height:1.55;padding-left:14px;position:relative}
+.pbullets li::before{content:'›';position:absolute;left:0;color:var(--gold)}
+
+/* ── REVENUE ROW ── */
+.rev-row{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-radius:8px;background:var(--navy2);border:1px solid var(--border);margin-bottom:6px}
+.rev-label{font-size:13px;color:var(--off)}
+.rev-ent{font-size:11px;color:var(--dim);margin-top:2px}
+.rev-amount{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);font-weight:400;white-space:nowrap}
+.rev-total{background:var(--navy3);border-color:rgba(232,160,32,.3)}
+.rev-total .rev-label{font-size:15px;font-weight:500}
+.rev-total .rev-amount{font-size:22px}
+
+/* ── FLOW ── */
+.flow{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:28px;display:flex;flex-direction:column;align-items:center;gap:0}
+.fn{width:100%;max-width:480px;padding:14px 18px;border-radius:8px;border:1px solid;text-align:center;font-size:13px;font-weight:500}
+.fa{font-size:11px;color:var(--muted);margin:6px 0;display:flex;flex-direction:column;align-items:center;gap:3px}
+.fal{width:1px;height:18px;background:var(--border)}
+.falbl{font-size:10px;letter-spacing:.07em;color:var(--dim)}
+
+/* ── POP TABS ── */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tab{padding:8px 18px;border-radius:6px;cursor:pointer;font-size:13px;border:1px solid var(--border);color:var(--muted);transition:all .2s}
+.tab.active{border-color:var(--gold);color:var(--gold);background:rgba(232,160,32,.07)}
+.panel{display:none}
+.panel.active{display:block}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:14px}
+.pitem{background:var(--navy2);border-radius:8px;padding:14px 16px;border:1px solid var(--border);font-size:12px;color:var(--muted);line-height:1.6}
+.pitem strong{color:var(--white);display:block;margin-bottom:3px;font-weight:500}
+
+/* ── SCALE VISION ── */
+.scale-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.scale-item{padding:20px;background:var(--navy2);border-radius:10px;border:1px solid var(--border)}
+.scale-step{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:500}
+.scale-head{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);margin-bottom:8px}
+.scale-body{font-size:12px;color:var(--muted);line-height:1.65}
+
+/* ── FOOTER ── */
+footer{padding:40px 60px;border-top:2px solid var(--border);background:var(--navy3);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+@media(max-width:768px){footer{padding:32px 24px}}
+.fb{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold)}
+.fn2{font-size:11px;color:var(--dim)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Whole Community Solutions</div>
+  <div class="nav-scroll">
+    <a class="nl" href="#vision">Vision</a>
+    <a class="nl" href="#framework">WCS Framework</a>
+    <a class="nl" href="#ecosystem">Ecosystem</a>
+    <a class="nl" href="#entities">Entities</a>
+    <a class="nl" href="#team">Team</a>
+    <a class="nl" href="#agreements">Agreements</a>
+    <a class="nl" href="#revenue">Revenue</a>
+    <a class="nl" href="#anthem">Anthem</a>
+    <a class="nl" href="#benefits">Benefits Activation</a>
+    <a class="nl" href="#populations">Populations</a>
+    <a class="nl" href="#campus">Campus</a>
+    <a class="nl" href="#pipeline">Workforce</a>
+    <a class="nl" href="#scale">National Scale</a>
+    <a class="nl" href="#legal">Legal Roadmap</a>
+    <a class="nl" href="#tracker" style="color:var(--gold);border-bottom-color:var(--gold)">📋 Build Tracker</a>
+  </div>
+</nav>
+
+<!-- ── HERO / VISION ── -->
+<section class="hero" id="vision">
+  <div class="hero-eyebrow">KG Development Group × A Solution Group CDC — Advent UMC · Las Vegas, Nevada</div>
+  <h1 class="hero-title">When a community has<br>everything it needs,<br><em>it doesn't need us anymore.</em></h1>
+  <p class="hero-sub">That is the goal. Not a clinic. Not a workforce program. Not a housing development. A whole community — where housing is stable, healthcare is accessible, childcare is available, and the path to economic independence is real. The Whole Community Solution Framework is how we build that.</p>
+  <div class="hero-stats">
+    <div><div class="hsn">9</div><div class="hsl">WCS pillars</div></div>
+    <div><div class="hsn">5</div><div class="hsl">Entities</div></div>
+    <div><div class="hsn">250+</div><div class="hsl">Lives served — Advent</div></div>
+    <div><div class="hsn">$1M</div><div class="hsl">Anthem ask</div></div>
+    <div><div class="hsn">National</div><div class="hsl">Replication model</div></div>
+  </div>
+  <div class="pills">
+    <a class="pill pill-g" href="#framework">The WCS Framework</a>
+    <a class="pill pill-m" href="#ecosystem">The full ecosystem</a>
+    <a class="pill pill-m" href="#anthem">Anthem partnership</a>
+    <a class="pill pill-m" href="#scale">National vision</a>
+  </div>
+</section>
+
+<!-- ── WCS FRAMEWORK ── -->
+<section id="framework">
+  <div class="sl">The Whole Community Solution Framework</div>
+  <h2 class="st">Nine pillars. One system. Every community need addressed simultaneously.</h2>
+  <p class="si">Most programs solve for one problem. A clinic solves for health. A workforce program solves for employment. A housing project solves for shelter. The WCS Framework is different — it solves for all nine dimensions of community wellbeing at once, through a structured network deployed by a single trusted relationship: the Community Health Worker.</p>
+
+  <div class="pillar-wrap">
+    <div class="pillar reveal" onclick="document.getElementById('p1').classList.toggle('open')">
+      <div class="pnum">1</div>
+      <div class="pname">Affordable Housing &amp; Economic Development</div>
+      <div class="pdesc">Stable housing as a health intervention. Financial literacy. Homeownership pathways. Economic mobility from the ground up.</div>
+    </div>
+    <div class="pillar reveal" onclick="document.getElementById('p2').classList.toggle('open')">
+      <div class="pnum">2</div>
+      <div class="pname">Mental &amp; Emotional Balance</div>
+      <div class="pdesc">Behavioral health screening. Warm handoffs to licensed therapists. Trauma-informed care. Peer support and crisis navigation.</div>
+    </div>
+    <div class="pillar reveal" onclick="document.getElementById('p3').classList.toggle('open')">
+      <div class="pnum">3</div>
+      <div class="pname">Advanced Skills &amp; Technology</div>
+      <div class="pdesc">Skilled trades training. Digital literacy. Certification pathways. Technology access for workforce readiness.</div>
+    </div>
+    <div class="pillar reveal" onclick="document.getElementById('p4').classList.toggle('open')">
+      <div class="pnum">4</div>
+      <div class="pname">Cultural Heritage &amp; Activities</div>
+      <div class="pdesc">Culturally competent care and navigation. Community identity honored. Trusted relationships built on genuine respect.</div>
+    </div>
+    <div class="pillar reveal" onclick="document.getElementById('p5').classList.toggle('open')">
+      <div class="pnum">5</div>
+      <div class="pname">Physical Health &amp; Nutrition</div>
+      <div class="pdesc">Primary care. Preventive screenings. Food security navigation. OTC, meal delivery, and wellness benefit activation.</div>
+    </div>
+    <div class="pillar reveal" onclick="document.getElementById('p6').classList.toggle('open')">
+      <div class="pnum">6</div>
+      <div class="pname">Education &amp; Workforce Development</div>
+      <div class="pdesc">Four-stage pipeline: Exposure → Readiness → Apprenticeship → Employment. From Medicaid-dependent to independently insured.</div>
+    </div>
+    <div class="pillar reveal" onclick="document.getElementById('p7').classList.toggle('open')">
+      <div class="pnum">7</div>
+      <div class="pname">Environmental Sustainability</div>
+      <div class="pdesc">Green workforce opportunities. Energy assistance programs. Utility cost reduction. Sustainable community practices.</div>
+    </div>
+    <div class="pillar reveal" onclick="document.getElementById('p8').classList.toggle('open')">
+      <div class="pnum">8</div>
+      <div class="pname">Transportation &amp; Connectivity</div>
+      <div class="pdesc">Transportation benefit activation. Rideshare navigation. Medical appointment access. Digital connectivity for telehealth.</div>
+    </div>
+    <div class="pillar reveal" onclick="document.getElementById('p9').classList.toggle('open')">
+      <div class="pnum">9</div>
+      <div class="pname">Community Engagement &amp; Empowerment</div>
+      <div class="pdesc">Event convening. Financial literacy nights. Banking access workshops. Employer connection events. Community power built over time.</div>
+    </div>
+  </div>
+
+  <div class="ib in reveal" style="margin-top:24px">
+    <strong>The three-tier Solutionologist network (WCSN)</strong>
+    <strong style="color:var(--off);font-weight:400">Tier 1 — Community Solutionologists:</strong> CHWs, peer mentors, parent leaders. The trusted first relationship every participant has.<br>
+    <strong style="color:var(--off);font-weight:400">Tier 2 — Core Solutionologists:</strong> Clinicians, therapists, legal advocates, educators, workforce specialists. Licensed experts activated by the CHW.<br>
+    <strong style="color:var(--off);font-weight:400">Tier 3 — Supporting Solutionologists:</strong> Agency directors, judges, school principals, policy actors. Systems-level change agents.<br><br>
+    One CHW. One trusted relationship. The entire three-tier network deployed behind it on behalf of every single participant.
+  </div>
+
+  <div class="ib iw reveal" style="margin-top:12px">
+    <strong>IP ownership</strong>
+    The WCS Framework, the WCSN methodology, and all proprietary materials are owned by the founder through a personal IP LLC. The framework is licensed to A Solution Group CDC at fair market value. This is the founder's primary equity-building mechanism — the royalty that travels with the model to every campus, every market, every organization that adopts it.
+  </div>
+</section>
+
+<!-- ── ECOSYSTEM OVERVIEW ── -->
+<section id="ecosystem">
+  <div class="sl">The Ecosystem</div>
+  <h2 class="st">Five entities. One integrated system. Built to serve the community — and sustain itself.</h2>
+  <p class="si">Each entity has a distinct legal structure, a distinct role, and distinct revenue streams. They are designed to operate as one — and to protect each principal individually. Together they make possible what none could accomplish alone.</p>
+
+  <div class="grid2 reveal">
+    <div style="background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:28px">
+      <div class="sl" style="margin-bottom:12px">What KG builds</div>
+      <p style="font-size:15px;font-family:'Cormorant Garamond',serif;color:var(--white);margin-bottom:12px;line-height:1.3">The physical container that makes the whole system possible.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7">KG Development Group acquires the sites, manages construction, and delivers the campuses. Without the physical asset, there is no clinic, no childcare center, no community rooms, and no place for the WCS Framework to operate. KG builds the container. Everything else lives inside it.</p>
+    </div>
+    <div style="background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:28px">
+      <div class="sl" style="margin-bottom:12px">What ASG activates</div>
+      <p style="font-size:15px;font-family:'Cormorant Garamond',serif;color:var(--white);margin-bottom:12px;line-height:1.3">The community operating system that makes the campus more than housing.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7">A Solution Group CDC deploys the WCS Framework, the CHW model, the workforce pipeline, and the community programs. ASG is not a vendor or a service provider — it is the human infrastructure around the built environment. KG builds the place. ASG activates the people.</p>
+    </div>
+  </div>
+
+  <div class="grid3 reveal" style="margin-top:14px">
+    <div style="background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:24px">
+      <div class="sl" style="margin-bottom:10px">What Jamie's clinic delivers</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7">The clinical engine — primary care, HEDIS gap closure, care plans, Medicaid billing, and the NP license that makes CHW services reimbursable. The clinic is where healthcare meets the community.</p>
+    </div>
+    <div style="background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:24px">
+      <div class="sl" style="margin-bottom:10px">What the MSO manages</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7">WCS Health Management LLC — the for-profit management services organization co-owned by the founder and Anthony — handles the non-clinical administrative infrastructure that supports the clinic and the broader ecosystem.</p>
+    </div>
+    <div style="background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:24px">
+      <div class="sl" style="margin-bottom:10px">What the IP LLC protects</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7">The founder's personal IP LLC owns the WCS Framework and licenses it to ASG CDC. Every campus, every new market, every organization that adopts the framework generates licensing income that belongs to the founder.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── ENTITIES ── -->
+<section id="entities">
+  <div class="sl">Five Entity Structure</div>
+  <h2 class="st">What each entity is — legally, operationally, financially.</h2>
+  <p class="si">Five entities, five legal structures, five distinct roles. Each one exists because the ecosystem requires it. Click any card to see the full picture.</p>
+
+  <div class="grid4">
+
+    <div class="card c-teal reveal">
+      <div class="ch"><div class="ct">Nonprofit 501(c)(3)</div><div class="cn">A Solution Group CDC</div></div>
+      <div class="cb">
+        <div class="cr"><span class="ck">Role</span><span class="cv">Community operating system</span></div>
+        <div class="cr"><span class="ck">Operates</span><span class="cv">CHW · workforce · programs · childcare</span></div>
+        <div class="cr"><span class="ck">Revenue</span><span class="cv">Grants · co-dev fee · CHW billing share · CCDF</span></div>
+        <div class="cr"><span class="ck">Leader</span><span class="cv">Founder as Executive Director</span></div>
+        <div class="cr"><span class="ck">Grant power</span><span class="cv">Can apply for grants on KG campuses</span></div>
+        <div class="cr"><span class="ck">Partner power</span><span class="cv">KG's required nonprofit partner — unlocks LIHTC, HUD, QAP</span></div>
+      </div>
+    </div>
+
+    <div class="card c-gold reveal">
+      <div class="ch"><div class="ct">For-Profit LLC — Founder owns 100%</div><div class="cn">Founder's IP LLC</div></div>
+      <div class="cb">
+        <div class="cr"><span class="ck">Role</span><span class="cv">Own and license WCS Framework IP</span></div>
+        <div class="cr"><span class="ck">Holds</span><span class="cv">WCS Framework · WCSN methodology · brand</span></div>
+        <div class="cr"><span class="ck">Revenue</span><span class="cv">IP license fees · KG consulting fee · replication royalties</span></div>
+        <div class="cr"><span class="ck">Why it exists</span><span class="cv">Founder's personal equity — scales with every campus and adopter</span></div>
+        <div class="cr"><span class="ck">License to</span><span class="cv">ASG CDC at fair market value · third-party adopters nationally</span></div>
+      </div>
+    </div>
+
+    <div class="card c-blue reveal">
+      <div class="ch"><div class="ct">For-Profit PC/PLLC — Jamie owns 100%</div><div class="cn">Jamie's Medical Entity</div></div>
+      <div class="cb">
+        <div class="cr"><span class="ck">Role</span><span class="cv">Clinical engine — all Medicaid billing</span></div>
+        <div class="cr"><span class="ck">Operates</span><span class="cv">Digital Health Clinic · care plans · HEDIS closure</span></div>
+        <div class="cr"><span class="ck">Revenue</span><span class="cv">Fee-for-service · CHW billing · FQHC uplift</span></div>
+        <div class="cr"><span class="ck">Critical</span><span class="cv">Must be fully separate from KG — AKS compliance</span></div>
+        <div class="cr"><span class="ck">MSO client</span><span class="cv">WCS Health Management LLC provides admin services</span></div>
+      </div>
+    </div>
+
+    <div class="card c-coral reveal">
+      <div class="ch"><div class="ct">For-Profit — Jamie + Anthony principals</div><div class="cn">KG Development Group</div></div>
+      <div class="cb">
+        <div class="cr"><span class="ck">Role</span><span class="cv">Physical asset builder</span></div>
+        <div class="cr"><span class="ck">Operates</span><span class="cv">Site acquisition · construction · campus delivery</span></div>
+        <div class="cr"><span class="ck">Revenue</span><span class="cv">Developer fees · construction fees · real estate</span></div>
+        <div class="cr"><span class="ck">ASG relationship</span><span class="cv">Co-developer agreement · nonprofit partner for deals</span></div>
+        <div class="cr"><span class="ck">Founder relationship</span><span class="cv">Personal consulting agreement with founder</span></div>
+      </div>
+    </div>
+
+    <div class="card c-purple reveal">
+      <div class="ch"><div class="ct">For-Profit LLC — Founder + Anthony co-own</div><div class="cn">WCS Health Management LLC</div></div>
+      <div class="cb">
+        <div class="cr"><span class="ck">Role</span><span class="cv">Management Services Organization (MSO)</span></div>
+        <div class="cr"><span class="ck">Serves</span><span class="cv">Jamie's medical entity — non-clinical admin only</span></div>
+        <div class="cr"><span class="ck">Services</span><span class="cv">Billing support · HR · facilities · scheduling · IT</span></div>
+        <div class="cr"><span class="ck">Revenue</span><span class="cv">Management fee from Jamie's entity at fair market value</span></div>
+        <div class="cr"><span class="ck">Why it exists</span><span class="cv">How founder + Anthony participate in clinical revenue without owning the clinic</span></div>
+        <div class="cr"><span class="ck">Legal requirement</span><span class="cv">Services non-clinical only — Nevada CPOM compliance</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ib ie reveal" style="margin-top:20px">
+    <strong>The MSO explained — why it matters for the founder and Anthony</strong>
+    Nevada's corporate practice of medicine rules prohibit non-licensed individuals from owning or controlling a medical practice. Jamie must own her medical entity entirely. But the founder and Anthony can own a Management Services Organization that provides non-clinical administrative services to that entity — billing support, HR, facilities management, scheduling, IT infrastructure — for a documented fair market value fee. Every dollar the clinic earns generates MSO revenue that flows to the founder and Anthony. This is the legally clean path for both of them to participate economically in the clinical operation.
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<section id="team">
+  <div class="sl">The Team</div>
+  <h2 class="st">Four people. One unified mission. Each irreplaceable.</h2>
+  <p class="si">The ecosystem works because each person brings something no one else has. The founder built the framework. Jamie owns the clinical infrastructure. Anthony builds the physical world the framework lives inside. Darnell is the trusted relationship every community member experiences.</p>
+
+  <div class="grid2">
+    <div class="person reveal" style="border-color:rgba(232,160,32,.2)">
+      <div class="pname2" style="color:var(--gold)">The Founder</div>
+      <div class="prole">WCS Architect · Executive Director, ASG CDC · IP LLC Owner</div>
+      <ul class="pbullets">
+        <li>Built the Whole Community Solution Framework — nine pillars, three-tier Solutionologist network, WCSN model</li>
+        <li>Founder and Executive Director of A Solution Group CDC</li>
+        <li>Personally owns the WCS Framework IP through a single-member LLC</li>
+        <li>Personal consulting agreement with KG Development on each campus</li>
+        <li>Co-owner of WCS Health Management LLC (MSO) with Anthony</li>
+        <li>Certified CHW — the original navigator, now the system architect</li>
+        <li>Income: ED salary + IP licensing fees + KG consulting fee + MSO distributions</li>
+      </ul>
+    </div>
+    <div class="person reveal" style="border-color:rgba(74,158,219,.2)">
+      <div class="pname2" style="color:var(--ltblue)">Jamie</div>
+      <div class="prole">Nurse Practitioner · Medical Entity Owner · KG Principal (transitioning to passive)</div>
+      <ul class="pbullets">
+        <li>Owns her medical entity (PC/PLLC) — 100%, NP-owned as required by Nevada</li>
+        <li>Clinical anchor of the Digital Health Clinic</li>
+        <li>Credentials under Anthem Medicaid as the designated PCP</li>
+        <li>Clinical supervisor under whose NP license CHW services are billed to Medicaid</li>
+        <li>Develops and owns every participant's clinical care plan</li>
+        <li>Client of WCS Health Management LLC (MSO) for non-clinical admin</li>
+        <li>Transitioning from active KG role — healthcare attorney guiding separation</li>
+        <li>Income: Medical entity distributions · salary from her PC/PLLC</li>
+      </ul>
+    </div>
+    <div class="person reveal" style="border-color:rgba(192,72,48,.2)">
+      <div class="pname2" style="color:var(--coral)">Anthony</div>
+      <div class="prole">KG Development Principal · Construction Lead · MSO Co-Owner</div>
+      <ul class="pbullets">
+        <li>KG Development Group principal — the developer who makes the physical model real</li>
+        <li>Site acquisition, entitlement, construction management, and campus delivery</li>
+        <li>The construction site itself is Stage 1 of the workforce pipeline — Anthony makes that possible</li>
+        <li>Co-owner of WCS Health Management LLC (MSO) with the founder</li>
+        <li>KG's nonprofit partnership with ASG unlocks LIHTC set-asides, HUD programs, QAP scoring advantages</li>
+        <li>National campus pipeline — every new market KG enters activates the master model</li>
+        <li>Income: KG developer fee distributions · MSO distributions · real estate appreciation</li>
+      </ul>
+    </div>
+    <div class="person reveal" style="border-color:rgba(14,138,122,.2)">
+      <div class="pname2" style="color:var(--ltteal)">Darnell</div>
+      <div class="prole">Certified Community Health Worker · ASG CDC Employee</div>
+      <ul class="pbullets">
+        <li>Employed by ASG CDC — on ASG's payroll, under ASG's program structure</li>
+        <li>Clinically supervised by Jamie — this supervision is what makes CHW services Medicaid-billable</li>
+        <li>Deploys across all 14 CHW service domains and all nine WCS pillars simultaneously</li>
+        <li>Not a referral coordinator — a pathway creator. He builds the actual path, not a list of phone numbers</li>
+        <li>Activates value-added insurance benefits most members never knew they had</li>
+        <li>Convenes community events that bring bankers, employers, and experts to scale</li>
+        <li>Stays with every participant from entry through stabilization — the relationship does not end at referral</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── AGREEMENTS ── -->
+<section id="agreements">
+  <div class="sl">Legal Agreements</div>
+  <h2 class="st">Every agreement the ecosystem needs — in the order they must be executed.</h2>
+  <p class="si">Fifteen documents. Every one governs a specific relationship between specific entities. None of these run on good faith. They must exist in writing, drafted by attorneys, before money moves between any two parties in this ecosystem.</p>
+
+  <div class="acc">
+
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#E88070;margin:4px 0 6px;font-weight:500">Must exist before any money moves</div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">01</div>
+        <div class="ainfo"><div class="atitle">IP Ownership &amp; License Agreement</div><div class="aparties">Founder's IP LLC → A Solution Group CDC</div></div>
+        <div class="abadge bred">Priority 1</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Formally documents that the founder owns the WCS Framework, WCSN methodology, and all proprietary materials. Licenses that IP to ASG CDC at a documented fair market value fee. This is the load-bearing document of the founder's equity position.</p>
+        <p><strong>Why it comes first:</strong> Without this, IP ownership is legally ambiguous. The licensing fee is how the founder earns personal income from ASG CDC's operations without violating IRS private benefit rules. Every future licensing deal — with KG, with third-party adopters, nationally — flows from this document.</p>
+        <p><strong>What must be in it:</strong> Specific IP description. The license fee (amount or formula). Term and renewal. What happens if ASG CDC dissolves. Restrictions on sublicensing without founder consent.</p>
+        <div class="tags"><span class="tag">Founder IP LLC</span><span class="tag">ASG CDC</span><span class="tag">IP attorney</span><span class="tag">Sign first — before everything</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">02</div>
+        <div class="ainfo"><div class="atitle">Conflicts of Interest Policy + Disclosure</div><div class="aparties">Founder → ASG CDC Board</div></div>
+        <div class="abadge bred">Priority 1</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Documents every financial interest the founder has outside ASG CDC — IP LLC, MSO ownership, KG consulting agreement — and gets board approval for each transaction.</p>
+        <p><strong>IRS requirement:</strong> Every Form 990 asks whether the organization has a conflicts of interest policy. Without it, every related-party transaction between the founder and ASG CDC is vulnerable. Board members who share the founder's outside interests cannot vote on those transactions.</p>
+        <div class="tags"><span class="tag">Founder</span><span class="tag">ASG CDC Board</span><span class="tag">Nonprofit attorney</span><span class="tag">IRS required</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">03</div>
+        <div class="ainfo"><div class="atitle">Executive Director Employment Agreement</div><div class="aparties">ASG CDC Board → Founder</div></div>
+        <div class="abadge bred">Priority 1</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Documents the founder's role, compensation, duties, and authority as Executive Director. The compensation must be set by the board — not by the founder — and benchmarked against comparable positions.</p>
+        <p><strong>Why compensation benchmarking matters:</strong> The founder's salary is the most scrutinized line item on ASG CDC's Form 990. Benchmarked compensation protects the founder and the organization from IRS private benefit challenges. As ASG grows, the benchmark — and the salary — should grow with it.</p>
+        <div class="tags"><span class="tag">Founder</span><span class="tag">ASG CDC Board</span><span class="tag">Nonprofit attorney</span><span class="tag">Form 990 visible</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">04</div>
+        <div class="ainfo"><div class="atitle">Co-Developer Agreement</div><div class="aparties">ASG CDC ↔ KG Development Group — per campus</div></div>
+        <div class="abadge bred">Priority 1</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Establishes ASG CDC as co-developer on the Advent campus and every future campus. Defines ASG's deliverables — WCS Framework integration, workforce pipeline design, CHW deployment planning, community engagement — and the co-developer fee KG pays from the development budget.</p>
+        <p><strong>The fee:</strong> Typically 1–2% of total development cost. On a $15–22M campus this is $150K–$440K flowing to ASG. Must be signed before groundbreaking to be fully defensible.</p>
+        <p><strong>What this unlocks for KG:</strong> ASG's co-developer status unlocks LIHTC nonprofit set-asides, HUD program preferences, and QAP scoring advantages — funding pools KG cannot access without a substantive nonprofit partner. ASG is not a shell — it delivers the community benefit that qualifies KG for these programs.</p>
+        <div class="tags"><span class="tag">ASG CDC</span><span class="tag">KG Development</span><span class="tag">Before groundbreaking</span><span class="tag">Repeats every campus</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">05</div>
+        <div class="ainfo"><div class="atitle">Clinical Services Agreement</div><div class="aparties">ASG CDC ↔ Jamie's Medical Entity</div></div>
+        <div class="abadge bred">Priority 1</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Defines the operational and financial relationship between ASG and the clinic. ASG provides Darnell's CHW services against Jamie's care plans. Jamie provides clinical supervision. A portion of CHW Medicaid billing revenue returns to ASG to cover Darnell's salary and program costs.</p>
+        <p><strong>AKS compliance is critical:</strong> The compensation ASG receives must be for documented services — never for referral volume. A healthcare attorney must draft this language explicitly. Paying for referrals, even indirectly, violates the Anti-Kickback Statute and carries civil and criminal penalties.</p>
+        <p><strong>Must be signed before:</strong> The first Medicaid CHW claim is filed.</p>
+        <div class="tags"><span class="tag">ASG CDC</span><span class="tag">Jamie's entity</span><span class="tag">Healthcare attorney required</span><span class="tag">AKS review</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">06</div>
+        <div class="ainfo"><div class="atitle">CHW Supervision Agreement</div><div class="aparties">Jamie's Medical Entity → Darnell</div></div>
+        <div class="abadge bred">Priority 1</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Documents Jamie's clinical supervisory relationship with Darnell. Defines scope of supervision, frequency of contact, documentation requirements, and clinical protocols.</p>
+        <p><strong>Nevada Medicaid requires this:</strong> Without this document, every CHW Medicaid claim is at risk of denial or recoupment. The supervision relationship is the legal basis for billing CHW services under an NP license.</p>
+        <div class="tags"><span class="tag">Jamie</span><span class="tag">Darnell</span><span class="tag">Nevada Medicaid required</span><span class="tag">Healthcare attorney</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">07</div>
+        <div class="ainfo"><div class="atitle">MSO Services Agreement</div><div class="aparties">WCS Health Management LLC → Jamie's Medical Entity</div></div>
+        <div class="abadge bred">Priority 1</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Defines the administrative services WCS Health Management LLC (the MSO, co-owned by the founder and Anthony) provides to Jamie's medical entity — billing support, HR, facilities management, scheduling, IT infrastructure.</p>
+        <p><strong>Why this structure exists:</strong> Nevada's corporate practice of medicine rules prohibit non-licensed individuals from owning or controlling a medical practice. Jamie must own the clinic entirely. The MSO is the legally clean mechanism by which the founder and Anthony participate economically in the clinical revenue — through a management fee for real administrative services, not through ownership of the clinical entity.</p>
+        <p><strong>The fee must be:</strong> Documented at fair market value. For services that are genuinely non-clinical. Reviewed by a healthcare attorney for CPOM and AKS compliance. If the fee is above market, it becomes an AKS issue. If the services blur into clinical oversight, it becomes a CPOM issue.</p>
+        <div class="tags"><span class="tag">MSO (founder + Anthony)</span><span class="tag">Jamie's entity</span><span class="tag">Healthcare attorney</span><span class="tag">CPOM + AKS review</span></div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:16px 0 6px;font-weight:500">Must exist before campus opens</div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">08</div>
+        <div class="ainfo"><div class="atitle">Jamie's Separation Agreement from KG</div><div class="aparties">Jamie → KG Development Group</div></div>
+        <div class="abadge bamber">Tier 2</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Documents Jamie's transition from active KG principal to passive or exited interest — whatever the healthcare attorney recommends to eliminate AKS exposure between her Medicaid-billing medical entity and the for-profit developer that benefits from the same campus.</p>
+        <p><strong>This is the most legally sensitive document in the ecosystem.</strong> It must be drafted by a healthcare attorney, not a general business attorney. The consequence of getting it wrong is potential AKS liability — civil and criminal penalties, and Medicaid exclusion.</p>
+        <div class="tags"><span class="tag">Jamie</span><span class="tag">KG Development</span><span class="tag">Healthcare attorney only</span><span class="tag">Most urgent</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">09</div>
+        <div class="ainfo"><div class="atitle">Space License / Sublease Agreements</div><div class="aparties">KG Development → ASG CDC &amp; Jamie's Entity (separate agreements)</div></div>
+        <div class="abadge bamber">Tier 2</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Governs how ASG CDC and Jamie's medical entity occupy space on the campus. Two separate documents — one for each entity. Must be at documented fair market value in both directions.</p>
+        <p><strong>Why fair market value matters:</strong> Below-market space from a for-profit (KG) to a related nonprofit (ASG) creates IRS private benefit issues. Above-market space from a nonprofit tenant to a for-profit landlord creates different issues. Market rate, documented, is the only defensible structure.</p>
+        <div class="tags"><span class="tag">KG</span><span class="tag">ASG CDC</span><span class="tag">Jamie's entity</span><span class="tag">Two separate agreements</span><span class="tag">Fair market value</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">10</div>
+        <div class="ainfo"><div class="atitle">Founder's Personal Consulting Agreement</div><div class="aparties">Founder (IP LLC) → KG Development Group</div></div>
+        <div class="abadge bamber">Tier 2</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Documents the founder's personal consulting relationship with KG — separate from ASG CDC's co-developer agreement. Covers WCS Framework strategy, community relationship development, deal design. Income flows directly to the founder, not through ASG.</p>
+        <p><strong>Board disclosure required:</strong> ASG CDC's conflicts policy must be updated to reflect this agreement before signing. Board approval required on the ASG side.</p>
+        <div class="tags"><span class="tag">Founder IP LLC</span><span class="tag">KG Development</span><span class="tag">Board disclosure</span><span class="tag">Direct personal income</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">11</div>
+        <div class="ainfo"><div class="atitle">Darnell Employment Agreement</div><div class="aparties">ASG CDC → Darnell</div></div>
+        <div class="abadge bamber">Tier 2</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Formal employment agreement covering Darnell's role, compensation, duties, the clinical supervision relationship with Jamie, and confidentiality provisions covering participant data and WCS methodology.</p>
+        <p>Must be consistent with the CHW Supervision Agreement — his duties as defined by ASG must align precisely with what Jamie supervises clinically.</p>
+        <div class="tags"><span class="tag">ASG CDC</span><span class="tag">Darnell</span><span class="tag">Consistent with supervision agreement</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">12</div>
+        <div class="ainfo"><div class="atitle">Anthem Clinical Partner Sponsorship Agreement</div><div class="aparties">ASG CDC + Jamie's Medical Entity → Anthem Blue Cross Nevada</div></div>
+        <div class="abadge bamber">Tier 2</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What it does:</strong> Formalizes the $1M partnership. Both ASG CDC and Jamie's medical entity are named parties — because both are delivering what Anthem is funding. Covers the $500K clinic allocation, $500K childcare allocation, named partner status, quarterly reporting, credentialing timeline, and shared accountability scorecard.</p>
+        <p><strong>Healthcare attorney review mandatory</strong> before signing — AKS compliance, Medicaid fraud and abuse regulations, and Nevada payer contracting requirements all apply.</p>
+        <div class="tags"><span class="tag">ASG CDC</span><span class="tag">Jamie's entity</span><span class="tag">Anthem</span><span class="tag">Healthcare attorney</span></div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ltblue);margin:16px 0 6px;font-weight:500">Governance and long-term protection</div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">13</div>
+        <div class="ainfo"><div class="atitle">ASG CDC Bylaws — Founder Protections</div><div class="aparties">ASG CDC Board</div></div>
+        <div class="abadge bblue">Tier 3</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>Key provisions:</strong> Board composition clause giving the founder meaningful influence over appointments. Supermajority requirement for changes affecting the ED role or compensation. A clause making the IP license a condition of ASG CDC's operation — so no future board can run ASG without honoring the founder's IP agreement. These protections are standard and defensible when drafted correctly.</p>
+        <div class="tags"><span class="tag">ASG CDC Board</span><span class="tag">Nonprofit attorney</span><span class="tag">Founder protections built in</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">14</div>
+        <div class="ainfo"><div class="atitle">Master Partnership Framework Agreement</div><div class="aparties">ASG CDC ↔ KG Development Group — all campuses</div></div>
+        <div class="abadge bblue">Tier 3</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p>The overarching agreement governing the ASG/KG relationship across all campuses. Every new campus activates automatically under master terms. The per-campus co-developer agreement is a supplement to this master framework. This is what makes the national model contractually self-executing.</p>
+        <div class="tags"><span class="tag">ASG CDC</span><span class="tag">KG Development</span><span class="tag">All future campuses</span><span class="tag">National model</span></div>
+      </div>
+    </div>
+
+    <div class="ai reveal">
+      <div class="ah" onclick="toggle(this)">
+        <div class="anum">15</div>
+        <div class="ainfo"><div class="atitle">WCS Framework National Replication License</div><div class="aparties">Founder IP LLC → Third-party organizations, cities, MCOs</div></div>
+        <div class="abadge bblue">Tier 3</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p>As the model expands nationally, other organizations will want to deploy the WCS Framework in their markets. This license governs those relationships — what they receive, what they pay, and what protections the founder retains over the methodology. This is the document that converts the WCS Framework into a national royalty stream that compounds with every new adopter.</p>
+        <div class="tags"><span class="tag">Founder IP LLC</span><span class="tag">National adopters</span><span class="tag">IP attorney</span><span class="tag">Compounding royalty</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── REVENUE ── -->
+<section id="revenue">
+  <div class="sl">Revenue Architecture</div>
+  <h2 class="st">Where the money comes from. Where it goes. Who captures it.</h2>
+  <p class="si">Every revenue stream is governed by a written agreement. Every dollar flows to a specific entity for a specific documented reason. Nothing is assumed.</p>
+
+  <div class="grid2">
+    <div>
+      <div class="sl" style="margin-bottom:10px">Clinical &amp; operational revenue</div>
+      <div class="rev-row reveal"><div><div class="rev-label">Medicaid fee-for-service billing</div><div class="rev-ent">Jamie's Medical Entity</div></div><div class="rev-amount">$400K–$800K/yr</div></div>
+      <div class="rev-row reveal"><div><div class="rev-label">CHW service billing (under Jamie's NP license)</div><div class="rev-ent">Jamie's entity → share to ASG CDC</div></div><div class="rev-amount">$120K–$240K/yr</div></div>
+      <div class="rev-row reveal"><div><div class="rev-label">FQHC Look-Alike reimbursement uplift</div><div class="rev-ent">Jamie's entity — Year 2 target</div></div><div class="rev-amount">$150K–$400K/yr</div></div>
+      <div class="rev-row reveal"><div><div class="rev-label">MSO management fee</div><div class="rev-ent">WCS Health Management LLC (founder + Anthony)</div></div><div class="rev-amount">$80K–$160K/yr</div></div>
+    </div>
+    <div>
+      <div class="sl" style="margin-bottom:10px">Nonprofit &amp; development revenue</div>
+      <div class="rev-row reveal"><div><div class="rev-label">Federal + state grants (HRSA, HUD, DOL, SAMHSA)</div><div class="rev-ent">ASG CDC</div></div><div class="rev-amount">$200K–$500K/yr</div></div>
+      <div class="rev-row reveal"><div><div class="rev-label">Co-developer fee from KG</div><div class="rev-ent">ASG CDC — per campus</div></div><div class="rev-amount">$150K–$440K</div></div>
+      <div class="rev-row reveal"><div><div class="rev-label">CCDF + childcare subsidies + Head Start</div><div class="rev-ent">ASG CDC</div></div><div class="rev-amount">$180K–$360K/yr</div></div>
+      <div class="rev-row reveal"><div><div class="rev-label">KG developer + construction fees</div><div class="rev-ent">KG Development Group — per campus</div></div><div class="rev-amount">$1.5M–$3M</div></div>
+    </div>
+  </div>
+
+  <div class="sl" style="margin:28px 0 10px">Founder's personal income streams</div>
+  <div class="grid3">
+    <div class="rev-row reveal" style="flex-direction:column;align-items:flex-start;gap:4px"><div class="rev-label">ED salary from ASG CDC</div><div class="rev-ent">Board-set · benchmarked · grows with org</div></div>
+    <div class="rev-row reveal" style="flex-direction:column;align-items:flex-start;gap:4px"><div class="rev-label">WCS Framework IP licensing</div><div class="rev-ent">From ASG CDC + third-party adopters · compounds nationally</div></div>
+    <div class="rev-row reveal" style="flex-direction:column;align-items:flex-start;gap:4px"><div class="rev-label">KG consulting fee + MSO distributions</div><div class="rev-ent">Personal consulting agreement + co-ownership of MSO with Anthony</div></div>
+  </div>
+
+  <div class="rev-row reveal" style="margin-top:16px;padding:14px 20px;border-radius:10px;background:var(--navy3);border-color:rgba(232,160,32,.25)">
+    <div><div class="rev-label" style="font-size:15px;font-weight:500">Total ecosystem — single campus, full operation</div><div class="rev-ent">Excluding KG developer fee (project-based). Multiplies with every additional campus.</div></div>
+    <div class="rev-amount" style="font-size:26px">$2.8M–$5.9M/yr</div>
+  </div>
+</section>
+
+<!-- ── ANTHEM ── -->
+<section id="anthem">
+  <div class="sl">Anthem Partnership</div>
+  <h2 class="st">We are asking Anthem to invest $1,000,000.</h2>
+  <p class="si">Not as a grant. Not as a donation. As a Clinical Partner Sponsorship — a named investment in infrastructure that directly serves their Medicaid members and generates documented, measurable return.</p>
+
+  <div class="grid2">
+    <div class="reveal" style="background:var(--navy2);border:1px solid rgba(74,158,219,.3);border-radius:12px;padding:26px">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--ltblue);margin-bottom:4px">$500,000</div>
+      <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ltblue);margin-bottom:18px">Digital Health Clinic</div>
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:500">Why we are asking</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">Anthem is funding the primary care home its members have never had on this campus. The clinic is where HEDIS gaps close, care plans are created, CHW services become billable, and Anthem's network receives documented, tracked referrals at every visit.</p>
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:500">The return</div>
+      <p style="font-size:13px;color:#C4A840;line-height:1.7">$2M–$3.4M annually in HEDIS improvement, ED avoidance, PMPM reduction, and quality withhold recovery. Self-sustaining through Medicaid billing once operational. One-time capital investment — not recurring.</p>
+    </div>
+    <div class="reveal" style="background:var(--navy2);border:1px solid rgba(14,138,122,.3);border-radius:12px;padding:26px">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--ltteal);margin-bottom:4px">$500,000</div>
+      <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ltteal);margin-bottom:18px">Childcare Center</div>
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:500">Why we are asking</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">Anthem is funding the upstream unlock. Without childcare, parents cannot enter the workforce pipeline. Without pipeline entry, families remain on Medicaid indefinitely. This investment breaks the dependency cycle at its root.</p>
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:500">The return</div>
+      <p style="font-size:13px;color:#C4A840;line-height:1.7">Childcare → workforce entry → wages → employer insurance → Medicaid exit. Every parent who completes the pipeline is a documented, permanent reduction in Anthem's long-term Medicaid cost base.</p>
+    </div>
+  </div>
+
+  <div class="ib in reveal" style="margin-top:20px">
+    <strong>The bigger relationship — Advent is only the beginning</strong>
+    Advent is the proof of concept. A Master Partnership Agreement gives Anthem preferred health plan status at every future campus KG and ASG build in states where Anthem operates Medicaid. The $1M at Advent is the cost of entry into a national pipeline that compounds with every campus we complete. If Anthem passes, another MCO gets first-mover access to that pipeline.
+  </div>
+</section>
+
+<!-- ── POPULATIONS ── -->
+<section id="benefits">
+  <div class="sl">The Hidden ROI — Value-Added Benefits Activation</div>
+  <h2 class="st">MCOs already paid for these benefits.<br>Almost nobody is using them.</h2>
+  <p class="si">Every Medicaid managed care organization prices value-added benefits into the per-member-per-month rate they receive from the state. They budget for them. They negotiate contracts around them. And in most markets, the vast majority of those benefits sit unclaimed — because no one ever told the member they existed. The CHW changes that entirely.</p>
+
+  <!-- THE CORE INSIGHT -->
+  <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.3);border-radius:14px;padding:32px;margin-bottom:20px" class="rv">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px">The reality most MCOs live with</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);line-height:1.3;margin-bottom:14px">Most Medicaid members use their insurance card twice a year. Once for a sick visit. Once for a prescription.</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75">That is the entire relationship most members have with their health plan. The gym membership goes unused. The OTC allowance expires. The transportation benefit sits unclaimed. The prenatal support program nobody enrolled in. The tutoring benefit no parent ever knew about. The meal delivery service. The Costco membership. The doula services. The home safety equipment for seniors.</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">These benefits were priced into the PMPM. The MCO already paid for them. They generate no outcome. They improve no quality score. They reduce no utilization. They simply expire — unused, every single year, for every member who never knew they existed.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ltteal);font-weight:500;margin-bottom:14px">What the CHW does differently</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);line-height:1.3;margin-bottom:14px">The CHW studies the plan. Knows every benefit. Activates every one for every member — personally, in their home language, in their community.</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75">This is not outreach. It is not a flyer. It is not a robocall. The CHW sits with the member, opens the plan documentation, and walks through every benefit the member is entitled to — one by one, until every benefit that applies is activated. Then the CHW follows up to make sure it was actually used.</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">For the MCO, this is not a new cost. The CHW is converting sunk cost into measurable return. Every benefit activated is a dollar that was already spent — now producing an outcome instead of expiring unused.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE BENEFITS THEMSELVES -->
+  <div class="sl" style="margin-bottom:12px">What members discover they already had — and never used</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:20px">
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltblue)">Gym memberships</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Free or subsidized gym and fitness access. Reduces chronic disease risk, improves mental health, lowers long-term utilization. Already in the plan. Almost never activated.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltteal)">OTC allowances</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Monthly over-the-counter benefit cards — pain relievers, vitamins, first aid, personal care, sometimes groceries. Hundreds of dollars per year per member sitting in the plan, unclaimed.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltpurple)">Prenatal support</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Prenatal vitamins, doula services, baby supplies, maternal health coaching, breastfeeding support. Among the most valuable benefits in any Medicaid plan — and among the least utilized.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltamber)">Tutoring &amp; education</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Free tutoring for children, GED preparation, digital literacy courses, educational support programs. Directly tied to workforce readiness and long-term income trajectory. Almost universally unknown to members.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltgreen)">Meal delivery</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Medically tailored meal programs for members with chronic conditions — diabetes, heart disease, kidney disease. Proven to reduce hospitalizations. Expensive to operate. Funded in the plan. Rarely claimed.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltcoral)">Transportation</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Non-emergency medical transportation to appointments, rides to the pharmacy, to the specialist, to the lab. One of the most impactful benefits for reducing missed appointments — and one of the most consistently underused.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltslate)">Retail memberships</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Costco, Sam's Club, or similar warehouse memberships in select plans — enabling bulk food purchasing that reduces per-meal cost, improves nutrition, and stretches household budgets for working families.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltpink)">Senior safety &amp; wellness</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Home safety equipment for seniors — grab bars, non-slip mats, alert devices, medication management tools. Prevents falls, reduces emergency care, keeps seniors independent longer. Budgeted for. Not used.</div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px" class="rv">
+      <div style="font-size:22px;margin-bottom:8px;color:var(--ltblue)">Dental &amp; vision extras</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Coverage beyond the standard Medicaid dental and vision floors — additional cleanings, eyeglass allowances, hearing aids, fluoride treatments. Improved dental health reduces systemic disease. Members don't know the extras exist.</div>
+    </div>
+
+  </div>
+
+  <!-- THE FINANCIAL LOGIC -->
+  <div style="background:var(--bg3);border:1px solid rgba(14,138,122,.3);border-radius:12px;padding:26px;margin-bottom:16px" class="rv">
+    <div class="sl" style="color:var(--ltteal);margin-bottom:14px">The financial logic — why this is a cost savings argument, not a cost increase</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ltteal);font-weight:500;margin-bottom:8px">What the MCO already did</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">The MCO negotiated value-added benefits into the plan. They priced them into the PMPM they receive from the state. They budgeted for utilization. In most markets, utilization came in far below that budget. The money is already spent. The outcome was never produced.</p>
+      </div>
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px">What benefit activation does</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">When the CHW activates benefits, members use them. Gym memberships reduce chronic disease risk. Meal delivery reduces hospitalizations. Transportation eliminates missed appointments. OTC benefits reduce out-of-pocket burden. Every benefit used produces a health outcome the MCO was trying to achieve with that investment.</p>
+      </div>
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ltblue);font-weight:500;margin-bottom:8px">The net effect on the MCO</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">Quality scores improve. HEDIS measures close. ED utilization drops. PMPM falls. The MCO was paying for these outcomes — and not getting them. Benefit activation is the mechanism that delivers what was already budgeted for. It is not a new line item. It is the ROI on an existing investment.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW THE CHW DOES IT -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px" class="rv">
+    <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.2);border-radius:10px;padding:22px">
+      <div class="sl" style="color:var(--gold);margin-bottom:10px">How the CHW activates benefits — at the individual level</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75">The CHW learns the specific benefit package of every MCO serving their population. Not generically — specifically. Which OTC card vendor. Which gym network. Which transportation broker. Which meal program. How to enroll. What documentation is required. What the deadline is.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">Then the CHW sits with each member and walks through it personally. In plain language. In their language if needed. Until the member understands what they have and how to use it. Then the CHW follows up to make sure they did.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">This is not scalable through a brochure or a phone tree. It requires a trusted human relationship. That is what the CHW model provides — and what no automated outreach system can replicate.</p>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(232,160,32,.2);border-radius:10px;padding:22px">
+      <div class="sl" style="color:var(--gold);margin-bottom:10px">How the CHW activates benefits — at the community level</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75">Beyond individual activation, the CHW convenes community events specifically designed around insurance literacy. Not a generic health fair — a structured session where 40 members sit down, open their plan documentation, and the CHW walks the room through every benefit category together.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">MCO representatives can be present. Benefit enrollment can happen on the spot. Questions get answered in real time. The CHW follows up individually with the members who need the most help navigating the process.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.75;margin-top:10px">One event. Forty members. Hundreds of benefits activated. Zero new budget required from the MCO.</p>
+    </div>
+  </div>
+
+  <!-- THE SUMMARY ARGUMENT -->
+  <div class="ib iw rv" style="margin-top:16px">
+    <strong>The argument for every MCO in every market</strong>
+    You have already paid for these benefits. They are sitting in the plan right now — budgeted, contracted, and unclaimed. The CHW model activates them. When members use their gym membership, their chronic disease risk drops. When they use transportation, they make it to their appointment. When they use meal delivery, their A1C improves. When they enroll in prenatal support, maternal outcomes get better. None of this costs the MCO a dollar more than they already committed. It converts sunk cost into documented return — improving quality scores, reducing utilization, and producing the outcomes the plan was designed to deliver. The CHW is not an expense. The CHW is the activation key to the investment you already made.
+  </div>
+</section>
+
+<section id="populations">
+  <div class="sl">The Three Populations</div>
+  <h2 class="st">Three populations. One campus. 250–300 Medicaid members.</h2>
+  <p class="si">Anthem's reach through this campus extends across three distinct populations, each one accessed through a different mechanism, each one documented and reported.</p>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab(0)">01 — Campus residents</div>
+    <div class="tab" onclick="showTab(1)">02 — Workforce pipeline</div>
+    <div class="tab" onclick="showTab(2)">03 — Broader community</div>
+  </div>
+
+  <div class="panel active" id="tab-0">
+    <p style="font-size:15px;color:var(--muted);line-height:1.75;max-width:680px;margin-bottom:4px">~100 individuals across 50 units. The highest-intensity, daily-touchpoint population. Clinical home in Jamie's practice from day one.</p>
+    <div class="pgrid">
+      <div class="pitem"><strong>50 residential units</strong>26 two-bedroom · 18 one-bedroom · 6 studios</div>
+      <div class="pitem"><strong>10 foster youth units</strong>Youth aging out of foster care · minimum 6-month CHW engagement · Anthem's highest-cost young adult cohort</div>
+      <div class="pitem"><strong>Working families</strong>Daily childcare drop-off — the natural touchpoint for preventive care and HEDIS capture</div>
+      <div class="pitem"><strong>Clinical attribution</strong>Jamie as designated PCP · HEDIS closure at every visit · Medicaid claims through Anthem's network</div>
+      <div class="pitem"><strong>CHW navigation</strong>ASG-deployed CHW from move-in day · all nine WCS pillars · entry through stabilization</div>
+      <div class="pitem"><strong>Childcare as workforce unlock</strong>On-site childcare enables workforce participation · without it, parents cannot enter the pipeline</div>
+    </div>
+  </div>
+
+  <div class="panel" id="tab-1">
+    <p style="font-size:15px;color:var(--muted);line-height:1.75;max-width:680px;margin-bottom:4px">100+ individuals from the broader Las Vegas community. Not necessarily residents. The most powerful Medicaid outcome story: enter dependent, exit employed and independently insured.</p>
+    <div class="pgrid">
+      <div class="pitem"><strong>Stage 1: Exposure</strong>Real-world observation on KG construction site. SDOH screening. CHW assigned Day 1. No prerequisites.</div>
+      <div class="pitem"><strong>Stage 2: Readiness</strong>Every barrier removed. Health gaps closed. Childcare secured. Anthem value-added benefits fully activated — often for the first time.</div>
+      <div class="pitem"><strong>Stage 3: Apprenticeship</strong>Formal skilled trades training. Wages begin. CHW stays active. HEDIS measures tracked. Utilization shifts from reactive to preventive.</div>
+      <div class="pitem"><strong>Stage 4: Employment</strong>Long-term employment secured. Employer insurance obtained. Medicaid exit documented. Anthem presents the story to CMS.</div>
+      <div class="pitem"><strong>Activates before opening</strong>Pipeline runs during construction — generating Anthem-reportable outcomes before the clinic opens its doors.</div>
+      <div class="pitem"><strong>The CMS story</strong>A Medicaid member who achieved economic self-sufficiency with Anthem as the named clinical partner at every stage of the journey.</div>
+    </div>
+  </div>
+
+  <div class="panel" id="tab-2">
+    <p style="font-size:15px;color:var(--muted);line-height:1.75;max-width:680px;margin-bottom:4px">The surrounding neighborhood — not residents, not pipeline participants, but Anthem members in the catchment area who access the clinic, CHW navigation, and community events.</p>
+    <div class="pgrid">
+      <div class="pitem"><strong>Digital clinic access</strong>Open to the surrounding neighborhood. Telehealth available. No transportation barrier. No scheduling friction.</div>
+      <div class="pitem"><strong>Community events</strong>Financial literacy nights. Banking access workshops. Employer connection events. Health awareness. Insurance literacy.</div>
+      <div class="pitem"><strong>CHW navigation</strong>Available to community members who engage through the clinic or events. Benefits activation. Warm handoffs.</div>
+      <div class="pitem"><strong>Anthem's presence</strong>Branded events in community rooms. Member engagement in a trusted residential environment that no traditional outreach program can replicate.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CAMPUS ── -->
+<section id="campus">
+  <div class="sl">The Physical Campus</div>
+  <h2 class="st">Advent UMC · 3460 North Rancho Drive · Las Vegas, NV</h2>
+  <p class="si">Construction begins July 2026. Campus opens August 2027. This is not where the model is tested — this is where the model is proven. Everything that replicates nationally is built and demonstrated here first.</p>
+  <div class="grid4">
+    <div class="card c-blue reveal">
+      <div class="ch"><div class="ct">50 units · Opens August 2027</div><div class="cn">Residential Housing</div></div>
+      <div class="cb">
+        <div class="cr"><span class="ck">Studios</span><span class="cv">6 units</span></div>
+        <div class="cr"><span class="ck">One-bedroom</span><span class="cv">18 units</span></div>
+        <div class="cr"><span class="ck">Two-bedroom</span><span class="cv">26 units</span></div>
+        <div class="cr"><span class="ck">Foster youth</span><span class="cv">10 supportive units · 6-month minimum</span></div>
+        <div class="cr"><span class="ck">Model</span><span class="cv">Intergenerational · families, seniors, youth</span></div>
+      </div>
+    </div>
+    <div class="card c-blue reveal">
+      <div class="ch"><div class="ct">Anthem-funded · $500K capital</div><div class="cn">Digital Health Clinic</div></div>
+      <div class="cb">
+        <div class="cr"><span class="ck">Clinical lead</span><span class="cv">Jamie, NP · Medicaid credentialed PCP</span></div>
+        <div class="cr"><span class="ck">Services</span><span class="cv">Primary care · preventive · chronic disease · women's health</span></div>
+        <div class="cr"><span class="ck">Access</span><span class="cv">In-person + telehealth · open to surrounding community</span></div>
+        <div class="cr"><span class="ck">Year 2 pathway</span><span class="cv">FQHC Look-Alike filing · enhanced reimbursement</span></div>
+      </div>
+    </div>
+    <div class="card c-teal reveal">
+      <div class="ch"><div class="ct">Anthem-funded · $500K capital</div><div class="cn">Childcare Center</div></div>
+      <div class="cb">
+        <div class="cr"><span class="ck">Serves</span><span class="cv">Campus residents · workforce participants · community</span></div>
+        <div class="cr"><span class="ck">The chain</span><span class="cv">Childcare → work → wages → employer insurance → Medicaid exit</span></div>
+        <div class="cr"><span class="ck">Funding</span><span class="cv">CCDF · Head Start · employer partnerships</span></div>
+      </div>
+    </div>
+    <div class="card c-gold reveal">
+      <div class="ch"><div class="ct">Available to Anthem · community activation</div><div class="cn">Community Rooms</div></div>
+      <div class="cb">
+        <div class="cr"><span class="ck">Events</span><span class="cv">Financial literacy · banking · health awareness</span></div>
+        <div class="cr"><span class="ck">Employment</span><span class="cv">Employer connection nights · pipeline participants</span></div>
+        <div class="cr"><span class="ck">Anthem access</span><span class="cv">Named partner · branded events · member outreach</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WORKFORCE PIPELINE ── -->
+<section id="pipeline">
+  <div class="sl">The Workforce Pipeline</div>
+  <h2 class="st">The most powerful outcome story in Medicaid.</h2>
+  <p class="si">A member who enters this pipeline dependent on public coverage exits with employer-sponsored insurance, a living wage, and no Medicaid claim. That is the story Anthem presents to CMS. That is what no other managed care investment produces.</p>
+  <div class="acc">
+    <div class="ai reveal" style="border-color:rgba(27,79,138,.3)">
+      <div class="ah" onclick="toggle(this)" style="background:rgba(27,79,138,.04)">
+        <div class="anum" style="color:var(--blue)">01</div>
+        <div class="ainfo"><div class="atitle">Exposure</div><div class="aparties">Real-world site observation · SDOH screening · CHW assigned Day 1</div></div>
+        <div class="abadge bblue">Stage 1</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What happens:</strong> Participants are introduced to skilled trades through real-world observation on the active KG construction site — before any classroom requirement. SDOH screening completed. CHW assigned from Day 1. No credential needed to enter.</p>
+        <p><strong>Anthem's role:</strong> Anthem members identified, enrolled, and attributed to Jamie's practice. Health gaps and barriers documented from the first CHW contact. The pipeline generates reportable outcomes from this moment forward.</p>
+        <div class="tags"><span class="tag">KG construction site</span><span class="tag">SDOH screening</span><span class="tag">CHW Day 1</span><span class="tag">No prerequisites</span></div>
+      </div>
+    </div>
+    <div class="ai reveal" style="border-color:rgba(14,138,122,.3)">
+      <div class="ah" onclick="toggle(this)" style="background:rgba(14,138,122,.04)">
+        <div class="anum" style="color:var(--teal)">02</div>
+        <div class="ainfo"><div class="atitle">Readiness</div><div class="aparties">Every barrier removed · health gaps closed · benefits activated</div></div>
+        <div class="abadge" style="background:rgba(14,138,122,.12);color:#5DCAA5;border:1px solid rgba(14,138,122,.3)">Stage 2</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What happens:</strong> Every identified barrier is addressed systematically. Health gaps closed at the clinic. Childcare secured. Transportation navigated. Anthem value-added benefits fully activated — gym memberships, OTC allowances, transportation, prenatal support, tutoring, meal delivery — often for the first time in the member's life.</p>
+        <p><strong>Anthem's role:</strong> Jamie closes HEDIS gaps during readiness visits. The CHW activates every benefit Anthem already paid for. Every Anthem service the member is entitled to is put to work.</p>
+        <div class="tags"><span class="tag">Clinic visits</span><span class="tag">Benefits activation</span><span class="tag">Childcare secured</span><span class="tag">Transportation navigated</span></div>
+      </div>
+    </div>
+    <div class="ai reveal" style="border-color:rgba(74,58,138,.3)">
+      <div class="ah" onclick="toggle(this)" style="background:rgba(74,58,138,.04)">
+        <div class="anum" style="color:#9A8ADA">03</div>
+        <div class="ainfo"><div class="atitle">Apprenticeship</div><div class="aparties">Formal skilled trades · wages begin · CHW remains active</div></div>
+        <div class="abadge" style="background:rgba(74,58,138,.12);color:#AFA9EC;border:1px solid rgba(74,58,138,.3)">Stage 3</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What happens:</strong> Participant enters formal apprenticeship. Wages begin. CHW remains active — monitoring stability, addressing emergencies, maintaining the clinical connection with Jamie. Healthcare utilization begins shifting from reactive to preventive.</p>
+        <p><strong>Anthem's role:</strong> Continued attribution. HEDIS tracked. As income stabilizes, SDOH barriers reduce. Anthem's cost per member begins declining.</p>
+        <div class="tags"><span class="tag">Formal apprenticeship</span><span class="tag">Wages start</span><span class="tag">CHW stays active</span><span class="tag">HEDIS tracked</span></div>
+      </div>
+    </div>
+    <div class="ai reveal" style="border-color:var(--borderg)">
+      <div class="ah" onclick="toggle(this)" style="background:rgba(232,160,32,.04)">
+        <div class="anum" style="color:var(--gold)">04</div>
+        <div class="ainfo"><div class="atitle">Employment</div><div class="aparties">Long-term job · employer insurance · Medicaid exit documented</div></div>
+        <div class="abadge bamber">Stage 4</div><div class="achev">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>What happens:</strong> Long-term employment secured. Employer provides health insurance. The participant exits Medicaid. The CHW documents the full journey from enrollment to independent coverage.</p>
+        <p><strong>Anthem's role:</strong> The outcome is packaged as a documented CMS success story — a Medicaid member who achieved economic self-sufficiency with Anthem as the named clinical partner at every stage of the journey. This is the story that justifies Anthem's community investment publicly and contractually.</p>
+        <div class="tags"><span class="tag">Employer insurance</span><span class="tag">Medicaid exit</span><span class="tag">CMS story documented</span><span class="tag">Anthem named partner</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NATIONAL SCALE ── -->
+<section id="scale">
+  <div class="sl">National Scale Vision</div>
+  <h2 class="st">Advent is the proof of concept.<br>The model is what scales.</h2>
+  <p class="si">Every component of this ecosystem — the WCS Framework, the WCSN, the CHW deployment model, the clinical structure, the workforce pipeline, the nonprofit/for-profit co-developer relationship — is designed to travel. To every market. To every campus. To every community that needs it.</p>
+
+  <div class="scale-grid">
+    <div class="scale-item reveal">
+      <div class="scale-step">Now</div>
+      <div class="scale-head">Advent — Las Vegas</div>
+      <div class="scale-body">Prove the model. $1M Anthem partnership. 250–300 Medicaid members. 15 legal agreements. All five entities operational. Outcomes documented before the building opens.</div>
+    </div>
+    <div class="scale-item reveal">
+      <div class="scale-step">Next</div>
+      <div class="scale-head">Master agreements</div>
+      <div class="scale-body">Master Partnership Framework between ASG and KG activates automatically on every new campus. Anthem Master Partnership Agreement gives preferred health plan status in every market. The legal infrastructure is built once and replicates.</div>
+    </div>
+    <div class="scale-item reveal">
+      <div class="scale-step">Milwaukee</div>
+      <div class="scale-head">Foundation strategy</div>
+      <div class="scale-body">ASG CDC's Milwaukee satellite or a converted foundation entity provides grantmaking capital for multi-market expansion. The foundation can make grants to ASG CDC's programs in new markets, providing capital before Medicaid billing and development fees are operational.</div>
+    </div>
+    <div class="scale-item reveal">
+      <div class="scale-step">Scale</div>
+      <div class="scale-head">WCS replication nationally</div>
+      <div class="scale-body">Every new campus — every new market — licenses the WCS Framework from the founder's IP LLC. Every new MCO partnership replicates the Anthem model. Every workforce pipeline graduate in every market is a documented CMS success story. The royalty compounds with every adopter.</div>
+    </div>
+  </div>
+
+  <div class="ib is reveal" style="margin-top:20px">
+    <strong>What makes this different from every other community development model</strong>
+    Most models solve for one problem. One clinic. One workforce program. One housing development. The WCS Framework solves for all nine simultaneously — and it is designed to replicate. The same framework, the same CHW model, the same clinical structure, the same workforce pipeline. In every market KG builds. In every community that needs it. The physical asset changes. The operating system does not. That is why Advent is not the product. It is the proof.
+  </div>
+</section>
+
+<!-- ── LEGAL ROADMAP ── -->
+<section id="legal">
+  <div class="sl">Legal Roadmap</div>
+  <h2 class="st">The execution sequence that makes everything else possible.</h2>
+  <p class="si">Three professionals, working together simultaneously. Execute in this order. Do not skip ahead.</p>
+
+  <div class="grid2">
+    <div>
+      <div class="sl" style="margin-bottom:10px">Three professionals — simultaneously, not sequentially</div>
+      <div class="acc">
+        <div class="ai reveal">
+          <div class="ah" onclick="toggle(this)">
+            <div class="anum" style="color:#E88070">HC</div>
+            <div class="ainfo"><div class="atitle">Healthcare attorney</div><div class="aparties">Priority 1 — nothing clinical executes without them</div></div>
+            <div class="achev">›</div>
+          </div>
+          <div class="ab">
+            <p>Anti-Kickback Statute analysis across all entity relationships. Nevada corporate practice of medicine compliance. Jamie's medical entity structure and KG separation. MSO services agreement review. All contracts between the clinical entity and any other entity in the ecosystem. Medicaid billing structure. Anthem sponsorship agreement. FQHC Look-Alike pathway.</p>
+          </div>
+        </div>
+        <div class="ai reveal">
+          <div class="ah" onclick="toggle(this)">
+            <div class="anum" style="color:var(--gold)">NP</div>
+            <div class="ainfo"><div class="atitle">Nonprofit / tax-exempt attorney</div><div class="aparties">ASG CDC governance and protection</div></div>
+            <div class="achev">›</div>
+          </div>
+          <div class="ab">
+            <p>ASG CDC governance and bylaws with founder protections. Private inurement analysis for all related-party transactions. Executive Director compensation benchmarking. IP ownership and license agreement. Conflicts of interest policy. Milwaukee entity legal status and foundation conversion analysis. Wisconsin foreign qualification filings.</p>
+          </div>
+        </div>
+        <div class="ai reveal">
+          <div class="ah" onclick="toggle(this)">
+            <div class="anum" style="color:var(--ltblue)">CPA</div>
+            <div class="ainfo"><div class="atitle">CPA — tax-exempt + healthcare specialist</div><div class="aparties">Structure, efficiency, documentation</div></div>
+            <div class="achev">›</div>
+          </div>
+          <div class="ab">
+            <p>Multi-entity tax structure optimization. IP ownership vehicle selection and tax treatment. MSO management fee structure and documentation. Reasonable compensation benchmarking for Form 990. CHW billing revenue split documentation. FQHC financial planning. Multi-state tax filing as the model expands nationally.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sl" style="margin-bottom:10px">Execute in this exact order</div>
+      <div class="flow reveal">
+        <div class="fn" style="border-color:#E88070;color:#E88070;background:rgba(192,72,48,.05)">Jamie separates from active KG role</div>
+        <div class="fa"><div class="fal"></div><div class="falbl">then</div><div class="fal"></div></div>
+        <div class="fn" style="border-color:#E88070;color:#E88070;background:rgba(192,72,48,.05)">IP License + Conflicts Policy + ED Agreement</div>
+        <div class="fa"><div class="fal"></div><div class="falbl">then</div><div class="fal"></div></div>
+        <div class="fn" style="border-color:var(--gold);color:var(--gold);background:rgba(232,160,32,.05)">MSO Services Agreement (founder + Anthony → Jamie's entity)</div>
+        <div class="fa"><div class="fal"></div><div class="falbl">then</div><div class="fal"></div></div>
+        <div class="fn" style="border-color:var(--gold);color:var(--gold);background:rgba(232,160,32,.05)">Co-Developer Agreement with KG (before groundbreaking)</div>
+        <div class="fa"><div class="fal"></div><div class="falbl">then</div><div class="fal"></div></div>
+        <div class="fn" style="border-color:var(--gold);color:var(--gold);background:rgba(232,160,32,.05)">Clinical Services + CHW Supervision Agreements</div>
+        <div class="fa"><div class="fal"></div><div class="falbl">then</div><div class="fal"></div></div>
+        <div class="fn" style="border-color:var(--teal);color:var(--teal);background:rgba(14,138,122,.05)">Anthem Sponsorship Agreement</div>
+        <div class="fa"><div class="fal"></div><div class="falbl">then</div><div class="fal"></div></div>
+        <div class="fn" style="border-color:var(--ltblue);color:var(--ltblue);background:rgba(74,158,219,.05)">Space leases · Darnell employment · Master framework</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ib iw reveal" style="margin-top:28px">
+    <strong>This document is not legal advice</strong>
+    Everything in this site is a strategic framework organized from the work done to design this ecosystem. No entity should be formed, modified, or contracted without qualified legal and tax counsel. A healthcare attorney is non-negotiable before any Medicaid billing structure is executed or any agreement between the clinical entity and any other entity is signed. An IP attorney is non-negotiable before the WCS Framework IP is formally assigned or licensed.
+  </div>
+</section>
+
+
+
+<!-- ══ BUILD TRACKER ══════════════════════════════════════════════════════ -->
+<section id="tracker" style="scroll-margin-top:54px;background:#F7F3ED;border-bottom:1px solid rgba(154,104,0,0.15);padding:0">
+
+<style>
+/* ── TRACKER LIGHT THEME ── */
+.tr-wrap{font-family:'DM Sans',sans-serif;color:#1A1510}
+.tr-hero{background:linear-gradient(135deg,#1C1408 0%,#0E1C2E 100%);padding:42px 52px 38px;position:relative;overflow:hidden}
+.tr-hero::after{content:'BUILD';position:absolute;right:-8px;bottom:-24px;font-family:'Cormorant Garamond',serif;font-size:180px;font-weight:700;font-style:italic;color:rgba(255,255,255,.03);line-height:1;pointer-events:none;user-select:none}
+@media(max-width:700px){.tr-hero{padding:28px 20px}}
+.tr-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(200,170,100,.75);margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.tr-eyebrow::before{content:'';width:28px;height:1px;background:rgba(200,170,100,.5)}
+.tr-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,36px);font-weight:400;color:#F0EAD8;line-height:1.1;margin-bottom:7px}
+.tr-h1 em{font-style:italic;color:#E8B030}
+.tr-sub{font-size:12.5px;color:rgba(220,210,190,.6);max-width:520px;line-height:1.7}
+
+/* overview bar */
+.tr-ov{display:flex;gap:0;flex-wrap:wrap;background:#EEE8DF;border-bottom:1px solid rgba(154,104,0,0.15)}
+.tr-stat{flex:1;min-width:100px;padding:13px 18px;border-right:1px solid rgba(154,104,0,0.12)}
+.tr-stat:last-child{border-right:none}
+.tr-sn{font-family:'Cormorant Garamond',serif;font-size:26px;line-height:1;margin-bottom:2px}
+.tr-sl{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:#7A6E64}
+.tr-bar{margin-top:6px;height:2px;background:#D8CFC2;border-radius:1px;overflow:hidden}
+.tr-fill{height:100%;border-radius:1px;transition:width .6s ease}
+
+/* body grid */
+.tr-body{display:grid;grid-template-columns:210px 1fr;min-height:400px}
+@media(max-width:860px){.tr-body{grid-template-columns:1fr}}
+
+/* sidebar */
+.tr-sb{background:#EEE8DF;border-right:1px solid rgba(154,104,0,0.12);padding:14px 0;position:sticky;top:54px;max-height:520px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#C8B890 transparent}
+@media(max-width:860px){.tr-sb{display:none}}
+.tr-sbh{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:#B0A898;padding:8px 16px 4px}
+.tr-sbl{display:flex;align-items:center;gap:8px;padding:7px 16px;text-decoration:none;font-size:11.5px;color:#3A3028;border-left:2px solid transparent;transition:all .15s;cursor:pointer}
+.tr-sbl:hover{background:#E5DDD2;color:#1A1510}
+.tr-sbl.on{background:rgba(154,104,0,.08);border-left-color:#9A6800;color:#9A6800}
+.tr-sdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.tr-sc{margin-left:auto;font-family:'DM Mono',monospace;font-size:8px;color:#B0A898;background:#D8CFC2;padding:2px 5px;border-radius:7px}
+
+/* content */
+.tr-content{padding:22px 32px 60px;background:#F7F3ED}
+@media(max-width:700px){.tr-content{padding:16px 14px 40px}}
+
+/* legend */
+.tr-legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:9px 14px;background:#EEE8DF;border:1px solid rgba(154,104,0,.12);border-radius:4px;margin-bottom:18px;font-family:'DM Mono',monospace}
+.tr-ll{font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:#B0A898;margin-right:2px}
+.tr-leg{display:flex;align-items:center;gap:5px;cursor:pointer;padding:2px 5px;border-radius:2px;transition:background .15s}
+.tr-leg:hover{background:#E5DDD2}
+.tr-ld{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.tr-lt{font-size:11px;color:#48403A}
+.tr-lhint{font-family:'DM Mono',monospace;font-size:7.5px;color:#B0A898;margin-left:auto}
+
+/* section block */
+.tr-sec{margin-bottom:30px;scroll-margin-top:62px}
+.tr-sh{display:flex;align-items:center;gap:10px;padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid rgba(154,104,0,.12)}
+.tr-sicon{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.tr-stitle{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#1A1510}
+.tr-ssub{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.07em;text-transform:uppercase;color:#B0A898;margin-top:2px}
+.tr-sright{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.tr-spct{font-family:'Cormorant Garamond',serif;font-size:17px;color:#9A6800;font-style:italic}
+.tr-sbar{width:64px;height:3px;background:#D8CFC2;border-radius:2px;overflow:hidden}
+.tr-sfill{height:100%;border-radius:2px;transition:width .5s}
+
+/* tasks */
+.tr-tl{display:flex;flex-direction:column;gap:4px}
+.tr-t{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:4px;border:1px solid;cursor:pointer;transition:all .17s;position:relative;user-select:none}
+.tr-t:hover{transform:translateY(-1px);box-shadow:0 2px 9px rgba(0,0,0,.07)}
+.tr-t.done {background:#ECFDF5;border-color:rgba(26,90,48,.28)}
+.tr-t.prog {background:#FFF8EC;border-color:rgba(138,74,0,.28)}
+.tr-t.open {background:#F0F4FC;border-color:rgba(26,58,122,.18)}
+.tr-t.block{background:#FFF0ED;border-color:rgba(184,58,32,.28)}
+.tr-chk{width:19px;height:19px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:10px;font-weight:700;transition:all .2s;border:1.5px solid}
+.tr-t.done  .tr-chk{background:#2A8A50;border-color:#2A8A50;color:#fff}
+.tr-t.prog  .tr-chk{background:#C07020;border-color:#C07020;color:#fff}
+.tr-t.open  .tr-chk{background:transparent;border-color:#2A5AAA;color:transparent}
+.tr-t.block .tr-chk{background:#D85030;border-color:#D85030;color:#fff}
+.tr-tb{flex:1;min-width:0}
+.tr-ttitle{font-size:13px;font-weight:500;color:#1A1510;margin-bottom:2px;line-height:1.4}
+.tr-t.done .tr-ttitle{text-decoration:line-through;color:#7A6E64}
+.tr-tdesc{font-size:11.5px;color:#48403A;line-height:1.6}
+.tr-t.done .tr-tdesc{color:#B0A898}
+.tr-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;align-items:center}
+.tr-ow{font-family:'DM Mono',monospace;font-size:8.5px;padding:2px 7px;border-radius:8px}
+.ow-f  {background:rgba(154,104,0,.1); color:#9A6800}
+.ow-j  {background:rgba(26,58,122,.1); color:#2A5AAA}
+.ow-a  {background:rgba(184,58,32,.1); color:#D85030}
+.ow-all{background:rgba(74,42,138,.1); color:#7A5ACA}
+.ow-att{background:rgba(26,90,48,.1);  color:#2A8A50}
+.tr-pri{font-family:'DM Mono',monospace;font-size:8px;padding:2px 6px;border-radius:2px;text-transform:uppercase;letter-spacing:.05em}
+.pp1{background:rgba(184,58,32,.08);color:#D85030;border:1px solid rgba(184,58,32,.18)}
+.pp2{background:rgba(138,74,0,.08);color:#C07020;border:1px solid rgba(138,74,0,.18)}
+.pp3{background:rgba(26,58,122,.08);color:#2A5AAA;border:1px solid rgba(26,58,122,.18)}
+.tr-bdg{font-family:'DM Mono',monospace;font-size:8px;padding:2px 6px;border-radius:2px}
+.bd-done {background:#ECFDF5;color:#1A5A30;border:1px solid rgba(26,90,48,.25)}
+.bd-prog {background:#FFF8EC;color:#8A4A00;border:1px solid rgba(138,74,0,.25)}
+.bd-open {background:#F0F4FC;color:#1A3A7A;border:1px solid rgba(26,58,122,.18)}
+.bd-block{background:#FFF0ED;color:#B83A20;border:1px solid rgba(184,58,32,.25)}
+.tr-hint{font-family:'DM Mono',monospace;font-size:7.5px;color:#B0A898;position:absolute;right:9px;top:9px;opacity:0;transition:opacity .2s}
+.tr-t:hover .tr-hint{opacity:1}
+
+/* notes */
+.tr-notes{margin-top:24px;padding:16px 20px;background:#EEE8DF;border:1px solid rgba(154,104,0,.12);border-radius:4px}
+.tr-nh{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:#B0A898;margin-bottom:8px}
+.tr-ni{width:100%;min-height:70px;resize:vertical;background:#F7F3ED;border:1px solid rgba(154,104,0,.15);border-radius:3px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:12.5px;color:#1A1510;line-height:1.6;outline:none;transition:border-color .2s}
+.tr-ni:focus{border-color:#9A6800}
+.tr-ni::placeholder{color:#B0A898}
+.tr-nb{margin-top:7px;padding:6px 16px;background:#9A6800;color:#fff;border:none;border-radius:3px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.tr-nb:hover{background:#C08010}
+
+/* toast */
+#tr-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(12px);background:#1A1510;color:#F0EAD8;padding:8px 16px;border-radius:3px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.05em;opacity:0;transition:all .25s;z-index:9999;pointer-events:none;white-space:nowrap}
+#tr-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+
+<div class="tr-wrap">
+<div id="tr-toast"></div>
+
+<!-- Hero bar -->
+<div class="tr-hero">
+  <div class="tr-eyebrow">KG Development × A Solution Group CDC — Internal Team Dashboard</div>
+  <h2 class="tr-h1">Ecosystem Build Status.<br><em>What's done. What's next. What's blocking.</em></h2>
+  <p class="tr-sub">Click any item to cycle its status — Not Started → In Progress → Done → Needs Attention. Progress saves automatically in your browser.</p>
+</div>
+
+<!-- Overview bar -->
+<div class="tr-ov">
+  <div class="tr-stat"><div class="tr-sn" id="trov-done" style="color:#2A8A50">0</div><div class="tr-sl">Completed</div><div class="tr-bar"><div class="tr-fill" id="trfill-done" style="background:#2A8A50;width:0%"></div></div></div>
+  <div class="tr-stat"><div class="tr-sn" id="trov-prog" style="color:#C07020">0</div><div class="tr-sl">In Progress</div><div class="tr-bar"><div class="tr-fill" id="trfill-prog" style="background:#C07020;width:0%"></div></div></div>
+  <div class="tr-stat"><div class="tr-sn" id="trov-open" style="color:#2A5AAA">0</div><div class="tr-sl">Not Started</div><div class="tr-bar"><div class="tr-fill" id="trfill-open" style="background:#2A5AAA;width:0%"></div></div></div>
+  <div class="tr-stat"><div class="tr-sn" id="trov-block" style="color:#D85030">0</div><div class="tr-sl">Needs Attention</div><div class="tr-bar"><div class="tr-fill" id="trfill-block" style="background:#D85030;width:0%"></div></div></div>
+  <div class="tr-stat"><div class="tr-sn" id="trov-pct" style="color:#9A6800">0%</div><div class="tr-sl">Overall Complete</div><div class="tr-bar"><div class="tr-fill" id="trfill-total" style="background:#9A6800;width:0%"></div></div></div>
+</div>
+
+<!-- Main grid -->
+<div class="tr-body">
+
+<!-- Sidebar -->
+<aside class="tr-sb">
+  <div class="tr-sbh">Entities &amp; Structure</div>
+  <div class="tr-sbl" onclick="trScroll('tr-entities')"><div class="tr-sdot" style="background:#D85030"></div>5 Entities<span class="tr-sc" id="trsc-entities">—</span></div>
+  <div class="tr-sbh" style="margin-top:6px">Agreements</div>
+  <div class="tr-sbl" onclick="trScroll('tr-t1')"><div class="tr-sdot" style="background:#D85030"></div>Tier 1 · Before Money Moves<span class="tr-sc" id="trsc-t1">—</span></div>
+  <div class="tr-sbl" onclick="trScroll('tr-t2')"><div class="tr-sdot" style="background:#C07020"></div>Tier 2 · Before Opening<span class="tr-sc" id="trsc-t2">—</span></div>
+  <div class="tr-sbl" onclick="trScroll('tr-t3')"><div class="tr-sdot" style="background:#2A5AAA"></div>Tier 3 · Governance<span class="tr-sc" id="trsc-t3">—</span></div>
+  <div class="tr-sbh" style="margin-top:6px">Operations</div>
+  <div class="tr-sbl" onclick="trScroll('tr-clinical')"><div class="tr-sdot" style="background:#2A5AAA"></div>Clinical Setup<span class="tr-sc" id="trsc-clinical">—</span></div>
+  <div class="tr-sbl" onclick="trScroll('tr-anthem')"><div class="tr-sdot" style="background:#0E8A78"></div>Anthem Partnership<span class="tr-sc" id="trsc-anthem">—</span></div>
+  <div class="tr-sbl" onclick="trScroll('tr-campus')"><div class="tr-sdot" style="background:#7A5ACA"></div>Campus Development<span class="tr-sc" id="trsc-campus">—</span></div>
+  <div class="tr-sbl" onclick="trScroll('tr-team')"><div class="tr-sdot" style="background:#9A6800"></div>Team Actions<span class="tr-sc" id="trsc-team">—</span></div>
+</aside>
+
+<!-- Tasks content -->
+<div class="tr-content">
+
+<div class="tr-legend">
+  <span class="tr-ll">Filter:</span>
+  <div class="tr-leg" onclick="trFilter('all')"><div class="tr-ld" style="background:#B0A898"></div><span class="tr-lt">All</span></div>
+  <div class="tr-leg" onclick="trFilter('done')"><div class="tr-ld" style="background:#2A8A50"></div><span class="tr-lt">Done</span></div>
+  <div class="tr-leg" onclick="trFilter('prog')"><div class="tr-ld" style="background:#C07020"></div><span class="tr-lt">In Progress</span></div>
+  <div class="tr-leg" onclick="trFilter('open')"><div class="tr-ld" style="background:#2A5AAA"></div><span class="tr-lt">Not Started</span></div>
+  <div class="tr-leg" onclick="trFilter('block')"><div class="tr-ld" style="background:#D85030"></div><span class="tr-lt">Needs Attention</span></div>
+  <span class="tr-lhint">Click any task to update</span>
+</div>
+
+<!-- ENTITIES -->
+<div class="tr-sec" id="tr-entities">
+  <div class="tr-sh">
+    <div class="tr-sicon" style="background:rgba(184,58,32,.1)">🏛️</div>
+    <div><div class="tr-stitle">Entity Formation</div><div class="tr-ssub">5 entities · the legal foundation of the ecosystem</div></div>
+    <div class="tr-sright"><span class="tr-spct" id="trpct-entities">0%</span><div class="tr-sbar"><div class="tr-sfill" id="trsfill-entities" style="background:#D85030"></div></div></div>
+  </div>
+  <div class="tr-tl" id="trtl-entities">
+    <div class="tr-t open" data-id="e1" data-sec="entities" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">WCS Framework IP LLC — founder's single-member LLC</div><div class="tr-tdesc">Form the LLC that holds all WCS Framework IP, WCSN methodology, and brand. The founder's primary equity vehicle. Must exist before IP License Agreement can be signed.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-att">IP Attorney</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="e2" data-sec="entities" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">A Solution Group CDC — confirm 501(c)(3) active status</div><div class="tr-tdesc">Verify IRS determination letter current, EIN active, Nevada and Wisconsin registrations current. Confirm bylaws are attorney-reviewed and up to date.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="e3" data-sec="entities" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Jamie's Medical Entity — PC/PLLC formation (NP-owned 100%)</div><div class="tr-tdesc">Form the PC/PLLC Jamie owns entirely. Must comply with Nevada corporate practice of medicine rules. No KG principal involvement — AKS compliance critical.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-att">HC Attorney</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="e4" data-sec="entities" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">WCS Health Management LLC — MSO (Founder + Anthony co-own)</div><div class="tr-tdesc">Form the Management Services Organization. Non-clinical admin services to Jamie's entity. How founder and Anthony participate in clinical revenue legally. CPOM + AKS review required.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-a">Anthony</span><span class="tr-ow ow-att">HC Attorney</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="e5" data-sec="entities" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">KG Development — initiate Jamie's separation from active principal role</div><div class="tr-tdesc">Most sensitive AKS issue in the ecosystem. Jamie owning both KG and a Medicaid-billing clinic creates exposure. Healthcare attorney only — not a general business attorney. Most urgent action item.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-a">Anthony</span><span class="tr-ow ow-att">HC Attorney — URGENT</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+  </div>
+</div>
+
+<!-- TIER 1 -->
+<div class="tr-sec" id="tr-t1">
+  <div class="tr-sh">
+    <div class="tr-sicon" style="background:rgba(184,58,32,.1)">⚖️</div>
+    <div><div class="tr-stitle">Agreements — Tier 1</div><div class="tr-ssub">Must exist before any money moves between entities</div></div>
+    <div class="tr-sright"><span class="tr-spct" id="trpct-t1">0%</span><div class="tr-sbar"><div class="tr-sfill" id="trsfill-t1" style="background:#D85030"></div></div></div>
+  </div>
+  <div class="tr-tl" id="trtl-t1">
+    <div class="tr-t open" data-id="t1a" data-sec="t1" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 01 — IP Ownership &amp; License Agreement</div><div class="tr-tdesc">Founder IP LLC → ASG CDC. Documents founder ownership of WCS Framework, licenses to ASG CDC at fair market value. Load-bearing document for founder's equity. Sign before everything else.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-att">IP Attorney</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t1b" data-sec="t1" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 02 — Conflicts of Interest Policy + Disclosure</div><div class="tr-tdesc">Founder → ASG CDC Board. Documents every outside financial interest and gets independent board approval. IRS Form 990 requires this. Founder cannot self-approve.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder + Board</span><span class="tr-ow ow-att">Nonprofit Atty</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t1c" data-sec="t1" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 03 — Executive Director Employment Agreement</div><div class="tr-tdesc">ASG CDC Board → Founder. Board-set, benchmarked compensation approved by independent members. ED salary is most scrutinized Form 990 line item.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder + Board</span><span class="tr-ow ow-att">Nonprofit Atty</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t1d" data-sec="t1" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 04 — Co-Developer Agreement (Advent campus)</div><div class="tr-tdesc">ASG CDC ↔ KG Development. 1–2% co-dev fee. Must be signed BEFORE groundbreaking July 2026. Unlocks LIHTC nonprofit set-asides, HUD preferences, QAP scoring.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-a">Anthony</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t1e" data-sec="t1" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 05 — Clinical Services Agreement</div><div class="tr-tdesc">ASG CDC ↔ Jamie's Medical Entity. CHW service delivery, clinical supervision, revenue split. AKS compliance critical — compensation for documented services only, never referral volume.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-att">HC Attorney — AKS</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t1f" data-sec="t1" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 06 — CHW Supervision Agreement</div><div class="tr-tdesc">Jamie's entity → Darnell. Clinical supervisory relationship, supervision frequency, scope of CHW practice. Nevada Medicaid requires this to bill CHW services under NP supervision.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-att">HC Attorney</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t1g" data-sec="t1" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 07 — MSO Services Agreement</div><div class="tr-tdesc">WCS Health Management LLC → Jamie's entity. Non-clinical admin at fair market value. CPOM + AKS review required. How founder and Anthony participate in clinical revenue legally.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-a">Anthony</span><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-att">HC Attorney</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+  </div>
+</div>
+
+<!-- TIER 2 -->
+<div class="tr-sec" id="tr-t2">
+  <div class="tr-sh">
+    <div class="tr-sicon" style="background:rgba(138,74,0,.1)">📋</div>
+    <div><div class="tr-stitle">Agreements — Tier 2</div><div class="tr-ssub">Must exist before campus opens · August 2027</div></div>
+    <div class="tr-sright"><span class="tr-spct" id="trpct-t2">0%</span><div class="tr-sbar"><div class="tr-sfill" id="trsfill-t2" style="background:#C07020"></div></div></div>
+  </div>
+  <div class="tr-tl" id="trtl-t2">
+    <div class="tr-t open" data-id="t2a" data-sec="t2" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 08 — Jamie's Separation from Active KG Role</div><div class="tr-tdesc">Jamie → KG Development. Most sensitive document. AKS exposure from owning both KG and Medicaid-billing clinic. Healthcare attorney only — not a general business attorney.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-a">Anthony</span><span class="tr-ow ow-att">HC Attorney — MOST URGENT</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t2b" data-sec="t2" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 09 — Space License / Sublease Agreements (2 separate docs)</div><div class="tr-tdesc">KG → ASG CDC and KG → Jamie's entity — two separate agreements at documented fair market value. Below-market space from for-profit to related nonprofit creates IRS private benefit issues.</div><div class="tr-meta"><span class="tr-ow ow-a">Anthony</span><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-j">Jamie</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t2c" data-sec="t2" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 10 — Founder's Personal Consulting Agreement with KG</div><div class="tr-tdesc">Founder IP LLC → KG Development. Direct personal income stream for WCS strategy and community relationship development. Board disclosure required before signing.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-a">Anthony</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t2d" data-sec="t2" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 11 — Darnell Employment Agreement</div><div class="tr-tdesc">ASG CDC → Darnell. Role, compensation, CHW supervision relationship, confidentiality. Must align precisely with Agreement 06 (CHW Supervision Agreement).</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t2e" data-sec="t2" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 12 — Anthem Clinical Partner Sponsorship Agreement</div><div class="tr-tdesc">ASG CDC + Jamie's entity → Anthem. Both entities named. $1M allocation, named partner status, credentialing timeline, quarterly reporting. HC attorney review mandatory before execution.</div><div class="tr-meta"><span class="tr-ow ow-all">All Parties</span><span class="tr-ow ow-att">HC Attorney — AKS</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+  </div>
+</div>
+
+<!-- TIER 3 -->
+<div class="tr-sec" id="tr-t3">
+  <div class="tr-sh">
+    <div class="tr-sicon" style="background:rgba(26,58,122,.1)">📌</div>
+    <div><div class="tr-stitle">Agreements — Tier 3</div><div class="tr-ssub">Governance and long-term protection</div></div>
+    <div class="tr-sright"><span class="tr-spct" id="trpct-t3">0%</span><div class="tr-sbar"><div class="tr-sfill" id="trsfill-t3" style="background:#2A5AAA"></div></div></div>
+  </div>
+  <div class="tr-tl" id="trtl-t3">
+    <div class="tr-t open" data-id="t3a" data-sec="t3" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 13 — ASG CDC Bylaws with Founder Protections</div><div class="tr-tdesc">Board composition clause, supermajority for ED role changes, IP license as operating condition. Prevents any future board from running ASG without honoring the founder's IP agreement.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder + Board</span><span class="tr-ow ow-att">Nonprofit Atty</span><span class="tr-pri pp3">Tier 3</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t3b" data-sec="t3" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 14 — Master Partnership Framework (ASG ↔ KG all campuses)</div><div class="tr-tdesc">Overarching agreement for all campuses. Every new campus activates automatically. Per-campus co-developer agreement is a supplement to this master. Covers Las Vegas, Milwaukee, and all future sites.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-a">Anthony</span><span class="tr-pri pp3">Tier 3</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="t3c" data-sec="t3" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Agreement 15 — WCS Framework National Replication License</div><div class="tr-tdesc">Founder IP LLC → Third-party organizations, cities, MCOs. Template license for national deployments. Converts WCS Framework into a compounding national royalty stream.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-att">IP Attorney</span><span class="tr-pri pp3">Tier 3</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+  </div>
+</div>
+
+<!-- CLINICAL -->
+<div class="tr-sec" id="tr-clinical">
+  <div class="tr-sh">
+    <div class="tr-sicon" style="background:rgba(26,58,122,.1)">🏥</div>
+    <div><div class="tr-stitle">Clinical Setup</div><div class="tr-ssub">Jamie's credentialing · Darnell · EHR · FQHC pathway</div></div>
+    <div class="tr-sright"><span class="tr-spct" id="trpct-clinical">0%</span><div class="tr-sbar"><div class="tr-sfill" id="trsfill-clinical" style="background:#2A5AAA"></div></div></div>
+  </div>
+  <div class="tr-tl" id="trtl-clinical">
+    <div class="tr-t open" data-id="cl1" data-sec="clinical" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Jamie — Nevada NP license current and active</div><div class="tr-tdesc">Verify NP license status, renewal dates, required CE. Active Nevada license is the prerequisite for every other clinical action item.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="cl2" data-sec="clinical" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Jamie — Anthem Medicaid credentialing application submitted</div><div class="tr-tdesc">Submit NP credentialing as PCP to Anthem Nevada Medicaid. 90–120 day timeline — initiate at LOI execution. Every day of delay is a day the HEDIS closure engine doesn't run.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="cl3" data-sec="clinical" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Jamie — Anthem Medicaid credentialing approved and active</div><div class="tr-tdesc">Anthem PCP designation confirmed. Attribution and HEDIS billing active. Pre-built patient panel formally in Anthem's network.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="cl4" data-sec="clinical" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Darnell — CHW certification current and documented</div><div class="tr-tdesc">Verify CHW certification meets Nevada Medicaid requirements for billing CHW services under NP supervision.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="cl5" data-sec="clinical" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Darnell — Nevada Medicaid CHW credentialing under Jamie's supervision</div><div class="tr-tdesc">Submit CHW credentialing to Nevada Medicaid. Agreement 06 (CHW Supervision Agreement) must be executed first. Required for CHW Medicaid billing to begin.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-j">Jamie</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="cl6" data-sec="clinical" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">EHR system selected and configured</div><div class="tr-tdesc">Select EHR supporting Medicaid billing, HEDIS tracking, care plan documentation, CHW service logging, and telehealth for pipeline population pre-opening.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="cl7" data-sec="clinical" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">FQHC Look-Alike — pre-application assessment begun (Year 2 target)</div><div class="tr-tdesc">Engage HRSA consultant. Pre-application documentation started. Enhanced PPS, 340B pricing, Section 330 grants depend on this. Target filing: 2028.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp3">Tier 3</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+  </div>
+</div>
+
+<!-- ANTHEM -->
+<div class="tr-sec" id="tr-anthem">
+  <div class="tr-sh">
+    <div class="tr-sicon" style="background:rgba(14,138,120,.1)">🤝</div>
+    <div><div class="tr-stitle">Anthem Partnership</div><div class="tr-ssub">$1M Clinical Partner Sponsorship + Master Agreement</div></div>
+    <div class="tr-sright"><span class="tr-spct" id="trpct-anthem">0%</span><div class="tr-sbar"><div class="tr-sfill" id="trsfill-anthem" style="background:#0E8A78"></div></div></div>
+  </div>
+  <div class="tr-tl" id="trtl-anthem">
+    <div class="tr-t open" data-id="an1" data-sec="anthem" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Anthem meeting requested — authorized decision-maker in the room</div><div class="tr-tdesc">Request meeting with Anthem Nevada Medicaid leadership. All three presenting: founder, Jamie (NP), Anthony (KG). One meeting, all parties, person who can say yes.</div><div class="tr-meta"><span class="tr-ow ow-all">All Three</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="an2" data-sec="anthem" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Anthem alignment meeting held</div><div class="tr-tdesc">Full system demonstration. Populations reviewed. Credentialing pathway confirmed. Reporting framework agreed in principle. Master agreement structure introduced.</div><div class="tr-meta"><span class="tr-ow ow-all">All Three</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="an3" data-sec="anthem" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Letter of Intent signed — $1M confirmed</div><div class="tr-tdesc">LOI executed. Named partner status confirmed. Credentialing initiated as parallel workstreams. Quarterly reporting framework agreed. Target: 30 days after alignment meeting.</div><div class="tr-meta"><span class="tr-ow ow-all">All Parties</span><span class="tr-ow ow-att">HC Attorney</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="an4" data-sec="anthem" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Data sharing MOU and HIPAA BAA executed</div><div class="tr-tdesc">Mutual data sharing agreement governing member attribution, HEDIS reporting, and CHW outcome documentation. HIPAA BAA required.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-att">HC Attorney</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="an5" data-sec="anthem" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Master Partnership Agreement executed</div><div class="tr-tdesc">Anthem preferred MCO status at all future campuses in Medicaid markets. Activates automatically as new campuses are announced — Las Vegas, Milwaukee, and beyond.</div><div class="tr-meta"><span class="tr-ow ow-all">All Parties</span><span class="tr-ow ow-att">HC Attorney</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="an6" data-sec="anthem" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">First quarterly outcome report delivered to Anthem</div><div class="tr-tdesc">Q1: pipeline SDOH screening results, benefit activation rates, attributed member count, telehealth engagement. First proof the model is working before the campus opens.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+  </div>
+</div>
+
+<!-- CAMPUS -->
+<div class="tr-sec" id="tr-campus">
+  <div class="tr-sh">
+    <div class="tr-sicon" style="background:rgba(74,42,138,.1)">🏗️</div>
+    <div><div class="tr-stitle">Campus — Advent Las Vegas</div><div class="tr-ssub">3460 N. Rancho Drive · Groundbreaking July 2026 · Opens August 2027</div></div>
+    <div class="tr-sright"><span class="tr-spct" id="trpct-campus">0%</span><div class="tr-sbar"><div class="tr-sfill" id="trsfill-campus" style="background:#7A5ACA"></div></div></div>
+  </div>
+  <div class="tr-tl" id="trtl-campus">
+    <div class="tr-t open" data-id="ca1" data-sec="campus" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Site control confirmed — 3460 N. Rancho Drive</div><div class="tr-tdesc">Purchase agreement, ground lease, or equivalent site control instrument executed. KG Development leads.</div><div class="tr-meta"><span class="tr-ow ow-a">Anthony</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="ca2" data-sec="campus" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">LIHTC application submitted — ASG CDC named as co-developer</div><div class="tr-tdesc">Nevada Housing Division LIHTC application filed. ASG CDC named as co-developer with WCS Framework community services integration plan. QAP scoring advantages applied.</div><div class="tr-meta"><span class="tr-ow ow-a">Anthony</span><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="ca3" data-sec="campus" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">LIHTC award confirmed — financing fully stacked</div><div class="tr-tdesc">Nevada Housing Division allocation confirmed. Development financing complete. Ready for financial close and groundbreaking.</div><div class="tr-meta"><span class="tr-ow ow-a">Anthony</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="ca4" data-sec="campus" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Groundbreaking — July 2026</div><div class="tr-tdesc">Construction begins. Workforce pipeline Stage 1 on site. All Tier 1 legal agreements must be executed before this date.</div><div class="tr-meta"><span class="tr-ow ow-a">Anthony</span><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="ca5" data-sec="campus" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Clinic build-out specification completed</div><div class="tr-tdesc">Digital Health Clinic space designed to Jamie's clinical specs. Exam rooms, telehealth stations, CHW office. Anthem's $500K funds this.</div><div class="tr-meta"><span class="tr-ow ow-j">Jamie</span><span class="tr-ow ow-a">Anthony</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="ca6" data-sec="campus" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Campus opens — August 2027</div><div class="tr-tdesc">50 units ready. Clinic operational with pre-built panel. Childcare center licensed. Community rooms open for Anthem events. CHW serving all three populations simultaneously.</div><div class="tr-meta"><span class="tr-ow ow-all">All Parties</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+  </div>
+</div>
+
+<!-- TEAM ACTIONS -->
+<div class="tr-sec" id="tr-team">
+  <div class="tr-sh">
+    <div class="tr-sicon" style="background:rgba(154,104,0,.1)">👥</div>
+    <div><div class="tr-stitle">Team Actions</div><div class="tr-ssub">Three professionals · board · Milwaukee · IP assignment</div></div>
+    <div class="tr-sright"><span class="tr-spct" id="trpct-team">0%</span><div class="tr-sbar"><div class="tr-sfill" id="trsfill-team" style="background:#9A6800"></div></div></div>
+  </div>
+  <div class="tr-tl" id="trtl-team">
+    <div class="tr-t open" data-id="tm1" data-sec="team" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Healthcare attorney — engaged and fully briefed</div><div class="tr-tdesc">Priority 1 professional. AKS analysis, CPOM, Jamie's KG separation, MSO agreement, all clinical contracts, Anthem agreement review. Nothing clinical executes without this attorney.</div><div class="tr-meta"><span class="tr-ow ow-all">All Parties</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="tm2" data-sec="team" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Nonprofit / tax-exempt attorney — engaged and fully briefed</div><div class="tr-tdesc">ASG CDC governance, bylaws with founder protections, private inurement, ED compensation benchmarking, IP license review, Milwaukee entity status, Wisconsin foreign qualification.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="tm3" data-sec="team" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">CPA — tax-exempt + healthcare specialist — engaged</div><div class="tr-tdesc">Multi-entity tax structure, IP vehicle, MSO fee documentation, ED compensation benchmarking, CHW billing revenue split, FQHC financial planning, multi-state filing.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="tm4" data-sec="team" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">WCS Framework IP — formal assignment to founder's LLC</div><div class="tr-tdesc">IP attorney formally assigns all WCS Framework IP, WCSN methodology, and brand to founder's LLC. Prerequisite for Agreement 01 and all future replication licensing.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-att">IP Attorney</span><span class="tr-pri pp1">Priority 1</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="tm5" data-sec="team" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">ASG CDC board — independent members recruited and seated</div><div class="tr-tdesc">Recruit genuinely independent board members to approve related-party transactions. IRS requires independence. Nonprofit attorney guides composition.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+    <div class="tr-t open" data-id="tm6" data-sec="team" onclick="trCycle(this)"><div class="tr-chk"></div><div class="tr-tb"><div class="tr-ttitle">Milwaukee campus — entity and legal status confirmed with attorneys</div><div class="tr-tdesc">Confirm ASG CDC Milwaukee satellite vs. separate entity. Foreign qualification in Wisconsin if needed. Foundation strategy. Same legal requirements apply as Las Vegas.</div><div class="tr-meta"><span class="tr-ow ow-f">Founder</span><span class="tr-ow ow-att">Nonprofit Atty</span><span class="tr-pri pp2">Tier 2</span><span class="tr-bdg bd-open">Not Started</span></div></div><span class="tr-hint">click to update</span></div>
+  </div>
+</div>
+
+<!-- Notes -->
+<div class="tr-notes">
+  <div class="tr-nh">Team Notes — attorney contacts, meeting takeaways, blockers, next actions</div>
+  <textarea class="tr-ni" id="tr-notes-ta" placeholder="Attorney contacts, meeting dates, blockers, open questions, next action items..."></textarea>
+  <button class="tr-nb" onclick="trSaveNotes()">Save Notes</button>
+</div>
+
+</div><!-- /tr-content -->
+</div><!-- /tr-body -->
+</div><!-- /tr-wrap -->
+
+<script>
+(function(){
+const STS=['open','prog','done','block'];
+const ICONS={open:'',prog:'…',done:'✓',block:'!'};
+const LBLS={open:'Not Started',prog:'In Progress',done:'Done',block:'Needs Attention'};
+const BDGS={open:'bd-open',prog:'bd-prog',done:'bd-done',block:'bd-block'};
+const SECS={
+  entities:['e1','e2','e3','e4','e5'],
+  t1:['t1a','t1b','t1c','t1d','t1e','t1f','t1g'],
+  t2:['t2a','t2b','t2c','t2d','t2e'],
+  t3:['t3a','t3b','t3c'],
+  clinical:['cl1','cl2','cl3','cl4','cl5','cl6','cl7'],
+  anthem:['an1','an2','an3','an4','an5','an6'],
+  campus:['ca1','ca2','ca3','ca4','ca5','ca6'],
+  team:['tm1','tm2','tm3','tm4','tm5','tm6']
+};
+
+function load(){try{return JSON.parse(localStorage.getItem('wcs-tr2')||'{}')}catch(e){return{}}}
+function save(s){localStorage.setItem('wcs-tr2',JSON.stringify(s))}
+
+function apply(){
+  const st=load();
+  document.querySelectorAll('#tracker .tr-t').forEach(el=>{
+    if(st[el.dataset.id]) setS(el,st[el.dataset.id],false);
+  });
+  update();
+}
+
+function trCycle(el){
+  const cur=STS.find(s=>el.classList.contains(s))||'open';
+  const nxt=STS[(STS.indexOf(cur)+1)%STS.length];
+  setS(el,nxt,true); update(); trToast(LBLS[nxt]);
+}
+window.trCycle=trCycle;
+
+function setS(el,s,sv){
+  STS.forEach(x=>el.classList.remove(x));
+  el.classList.add(s);
+  el.querySelector('.tr-chk').textContent=ICONS[s];
+  const b=el.querySelector('.tr-bdg');
+  if(b){b.className='tr-bdg '+BDGS[s];b.textContent=LBLS[s];}
+  if(sv){const st=load();st[el.dataset.id]=s;save(st);}
+}
+
+function update(){
+  const all=document.querySelectorAll('#tracker .tr-t');
+  let d=0,p=0,o=0,b=0;
+  all.forEach(t=>{
+    if(t.classList.contains('done'))d++;
+    else if(t.classList.contains('prog'))p++;
+    else if(t.classList.contains('block'))b++;
+    else o++;
+  });
+  const tot=all.length,pct=tot?Math.round(d/tot*100):0;
+  function sg(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
+  function sw(id,v){const e=document.getElementById(id);if(e)e.style.width=v+'%';}
+  sg('trov-done',d);sg('trov-prog',p);sg('trov-open',o);sg('trov-block',b);sg('trov-pct',pct+'%');
+  sw('trfill-done',d/tot*100);sw('trfill-prog',p/tot*100);
+  sw('trfill-open',o/tot*100);sw('trfill-block',b/tot*100);sw('trfill-total',pct);
+  Object.entries(SECS).forEach(([sec,ids])=>{
+    let sd=0,st=0;
+    ids.forEach(id=>{
+      const el=document.querySelector(`[data-id="${id}"]`);
+      if(!el)return;st++;
+      if(el.classList.contains('done'))sd++;
+    });
+    const sp=st?Math.round(sd/st*100):0;
+    sg('trpct-'+sec,sp+'%');sw('trsfill-'+sec,sp);
+    const sc=document.getElementById('trsc-'+sec);
+    if(sc)sc.textContent=sd+'/'+st;
+  });
+}
+
+function trFilter(s){
+  window.trFilter=trFilter;
+  document.querySelectorAll('#tracker .tr-t').forEach(t=>{
+    t.style.display=(s==='all'||t.classList.contains(s))?'':'none';
+  });
+}
+window.trFilter=trFilter;
+
+function trScroll(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+window.trScroll=trScroll;
+
+let _tt2;
+function trToast(msg){
+  const el=document.getElementById('tr-toast');
+  if(!el)return;
+  el.textContent='→ '+msg;el.classList.add('show');
+  clearTimeout(_tt2);_tt2=setTimeout(()=>el.classList.remove('show'),1700);
+}
+
+function trSaveNotes(){
+  const ta=document.getElementById('tr-notes-ta');
+  if(ta)localStorage.setItem('wcs-notes2',ta.value);
+  trToast('Notes saved');
+}
+window.trSaveNotes=trSaveNotes;
+
+// Restore notes
+const saved=localStorage.getItem('wcs-notes2');
+if(saved){const ta=document.getElementById('tr-notes-ta');if(ta)ta.value=saved;}
+
+// Init
+apply();
+})();
+</script>
+
+</section>
+
+<footer>
+  <div class="fb">Whole Community Solutions — KG Development × A Solution Group CDC</div>
+  <div class="fn2">Advent UMC Campus · Las Vegas, Nevada · Confidential · 2026</div>
+</footer>
+
+<script>
+function toggle(header) { header.parentElement.classList.toggle('open'); }
+function showTab(i) {
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));
+}
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const secs = document.querySelectorAll('section[id]');
+const nls = document.querySelectorAll('.nl');
+const navObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      nls.forEach(l=>l.classList.remove('active'));
+      const l = document.querySelector(`.nl[href="#${e.target.id}"]`);
+      if(l){ l.classList.add('active'); l.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); }
+    }
+  });
+},{threshold:.25});
+secs.forEach(s=>navObs.observe(s));
+</script>
+
+</body>
+</html>

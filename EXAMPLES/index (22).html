@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Partnership Proposal — Anthem Blue Cross Nevada × KG Development Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #08111E;
+  --bg2:     #0C1828;
+  --bg3:     #101F32;
+  --bg4:     #152540;
+  --gold:    #C8920A;
+  --ltgold:  #E8B030;
+  --cream:   #F0EAD8;
+  --warm:    #C8BAA0;
+  --muted:   #7A8A9A;
+  --dim:     #3A5060;
+  --green:   #1A6A3A;
+  --ltgreen: #3ABA7A;
+  --red:     #8A1A0A;
+  --ltred:   #D04030;
+  --blue:    #1A4A8A;
+  --ltblue:  #4A8ADA;
+  --border:  rgba(200,146,10,0.15);
+  --borderl: rgba(200,146,10,0.08);
+  --borderg: rgba(200,146,10,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--cream);
+  overflow-x:hidden;
+  line-height:1.65;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;height:50px;
+  background:rgba(8,17,30,0.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--borderl);
+  display:flex;align-items:center;
+}
+.nav-mark{
+  font-family:'Playfair Display',serif;
+  font-size:12px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ltgold);padding:0 24px;height:100%;
+  display:flex;align-items:center;
+  border-right:1px solid var(--borderl);white-space:nowrap;flex-shrink:0;
+}
+.navs{display:flex;overflow-x:auto;scrollbar-width:none;height:100%;padding:0 6px}
+.navs::-webkit-scrollbar{display:none}
+.nl{
+  font-family:'DM Mono',monospace;
+  font-size:9.5px;font-weight:300;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;padding:0 14px;height:100%;
+  display:flex;align-items:center;border-bottom:2px solid transparent;
+  transition:all .2s;white-space:nowrap;
+}
+.nl:hover,.nl.on{color:var(--ltgold);border-bottom-color:var(--gold)}
+
+/* ── LAYOUT ── */
+section{padding:88px 68px;border-bottom:1px solid var(--borderl);scroll-margin-top:50px}
+@media(max-width:768px){section{padding:60px 24px}}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.rv.vis{opacity:1;transform:translateY(0)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr}}
+
+/* ── TYPE ── */
+.eyebrow{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ltgold);font-weight:300;margin-bottom:18px;
+  display:flex;align-items:center;gap:14px;
+}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
+.st{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,4.2vw,52px);font-weight:400;
+  color:var(--cream);line-height:1.08;margin-bottom:18px;
+}
+.st em{font-style:italic;color:var(--ltgold)}
+.si{font-size:15px;color:var(--warm);line-height:1.8;max-width:680px;margin-bottom:44px}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:110px 68px 88px;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--borderl);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 5% 60%,rgba(200,146,10,.07) 0%,transparent 50%),
+    radial-gradient(ellipse at 95% 20%,rgba(26,74,138,.09) 0%,transparent 50%);
+}
+/* Large watermark number */
+.hero-wm{
+  position:absolute;right:-20px;bottom:-40px;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(200px,30vw,380px);font-weight:700;font-style:italic;
+  color:rgba(200,146,10,.04);line-height:1;user-select:none;pointer-events:none;
+  letter-spacing:-.02em;
+}
+.hero-address{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ltgold);font-weight:300;
+  margin-bottom:22px;display:flex;align-items:center;gap:14px;
+}
+.hero-address::before{content:'';width:32px;height:1px;background:var(--gold)}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(44px,6.5vw,80px);font-weight:400;line-height:.97;
+  color:var(--cream);max-width:920px;margin-bottom:26px;
+}
+.hero-title em{font-style:italic;color:var(--ltgold)}
+.hero-sub{
+  font-size:17px;color:var(--warm);line-height:1.8;
+  max-width:600px;margin-bottom:44px;font-weight:300;
+}
+/* Stats bar */
+.stats-bar{
+  display:flex;gap:0;flex-wrap:wrap;
+  border:1px solid var(--border);border-radius:2px;
+  overflow:hidden;max-width:720px;margin-bottom:40px;
+}
+.stat{
+  flex:1;min-width:110px;padding:18px 22px;
+  border-right:1px solid var(--border);
+}
+.stat:last-child{border-right:none}
+.stat-n{
+  font-family:'Playfair Display',serif;
+  font-size:30px;color:var(--ltgold);line-height:1;margin-bottom:5px;
+}
+.stat-l{
+  font-family:'DM Mono',monospace;font-size:8.5px;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);font-weight:300;
+}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+.cta{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;padding:13px 26px;border-radius:2px;
+  text-decoration:none;cursor:pointer;transition:all .2s;border:1px solid;
+}
+.cta-g{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.cta-g:hover{background:var(--ltgold);border-color:var(--ltgold)}
+.cta-o{border-color:var(--border);color:var(--muted)}
+.cta-o:hover{border-color:var(--ltgold);color:var(--ltgold)}
+
+/* ── THE ASK ── */
+.ask-split{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--border);border:1px solid var(--border);border-radius:2px;overflow:hidden;
+}
+@media(max-width:700px){.ask-split{grid-template-columns:1fr}}
+.ask-half{background:var(--bg2);padding:34px 38px}
+.ask-tag{
+  font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);font-weight:300;margin-bottom:10px;
+}
+.ask-name{
+  font-family:'Playfair Display',serif;
+  font-size:20px;color:var(--cream);margin-bottom:10px;line-height:1.2;
+}
+.ask-amount{
+  font-family:'Playfair Display',serif;
+  font-size:42px;color:var(--ltgold);line-height:1;margin-bottom:18px;
+}
+.ask-why{font-size:13.5px;color:var(--warm);line-height:1.75;margin-bottom:14px}
+.ask-sustain{
+  padding:12px 16px;border:1px solid var(--border);background:rgba(200,146,10,.05);
+  border-radius:1px;margin-top:12px;
+}
+.ask-sustain-l{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ltgold);margin-bottom:4px;
+}
+.ask-sustain-v{font-size:12.5px;color:var(--warm)}
+
+/* ── ACCORDION ── */
+.acc{display:flex;flex-direction:column;gap:7px}
+.ai{
+  background:var(--bg2);border:1px solid var(--borderl);
+  border-radius:2px;overflow:hidden;transition:border-color .2s;
+}
+.ai.open{border-color:rgba(200,146,10,.35)}
+.ah{
+  display:flex;align-items:center;gap:12px;
+  padding:15px 20px;cursor:pointer;transition:background .15s;
+}
+.ah:hover{background:rgba(200,146,10,.04)}
+.anum{
+  font-family:'Playfair Display',serif;
+  font-size:20px;color:var(--dim);min-width:28px;font-style:italic;
+}
+.ainfo{flex:1}
+.atit{font-size:13.5px;font-weight:500;color:var(--cream);margin-bottom:2px}
+.asub{
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:.07em;color:var(--muted);
+}
+.abadge{
+  font-family:'DM Mono',monospace;font-size:8.5px;
+  padding:3px 10px;border-radius:2px;letter-spacing:.07em;
+  text-transform:uppercase;white-space:nowrap;
+}
+.bg{background:rgba(200,146,10,.1);color:var(--ltgold);border:1px solid var(--border)}
+.br{background:rgba(138,26,10,.12);color:#D04040;border:1px solid rgba(138,26,10,.3)}
+.bt{background:rgba(26,106,58,.12);color:var(--ltgreen);border:1px solid rgba(26,106,58,.3)}
+.bb{background:rgba(26,74,138,.12);color:var(--ltblue);border:1px solid rgba(26,74,138,.3)}
+.achv{font-size:13px;color:var(--dim);transition:transform .2s}
+.ai.open .achv{transform:rotate(90deg)}
+.ab{
+  display:none;padding:0 20px 22px 60px;
+  border-top:1px solid var(--borderl);background:var(--bg);
+}
+.ai.open .ab{display:block}
+.ab p{font-size:13px;color:var(--warm);line-height:1.8;margin-top:12px}
+.ab strong{color:var(--cream);font-weight:500}
+.ab .fig{
+  font-family:'Playfair Display',serif;
+  font-size:24px;color:var(--ltgold);font-style:italic;
+  margin:10px 0 4px;
+}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.tag{
+  font-family:'DM Mono',monospace;font-size:9px;
+  padding:3px 9px;border-radius:2px;
+  background:rgba(200,146,10,.06);color:var(--muted);
+  border:1px solid var(--borderl);letter-spacing:.06em;
+}
+
+/* ── ROI TABLE ── */
+.roi-table{width:100%;border-collapse:collapse;font-size:13px}
+.roi-table th{
+  font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);font-weight:300;
+  padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);
+  background:var(--bg2);
+}
+.roi-table td{
+  padding:14px 16px;border-bottom:1px solid var(--borderl);vertical-align:top;
+}
+.roi-table tr:hover td{background:rgba(200,146,10,.03)}
+.roi-table tr:last-child td{border-bottom:none}
+.td-driver{color:var(--cream);font-weight:500}
+.td-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px}
+.td-base{font-family:'DM Mono',monospace;font-size:11px;color:var(--ltred)}
+.td-with{font-family:'DM Mono',monospace;font-size:11px;color:var(--ltgreen)}
+.td-save{font-family:'Playfair Display',serif;font-size:17px;color:var(--ltgold)}
+.td-src{font-family:'DM Mono',monospace;font-size:9px;color:var(--dim)}
+.roi-total{background:var(--bg3)!important}
+.roi-total td{border-top:1px solid var(--border)!important;border-bottom:none!important}
+
+/* ── TIMELINE ── */
+.tl{display:flex;flex-direction:column}
+.tl-row{
+  display:grid;grid-template-columns:160px 1fr;
+  border-bottom:1px solid var(--borderl);
+}
+.tl-row:last-child{border-bottom:none}
+.tl-left{
+  padding:26px 28px 26px 0;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.tl-left::after{
+  content:'';position:absolute;right:-5px;top:34px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--gold);border:2px solid var(--bg);
+  z-index:2;
+}
+.tl-when{
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ltgold);font-weight:300;line-height:1.5;
+}
+.tl-right{padding:24px 0 24px 36px}
+.tl-title{
+  font-family:'Playfair Display',serif;
+  font-size:17px;color:var(--cream);margin-bottom:8px;
+}
+.tl-body{font-size:13px;color:var(--warm);line-height:1.75}
+.tl-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.chip{
+  font-family:'DM Mono',monospace;font-size:9px;
+  padding:4px 10px;border-radius:2px;letter-spacing:.07em;
+  border:1px solid var(--borderl);color:var(--muted);
+}
+
+/* ── URGENCY ── */
+.urgency{
+  background:rgba(138,26,10,.06);
+  border:1px solid rgba(138,26,10,.3);
+  border-radius:2px;padding:44px 52px;
+}
+@media(max-width:768px){.urgency{padding:28px 24px}}
+.urg-tag{
+  font-family:'DM Mono',monospace;font-size:8.5px;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ltred);margin-bottom:14px;
+}
+.urg-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,3vw,36px);color:var(--cream);
+  margin-bottom:20px;line-height:1.15;
+}
+.urg-body{font-size:13.5px;color:var(--warm);line-height:1.8;max-width:800px;margin-bottom:16px}
+.urg-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;
+}
+@media(max-width:600px){.urg-grid{grid-template-columns:1fr}}
+.urg-card{
+  padding:18px 22px;border:1px solid rgba(138,26,10,.25);
+  background:rgba(138,26,10,.04);border-radius:2px;
+}
+.urg-card-title{font-size:13px;font-weight:500;color:var(--cream);margin-bottom:7px}
+.urg-card-body{font-size:12.5px;color:var(--warm);line-height:1.7}
+
+/* ── BENEFITS ── */
+.ben-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px;margin-bottom:20px;
+}
+.ben-card{
+  background:var(--bg2);border:1px solid var(--borderl);
+  border-radius:2px;padding:18px;
+  border-left:3px solid;
+}
+.ben-name{
+  font-family:'Playfair Display',serif;
+  font-size:16px;margin-bottom:7px;line-height:1.2;
+}
+.ben-desc{font-size:12px;color:var(--warm);line-height:1.65}
+
+/* ── NEXT STEP ── */
+.ns-frame{
+  background:var(--bg2);border:1px solid var(--border);border-radius:2px;overflow:hidden;
+}
+.ns-top{padding:40px 48px;border-bottom:1px solid var(--borderl)}
+@media(max-width:768px){.ns-top{padding:28px 24px}}
+.ns-quote{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,3vw,30px);color:var(--cream);
+  line-height:1.3;margin-bottom:20px;
+  border-left:3px solid var(--gold);padding-left:24px;
+}
+.ns-quote em{color:var(--ltgold)}
+.ns-body{font-size:13.5px;color:var(--warm);line-height:1.8;max-width:760px}
+.ns-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+@media(max-width:600px){.ns-steps{grid-template-columns:1fr}}
+.ns-step{
+  padding:28px 30px;
+  border-right:1px solid var(--borderl);
+}
+.ns-step:last-child{border-right:none}
+.ns-n{
+  font-family:'Playfair Display',serif;
+  font-size:40px;font-style:italic;
+  color:rgba(200,146,10,.15);line-height:1;margin-bottom:10px;
+}
+.ns-t{font-size:13.5px;font-weight:500;color:var(--cream);margin-bottom:8px}
+.ns-b{font-size:12.5px;color:var(--warm);line-height:1.7}
+
+/* ── INFO ── */
+.ib{border-radius:2px;padding:16px 22px;font-size:13px;line-height:1.75;margin-top:16px}
+.ib strong{font-weight:500;display:block;margin-bottom:4px}
+.iw{background:rgba(200,146,10,.07);border:1px solid var(--border);color:#C8A050}
+.is{background:rgba(26,106,58,.07);border:1px solid rgba(26,106,58,.3);color:var(--ltgreen)}
+.ie{background:rgba(138,26,10,.07);border:1px solid rgba(138,26,10,.3);color:#D05040}
+
+/* FOOTER */
+footer{
+  padding:36px 68px;border-top:1px solid var(--borderl);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+}
+.fb{font-family:'Playfair Display',serif;font-size:13px;color:var(--ltgold)}
+.fn{font-family:'DM Mono',monospace;font-size:9px;color:var(--dim)}
+
+/* ── LIGHT MODE ── */
+body.light {
+  --bg:      #F8F5EF;
+  --bg2:     #EFEBE2;
+  --bg3:     #E8E2D6;
+  --bg4:     #DDD6C8;
+  --gold:    #8A5A00;
+  --ltgold:  #A87010;
+  --cream:   #1A1410;
+  --warm:    #3A3028;
+  --muted:   #6A5A48;
+  --dim:     #B0A090;
+  --green:   #1A5A30;
+  --ltgreen: #1E8A50;
+  --red:     #8A1A0A;
+  --ltred:   #C03020;
+  --blue:    #1A3A7A;
+  --ltblue:  #2A5AAA;
+  --border:  rgba(138,90,0,0.2);
+  --borderl: rgba(138,90,0,0.12);
+  --borderg: rgba(138,90,0,0.3);
+  color: #1A1410;
+  background: #F8F5EF;
+}
+body.light nav {
+  background: rgba(248,245,239,0.97);
+  border-bottom-color: rgba(138,90,0,0.15);
+}
+body.light .nav-mark { color: var(--ltgold); }
+body.light .nl.on { color: var(--ltgold); border-bottom-color: var(--gold); }
+body.light .hero::before {
+  background:
+    radial-gradient(ellipse at 5% 60%, rgba(138,90,0,.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 95% 20%, rgba(26,58,138,.07) 0%, transparent 50%);
+}
+body.light .hero-wm { color: rgba(138,90,0,.05); }
+body.light .stats-bar { border-color: rgba(138,90,0,.2); }
+body.light .stat { border-right-color: rgba(138,90,0,.15); }
+body.light .cta-o { border-color: rgba(138,90,0,.25); color: var(--muted); }
+body.light .cta-o:hover { border-color: var(--ltgold); color: var(--ltgold); }
+body.light .ask-split { background: rgba(138,90,0,.15); }
+body.light .ask-half { background: var(--bg2); }
+body.light .ask-sustain { background: rgba(138,90,0,.07); }
+body.light .ai { background: var(--bg2); border-color: rgba(138,90,0,.15); }
+body.light .ai.open { border-color: rgba(138,90,0,.4); }
+body.light .ah:hover { background: rgba(138,90,0,.05); }
+body.light .ab { background: var(--bg3); }
+body.light .roi-table th { background: var(--bg2); }
+body.light .roi-table tr:hover td { background: rgba(138,90,0,.04); }
+body.light .roi-total { background: var(--bg3) !important; }
+body.light .tl-left::after { border-color: var(--bg); }
+body.light .urgency { background: rgba(138,26,10,.05); }
+body.light .urg-card { background: rgba(138,26,10,.04); }
+body.light .ns-frame { background: var(--bg2); }
+body.light .ns-step { border-right-color: rgba(138,90,0,.12); }
+body.light .ns-n { color: rgba(138,90,0,.18); }
+body.light .iw { background: rgba(138,90,0,.07); border-color: rgba(138,90,0,.22); color: #7A5500; }
+body.light .is { background: rgba(26,90,48,.07); border-color: rgba(26,90,48,.3); color: #1A5A30; }
+body.light .ie { background: rgba(138,26,10,.07); border-color: rgba(138,26,10,.3); color: #9A2010; }
+body.light .tag { background: rgba(138,90,0,.07); border-color: rgba(138,90,0,.15); }
+body.light .chip { border-color: rgba(138,90,0,.18); }
+body.light .bg { background: rgba(138,90,0,.1); border-color: rgba(138,90,0,.25); }
+body.light .bb { background: rgba(26,58,138,.1); border-color: rgba(26,58,138,.3); }
+body.light footer { border-top-color: rgba(138,90,0,.15); }
+
+/* Toggle button */
+#mode-toggle {
+  position: fixed; bottom: 28px; right: 28px; z-index: 500;
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; transition: all .25s;
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+}
+#mode-toggle:hover { transform: scale(1.1); border-color: var(--ltgold); }
+body.light #mode-toggle { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+</style>
+</head>
+<body>
+
+<button id="mode-toggle" onclick="toggleMode()" title="Toggle light/dark mode">🌙</button>
+<nav>
+  <div class="nav-mark">KG Development Group · Anthem Clinical Proposal</div>
+  <div class="navs">
+    <a class="nl" href="#opening">The Proposal</a>
+    <a class="nl" href="#ask">The Ask</a>
+    <a class="nl" href="#jamie">Jamie — Clinical Lead</a>
+    <a class="nl" href="#campus-platform">The Campus Platform</a>
+    <a class="nl" href="#what-anthem-gets">What Anthem Gets</a>
+    <a class="nl" href="#benefits">Benefits ROI</a>
+    <a class="nl" href="#evidence">The Numbers</a>
+    <a class="nl" href="#timeline">Timeline</a>
+    <a class="nl" href="#urgency">First Mover</a>
+    <a class="nl" href="#master">Master Agreement</a>
+    <a class="nl" href="#next">Next Step</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="opening">
+  <div class="hero-wm">$1M</div>
+  <div class="hero-address rv">
+    Presented to Anthem Blue Cross Nevada · Medicaid &amp; Community Health<br><span style="font-size:11px;opacity:.7">Submitted by KG Development Group</span>
+  </div>
+  <h1 class="hero-title rv">
+    We are asking Anthem<br>
+    to invest <em>$1,000,000.</em>
+  </h1>
+  <p class="hero-sub rv">Not as a grant. Not as a donation. As a named Clinical Partner Sponsorship — a documented investment in infrastructure that directly serves your Medicaid members, closes your HEDIS gaps, activates benefits you already paid for, and generates a projected $2M–$3.4M annual return against a $1M commitment.</p>
+
+  <div class="stats-bar rv">
+    <div class="stat">
+      <div class="stat-n">$1M</div>
+      <div class="stat-l">One-time capital</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">$2M–$3.4M</div>
+      <div class="stat-l">Projected annual return</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">250+</div>
+      <div class="stat-l">Attributed members</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">3</div>
+      <div class="stat-l">Member populations</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">Aug 2027</div>
+      <div class="stat-l">Campus opens</div>
+    </div>
+  </div>
+
+  <div class="ctas rv">
+    <a class="cta cta-g" href="#ask">See the full ask →</a>
+    <a class="cta cta-o" href="#evidence">The numbers</a>
+    <a class="cta cta-o" href="#next">How to move forward</a>
+  </div>
+</section>
+
+<!-- ══ THE ASK ══ -->
+<section id="ask">
+  <div class="eyebrow rv">The Ask — Broken Down</div>
+  <h2 class="st rv">Exactly what we are asking for.<br><em>Exactly that. Nothing more.</em></h2>
+  <p class="si rv">Two capital investments. One campus. Both assets are designed to reach operational self-sufficiency through existing revenue streams by the end of Year 1. This is not recurring funding. It is infrastructure — and infrastructure funds itself.</p>
+
+  <div class="ask-split rv">
+    <div class="ask-half">
+      <div class="ask-tag">Investment 01 of 02 — Capital only</div>
+      <div class="ask-name">Digital Health Clinic<br>Advent UMC Campus · Las Vegas</div>
+      <div class="ask-amount">$500,000</div>
+      <div class="ask-why">Clinic build-out, medical equipment, electronic health records, and operational setup. This is the primary care home your Medicaid members have never had — built where they live, credentialed to your network, and operated by a nurse practitioner who closes HEDIS gaps in real time at every single visit.</div>
+      <div class="ask-why">The clinic serves campus residents, workforce pipeline participants, and the surrounding neighborhood via telehealth. Your attributed member count begins growing the day credentialing is initiated — not the day the building opens.</div>
+      <div class="ask-sustain">
+        <div class="ask-sustain-l">Self-sustaining through</div>
+        <div class="ask-sustain-v">Medicaid fee-for-service billing · CHW service billing · FQHC Look-Alike reimbursement (Year 2)</div>
+      </div>
+    </div>
+    <div class="ask-half">
+      <div class="ask-tag">Investment 02 of 02 — Capital only</div>
+      <div class="ask-name">On-Site Childcare Center<br>Advent UMC Campus · Las Vegas</div>
+      <div class="ask-amount">$500,000</div>
+      <div class="ask-why">Childcare facility build-out, equipment, state licensing, and operational setup. This is the upstream unlock. Without childcare, parents cannot enter the workforce pipeline. Without the pipeline, families remain on Medicaid indefinitely. Your $500K childcare investment is a direct investment in shrinking your own long-term Medicaid cost base.</div>
+      <div class="ask-why">The causal chain is documented: childcare → workforce entry → wages → employer-sponsored insurance → Medicaid exit. Every parent who completes the pipeline and obtains employer coverage is a permanent reduction in your long-term cost base — not a temporary improvement.</div>
+      <div class="ask-sustain">
+        <div class="ask-sustain-l">Self-sustaining through</div>
+        <div class="ask-sustain-v">CCDF childcare subsidies · Head Start eligibility · employer childcare partnerships</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ib iw rv" style="margin-top:20px">
+    <strong>Capital only — not recurring</strong>
+    This is a one-time capital sponsorship. Both assets reach self-sustaining operation through Medicaid billing, CCDF subsidies, and employer partnerships within Year 1. Anthem is funding the infrastructure. The infrastructure then funds itself — and continues generating returns for Anthem's member population indefinitely, on no additional Anthem investment.
+  </div>
+</section>
+
+
+<!-- ══ JAMIE — THE CLINICAL ANCHOR ══ -->
+<section id="jamie">
+  <div class="eyebrow rv">The Clinical Anchor</div>
+  <h2 class="st rv">Jamie is the reason<br><em>this model is Medicaid-billable.</em></h2>
+  <p class="si rv">Anthem is not partnering with a program. Anthem is credentialing a nurse practitioner who brings the clinical infrastructure, the billing engine, and the HEDIS closure mechanism — all inside the same campus where your members live.</p>
+
+  <div class="g2 rv" style="margin-bottom:20px">
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:32px;border-top:3px solid var(--ltblue)">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ltblue);margin-bottom:14px">Who Jamie is</div>
+      <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);margin-bottom:16px;line-height:1.2">Nurse Practitioner — Clinical Lead, Digital Health Clinic, Advent UMC Campus</div>
+      <p style="font-size:13.5px;color:var(--warm);line-height:1.75;margin-bottom:12px">Jamie is an advanced practice registered nurse practitioner who serves as the clinical anchor of the Digital Health Clinic at Advent. She is the provider Anthem credentials. She is the license under which CHW services are billed to Medicaid. She is the clinician who builds every participant's care plan and closes every HEDIS gap at every visit.</p>
+      <p style="font-size:13.5px;color:var(--warm);line-height:1.75">She has a personal credentialing relationship with Anthem's Medicaid network as a designated primary care provider. Every attributed member's clinical home runs through her. Every Medicaid claim from the clinic flows through her credentials. Without Jamie, this is a community program. With Jamie, this is a Medicaid-billable clinical enterprise.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="background:var(--bg2);border:1px solid var(--borderl);border-radius:2px;padding:22px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltblue);margin-bottom:10px">What Jamie holds</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+          <li style="font-size:13px;color:var(--warm);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--ltgold)">›</span><strong style="color:var(--cream)">NP license</strong> — the clinical credential that makes CHW Medicaid billing possible under her supervision</li>
+          <li style="font-size:13px;color:var(--warm);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--ltgold)">›</span><strong style="color:var(--cream)">Anthem PCP designation</strong> — your network recognizes her as primary care provider for attributed members</li>
+          <li style="font-size:13px;color:var(--warm);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--ltgold)">›</span><strong style="color:var(--cream)">Care plan ownership</strong> — every participant's clinical care plan is hers; the CHW executes navigation against it</li>
+          <li style="font-size:13px;color:var(--warm);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--ltgold)">›</span><strong style="color:var(--cream)">CHW clinical supervision</strong> — her supervisory relationship with Darnell (CHW) is what makes CHW services reimbursable under Nevada Medicaid</li>
+          <li style="font-size:13px;color:var(--warm);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--ltgold)">›</span><strong style="color:var(--cream)">FQHC pathway</strong> — her clinical structure positions the clinic for FQHC Look-Alike designation in Year 2 — enhanced PPS reimbursement, 340B, Section 330</li>
+          <li style="font-size:13px;color:var(--warm);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--ltgold)">›</span><strong style="color:var(--cream)">PC/PLLC entity ownership</strong> — Jamie owns her medical entity, satisfying Nevada's corporate practice of medicine requirements</li>
+        </ul>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--borderl);border-radius:2px;padding:22px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltgold);margin-bottom:10px">The billing architecture Jamie enables</div>
+        <p style="font-size:13px;color:var(--warm);line-height:1.75">Every clinical encounter bills through Jamie's NP credentials. Every CHW service — SDOH screening, care navigation, benefits activation, follow-through — bills under her clinical supervision. The workforce pipeline participants she sees via telehealth are Anthem-attributed members with documented clinical relationships before the campus opens. Her credentialing is the first joint action item at agreement execution — not a formality, the activation mechanism for everything that follows.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ib iw rv">
+    <strong>Credentialing request — joint action item at agreement</strong>
+    We are requesting that credentialing of Jamie as a primary care NP under Anthem's Medicaid network and Darnell as a CHW under her clinical supervision begin at the point of agreement execution — as a parallel workstream, not a prerequisite. Credentialing timelines of 90–120 days mean that initiating at agreement allows both providers to be active in Anthem's network before the campus opens. Every day of delay in credentialing is a day the HEDIS closure engine does not run.
+  </div>
+</section>
+
+<!-- ══ THE CAMPUS AS PLATFORM ══ -->
+<section id="campus-platform">
+  <div class="eyebrow rv">The Campus as a Clinical Platform</div>
+  <h2 class="st rv">More than housing.<br><em>A year-round engagement infrastructure.</em></h2>
+  <p class="si rv">The Advent campus is not just where your members live. It is the physical platform for Anthem's most direct, trusted, and sustained member engagement — clinical fairs, outreach events, health screenings, and community programming — in a setting no external venue can replicate.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:20px">
+
+    <div style="background:var(--bg2);border:1px solid var(--borderl);border-radius:2px;padding:24px;border-top:2px solid var(--ltgold)" class="rv">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltgold);margin-bottom:10px">Clinical health fairs</div>
+      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:10px">On-campus. In-person. No transportation barrier.</div>
+      <p style="font-size:12.5px;color:var(--warm);line-height:1.7">Anthem-branded clinical fairs hosted in the community rooms — blood pressure screenings, diabetes checks, immunizations, vision and hearing screenings, dental assessments. Members do not travel to the fair. The fair is where they live. Participation rates in on-site campus health fairs consistently outperform any off-site community event by a significant margin.</p>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--borderl);border-radius:2px;padding:24px;border-top:2px solid var(--ltblue)" class="rv">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltblue);margin-bottom:10px">Benefits enrollment events</div>
+      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:10px">Open enrollment support inside the community.</div>
+      <p style="font-size:12.5px;color:var(--warm);line-height:1.7">Anthem staff and the CHW co-facilitate open enrollment support events in the community rooms. Members sit down with their plan documentation, understand their benefits for the first time, enroll in value-added programs on the spot, and leave with activated benefits — not a pamphlet. This is where the benefits activation argument becomes a live event, not just a theory.</p>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--borderl);border-radius:2px;padding:24px;border-top:2px solid var(--ltgreen)" class="rv">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltgreen);margin-bottom:10px">Maternal & child health outreach</div>
+      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:10px">Prenatal classes, postpartum groups, pediatric screenings.</div>
+      <p style="font-size:12.5px;color:var(--warm);line-height:1.7">The campus's intergenerational model — families, seniors, and youth — makes it a natural hub for maternal and child health programming. Anthem-branded prenatal education classes, postpartum support groups, and well-child screening events capture PPC, W15/W34, and CIS HEDIS measures in a trusted community setting. Mothers do not skip these because the event is where their children go to childcare every morning.</p>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--borderl);border-radius:2px;padding:24px;border-top:2px solid #AA7ADA" class="rv">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#AA7ADA;margin-bottom:10px">Behavioral health awareness</div>
+      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:10px">Stigma-free BH support in a trusted residential setting.</div>
+      <p style="font-size:12.5px;color:var(--warm);line-height:1.7">Mental health awareness events, substance use disorder education, and peer support programming — hosted in a community room where residents already feel safe. The residential setting eliminates the primary barrier to behavioral health engagement: stigma. When neighbors see neighbors attending BH events inside their own building, participation normalizes. BH Follow-Up (FUH/FUM) HEDIS measures advance as a direct result.</p>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--borderl);border-radius:2px;padding:24px;border-top:2px solid var(--ltred)" class="rv">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltred);margin-bottom:10px">Chronic disease management</div>
+      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:10px">Diabetes education, hypertension management, medication adherence.</div>
+      <p style="font-size:12.5px;color:var(--warm);line-height:1.7">Monthly chronic disease management workshops — diabetes self-management education (DSME), hypertension monitoring groups, medication adherence coaching. Co-facilitated by Jamie's clinic staff and the CHW. These sessions capture multiple HEDIS measures simultaneously while reducing the avoidable ED utilization and preventable hospitalization that drives Anthem's PMPM above benchmark.</p>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--borderl);border-radius:2px;padding:24px;border-top:2px solid var(--ltgold)" class="rv">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltgold);margin-bottom:10px">Senior wellness programming</div>
+      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:10px">Fall prevention, medication reviews, social connection.</div>
+      <p style="font-size:12.5px;color:var(--warm);line-height:1.7">The intergenerational model brings seniors into daily community life — reducing isolation, the single strongest predictor of avoidable senior ED utilization. Senior wellness events, fall prevention workshops, medication reconciliation reviews, and social programming keep seniors active and engaged. The senior safety value-added benefits in the plan — grab bars, alert devices, medication management tools — are activated at these events.</p>
+    </div>
+
+  </div>
+
+  <div class="ib is rv">
+    <strong>The access no outreach budget can buy</strong>
+    Every health fair, every clinical screening, every education event, every enrollment session — all of these can be brought to the campus by Anthem as the named Clinical Partner. You are not requesting access to a venue. You own the community room use as a contractual deliverable of the sponsorship. The trust that residents place in the campus extends to the events held inside it — and that trust is the single most valuable asset in member engagement that money cannot purchase anywhere else.
+  </div>
+</section>
+
+<!-- ══ WHAT ANTHEM GETS ══ -->
+<section id="what-anthem-gets">
+  <div class="eyebrow rv">What Anthem Receives</div>
+  <h2 class="st rv">Eight specific deliverables.<br><em>Every one contractual.</em></h2>
+  <p class="si rv">Nothing here is aspirational. Every item below is a specific operational output of a system we have already built. These are contractual deliverables in the Clinical Partner Sponsorship Agreement — not goals, not projections, deliverables.</p>
+
+  <div class="acc">
+
+    <div class="ai rv" id="a1">
+      <div class="ah" onclick="tog('a1')">
+        <div class="anum">1</div>
+        <div class="ainfo">
+          <div class="atit">Named Clinical Partner — campus branding, community room access</div>
+          <div class="asub">Effective immediately upon agreement execution</div>
+        </div>
+        <div class="abadge bg">Immediate</div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p>Anthem is named as the exclusive Clinical Partner of the Advent UMC Campus. Campus materials, signage, and communications carry your brand. Community rooms are made available for Anthem-branded member engagement events — health awareness, insurance literacy, benefits enrollment — inside a trusted residential environment no traditional outreach program can reach.</p>
+        <p><strong>Why this is different from a sponsorship logo:</strong> You are not named on a banner outside a building. You are physically present, trusted, and accessible inside the community where your members live their daily lives. Member engagement events happen in a space members already trust — which is the single most valuable attribute in any member engagement strategy.</p>
+        <div class="tags"><span class="tag">Named partner</span><span class="tag">Campus branding</span><span class="tag">Community room access</span><span class="tag">Member engagement events</span></div>
+      </div>
+    </div>
+
+    <div class="ai rv" id="a2">
+      <div class="ah" onclick="tog('a2')">
+        <div class="anum">2</div>
+        <div class="ainfo">
+          <div class="atit">250–300 attributed Medicaid members — three distinct populations</div>
+          <div class="asub">Attribution begins at credentialing · all three populations documented separately</div>
+        </div>
+        <div class="abadge bt">Population</div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>Population 1 — Campus Residents (~100 individuals):</strong> Working families, seniors, and foster youth across 50 residential units. Daily on-campus clinical touchpoint. Jamie designated as PCP from move-in day. The intergenerational model generates pediatric, adult chronic disease, and senior care HEDIS measures simultaneously from a single campus.</p>
+        <p><strong>Population 2 — Workforce Pipeline Participants (100+):</strong> Las Vegas community members moving through the skilled trades pipeline. Not residents. CHW-assigned from Day 1. SDOH-screened. Anthem-attributable before the campus opens. These are the members who generate your most powerful CMS outcome story: Medicaid entry → employment → employer insurance → Medicaid exit, documented.</p>
+        <p><strong>Population 3 — Broader Community:</strong> Neighborhood residents accessing the clinic via telehealth, attending community events, receiving CHW navigation. Your brand is present in this space through every event. Catchment area reach without infrastructure cost.</p>
+        <p><strong>The foster youth population deserves specific attention:</strong> Ten dedicated supportive housing units for youth aging out of foster care — Anthem's highest-cost young adult Medicaid cohort. They age out, lose Medicaid continuity, disappear from the system, and resurface in emergency departments. You have them in stable housing with a clinical home and a CHW from Day 1. That is not a footnote. That is a headline in any CMS presentation.</p>
+        <div class="tags"><span class="tag">~100 residents</span><span class="tag">100+ pipeline</span><span class="tag">Broader community</span><span class="tag">10 foster youth units</span><span class="tag">250–300 total</span></div>
+      </div>
+    </div>
+
+    <div class="ai rv" id="a3">
+      <div class="ah" onclick="tog('a3')">
+        <div class="anum">3</div>
+        <div class="ainfo">
+          <div class="atit">Real-time HEDIS gap closure — every visit, seven measure domains</div>
+          <div class="asub">Begins at clinic opening · documented per member per encounter</div>
+        </div>
+        <div class="abadge bg">Quality</div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p>Jamie's clinical model is built around HEDIS gap closure. Every visit is a quality capture opportunity — standing orders for preventive screenings, on-site vaccine administration, postpartum care at childcare drop-off.</p>
+        <p><strong>The seven domains this campus directly advances:</strong> Well-Child Visits (W15/W34), Childhood Immunizations (CIS), Postpartum Care (PPC), Behavioral Health Follow-Up (FUH/FUM), Controlling High Blood Pressure, Diabetes Care (HbA1c and Eye Exam), Follow-Up after ED Visit.</p>
+        <p><strong>The childcare drop-off advantage:</strong> PPC — Postpartum Care — is among the highest-weighted and most consistently missed HEDIS measures in Medicaid managed care. Mothers present at childcare drop-off every single day. No appointment needed. No transportation barrier. The CHW schedules the postpartum visit at drop-off. The measure closes before the member leaves campus.</p>
+        <div class="fig">$150K–$500K</div>
+        <p>Estimated HEDIS quality withhold recovery annually — against this campus alone — from measures moving above threshold across seven domains.</p>
+        <div class="tags"><span class="tag">7 HEDIS domains</span><span class="tag">Real-time closure</span><span class="tag">$150K–$500K quality recovery</span><span class="tag">No appointment friction</span></div>
+      </div>
+    </div>
+
+    <div class="ai rv" id="a4">
+      <div class="ah" onclick="tog('a4')">
+        <div class="anum">4</div>
+        <div class="ainfo">
+          <div class="atit">Network-first referrals — documented in EHR, tracked to completed appointment</div>
+          <div class="asub">Every referral. Zero leakage.</div>
+        </div>
+        <div class="abadge bt">Network</div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p>Every referral from Jamie's clinic is routed within Anthem's network first. Documented in the EHR at point of order. The CHW then follows each referral — not to a scheduled appointment, to a completed one. Outcomes reported back to the referring provider and logged against the member's care plan.</p>
+        <p><strong>Why referral completion matters specifically for your quality scores:</strong> Follow-Up after ED Visit (FUH) and Follow-Up for Mental Illness (FUM) are both HEDIS measures that depend on completed — not scheduled — follow-up appointments. The CHW closes that loop by accompanying or following through on every referral. That is a direct HEDIS measure driver, not a nice-to-have service.</p>
+        <p><strong>What this eliminates:</strong> Referral leakage — the consistent, measurable loss of attributed members to out-of-network providers, missed appointments, and incomplete care gaps. Every referral that completes in-network is a claim in your network, a quality data point in your records, and a member whose care plan advances rather than stalls.</p>
+        <div class="tags"><span class="tag">Your network first</span><span class="tag">EHR-documented</span><span class="tag">CHW follow-through</span><span class="tag">FUH / FUM driver</span><span class="tag">Zero leakage</span></div>
+      </div>
+    </div>
+
+    <div class="ai rv" id="a5">
+      <div class="ah" onclick="tog('a5')">
+        <div class="anum">5</div>
+        <div class="ainfo">
+          <div class="atit">Value-added benefit activation — every member, every benefit already in your plan</div>
+          <div class="asub">Converting sunk cost into documented return</div>
+        </div>
+        <div class="abadge bg">Hidden ROI</div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p><strong>The argument most MCO executives have never heard stated plainly:</strong> You priced value-added benefits into the PMPM you receive from the state. You budgeted for their utilization. In most markets, utilization came in far below budget — because no one told members these benefits existed.</p>
+        <p>The gym memberships expired. The OTC allowances lapsed. The prenatal support programs nobody enrolled in. The Costco memberships. The tutoring benefits. The meal delivery. The senior safety equipment. The dental and vision extras beyond standard Medicaid floors.</p>
+        <p><strong>The CHW activates all of it.</strong> They study your specific Anthem Medicaid benefit package — not generically, specifically. Which OTC card vendor. Which gym network. Which transportation broker. Which meal delivery program. How to enroll. What documentation is required. What the deadline is. Then they sit with each member personally, in their language, in their community — and walk through every benefit that applies until it is activated. Then follow up to confirm it was actually used.</p>
+        <p><strong>Every benefit activated is a dollar you already spent — now producing an outcome instead of expiring unused.</strong> When members use their gym membership, chronic disease progression slows. When they use transportation, they make the appointment. When they use meal delivery, A1C improves. When they enroll in prenatal support, maternal outcomes improve. Quality scores rise. PMPM falls. None of this costs Anthem a dollar more than you already committed to pay. The CHW is the activation key to the investment you already made.</p>
+        <div class="tags"><span class="tag">Gym memberships</span><span class="tag">OTC allowances</span><span class="tag">Transportation</span><span class="tag">Prenatal support</span><span class="tag">Meal delivery</span><span class="tag">Tutoring</span><span class="tag">Retail memberships</span><span class="tag">Senior safety</span><span class="tag">Dental & vision extras</span></div>
+      </div>
+    </div>
+
+    <div class="ai rv" id="a6">
+      <div class="ah" onclick="tog('a6')">
+        <div class="anum">6</div>
+        <div class="ainfo">
+          <div class="atit">Workforce pipeline graduates — Medicaid exit documented for CMS</div>
+          <div class="asub">The most powerful outcome story in managed care · activates pre-opening</div>
+        </div>
+        <div class="abadge bt">CMS Outcomes</div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p>The skilled trades pipeline moves 100+ participants from first exposure through long-term employment. A CHW is assigned from Day 1. Health gaps are closed at the clinic. Childcare is secured. Transportation is navigated. Every SDOH barrier that would cause dropout is identified and removed before it stops someone.</p>
+        <p>The member enters the pipeline Medicaid-dependent. They exit with a living wage and employer-sponsored insurance — employed, independently insured, and documented from Day 1 through Day of exit.</p>
+        <p><strong>What you present to CMS:</strong> A Medicaid member who achieved economic self-sufficiency with Anthem as the named clinical partner at every stage of the journey. Not a program outcome. A person's documented life trajectory — changed. That is the story that justifies your community investment publicly, contractually, and competitively at Medicaid contract renewal.</p>
+        <p><strong>The pipeline activates now:</strong> Before the building opens. You begin accumulating CMS-presentable outcomes from the day the agreement is signed — not from August 2027. The data bank starts building immediately.</p>
+        <div class="tags"><span class="tag">100+ participants</span><span class="tag">4-stage pathway</span><span class="tag">Medicaid exit documented</span><span class="tag">CMS success story</span><span class="tag">Activates at agreement — pre-opening</span></div>
+      </div>
+    </div>
+
+    <div class="ai rv" id="a7">
+      <div class="ah" onclick="tog('a7')">
+        <div class="anum">7</div>
+        <div class="ainfo">
+          <div class="atit">Quarterly outcome reporting — every metric, formatted for CMS and board</div>
+          <div class="asub">Delivered every quarter from Day 1 of agreement</div>
+        </div>
+        <div class="abadge bg">Reporting</div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p>Quarterly reports cover: HEDIS measure progress by domain, SDOH barrier reduction by population, value-added benefit activation rates, workforce pipeline stage completion rates, economic mobility tracking (income progression and insurance transitions), and ED utilization comparison vs. baseline.</p>
+        <p>Every number traces to a specific member, a specific encounter, and a specific CHW interaction. Reports are formatted to support your CMS accountability documentation, board presentations, and internal quality improvement tracking. You are not receiving a summary — you are receiving a data package built for reuse.</p>
+        <div class="tags"><span class="tag">HEDIS by domain</span><span class="tag">SDOH reduction data</span><span class="tag">Benefit activation rates</span><span class="tag">Pipeline completion</span><span class="tag">ED utilization vs. baseline</span><span class="tag">CMS-ready format</span></div>
+      </div>
+    </div>
+
+    <div class="ai rv" id="a8">
+      <div class="ah" onclick="tog('a8')">
+        <div class="anum">8</div>
+        <div class="ainfo">
+          <div class="atit">Master Partnership Agreement — preferred MCO status at every future campus</div>
+          <div class="asub">The real value of the Advent investment — this is what compounds</div>
+        </div>
+        <div class="abadge br">Strategic</div>
+        <div class="achv">›</div>
+      </div>
+      <div class="ab">
+        <p>Advent is the proof of concept. The model is what scales. A Master Partnership Agreement gives Anthem preferred health plan status at every future campus KG Development Group builds in states where Anthem operates a Medicaid plan.</p>
+        <p>Every new campus carries the same structure — the WCS Framework, the CHW model, the clinical model, the workforce pipeline. Every new campus credentials its clinical team under Anthem's network first. Every new campus generates the same documented outcomes, attributed to Anthem.</p>
+        <p><strong>The $1M at Advent is not the investment. It is the cost of entry into the relationship.</strong> The investment is the master agreement. The master agreement is a national pipeline of captive, stable, trust-based member communities — delivered to Anthem's network, documented to Anthem's standards, replicable in every Medicaid market Anthem operates.</p>
+        <p><strong>What happens if Anthem passes:</strong> The next call goes to a competing MCO. They enter the master agreement. In every future campus — Las Vegas and beyond — they are the named clinical partner. Their network receives the referrals. Their quality scores compound. Their CMS story gets stronger with every campus completed. Anthem is not at the table.</p>
+        <div class="tags"><span class="tag">All future campuses</span><span class="tag">Preferred MCO status</span><span class="tag">Every Medicaid market we enter</span><span class="tag">National compounding pipeline</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ BENEFITS ROI ══ -->
+<section id="benefits">
+  <div class="eyebrow rv">The Benefits You Already Paid For</div>
+  <h2 class="st rv">The hidden ROI.<br><em>The CHW is the activation key.</em></h2>
+  <p class="si rv">Before we discuss what Anthem will earn from this partnership — let us be precise about what Anthem is already losing. Every year. In every market. To benefits no one ever activated.</p>
+
+  <div class="g2 rv" style="margin-bottom:20px">
+    <div style="background:var(--bg2);border:1px solid var(--borderl);padding:28px;border-radius:2px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">The reality</div>
+      <p style="font-family:'Playfair Display',serif;font-size:19px;color:var(--cream);line-height:1.3;margin-bottom:14px">Most Medicaid members use their insurance card twice a year. Once for a sick visit. Once for a prescription.</p>
+      <p style="font-size:13px;color:var(--warm);line-height:1.75">The gym membership expires. The OTC allowance lapses. The prenatal support program nobody enrolled in. The Costco membership. The tutoring benefit no parent knew about. The meal delivery. The senior safety equipment. The dental and vision extras. These benefits were priced into the PMPM Anthem receives from the state. They already paid for them. They generate no outcome. They improve no quality score. They simply expire — every year, for every member who was never told they existed.</p>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--borderg);padding:28px;border-radius:2px;border-left:3px solid var(--gold)">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ltgold);margin-bottom:12px">What the CHW does</div>
+      <p style="font-family:'Playfair Display',serif;font-size:19px;color:var(--cream);line-height:1.3;margin-bottom:14px">The CHW studies the plan. Knows every benefit. Activates every one — personally, in every member's language, in their community.</p>
+      <p style="font-size:13px;color:var(--warm);line-height:1.75;margin-bottom:14px">This is not scalable through a brochure or a phone tree. It requires a trusted human relationship. The CHW sits with each member, opens the plan documentation, and walks through every benefit that applies until it is activated. Then follows up to confirm it was actually used.</p>
+      <div style="padding:14px 18px;background:rgba(200,146,10,.09);border:1px solid var(--border)">
+        <p style="font-family:'Playfair Display',serif;font-size:17px;font-style:italic;color:var(--ltgold);line-height:1.35">Every benefit activated is a dollar Anthem already spent — now producing an outcome instead of expiring unused. Quality scores rise. PMPM falls. No new Anthem budget required.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ben-grid rv">
+    <div class="ben-card" style="border-left-color:#4A8ADA">
+      <div class="ben-name" style="color:#4A8ADA">Gym memberships</div>
+      <div class="ben-desc">Free or subsidized fitness access. Slows chronic disease progression. In the plan. Almost never activated.</div>
+    </div>
+    <div class="ben-card" style="border-left-color:#3ABA7A">
+      <div class="ben-name" style="color:#3ABA7A">OTC allowances</div>
+      <div class="ben-desc">Monthly cards — vitamins, pain relief, personal care. Hundreds of dollars per member per year. Sitting unclaimed.</div>
+    </div>
+    <div class="ben-card" style="border-left-color:#AA7ADA">
+      <div class="ben-name" style="color:#AA7ADA">Prenatal support</div>
+      <div class="ben-desc">Doula services, vitamins, baby supplies, coaching. Most valuable benefit in the plan. Least utilized.</div>
+    </div>
+    <div class="ben-card" style="border-left-color:#E8B030">
+      <div class="ben-name" style="color:#E8B030">Tutoring & education</div>
+      <div class="ben-desc">Free tutoring, GED prep, digital literacy. Tied directly to workforce readiness. Almost universally unknown to members.</div>
+    </div>
+    <div class="ben-card" style="border-left-color:#5ACA8A">
+      <div class="ben-name" style="color:#5ACA8A">Meal delivery</div>
+      <div class="ben-desc">Medically tailored meals for chronic conditions. Proven to reduce hospitalizations. Funded. Rarely claimed.</div>
+    </div>
+    <div class="ben-card" style="border-left-color:#D04030">
+      <div class="ben-name" style="color:#D04030">Transportation</div>
+      <div class="ben-desc">Non-emergency rides to appointments. Most impactful benefit for appointment completion. Most consistently unused.</div>
+    </div>
+    <div class="ben-card" style="border-left-color:#7A8A9A">
+      <div class="ben-name" style="color:#7A8A9A">Retail memberships</div>
+      <div class="ben-desc">Costco-type access — bulk food purchasing that cuts household costs and improves nutrition for working families.</div>
+    </div>
+    <div class="ben-card" style="border-left-color:#CA7ACA">
+      <div class="ben-name" style="color:#CA7ACA">Senior safety</div>
+      <div class="ben-desc">Grab bars, fall prevention equipment, medication management tools. Prevents ED visits. Budgeted. Not used.</div>
+    </div>
+    <div class="ben-card" style="border-left-color:#4A8ADA">
+      <div class="ben-name" style="color:#4A8ADA">Dental & vision extras</div>
+      <div class="ben-desc">Beyond standard Medicaid floors: extra cleanings, eyeglasses, hearing aids. Members do not know these exist.</div>
+    </div>
+  </div>
+
+  <div class="ib iw rv">
+    <strong>One community event. Forty members. Hundreds of benefits activated.</strong>
+    Beyond individual activation, the CHW convenes insurance literacy events — not generic health fairs, but structured sessions where members sit down with their plan documentation and the CHW walks the room through every benefit category. Anthem representatives can be present. Enrollment happens on the spot. The CHW follows up individually with the members who need the most navigation. Zero additional Anthem budget required.
+  </div>
+</section>
+
+<!-- ══ THE NUMBERS ══ -->
+<section id="evidence">
+  <div class="eyebrow rv">The Evidence Base</div>
+  <h2 class="st rv">Every number sourced.<br><em>Every claim conservative.</em></h2>
+  <p class="si rv">Every projected return in this proposal is derived from published Medicaid managed care benchmarks applied conservatively to a defined population of 250–300 attributed members. We do not manufacture ROI estimates. We apply documented averages and report the low end.</p>
+
+  <div class="rv" style="border:1px solid var(--border);border-radius:2px;overflow:hidden">
+    <table class="roi-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Cost driver</th>
+          <th>Without this partnership</th>
+          <th>With clinic + CHW</th>
+          <th>Est. annual savings</th>
+          <th>Source basis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="td-driver">Avoidable ED visits</div>
+            <div class="td-sub">Per 1,000 Medicaid members / yr</div>
+          </td>
+          <td><div class="td-base">~320 visits/yr</div></td>
+          <td><div class="td-with">~190 visits/yr<br><span style="font-size:10px;color:var(--dim)">−40% with CHW + primary care</span></div></td>
+          <td><div class="td-save">$780K–$1.1M</div></td>
+          <td><div class="td-src">AHRQ / CMS CMMI<br>CHW intervention studies</div></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-driver">Preventable hospitalizations</div>
+            <div class="td-sub">Ambulatory care sensitive conditions</div>
+          </td>
+          <td><div class="td-base">~45 admits/yr</div></td>
+          <td><div class="td-with">~27 admits/yr<br><span style="font-size:10px;color:var(--dim)">−38% with embedded primary care</span></div></td>
+          <td><div class="td-save">$540K–$810K</div></td>
+          <td><div class="td-src">NEJM CHW studies<br>Medicaid managed care benchmarks</div></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-driver">Chronic disease complications</div>
+            <div class="td-sub">Diabetes · hypertension · asthma</div>
+          </td>
+          <td><div class="td-base">High / unmanaged</div></td>
+          <td><div class="td-with">Reduced via longitudinal embedded management</div></td>
+          <td><div class="td-save">$200K–$400K</div></td>
+          <td><div class="td-src">JAMA / ADA outcomes<br>Primary care access studies</div></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-driver">BH crisis / inpatient events</div>
+            <div class="td-sub">Crisis stabilization + inpatient BH</div>
+          </td>
+          <td><div class="td-base">~60 events/yr</div></td>
+          <td><div class="td-with">~36 events/yr<br><span style="font-size:10px;color:var(--dim)">−40% with co-located BH + CHW</span></div></td>
+          <td><div class="td-save">$360K–$600K</div></td>
+          <td><div class="td-src">SAMHSA co-located BH<br>intervention outcomes data</div></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-driver">HEDIS quality withhold recovery</div>
+            <div class="td-sub">Above-threshold performance bonus</div>
+          </td>
+          <td><div class="td-base">Below threshold</div></td>
+          <td><div class="td-with">Above threshold — 7 domains</div></td>
+          <td><div class="td-save">$150K–$500K</div></td>
+          <td><div class="td-src">Nevada DHHS Medicaid<br>managed care contract structure</div></td>
+        </tr>
+        <tr class="roi-total">
+          <td colspan="3">
+            <span style="font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);font-weight:400">Total estimated annual return — Advent campus · 250–300 members</span><br>
+            <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">Conservative range · excludes master agreement value · single campus only</span>
+          </td>
+          <td colspan="2">
+            <span style="font-family:'Playfair Display',serif;font-size:24px;color:var(--ltgold)">$2.03M–$3.41M/yr</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ib is rv" style="margin-top:16px">
+    <strong>How to read this table</strong>
+    The low end of every range assumes partial penetration — a CHW model that activates 60–70% of eligible benefits and reaches 70% of the attributed member population. The high end assumes full deployment. Both ends apply documented national benchmarks conservatively to 250–300 members. These figures exclude the compounding value of the Master Partnership Agreement at future campuses.
+  </div>
+</section>
+
+<!-- ══ TIMELINE ══ -->
+<section id="timeline">
+  <div class="eyebrow rv">Timeline — Agreement to First Outcome</div>
+  <h2 class="st rv">The pipeline is already running.<br><em>You start accumulating outcomes the day you sign.</em></h2>
+  <p class="si rv">The workforce pipeline activates before the building exists. By August 2027 when the campus opens, we will have over 12 months of documented Anthem-attributable outcomes already in hand — not projected, documented.</p>
+
+  <div class="tl rv">
+    <div class="tl-row">
+      <div class="tl-left">
+        <div class="tl-when">Agreement<br>executed<br>— Now</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-title">Letter of Intent signed. Credentialing initiated. Outcomes begin Day 1.</div>
+        <div class="tl-body">Clinical Partner Sponsorship Agreement executed. Named partner status confirmed. Credentialing of Jamie (NP) as Anthem Medicaid PCP and Darnell (CHW) under clinical supervision initiated as parallel workstreams — not prerequisites for the agreement. Data sharing MOU drafted. Workforce pipeline participants already in the field are attributed to Anthem's network from date of agreement.</div>
+        <div class="tl-chips">
+          <span class="chip">LOI signed</span>
+          <span class="chip">Named partner confirmed</span>
+          <span class="chip">Credentialing initiated</span>
+          <span class="chip">Attribution begins Day 1</span>
+          <span class="chip">Quarterly reporting begins</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-left">
+        <div class="tl-when">Now<br>through<br>July 2026</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-title">Workforce pipeline activates. 100+ participants. SDOH screened. Benefits activated.</div>
+        <div class="tl-body">100+ community members from broader Las Vegas enter Stage 1 of the skilled trades pipeline. CHW assigned Day 1 to every Anthem member in the cohort. SDOH screening completed across all nine WCS pillars. Every Anthem Medicaid value-added benefit in the plan activated for every eligible member — many for the first time in their lives. Jamie begins telehealth relationships with pipeline participants. The patient panel is being established before the physical clinic exists.</div>
+        <div class="tl-chips">
+          <span class="chip">100+ pipeline participants</span>
+          <span class="chip">SDOH screening active</span>
+          <span class="chip">Benefits activation begins</span>
+          <span class="chip">Telehealth established</span>
+          <span class="chip">CMS-reportable outcomes accumulating</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-left">
+        <div class="tl-when">July 2026<br>Ground-<br>breaking</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-title">Construction begins. Pipeline participants build the campus that will serve them.</div>
+        <div class="tl-body">KG Development Group begins construction. Workforce pipeline participants enter formal apprenticeship on the actual development project — they are building the campus. Wages begin. Stability is maintained through CHW engagement. HEDIS measures tracked as income stabilizes and health barriers are systematically removed. Attributed member count growing. Evidence base building in real time. Quarterly Anthem reporting active.</div>
+        <div class="tl-chips">
+          <span class="chip">Formal apprenticeship begins</span>
+          <span class="chip">Wages start</span>
+          <span class="chip">HEDIS tracked</span>
+          <span class="chip">Member count growing</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-left">
+        <div class="tl-when">August<br>2027<br>Opening</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-title">Campus opens. All three populations active. Pre-built patient panel walks in.</div>
+        <div class="tl-body">Residents move in. The digital health clinic opens with Jamie as clinical anchor — and a patient panel that has been in telehealth relationship for over a year. These are not strangers walking into a new clinic. They are members who know their provider, have active care plans, and have SDOH barriers already addressed. Childcare center opens. All three populations activated simultaneously. Community rooms available for Anthem-branded events. The HEDIS gap closure engine runs at full scale from Day 1.</div>
+        <div class="tl-chips">
+          <span class="chip">Clinic opens — pre-built panel</span>
+          <span class="chip">Childcare operational</span>
+          <span class="chip">All 3 populations active</span>
+          <span class="chip">Community rooms available</span>
+          <span class="chip">HEDIS engine at scale</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-left">
+        <div class="tl-when">Year 2<br>2028–<br>2029</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-title">FQHC Look-Alike filed. Pipeline graduates insured independently. Master agreement activates.</div>
+        <div class="tl-body">FQHC Look-Alike designation application filed — enhanced PPS reimbursement (2–4× standard Medicaid rates on the same visits), 340B drug pricing, and Section 330 grant eligibility. First pipeline graduates transition to employer-sponsored insurance. Medicaid exit documented and packaged for CMS presentation. Master Partnership Agreement activates as KG Development Group enters the next market. Anthem is the named partner in that market. Competing MCOs are not.</div>
+        <div class="tl-chips">
+          <span class="chip">FQHC Look-Alike filed</span>
+          <span class="chip">Pipeline graduates — employer insured</span>
+          <span class="chip">Medicaid exit packaged for CMS</span>
+          <span class="chip">Next campus — master agreement activates</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FIRST MOVER ══ -->
+<section id="urgency">
+  <div class="urgency rv">
+    <div class="urg-tag">First-Mover Position</div>
+    <h2 class="urg-title">This offer has one seat.<br>Once it is filled, it is filled.</h2>
+    <p class="urg-body">The model is already in motion. Three developments are active across two states. The partnership seat in each market fills once — and the MCO in that seat compounds its position with every campus we complete.</p>
+    <p class="urg-body">The Master Partnership Agreement designates one preferred health plan partner per campus, per state. We need one credentialing relationship, one attribution pipeline, one documentation standard per market. The MCO that enters at Advent becomes the preferred partner for every campus we build in states where they operate Medicaid. This is a limited-seat agreement. The seat exists once per market.</p>
+
+    <!-- Three campus cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:20px">
+
+      <div style="background:rgba(138,26,10,.05);border:1px solid rgba(138,26,10,.25);border-radius:2px;padding:22px;border-top:3px solid var(--ltred)">
+        <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltred);margin-bottom:8px">Development 01 · Las Vegas, Nevada</div>
+        <div style="font-family:'Playfair Display',serif;font-size:19px;color:var(--cream);margin-bottom:6px;line-height:1.2">Advent UMC Campus</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:12px">Groundbreaking July 2026 · Opens August 2027</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Residential units</span><span style="color:var(--cream);font-weight:500">50 units</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Digital Health Clinic</span><span style="color:var(--ltgreen);font-weight:500">✓ Anthem-funded</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Childcare Center</span><span style="color:var(--ltgreen);font-weight:500">✓ Anthem-funded</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Medicaid members</span><span style="color:var(--cream);font-weight:500">250–300</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Est. annual return</span><span style="color:var(--ltgold);font-family:'Playfair Display',serif;font-size:14px">$2.0M–$3.4M</span></div>
+        </div>
+      </div>
+
+      <div style="background:rgba(26,58,106,.06);border:1px solid rgba(26,58,106,.25);border-radius:2px;padding:22px;border-top:3px solid var(--ltblue)">
+        <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltblue);margin-bottom:8px">Development 02 · Milwaukee, Wisconsin</div>
+        <div style="font-family:'Playfair Display',serif;font-size:19px;color:var(--cream);margin-bottom:6px;line-height:1.2">Metcalfe Lofts</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:12px">Active development · Wisconsin</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Residential units</span><span style="color:var(--cream);font-weight:500">83 units</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Health Clinic</span><span style="color:var(--ltgreen);font-weight:500">✓ On-site</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Childcare Center</span><span style="color:var(--muted);font-weight:500">— Phase 2</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">WCS Framework</span><span style="color:var(--ltgreen);font-weight:500">✓ Full deployment</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Est. annual return</span><span style="color:var(--ltgold);font-family:'Playfair Display',serif;font-size:14px">$2.0M–$3.4M</span></div>
+        </div>
+      </div>
+
+      <div style="background:rgba(10,96,88,.06);border:1px solid rgba(10,96,88,.25);border-radius:2px;padding:22px;border-top:3px solid var(--ltgreen)">
+        <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ltgreen);margin-bottom:8px">Development 03 · Kenosha, Wisconsin</div>
+        <div style="font-family:'Playfair Display',serif;font-size:19px;color:var(--cream);margin-bottom:6px;line-height:1.2">Kenosha Campus</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:12px">Active development · Wisconsin</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Residential units</span><span style="color:var(--cream);font-weight:500">108 units</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Health Clinic</span><span style="color:var(--ltgreen);font-weight:500">✓ On-site</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Childcare Center</span><span style="color:var(--ltgreen);font-weight:500">✓ On-site</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">WCS Framework</span><span style="color:var(--ltgreen);font-weight:500">✓ Full deployment</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">Est. annual return</span><span style="color:var(--ltgold);font-family:'Playfair Display',serif;font-size:14px">$2.0M–$3.4M</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="urg-grid">
+      <div class="urg-card">
+        <div class="urg-card-title">Three developments. Two states. One model.</div>
+        <div class="urg-card-body">Advent in Las Vegas. Metcalfe Lofts in Milwaukee — 83 units with an on-site health clinic. A third campus in Kenosha — 108 units with a health clinic and childcare center. Each one runs the same WCS Framework, the same CHW deployment, the same clinical structure. The model does not need to be proven. It is already being built across three sites.</div>
+      </div>
+      <div class="urg-card">
+        <div class="urg-card-title">What the first-mover MCO receives</div>
+        <div class="urg-card-body">Named Clinical Partner at Advent, Metcalfe Lofts, and Kenosha. Preferred MCO status at every future campus in states where they operate Medicaid. Pre-established patient panels in every new market. Network-first referrals as a contractual structural default. A compounding CMS success story portfolio that grows with every campus completed.</div>
+      </div>
+      <div class="urg-card">
+        <div class="urg-card-title">We are bringing this to Anthem first</div>
+        <div class="urg-card-body">We have had conversations with other MCOs. We are at this table because Anthem's market position, health equity commitments, and Nevada and Wisconsin Medicaid presence make this the natural fit. Three active developments in two states — this is not a local pilot. This is a national model, and we want Anthem's name on it.</div>
+      </div>
+      <div class="urg-card">
+        <div class="urg-card-title">The data bank is building now — across three sites</div>
+        <div class="urg-card-body">Workforce pipeline participants are active in Las Vegas today. Metcalfe Lofts and Kenosha are in development in Wisconsin. Every quarter without an agreement is a quarter of outcomes accumulating across three sites without an MCO name attached. Those outcomes belong to the first partner who enters the agreement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MASTER AGREEMENT ══ -->
+<section id="master">
+  <div class="eyebrow rv">The Master Agreement — The Real Value</div>
+  <h2 class="st rv">Advent is the proof of concept.<br><em>The master agreement is the investment.</em></h2>
+  <p class="si rv">The $1M Clinical Partner Sponsorship at Advent is the entry point. But the conversation Anthem needs to have is not about one campus — it is about a portfolio already in motion. Las Vegas. Milwaukee. Kenosha. Three developments, two states, one model. Every campus carries the same structure, the same offer, and generates the same documented returns. This is what $1M at Advent buys access to.</p>
+
+  <div class="g2 rv">
+    <div style="background:var(--bg2);border:1px solid var(--border);padding:28px;border-radius:2px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">What the master agreement covers</div>
+      <p style="font-size:13.5px;color:var(--warm);line-height:1.75;margin-bottom:14px">Three developments are already active: Advent in Las Vegas (50 units, clinic, childcare), Metcalfe Lofts in Milwaukee (83 units, on-site health clinic), and a campus in Kenosha (108 units, clinic, childcare). Together: 241 residential units, three health clinics, two childcare centers — all running the same WCS Framework, the same CHW model, the same clinical structure.</p>
+      <p style="font-size:13.5px;color:var(--warm);line-height:1.75;margin-bottom:14px">Anthem's preferred partner status is the contractual default — not a preference to be renegotiated at each site, but a standing agreement that activates automatically as each campus is announced. Wisconsin and Nevada Medicaid markets are already in play.</p>
+      <p style="font-size:13.5px;color:var(--warm);line-height:1.75">In each market, the attributed member population, the HEDIS closure infrastructure, the CHW benefit activation model, and the workforce pipeline all replicate. The $1M at Advent buys into the entire portfolio.</p>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--borderg);padding:28px;border-radius:2px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ltgold);margin-bottom:12px">The compounding return</div>
+      <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--cream);margin-bottom:16px;line-height:1.4">Three campuses. 241 units. Each one adds to the annual return without additional capital from Anthem.</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:rgba(200,146,10,.05);border:1px solid var(--borderl)">
+          <div><div style="font-size:13px;color:var(--cream)">Advent — Las Vegas</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">50 units · clinic · childcare · opens Aug 2027</div></div>
+          <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--ltgold)">$2.0M–$3.4M/yr</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:rgba(200,146,10,.08);border:1px solid var(--border)">
+          <div><div style="font-size:13px;color:var(--cream)">+ Metcalfe Lofts — Milwaukee</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">83 units · on-site health clinic · active development</div></div>
+          <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--ltgold)">$4.0M–$6.8M/yr</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:rgba(200,146,10,.11);border:1px solid var(--borderg)">
+          <div><div style="font-size:13px;color:var(--cream)">+ Kenosha Campus</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">108 units · clinic · childcare · active development</div></div>
+          <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--ltgold)">$6.1M–$10.2M/yr</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:rgba(200,146,10,.15);border:1px solid var(--borderg)">
+          <div><div style="font-size:13px;color:var(--cream);font-weight:500">Full three-campus portfolio</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">241 total units · 3 clinics · 2 childcare centers · master agreement</div></div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--ltgold)">$6.1M–$10.2M/yr</div>
+        </div>
+        <div style="padding:11px 14px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.06em">
+          Each campus applies same documented benchmark model. No additional Anthem capital beyond the $1M at Advent.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEXT STEP ══ -->
+<section id="next">
+  <div class="eyebrow rv">Section 09 — The Next Step</div>
+  <h2 class="st rv">One meeting. One decision.<br><em>One agreement that changes the relationship.</em></h2>
+  <p class="si rv">We are not asking for a study. We are not asking for a committee review. We are asking for a meeting with the person authorized to say yes — and a commitment to a Letter of Intent within 30 days of that meeting.</p>
+
+  <div class="ns-frame rv">
+    <div class="ns-top">
+      <div class="ns-quote">
+        We are not asking Anthem to believe in a vision.<br>
+        <em>We are asking Anthem to partner with a system that is already built.</em>
+      </div>
+      <p class="ns-body">The WCS Framework is deployed. The legal structure is in place. The workforce pipeline is running. The clinical model is ready for credentialing. The campus is under development with a confirmed July 2026 groundbreaking and August 2027 opening. Everything is in motion. The only thing missing from this picture is Anthem's name on the agreement — and the compounding position that comes with being first.</p>
+    </div>
+    <div class="ns-steps">
+      <div class="ns-step">
+        <div class="ns-n">01</div>
+        <div class="ns-t">The alignment meeting</div>
+        <div class="ns-b">KG Development Group, A Solution Group CDC, and Jamie (NP) present the full system demonstration. You review populations, credentialing pathway, reporting framework, and master agreement structure. All decision-makers in the room. One meeting.</div>
+      </div>
+      <div class="ns-step">
+        <div class="ns-n">02</div>
+        <div class="ns-t">Letter of Intent — 30 days</div>
+        <div class="ns-b">$1M Clinical Partner Sponsorship confirmed. Named partner status. Credentialing initiated as joint action item. Quarterly reporting framework defined. Shared accountability scorecard agreed. Everything else is operational execution against a signed agreement.</div>
+      </div>
+      <div class="ns-step">
+        <div class="ns-n">03</div>
+        <div class="ns-t">Outcomes begin — Day 1</div>
+        <div class="ns-b">Pipeline participants already in the field are attributed to Anthem's network from the date of agreement. Telehealth with Jamie begins immediately. The data bank already accumulating becomes Anthem's. Quarterly reporting begins at end of first reporting period.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ib ie rv" style="margin-top:20px">
+    <strong>This document is not a prospectus and is not legal advice</strong>
+    All financial projections apply published Medicaid managed care benchmarks conservatively to a defined attributed population. No clinical entity relationship, payer agreement, or partnership contract should be executed without review by a qualified healthcare attorney. Anti-Kickback Statute compliance review is required before any clinical services agreement between entities in this ecosystem is finalized.
+  </div>
+</section>
+
+<footer>
+  <div class="fb">KG Development Group · Advent UMC Campus Partnership Proposal</div>
+  <div class="fn">Advent UMC Campus · Las Vegas, Nevada · Confidential · 2026</div>
+</footer>
+
+<script>
+function tog(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+// Active nav
+const secs = document.querySelectorAll('section[id]');
+const nls  = document.querySelectorAll('nav .nl');
+const nobs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      nls.forEach(l => l.classList.remove('on'));
+      const l = document.querySelector(`.nl[href="#${e.target.id}"]`);
+      if (l) { l.classList.add('on'); l.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' }); }
+    }
+  });
+}, { threshold: 0.25 });
+secs.forEach(s => nobs.observe(s));
+
+function toggleMode() {
+  const body = document.body;
+  const btn  = document.getElementById('mode-toggle');
+  const isLight = body.classList.toggle('light');
+  btn.textContent = isLight ? '🌙' : '☀️';
+  localStorage.setItem('wcs-mode', isLight ? 'light' : 'dark');
+}
+// Restore preference on load
+(function() {
+  const saved = localStorage.getItem('wcs-mode');
+  if (saved === 'light') {
+    document.body.classList.add('light');
+    document.getElementById('mode-toggle').textContent = '🌙';
+  }
+})();
+
+</script>
+</body>
+</html>
