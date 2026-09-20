@@ -709,6 +709,46 @@ same rule as the four extraction sites.
 
 ---
 
+## ADR-005 — `config` and `observability` may depend on `contracts`
+
+**Status:** ✅ **RATIFIED** (owner, 2026-09-20)
+**Extends:** PAS-0001's declared architectural dependency direction.
+
+### Decision
+
+Two edges added during PAS-0003 and PAS-0004 are ratified:
+
+```
+@pas/config        → @pas/contracts
+@pas/observability → @pas/contracts
+```
+
+PAS-0001 declares `domain → contracts` and leaves these two packages with no dependencies.
+Both edges were added and committed before ratification, which was a scope violation under
+*"quality does not purchase authority"* regardless of correctness. Recorded as such.
+
+### Why they are correct
+
+`@pas/contracts` is the universal sink — it depends on nothing, and PAS-0001 establishes it
+as the dependency target for every other package. Neither edge creates a cycle.
+
+Reverting them would mean:
+
+- **config** — `ConfigValidationError` would not extend `ValidationError`, so a configuration
+  failure surfaced through an API boundary would serialise under different rules from every
+  other PAS error, **with unscrubbed details naming environment variables**.
+- **observability** — `requireCorrelationId()` would throw a bare `Error` instead of a typed
+  `PasError`, so a boundary that lost correlation context would produce an untyped failure
+  that PAS-0003's serialiser cannot classify.
+
+### Generalised rule
+
+**`@pas/contracts` may be depended upon by any package.** It is the sink; adding an edge to it
+can never create a cycle. This does not extend to any other package — every other new edge is
+still proposed and held.
+
+---
+
 ## Open items requiring owner decision
 
 These are not ambiguities in the specification. They are points where the specification is

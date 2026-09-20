@@ -113,9 +113,12 @@ npm run verify      # typecheck → lint → test → build. Must pass at every 
 | Verification requirement content per credential class | Build 10 (PAS-1002), `VerificationView` |
 | Source artifact retention/deletion policy | Build 06 (PAS-0604), Build 17 |
 | Fixture **P2** (deep academic) and **P3** (skilled practitioner) subjects | Build 22, Build 37 |
-| Ratify or revert: `@pas/config → @pas/contracts`, `@pas/observability → @pas/contracts` | added beyond PAS-0001's declared direction; flagged in the PAS-0003 and PAS-0004 reports |
 
 Fixture **O1** (organization) is **not** blocked — source material is in `EXAMPLES/`.
+
+**Settled (ADR-005):** `@pas/contracts` may be depended upon by any package. It is the
+universal sink; an edge to it can never create a cycle. This does **not** extend to any other
+package — every other new workspace edge is still proposed and held.
 
 ---
 
