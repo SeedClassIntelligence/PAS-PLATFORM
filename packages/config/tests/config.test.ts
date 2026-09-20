@@ -7,6 +7,7 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
+import { ValidationError, isPasError, toErrorResponse } from '@pas/contracts';
 import {
   loadConfig,
   getConfig,
@@ -337,5 +338,51 @@ describe('getConfig caching', () => {
     const second = getConfig({ PAS_SERVICE_NAME: 'ignored-after-first-call' });
     expect(second).toBe(first);
     expect(second.observability.serviceName).toBe('pas-test');
+  });
+});
+
+describe('shared error contract reconciliation (PAS-0003)', () => {
+  it('ConfigValidationError is a ValidationError in the shared contract', () => {
+    try {
+      loadConfig({ PAS_ENV: 'production' });
+      expect.unreachable('should have thrown');
+    } catch (error) {
+      expect(error).toBeInstanceOf(ConfigValidationError);
+      expect(error).toBeInstanceOf(ValidationError);
+      expect(isPasError(error)).toBe(true);
+      expect((error as ConfigValidationError).family).toBe('VALIDATION');
+      expect((error as ConfigValidationError).code).toBe('config.invalid');
+      expect((error as ConfigValidationError).httpStatus).toBe(400);
+    }
+  });
+
+  it('carries its problems as shared FieldProblems', () => {
+    try {
+      loadConfig({ PAS_ENV: 'production' });
+      expect.unreachable('should have thrown');
+    } catch (error) {
+      const e = error as ConfigValidationError;
+      expect(e.problems).toBe(e.problems);
+      expect(e.problems.length).toBeGreaterThan(0);
+      for (const problem of e.problems) {
+        expect(problem).toHaveProperty('path');
+        expect(problem).toHaveProperty('message');
+      }
+    }
+  });
+
+  it('serialises through the shared boundary without echoing a supplied secret', () => {
+    try {
+      loadConfig(validProductionEnv({ PAS_SESSION_SECRET: 'short-but-real-looking-secret' }));
+      expect.unreachable('should have thrown');
+    } catch (error) {
+      const body = JSON.stringify(
+        toErrorResponse(error, { correlationId: 'corr-1', deployed: true }),
+      );
+      expect(body).toContain('config.invalid');
+      expect(body).toContain('corr-1');
+      // the problem names the path, never the rejected value
+      expect(body).not.toContain('short-but-real-looking-secret');
+    }
   });
 });

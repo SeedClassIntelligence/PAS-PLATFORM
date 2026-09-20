@@ -11,6 +11,7 @@
  */
 
 import { z } from 'zod';
+import { ValidationError, type FieldProblem } from '@pas/contracts';
 import {
   type PasEnvironment,
   isPasEnvironment,
@@ -21,21 +22,25 @@ import { buildConfigSchema, type PasConfig } from './schema.js';
 
 export type EnvSource = Record<string, string | undefined>;
 
-export interface ConfigProblem {
-  /** Dot-path into PasConfig, or the offending environment variable. */
-  path: string;
-  message: string;
-}
+/**
+ * A single configuration problem. Structurally the shared `FieldProblem`
+ * from `@pas/contracts` — `path` is a dot-path into `PasConfig`, or the name
+ * of the offending environment variable.
+ */
+export type ConfigProblem = FieldProblem;
 
 /**
  * Thrown when configuration is invalid. Carries every problem found.
  *
- * PAS-0003 will define the shared error contract; this error is local to
- * `@pas/config` because the package has no workspace dependencies under
- * PAS-0001's declared direction. PAS-0003 reconciles the two.
+ * Reconciled into the shared error contract at PAS-0003: this extends
+ * `ValidationError`, so a configuration failure surfaced through an API
+ * boundary (PAS-0005 readiness, for instance) serialises under the same rules
+ * as every other PAS error — and, critically, has its details scrubbed before
+ * reaching a client. A configuration error's details name environment
+ * variables, which is exactly the shape of thing that should never be echoed
+ * verbatim.
  */
-export class ConfigValidationError extends Error {
-  readonly problems: readonly ConfigProblem[];
+export class ConfigValidationError extends ValidationError {
   readonly environment: PasEnvironment;
 
   constructor(environment: PasEnvironment, problems: readonly ConfigProblem[]) {
@@ -43,9 +48,9 @@ export class ConfigValidationError extends Error {
     super(
       `PAS configuration is invalid for environment "${environment}" ` +
         `(${problems.length} problem${problems.length === 1 ? '' : 's'}):\n${detail}`,
+      problems,
+      { code: 'config.invalid' },
     );
-    this.name = 'ConfigValidationError';
-    this.problems = problems;
     this.environment = environment;
   }
 }
