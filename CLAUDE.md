@@ -77,13 +77,16 @@ the data architecture.
 ## 4. Non-negotiables
 
 ```bash
-npm run verify      # typecheck → lint → test → build. Must pass at every ticket.
-npm run build -w @pas/api && npm run start -w @pas/api   # run the API process
+npm run verify   # fast local gate: typecheck → lint → unit tests → build
+npm run ci       # what CI runs: the above + integration tests, migration
+                 # validation and the frontend baseline guard. Run this before
+                 # declaring a ticket complete.
 ```
 
 **Unit tests are not proof a process runs.** Node packages build to `dist/` and run from
-there; tests resolve `@pas/*` to source. PAS-0005 shipped 27 green tests against an API that
-could not start. Smoke-test anything with an entry point.
+there; unit tests resolve `@pas/*` to source. PAS-0005 shipped 27 green tests against an API
+that could not start. `tests/integration/` spawns the **built** artifact and is where anything
+with an entry point gets proved.
 
 - **The frontend build is byte-identical to baseline `f23d11a`** and must stay that way until
   a ticket deliberately changes it. Current hashes are recorded in `docs/adr/PAS-0001-REPORT.md`.

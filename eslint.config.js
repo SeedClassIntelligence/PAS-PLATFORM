@@ -14,6 +14,23 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    // Node globals for scripts and any plain-JS tooling.
+    files: ['scripts/**/*.{js,mjs}', '*.{js,mjs}'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
+        URL: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        Buffer: 'readonly',
+        fetch: 'readonly',
+      },
+    },
+  },
+  {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -36,6 +53,14 @@ export default tseslint.config(
       //   service returns. Removed when those services are replaced (Build 17).
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
+      //
+      // `no-undef` is off for TypeScript on typescript-eslint's own
+      // recommendation: the compiler resolves identifiers against real type
+      // information, while ESLint only guesses from a globals list. Leaving it
+      // on means maintaining a duplicate, less accurate copy of the Node and
+      // DOM lib definitions, and it reports false positives on every type-only
+      // global. `npm run typecheck` is the check that actually catches this.
+      'no-undef': 'off',
     },
   },
 );

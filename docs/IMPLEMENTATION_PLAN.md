@@ -82,10 +82,13 @@ re-verify whenever a workspace dependency is added.
 | **PAS-0003** Shared Error Contract | `packages/contracts/src/errors/` | ✅ **COMPLETE** — see `docs/adr/PAS-0003-REPORT.md` |
 | **PAS-0004** Correlation Context | `packages/observability/src/correlation/` | ✅ **COMPLETE** — see `docs/adr/PAS-0004-REPORT.md` |
 | **PAS-0005** Health and Readiness | `apps/api/src/health/` | ✅ **COMPLETE** — see `docs/adr/PAS-0005-REPORT.md` |
-| PAS-0006 CI Pipeline | `.github/workflows/` | pending |
+| **PAS-0006** CI Pipeline | `.github/workflows/` | ✅ **COMPLETE** — see `docs/adr/PAS-0006-REPORT.md` |
 
-PAS-0006 runs install · typecheck · lint · unit tests · integration tests · production build ·
-migration validation. The `npm run verify` script created at PAS-0001 is the local equivalent.
+**Build 00 is COMPLETE.** `npm run ci` runs the full gate locally; `.github/workflows/ci.yml`
+is a thin wrapper around it. `npm run verify` remains the fast inner-loop subset.
+
+Build 01 may begin. PAS-0102 extends `scripts/validate-migrations.mjs` with the runtime half
+(empty database → migrate → application starts) and adds a Postgres service to the workflow.
 
 ---
 

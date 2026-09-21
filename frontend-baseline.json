@@ -1,0 +1,8 @@
+{
+  "note": "Regenerate deliberately: npm run check:baseline -- --write",
+  "artifacts": {
+    "assets/index-DoLFyg6D.css": "a629bfc911408e9d34241d85d27d4aa4",
+    "assets/index-Dx2m0-w0.js": "63a17f150ca2f875c2ced46dd0b97be2",
+    "index.html": "91c7fda9b10c7513541943f4beb3433a"
+  }
+}
