@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "npm run dev -w @pas/web",
-    "build": "npm run build -w @pas/contracts && npm run build -w @pas/config && npm run build -w @pas/observability && npm run build -w @pas/database && npm run build -w @pas/api && npm run build -w @pas/web",
+    "build": "npm run build -w @pas/contracts && npm run build -w @pas/config && npm run build -w @pas/observability && npm run build -w @pas/database && npm run build -w @pas/domain && npm run build -w @pas/api && npm run build -w @pas/web",
     "typecheck": "npm run typecheck --workspaces --if-present && tsc --noEmit -p tests/integration/tsconfig.json",
     "lint": "eslint .",
     "test": "npm run test --workspaces --if-present",

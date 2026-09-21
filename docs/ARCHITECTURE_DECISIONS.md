@@ -424,6 +424,18 @@ Representation IDs and authority IDs remain separate.
 
 **Phase:** 1.
 
+**Status: replacement delivered at PAS-0103** — `packages/domain/src/identity/`, see
+`docs/adr/PAS-0103-REPORT.md`. `generateId()` takes no arguments, so there is no channel
+through which an entity type, module, dossier, page or owner name could reach the value;
+UUIDv4 rather than v7/ULID, so no sequence meaning either. `Id<Scope>` keeps representation
+and authority identifiers separate in the type system without putting the distinction in the
+string.
+
+The baseline strings are **not** deleted. Under ADR-003 the frontend is progressively
+re-pointed, not rewritten, and `M01`–`M08`, `d01`–`d10` and `auth-*` survive as *attributes*
+on migrated compositions. What SUP-11's retirement removes is their claim to **define**
+identity — no new record takes its identity from them.
+
 ---
 
 ### SUP-12 — "User entry is self-authorizing"

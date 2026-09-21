@@ -104,12 +104,13 @@ as database connectivity"* landing where a database finally exists.
 |---|---|
 | **PAS-0101** PostgreSQL Connection Layer ✅ | `packages/database/` — see `docs/adr/PAS-0101-REPORT.md` |
 | **PAS-0102** Migration System ✅ | `packages/database/src/migrate/`, `migrations/`, `apps/api/src/health/database-check.ts` — see `docs/adr/PAS-0102-REPORT.md` |
-| PAS-0103 Canonical ID Service | `packages/domain/src/identity/` |
+| **PAS-0103** Canonical ID Service ✅ | `packages/domain/src/identity/` — see `docs/adr/PAS-0103-REPORT.md` |
 | PAS-0104 Canonical Timestamps | `packages/contracts/src/temporal/` |
 
-**Retires SUP-11.** `auth-${Date.now()}` (`apps/web/src/store/usePASStore.ts:564`,
-`services/parser/WebHarvester.ts:32`) and the semantic `M01`/`d01` identifiers are replaced as
-canonical identity. Under ADR-003 they may remain as *attributes* on migrated compositions.
+**Retires SUP-11 — done at PAS-0103.** `auth-${Date.now()}`
+(`apps/web/src/store/usePASStore.ts:564`, `services/parser/WebHarvester.ts:32`) and the
+semantic `M01`/`d01` identifiers are replaced as canonical identity. Under ADR-003 they remain
+as *attributes* on migrated compositions; `apps/web` was not changed by that ticket.
 
 PAS-0104 forbids overloading `createdAt` for real-world occurrence — the baseline does exactly
 this throughout `usePASStore.ts`.
