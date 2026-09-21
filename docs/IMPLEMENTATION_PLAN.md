@@ -90,6 +90,12 @@ is a thin wrapper around it. `npm run verify` remains the fast inner-loop subset
 Build 01 may begin. PAS-0102 extends `scripts/validate-migrations.mjs` with the runtime half
 (empty database → migrate → application starts) and adds a Postgres service to the workflow.
 
+**Done at PAS-0102.** The runtime half is `tests/integration/migrate-and-start.test.ts`,
+running the built migrator CLI and the built API against a database created empty for the run.
+The Postgres service was added at PAS-0101. `/ready` now validates database connectivity and
+schema currency, which is the PAS-0005 criterion *"/ready validates required dependencies such
+as database connectivity"* landing where a database finally exists.
+
 ---
 
 # Build 01 — Database Foundation
@@ -97,7 +103,7 @@ Build 01 may begin. PAS-0102 extends `scripts/validate-migrations.mjs` with the 
 | Ticket | Target |
 |---|---|
 | **PAS-0101** PostgreSQL Connection Layer ✅ | `packages/database/` — see `docs/adr/PAS-0101-REPORT.md` |
-| PAS-0102 Migration System | `migrations/` |
+| **PAS-0102** Migration System ✅ | `packages/database/src/migrate/`, `migrations/`, `apps/api/src/health/database-check.ts` — see `docs/adr/PAS-0102-REPORT.md` |
 | PAS-0103 Canonical ID Service | `packages/domain/src/identity/` |
 | PAS-0104 Canonical Timestamps | `packages/contracts/src/temporal/` |
 

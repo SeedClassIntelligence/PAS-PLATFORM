@@ -28,7 +28,8 @@ import {
   type CorrelationContext,
 } from '@pas/observability';
 import { toErrorResponse } from '@pas/contracts';
-import { handleHealth, handleReady, registerConfigCheck } from './health/index.js';
+import { handleHealth, handleReady, registerConfigCheck, registerDatabaseChecks } from './health/index.js';
+import { closePool } from '@pas/database';
 
 /** Mutable process state. `draining` flips at the start of graceful shutdown. */
 interface ProcessState {
@@ -127,6 +128,10 @@ export interface StartedApi {
 export function startApi(): StartedApi {
   const config = getConfig();
   registerConfigCheck();
+  // PAS-0102. The pool is lazy, so this does not connect at startup — it makes
+  // /ready refuse traffic until the database is reachable AND carries the
+  // schema this build expects.
+  registerDatabaseChecks();
 
   const state: ProcessState = { draining: false };
   const server = createApiServer(config, state);
@@ -136,6 +141,9 @@ export function startApi(): StartedApi {
     // Fail readiness first so the load balancer stops routing, then close.
     state.draining = true;
     await new Promise<void>((resolve) => server.close(() => resolve()));
+    // Release pooled connections last. Doing it before the server closes would
+    // fail in-flight requests that are still holding one.
+    await closePool();
   };
 
   for (const signal of ['SIGTERM', 'SIGINT'] as const) {

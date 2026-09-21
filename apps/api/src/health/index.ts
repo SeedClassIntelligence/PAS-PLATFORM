@@ -23,3 +23,5 @@ export {
 } from './handlers.js';
 
 export { registerConfigCheck } from './config-check.js';
+
+export { registerDatabaseChecks, resetSchemaCheck } from './database-check.js';

@@ -107,7 +107,55 @@ and the losers crash-loop, or interleave DDL and leave the schema half-applied.
 Session-scoped on purpose: if the process dies outright, Postgres releases the lock when the
 connection closes. A row in a table would stay set forever.
 
+## Migrations — PAS-0102
+
+```bash
+npm run migrate                # apply everything pending
+npm run migrate -- status      # report without applying
+npm run migrate -- --dry-run   # report what would be applied
+```
+
+Files are `migrations/NNNN_snake_case_name.sql`. The four-digit prefix is the ordering Part I
+§4 requires — files have no inherent order, so it has to be in the name.
+
+**The application never migrates.** Part I §4 forbids startup from creating tables
+opportunistically. The migrator is a separate step a deploy runs before the new version
+starts serving; the API only *reads* the migration state, and refuses readiness when the
+database is behind the build.
+
+### The four ways a migration system corrupts a schema
+
+Each has an explicit check, because none is caught by "does the SQL run".
+
+| | Failure | Prevention |
+|---|---|---|
+| 1 | An applied migration is edited, so environments diverge | Checksum recorded on apply; a mismatch refuses the run |
+| 2 | A migration older than one already applied is applied now | Pre-flight comparison against the highest applied identifier |
+| 3 | An applied migration is deleted, so clean builds differ from production | Ledger entries with no file refuse the run |
+| 4 | The DDL commits and the bookkeeping row does not | Structural: they are **one transaction** |
+
+(4) is the one that cannot be fixed by checking harder, so it is not checked — it is made
+impossible. `recordApplied` takes the same client the DDL ran on. A test injects a failure
+between the two and asserts the schema change rolls back with it; without that test, a
+two-transaction implementation passes everything else in the suite.
+
+Each migration gets its own transaction rather than one transaction around the whole run.
+All-or-nothing is tempting, but it means a failure on migration 40 rolls back 39 good ones.
+Per-migration atomicity gives a well-defined resume point.
+
+### Reads never create the ledger
+
+`migrationStatus` and `pendingMigrationCount` are read-only, including of the
+`schema_migrations` table itself — an absent ledger reads as "nothing applied". Only the
+migrator calls `ensureLedger`. The API's schema check calls the read path on every probe, and
+a read that bootstraps its own table is still opportunistic table creation.
+
 ## Health
+
+Two checks, registered by `apps/api` at PAS-0102, reported separately because they have
+different operator responses: `database` means the database is unreachable — fix the
+database; `database.schema` means it is reachable but behind this build — run the migrator.
+Collapsing them would report "database down" during a perfectly healthy rolling deploy.
 
 `databaseReadinessCheck` is the shape PAS-0005's registry consumes. `select 1` — deliberately
 not `count(*)`, which gets slower as the database grows until it times out and reports an

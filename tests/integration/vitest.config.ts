@@ -8,6 +8,14 @@ import { defineConfig } from 'vitest/config';
  */
 export default defineConfig({
   test: {
+    /**
+     * Pinned, matching `packages/database/vitest.config.ts`.
+     *
+     * PAS-0102's suite runs the real migrator and creates and drops scratch
+     * databases. Inheriting an ambient `PAS_DATABASE_URL` would point that at
+     * whatever the developer last exported. Spawned children inherit this.
+     */
+    env: { PAS_DATABASE_URL: 'postgresql://pas:pas@127.0.0.1:5432/pas_test' },
     environment: 'node',
     globals: true,
     include: ['**/*.test.ts'],

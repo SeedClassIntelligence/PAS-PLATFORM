@@ -43,7 +43,23 @@ export default tseslint.config(
      * return.
      */
     files: ['**/*.{ts,tsx}'],
-    ignores: ['packages/database/**'],
+    /**
+     * `packages/database` is the implementation, so it necessarily imports the
+     * driver.
+     *
+     * `tests/integration` needs a second exemption, added at PAS-0102 and
+     * deliberately narrow. The suite creates and drops scratch databases, which
+     * `@pas/database` cannot do and should never learn to: `create database`
+     * cannot run inside a transaction and must be issued against a *maintenance*
+     * database, while the pool is bound to one application database. This is
+     * test infrastructure standing outside the application, not application code
+     * reaching around the rule — the rule's own words are "application code must
+     * not independently create arbitrary database connections".
+     *
+     * It stays scoped to `tests/integration`. Any package or app that acquires a
+     * direct `pg` import is still an error, which is the whole point.
+     */
+    ignores: ['packages/database/**', 'tests/integration/**'],
     rules: {
       'no-restricted-imports': [
         'error',

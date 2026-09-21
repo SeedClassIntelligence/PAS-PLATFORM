@@ -98,6 +98,21 @@ export function buildConfigSchema(environment: PasEnvironment) {
       poolMax: opt(positiveInt, 10),
       ssl: opt(bool, false, true),
       statementTimeoutMs: opt(positiveInt, 30_000),
+      /**
+       * Where the migration files live, read by the migrator and by the API's
+       * schema readiness check (PAS-0102).
+       *
+       * The API never applies migrations — Part I §4 forbids a process from
+       * creating schema at startup. It reads the directory only to know which
+       * schema version this build expects, and refuses to serve when the
+       * database is behind it.
+       *
+       * The default is the repository layout. A deployed image that ships the
+       * API without `migrations/` must set this, and the readiness check fails
+       * loudly if the directory is absent rather than assuming "nothing
+       * pending" — an unreadable directory is not evidence of a current schema.
+       */
+      migrationsDir: opt(z.string().min(1), 'migrations'),
     }),
 
     /** OBJECT_STORAGE — PAS-0604 adapter, Part I §11 source binaries. */

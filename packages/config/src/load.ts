@@ -123,6 +123,7 @@ function shapeFromEnv(env: EnvSource) {
       poolMax: env.PAS_DATABASE_POOL_MAX,
       ssl: env.PAS_DATABASE_SSL,
       statementTimeoutMs: env.PAS_DATABASE_STATEMENT_TIMEOUT_MS,
+      migrationsDir: env.PAS_MIGRATIONS_DIR,
     }),
     objectStorage: compact({
       endpoint: env.PAS_OBJECT_STORAGE_ENDPOINT,

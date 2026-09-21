@@ -51,4 +51,6 @@ export {
   runMigrationStatements,
 } from './migration-access.js';
 
+export * from './migrate/index.js';
+
 export { toDatabaseError, isRetryable, PG_ERROR_CODES } from './errors.js';

@@ -68,3 +68,35 @@ npm run ci                      # the full gate, includes the above
 
 `packages/database/vitest.config.ts` pins `PAS_DATABASE_URL` to `pas_test`, so a test run can
 never truncate the development database.
+
+## Running migrations — PAS-0102
+
+```bash
+npm run migrate                # apply everything pending
+npm run migrate -- status      # report without applying
+npm run migrate -- --dry-run   # report what would be applied
+```
+
+Run it from the repository root. The script does **not** use `npm run … -w @pas/database`,
+because `-w` moves the working directory into the package and the default migrations path
+would resolve to `packages/database/migrations`.
+
+Set `PAS_MIGRATIONS_DIR` to point elsewhere. Relative paths resolve against the working
+directory, and the same value is read by the API's `database.schema` readiness check — one
+source of truth, so the migrator and the process that refuses to serve behind it can never
+disagree about which directory they mean.
+
+### The API does not migrate
+
+`/ready` fails with `database.schema` while migrations are pending. That is the API refusing
+to serve against a schema it does not have, not an error to work around — run the migrator.
+`/health` stays 200 throughout: the process is alive and must not be restarted while it waits.
+
+Part I §4 forbids application startup from creating tables. The read path the readiness check
+uses creates nothing, including `schema_migrations` itself.
+
+### Integration tests create their own databases
+
+`tests/integration/migrate-and-start.test.ts` creates and drops a scratch database per run
+(`pas_mig_int_<pid>_<time>`), so it needs a role that can `create database`. The `pas` role
+created above can; so can the CI service's user.
