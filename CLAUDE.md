@@ -83,6 +83,17 @@ npm run ci       # what CI runs: the above + integration tests, migration
                  # declaring a ticket complete.
 ```
 
+**A real database is required.** PAS-0101 tests run against PostgreSQL, not a mock — a mock
+proves the code calls the functions it calls, not that a transaction rolls back or that
+`statement_timeout` is in force. Setup: `docs/operations/local-database.md`. Note that
+`docker info` exits 0 in this container while printing only the client section; there is no
+daemon. Use the native-install path.
+
+**Map database errors at the driver call site only.** `query` maps what the driver throws;
+transaction and lock helpers map only their own control statements and propagate the
+callback's error unchanged. Wrapping a callback flattens a caller's typed error into an opaque
+`InternalError` — this was written wrong twice in PAS-0101 before the rule was stated.
+
 **Unit tests are not proof a process runs.** Node packages build to `dist/` and run from
 there; unit tests resolve `@pas/*` to source. PAS-0005 shipped 27 green tests against an API
 that could not start. `tests/integration/` spawns the **built** artifact and is where anything

@@ -31,6 +31,36 @@ export default tseslint.config(
     },
   },
   {
+    /**
+     * PAS-0101: "Application code must not independently create arbitrary
+     * database connections."
+     *
+     * Stated in a README this is a convention people violate by accident under
+     * deadline. As a lint rule it is mechanical: the only way to reach the
+     * database is through `@pas/database`, which owns pooling, the per-connection
+     * statement timeout, transaction nesting and error mapping. A hand-rolled
+     * `new Client()` has none of those and leaks a pool slot on the first early
+     * return.
+     */
+    files: ['**/*.{ts,tsx}'],
+    ignores: ['packages/database/**'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'pg',
+              message:
+                'Import from @pas/database instead. PAS-0101 centralises pooling, ' +
+                'transactions, instrumentation and health; a direct pg client bypasses all four.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,

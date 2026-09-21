@@ -96,7 +96,7 @@ Build 01 may begin. PAS-0102 extends `scripts/validate-migrations.mjs` with the 
 
 | Ticket | Target |
 |---|---|
-| PAS-0101 PostgreSQL Connection Layer | `packages/database/` |
+| **PAS-0101** PostgreSQL Connection Layer ✅ | `packages/database/` — see `docs/adr/PAS-0101-REPORT.md` |
 | PAS-0102 Migration System | `migrations/` |
 | PAS-0103 Canonical ID Service | `packages/domain/src/identity/` |
 | PAS-0104 Canonical Timestamps | `packages/contracts/src/temporal/` |

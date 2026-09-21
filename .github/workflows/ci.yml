@@ -37,6 +37,30 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
+    # PAS-0101 tests run against a REAL PostgreSQL. A mocked driver proves the
+    # code calls the functions it calls — not that a transaction rolls back,
+    # that a savepoint isolates a nested failure, or that statement_timeout is
+    # in force on the connection, which are the only claims that matter.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: pas
+          POSTGRES_PASSWORD: pas
+          POSTGRES_DB: pas_test
+        ports:
+          - 5432:5432
+        # Without this the job races the container and fails on connection
+        # refused before Postgres has finished initialising.
+        options: >-
+          --health-cmd "pg_isready -U pas"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      PAS_DATABASE_URL: postgresql://pas:pas@127.0.0.1:5432/pas_test
+
     steps:
       - uses: actions/checkout@v4
 

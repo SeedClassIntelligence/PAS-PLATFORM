@@ -13,4 +13,5 @@ export const pasAliases = {
   '@pas/contracts': at('./packages/contracts/src/index.ts'),
   '@pas/config': at('./packages/config/src/index.ts'),
   '@pas/observability': at('./packages/observability/src/index.ts'),
+  '@pas/database': at('./packages/database/src/index.ts'),
 };
