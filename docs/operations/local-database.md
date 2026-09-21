@@ -59,6 +59,19 @@ PGPASSWORD=pas psql -h 127.0.0.1 -U pas -d pas_test -Atc "select version();"
 
 The cluster is not persisted across container rebuilds — re-run the block above.
 
+## Restarting it
+
+This container has no init system and reaps the daemon when idle, so a session that was
+working a few minutes ago can find the cluster gone with `ECONNREFUSED 127.0.0.1:5432`. The
+data directory survives; only the process does not.
+
+```bash
+npm run db:start      # idempotent — starts it if it is not already up
+```
+
+Run it before `npm run ci` if a session has been idle. A dead daemon looks exactly like a
+broken test suite in the CI output, and it is neither.
+
 ## Running the tests
 
 ```bash

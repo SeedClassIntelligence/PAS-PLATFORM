@@ -625,6 +625,58 @@ criteria as an expected diff rather than a regression.
 
 ---
 
+### SUP-14 — "`createdAt` can hold whatever date matters"
+
+**Superseded by:** PAS-0104, §XL.
+
+**Discovered by:** applying ADR-002's consumer sweep while executing PAS-0104.
+
+**Finding.** The baseline has no distinction between when a record was written and when the
+thing it describes happened, and uses `createdAt` for both. Two separate failures:
+
+**1. Real-world occurrence stored in `createdAt`** — exactly what PAS-0104 forbids.
+
+| Site | Value | What it actually means |
+|---|---|---|
+| `usePASStore.ts:152` | `createdAt: '2015-01-01'` | the year A Solution Group CDC was **founded** |
+| `usePASStore.ts:169` | `createdAt: '2020-06-01'` | when the WCS Framework was **authored** |
+| `usePASStore.ts:186`, `:203`, `:220` | `'2021-08-10'`, `'2023-04-01'`, `'2026-03-08'` | same pattern |
+
+The store is in-memory and constructed at page load, so none of these records was created on
+the date it claims. The field is carrying `occurredAt`.
+
+**2. A rendering stored in a timestamp field.** `PeerEndorsement.createdAt` holds
+`'1 week ago'` (`usePASStore.ts:417`), `'5 days ago'` (`:431`), `'2 days ago'` (`:445`).
+Not UTC, not ISO-8601, not a timestamp — a display string that has to be re-rendered to be
+read and cannot be compared, sorted or stored.
+
+**Also absent.** `observedAt`, `validFrom`, `validTo` do not exist anywhere in the baseline.
+There is therefore no way to express "PAS learned this on date X about an event on date Y",
+which is the question provenance exists to answer, or to express a credential that expired.
+
+**Correctly implemented at baseline, for contrast:** `usePASStore.ts:514`, `:578` and `:595`
+write `new Date().toISOString()` into `updatedAt`, `createdAt` (on the create path) and
+`publishedAt`. The defect is not that the baseline cannot do this — it is that nothing
+distinguished the two meanings, so both ended up in one field.
+
+**Severity in context.** Seed data in a local prototype, so nothing is live. Recorded because
+the *type* permits it: `AuthorityObject.createdAt` is `string` (`types/pas.ts:106`), and a
+string field will keep accepting whatever the next writer has to hand.
+
+**Replacement:** PAS-0104's branded instant kinds — `CreatedAt`, `UpdatedAt`, `OccurredAt`,
+`ObservedAt`, `ValidFrom`, `ValidTo`, `PublishedAt` — which do not interchange, plus a parser
+that rejects a value naming no single moment. `createdAt` and `updatedAt` have no parser at
+all: they come from the clock, so a date from a payload cannot reach them.
+
+**Migration constraint:** `apps/web` is **not** changed by PAS-0104. Under ADR-003 the
+frontend is progressively re-pointed, not rewritten, and these strings are display data in a
+prototype store. What changes is that no *new* contract may express a timestamp as `string`.
+The baseline fields are re-pointed when the store is replaced by real records.
+
+**Phase:** 1 (contract), deferred (frontend).
+
+---
+
 ## ADR-003 — Clean-sheet backend and platform; migration discipline for the frontend
 
 **Status:** ✅ **CONFIRMED** (architect, resolving the specification fork)

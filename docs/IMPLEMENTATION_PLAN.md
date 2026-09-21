@@ -105,7 +105,7 @@ as database connectivity"* landing where a database finally exists.
 | **PAS-0101** PostgreSQL Connection Layer ✅ | `packages/database/` — see `docs/adr/PAS-0101-REPORT.md` |
 | **PAS-0102** Migration System ✅ | `packages/database/src/migrate/`, `migrations/`, `apps/api/src/health/database-check.ts` — see `docs/adr/PAS-0102-REPORT.md` |
 | **PAS-0103** Canonical ID Service ✅ | `packages/domain/src/identity/` — see `docs/adr/PAS-0103-REPORT.md` |
-| PAS-0104 Canonical Timestamps | `packages/contracts/src/temporal/` |
+| **PAS-0104** Canonical Timestamps ✅ | `packages/contracts/src/temporal/` — see `docs/adr/PAS-0104-REPORT.md` |
 
 **Retires SUP-11 — done at PAS-0103.** `auth-${Date.now()}`
 (`apps/web/src/store/usePASStore.ts:564`, `services/parser/WebHarvester.ts:32`) and the
@@ -113,7 +113,12 @@ semantic `M01`/`d01` identifiers are replaced as canonical identity. Under ADR-0
 as *attributes* on migrated compositions; `apps/web` was not changed by that ticket.
 
 PAS-0104 forbids overloading `createdAt` for real-world occurrence — the baseline does exactly
-this throughout `usePASStore.ts`.
+this throughout `usePASStore.ts`. **Confirmed and recorded as SUP-14** at PAS-0104: five
+authority objects carry the subject's founding or authoring year in `createdAt`, and three
+peer endorsements carry `'1 week ago'`. `apps/web` was not changed (ADR-003); what the ticket
+changes is that no new contract may express a timestamp as `string`.
+
+**Build 01 is COMPLETE.**
 
 ---
 

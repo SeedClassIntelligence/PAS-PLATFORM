@@ -3,7 +3,7 @@
 Shared type contracts and schemas. A leaf package: it depends on nothing, and everything may
 depend on it.
 
-**Implemented:** PAS-0003 — Shared Error Contract.
+**Implemented:** PAS-0003 — Shared Error Contract · PAS-0104 — Canonical Timestamps.
 
 ## Error contract
 
@@ -91,3 +91,109 @@ Only `DENY` is unambiguously an error. `REQUIRE_REVIEW` and `REQUIRE_CONFIRMATIO
 that genuinely cannot proceed has a typed way to say so, but Build 11 should return a task
 reference rather than throw. Recorded so the decision is not made silently by whoever writes
 the first gate.
+
+
+---
+
+# Canonical timestamps — PAS-0104
+
+```ts
+import {
+  now, toInstant, newRecordTimestamps, touch, toOccurredAt, isValidAt,
+  type CreatedAt, type OccurredAt, type ValidityInterval,
+} from '@pas/contracts';
+```
+
+## The canonical form
+
+```
+YYYY-MM-DDTHH:mm:ss.sssZ        2026-02-15T10:00:00.000Z
+```
+
+Fixed width, four-digit year, milliseconds always present, always `Z`.
+
+Fixed width is not cosmetic: it makes lexicographic order identical to chronological order,
+so `ORDER BY published_at` in SQL, `.sort()` in JavaScript and a sorted key listing all
+agree. A form that dropped `.000`, or used an expanded year, breaks that for the oldest and
+newest records only — the hardest ordering bug to notice.
+
+## What is rejected, and why
+
+| Value | Why |
+|---|---|
+| `'2015-01-01'` | a date, not an instant. Which midnight? Whose? |
+| `'2026-02-15T10:00:00'` | no zone — names a different moment on every machine that reads it |
+| `'1 week ago'` | a rendering, not a value |
+| `1739616000` | seconds or milliseconds? Both readings are plausible dates, a thousandfold apart |
+
+The first three are in the PAS baseline today (SUP-14). The fourth is what an integrator
+reaches for next.
+
+**Offsets are accepted.** `2026-02-15T15:00:00+05:00` names exactly one instant and
+normalises to `2026-02-15T10:00:00.000Z`. The offset the sender used is a property of the
+sender, not of the moment; a value that needs its local zone preserved needs a separate zone
+field, not a timestamp that is secretly a local time.
+
+## The seven semantics do not interchange
+
+| Type | Clock | Meaning |
+|---|---|---|
+| `OccurredAt` | the world's | when the thing happened |
+| `ValidFrom` / `ValidTo` | the world's | when the assertion holds |
+| `ObservedAt` | PAS's | when PAS learned it |
+| `CreatedAt` | PAS's | when PAS wrote the record |
+| `UpdatedAt` | PAS's | when PAS last changed it |
+| `PublishedAt` | PAS's | when PAS showed it publicly |
+
+```ts
+const founded: OccurredAt = toOccurredAt('2015-01-01T00:00:00Z');
+const created: CreatedAt = founded;   // does not compile
+```
+
+The values are identical on the wire and in the database. The separation is entirely in the
+type system — a discriminator in the value would make the timestamp semantic, the same
+reasoning that governs identity (PAS-0103, §XLI).
+
+**Collapsing the two clocks costs specific things.** A record whose founding date is 2015
+written into `createdAt` sorts as though PAS has held it for a decade, and "what did we know,
+and when?" stops being answerable — which is the question an authority platform exists to
+answer. Drop `observedAt` and a claim ingested today about a 2015 event is indistinguishable
+from one PAS has carried since 2015.
+
+### `createdAt` and `updatedAt` have no parser
+
+Deliberately. They are facts about what PAS did, so they come from `newRecordTimestamps()`
+and `touch()` — from the clock, never from a payload. You cannot put 2015 into a field you
+cannot parse a string into. Hydrating a row read back from the database is `assertInstant`,
+named differently so that using it in a create path reads wrong.
+
+### One clock read per new record
+
+`newRecordTimestamps()` returns both from a single read, so `createdAt === updatedAt` is true
+by construction on a new record and false forever after the first update.
+
+Two reads break that, but not in the obvious way: `Date.now()` has millisecond resolution, so
+two consecutive reads land in the same millisecond almost every time and the pair looks
+correct in testing. They differ only when a call straddles a millisecond boundary — an
+*intermittent* wrong answer, which is worse than a consistent one. A test drives the clock
+forward on every read so the guarantee is proved rather than observed.
+
+## Validity intervals are half-open — `[validFrom, validTo)`
+
+The start is included, the end is not. Consecutive intervals then abut exactly — one ends at
+the instant the next begins — with no gap and no overlap, and `validTo` of the old row is
+literally `validFrom` of the new one.
+
+The inclusive alternative makes every writer subtract "one smallest unit", and that unit
+differs between JavaScript (milliseconds), PostgreSQL (microseconds) and whatever a connector
+sends. That subtraction is where the gaps come from. PostgreSQL's `tstzrange` defaults to
+`[)` for the same reason, so a range column agrees without translation.
+
+## Storage
+
+`timestamptz(3)`.
+
+`timestamptz` because it stores an absolute instant. **The `(3)` is load-bearing:** PostgreSQL
+defaults to microsecond precision and JavaScript `Date` holds milliseconds, so an undeclared
+column round trips lossily and an equality comparison against a value that has been through
+JavaScript fails for reasons nobody can see. Build 02's columns must declare it.

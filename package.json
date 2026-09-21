@@ -15,6 +15,7 @@
     "test": "npm run test --workspaces --if-present",
     "verify": "npm run typecheck && npm run lint && npm run test && npm run build",
     "test:integration": "vitest run --root tests/integration",
+    "db:start": "bash scripts/pg-start.sh",
     "validate:migrations": "node scripts/validate-migrations.mjs",
     "ci": "npm run typecheck && npm run lint && npm run test && npm run build && npm run test:integration && npm run validate:migrations && npm run check:baseline",
     "check:baseline": "node scripts/check-frontend-baseline.mjs",
