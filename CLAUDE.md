@@ -161,6 +161,28 @@ with an entry point gets proved.
   truncate, per test, costs one cheap statement and removes the assumption instead of
   narrowing the window.
 
+- **A test that takes schema apart puts it back by re-running the migration, never from a
+  copy written in the test.** Earned at PAS-0303. A test dropped a constraint, exercised the
+  gap, and restored the constraint in `finally` from a hardcoded duplicate of the migration's
+  text. It passed, and it silently repaired the schema before the next test looked — so a
+  mutation that *loosened that constraint in the migration* survived the sweep. The fixture
+  was testing its own copy.
+
+  Restore with `drop schema public cascade` → `create schema public` → `migrate(...)`. This is
+  the catalogue-over-enumeration rule applied to constraints: a fixture that re-declares
+  schema is a fixture that hides schema defects.
+
+- **A timeout cannot fail a synchronous hang.** Earned at PAS-0303, on the first attempt to
+  test a scan that goes exponential on shared references. The test asserted elapsed time under
+  a vitest `{ timeout }`, and the timeout never fired: the recursion never yields the event
+  loop, so no timer can interrupt it. The defect became a *hung CI job* rather than a failing
+  one — strictly worse than not testing it, because a hang reads as infrastructure trouble and
+  gets re-run.
+
+  Assert **work done**, not time elapsed. A counting getter that throws past a bound, a visit
+  counter, an instrumented call — something the mutant trips on its own thread. The replacement
+  fails in 10 ms with a message naming the defect.
+
 ---
 
 ## 6. Open — and what "open" actually means

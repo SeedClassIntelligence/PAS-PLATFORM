@@ -27,7 +27,7 @@ export {
   type GovernanceDecision,
 } from './families.js';
 
-export { scrubDetails, REDACTED, type ScrubOptions } from './scrub.js';
+export { scrubDetails, looksLikeCredential, REDACTED, type ScrubOptions } from './scrub.js';
 
 export {
   toErrorResponse,

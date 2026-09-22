@@ -47,8 +47,26 @@ const DEFAULTS: Required<ScrubOptions> = {
   maxStringLength: 1_000,
 };
 
-function looksSensitive(value: string): boolean {
+/**
+ * Whether a string looks like a credential **by its shape**, regardless of
+ * what it is called.
+ *
+ * Exported because PAS-0303 needs the same judgement for a different purpose.
+ * `scrubDetails` redacts; the event ledger *refuses*, because its rows are
+ * immutable and a credential written into one cannot be taken back out. Two
+ * pattern lists would drift, and the weaker one would be the one guarding the
+ * permanent store.
+ *
+ * Shape only — deliberately not the key-name heuristic `scrubDetails` also
+ * applies. See `packages/events/src/ledger/append.ts` for why that distinction
+ * matters for canonical data.
+ */
+export function looksLikeCredential(value: string): boolean {
   return SENSITIVE_VALUE_PATTERNS.some((pattern) => pattern.test(value));
+}
+
+function looksSensitive(value: string): boolean {
+  return looksLikeCredential(value);
 }
 
 function scrubString(value: string, maxStringLength: number): string {
