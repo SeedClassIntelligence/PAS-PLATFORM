@@ -31,15 +31,55 @@ const AUTHORIZATION_TABLES = [
 ];
 
 /**
- * Where reading them is legitimate.
+ * Where referencing them is legitimate.
  *
  * `packages/auth` implements the service. `migrations` creates and seeds the
- * tables. Everywhere else, a reference is a second authorization
- * implementation.
+ * tables. Everywhere else in **shipped code**, a reference is a second
+ * authorization implementation.
  */
 const ALLOWED = ['packages/auth', 'migrations'];
 
+/**
+ * Tests are exempt, and this exemption was earned rather than assumed.
+ *
+ * This guard fired on the first code written after it: PAS-0205's security
+ * suite inserts `membership_roles` and `capability_overrides` rows to build
+ * its six actors, and reads them back to assert the fixtures landed.
+ *
+ * That is not the behaviour the rule exists to stop. The rule is about code
+ * that reads these tables **and acts on the result to permit something** —
+ * which is shipped code, by definition. A test that sets up state is
+ * arranging; a test that reads it is asserting. Neither authorizes anything.
+ *
+ * The exemption is deliberately narrow: a test *file*, not a test
+ * *directory*, so a helper named `auth-shortcut.ts` sitting beside a suite is
+ * still scanned. And `catches a bypass in shipped code` below asserts the
+ * exemption has not swallowed the rule.
+ */
+const TEST_FILE = /(\.test\.ts|\.spec\.ts)$/;
+
 const SKIP_DIRS = new Set(['node_modules', 'dist', '.git', 'coverage', '.vite']);
+
+/**
+ * Removes comments before matching.
+ *
+ * Word-bounding is not enough, and the first version of this guard claimed it
+ * was. A comment explaining *why* a file must not query `membership_roles` is
+ * prose, not a query — and without this, documenting the rule anywhere
+ * violates the rule, which is a guard that punishes the one thing it should
+ * encourage.
+ *
+ * Deliberately crude: this is a grep, not a parser, and `//` inside a string
+ * literal would over-strip. Over-stripping can only produce a false *pass*
+ * for a bypass written on the same line as a URL, which no bypass is, and the
+ * alternative — parsing every file in the repository — is not worth it for a
+ * guard this shape.
+ */
+function stripComments(source: string): string {
+  return source
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .replace(/(^|[^:])\/\/.*$/gm, '$1');
+}
 
 async function* sourceFiles(dir: string): AsyncGenerator<string> {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -60,11 +100,10 @@ describe('the authorization tables are read in one place', () => {
     for await (const file of sourceFiles(ROOT)) {
       const rel = relative(ROOT, file);
       if (ALLOWED.some((prefix) => rel.startsWith(prefix))) continue;
+      if (TEST_FILE.test(rel)) continue;
 
-      const contents = await readFile(file, 'utf8');
+      const contents = stripComments(await readFile(file, 'utf8'));
       for (const table of AUTHORIZATION_TABLES) {
-        // Word-bounded, so `membership_roles_idx` in unrelated prose does not
-        // trip it and `from membership_roles` does.
         if (new RegExp(`\\b${table}\\b`).test(contents)) {
           offenders.push(`${rel} references ${table}`);
         }
@@ -91,6 +130,52 @@ describe('the authorization tables are read in one place', () => {
     // than counting files in one corner of the tree.
     expect(scanned.some((f) => f.includes('/apps/api/'))).toBe(true);
     expect(scanned.some((f) => f.includes('/packages/domain/'))).toBe(true);
+  });
+
+  /**
+   * The exemption above must not have swallowed the rule. If test files were
+   * exempted by *directory* rather than by filename, a helper sitting beside
+   * a suite would escape — which is exactly where a convenience shortcut
+   * around authorization gets written.
+   */
+  it('still scans non-test files inside test directories', async () => {
+    const scanned: string[] = [];
+    for await (const file of sourceFiles(ROOT)) {
+      const rel = relative(ROOT, file);
+      if (ALLOWED.some((p) => rel.startsWith(p)) || TEST_FILE.test(rel)) continue;
+      scanned.push(rel);
+    }
+    // PAS-0205's harness and actor builder are support code, not suites, and
+    // must remain under the rule.
+    expect(scanned).toContain('tests/security/harness.ts');
+    expect(scanned).toContain('tests/security/actors.ts');
+  });
+
+  it('reads code, not prose — a comment naming a table is not a bypass', () => {
+    const documented = `
+      // This module must never query membership_roles itself.
+      /* capability_overrides is written only through @pas/auth. */
+      const x = 1;
+    `;
+    const stripped = stripComments(documented);
+    for (const table of AUTHORIZATION_TABLES) {
+      expect(new RegExp(`\\b${table}\\b`).test(stripped), table).toBe(false);
+    }
+  });
+
+  it('still catches the query the comment was describing', () => {
+    const real = `
+      // This module must never query membership_roles itself.
+      const rows = await query('select 1 from membership_roles where id = $1');
+    `;
+    expect(/\bmembership_roles\b/.test(stripComments(real))).toBe(true);
+  });
+
+  it('catches a bypass in shipped code', async () => {
+    // The exemption is by filename, so shipped code is unaffected by it.
+    const shipped = 'apps/api/src/routes/claims.ts';
+    expect(TEST_FILE.test(shipped)).toBe(false);
+    expect(ALLOWED.some((p) => shipped.startsWith(p))).toBe(false);
   });
 
   it('would catch a bypass if one were written', async () => {

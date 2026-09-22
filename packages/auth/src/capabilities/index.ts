@@ -14,3 +14,11 @@ export {
 } from './namespace.js';
 
 export { platformAccountId, resetPlatformAccountCache } from './platform.js';
+
+export {
+  grantRole,
+  revokeRole,
+  rolesForMembership,
+  setCapabilityOverride,
+  clearCapabilityOverride,
+} from './grants.js';

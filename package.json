@@ -10,16 +10,17 @@
   "scripts": {
     "dev": "npm run dev -w @pas/web",
     "build": "npm run build -w @pas/contracts && npm run build -w @pas/config && npm run build -w @pas/observability && npm run build -w @pas/database && npm run build -w @pas/domain && npm run build -w @pas/auth && npm run build -w @pas/api && npm run build -w @pas/web",
-    "typecheck": "npm run typecheck --workspaces --if-present && tsc --noEmit -p tests/integration/tsconfig.json",
+    "typecheck": "npm run typecheck --workspaces --if-present && tsc --noEmit -p tests/integration/tsconfig.json && tsc --noEmit -p tests/security/tsconfig.json",
     "lint": "eslint .",
     "test": "npm run test --workspaces --if-present",
     "verify": "npm run typecheck && npm run lint && npm run test && npm run build",
     "test:integration": "vitest run --root tests/integration",
     "db:start": "bash scripts/pg-start.sh",
     "validate:migrations": "node scripts/validate-migrations.mjs",
-    "ci": "npm run typecheck && npm run lint && npm run test && npm run build && npm run test:integration && npm run validate:migrations && npm run check:baseline",
+    "ci": "npm run typecheck && npm run lint && npm run test && npm run build && npm run test:integration && npm run test:security && npm run validate:migrations && npm run check:baseline",
     "check:baseline": "node scripts/check-frontend-baseline.mjs",
-    "migrate": "npm run build -w @pas/database && node packages/database/dist/migrate/cli.js"
+    "migrate": "npm run build -w @pas/database && node packages/database/dist/migrate/cli.js",
+    "test:security": "vitest run --root tests/security"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

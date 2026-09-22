@@ -130,7 +130,7 @@ changes is that no new contract may express a timestamp as `string`.
 | **PAS-0202** Authentication ✅ | `migrations/0002_create_authentication.sql`, `packages/auth/src/{password,session}/` — see `docs/adr/PAS-0202-REPORT.md` |
 | **PAS-0203** Capability Registry ✅ | `migrations/0003_create_capability_registry.sql`, `packages/auth/src/capabilities/` — see `docs/adr/PAS-0203-REPORT.md` |
 | **PAS-0204** Authorization Service ✅ | `packages/auth/src/authorize/` — see `docs/adr/PAS-0204-REPORT.md` |
-| PAS-0205 Authorization Security Tests | `tests/security/` |
+| **PAS-0205** Authorization Security Tests ✅ | `tests/security/` — see `docs/adr/PAS-0205-REPORT.md` |
 
 **User ≠ AuthorityEntity** (Part I §6). PAS-0205 verifies *frontend behavior is irrelevant to
 server authorization* — directly relevant to `MasterAdminView.tsx`, which today exposes a
@@ -139,6 +139,8 @@ platform "god view" with no access control whatsoever.
 **Build 02's ADR-002 opening sweep ran at PAS-0201.** Every component that decides who someone
 is or what they may do was inspected; nothing unrecorded was found, and no consumer needed a
 change. See `docs/adr/PAS-0201-REPORT.md`.
+
+**Build 02 is COMPLETE.** `npm run ci` now includes `test:security`.
 
 **Ratified at ADR-006** (owner, 2026-09-22): `@pas/auth → @pas/database`,
 `@pas/auth → @pas/domain`, and PAS-0102's `apps/api → @pas/database`. The standing rule is now
