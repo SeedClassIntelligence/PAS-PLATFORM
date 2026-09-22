@@ -24,6 +24,14 @@ granted scope is still unauthorized. Being right does not retroactially grant pe
 in doubt about scope: propose and *hold*, not propose and proceed. This applies in particular
 to anything touching declared architecture (see §2).
 
+> **Propose, not raise** (owner, 2026-09-22). The word is *propose*. Surfacing a question
+> without an answer attached is not this rule — it is handing the owner implementation's job
+> while claiming discipline. Holding concerns **authorization**; the recommendation is
+> implementation's to bring regardless. Every item that goes to the owner arrives as a
+> decision with its reasoning and its cost, to be overridden or ratified — never as an open
+> question. A technical call with a determinable answer does not go to the owner at all; it
+> gets made, stated, and recorded where it can be reversed.
+
 **No flattery.** Before sending: would this sentence survive if the owner were in a bad mood
 and wanted only the truth? If a sentence exists to manage mood, cut it. Do not open with
 validation. Do not credit the owner for your own output. Agreement must be worth something
@@ -125,15 +133,34 @@ with an entry point gets proved.
 
 ---
 
-## 6. Open — owner decisions, not implementation's to make
+## 6. Open — and what "open" actually means
 
-| Item | Blocks |
-|---|---|
-| Verification requirement content per credential class | Build 10 (PAS-1002), `VerificationView` |
-| Source artifact retention/deletion policy | Build 06 (PAS-0604), Build 17 |
-| Fixture **P2** (deep academic) and **P3** (skilled practitioner) subjects | Build 22, Build 37 |
+Re-triaged 2026-09-22, at the owner's direction. Two of the three items below were never
+owner decisions; they were unfinished technical work parked in a table that made them look
+like someone else's problem. Technical calls are implementation's to make and state.
+
+**Owner's, genuinely:**
+
+| Item | Why it is not implementation's | Blocks |
+|---|---|---|
+| Fixture **P2** (deep academic) and **P3** (skilled practitioner) subjects | Whose real professional life PAS models. A synthetic subject defeats the fixture's purpose, and a real one cannot be invented. | Build 22, Build 37 |
+
+Implementation's contribution: define the *shape* each fixture must satisfy, so naming a
+subject is the only remaining step. Offered alternative — build P2/P3 from public-record
+subjects, which needs only a yes.
+
+**Decided by implementation; owner may override:**
+
+| Item | Decision | Recorded |
+|---|---|---|
+| Verification requirement content per credential class | The requirements are **data, not architecture**. A registry holds them per credential class, seeded with a default tier ladder (self-asserted → source-confirmed → independently-verified, per INV-12) and editable without a deployment. Domain expertise populates rows; it does not block the build. | ADR at PAS-1002 |
+| Source artifact retention/deletion policy | Retain indefinitely; deletion tombstones rather than erases, because a deleted source retroactively invalidates every claim that cited it (INV-12). Hard erasure is a separate, audited, rare path for statutory requests. The only genuinely external input is a retention *period* per jurisdiction — a number, added later, blocking nothing. | ADR at PAS-0604 |
+| `user_capability_overrides` vs `capability_overrides` | `capability_overrides`, grained to membership. The platform is an account. | **ADR-007** |
 
 Fixture **O1** (organization) is **not** blocked — source material is in `EXAMPLES/`.
+
+**Settled (ADR-006):** `contracts`, `config`, `observability`, `database` and `domain` may be
+depended upon by any package without a proposal. Every other edge is still proposed and held.
 
 **Settled (ADR-005):** `@pas/contracts` may be depended upon by any package. It is the
 universal sink; an edge to it can never create a cycle. This does **not** extend to any other

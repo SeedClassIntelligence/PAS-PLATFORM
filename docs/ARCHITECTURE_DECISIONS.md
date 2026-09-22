@@ -843,3 +843,94 @@ deliberately silent and implementation must not choose unilaterally.
    architectural one.
 
 None of the four blocks Phase 0, 1 or 2.
+
+
+---
+
+## ADR-006 — Ratified workspace dependency edges
+
+**Status:** ✅ **RATIFIED** (owner, 2026-09-22)
+
+Three edges, added across PAS-0102 and PAS-0201, are ratified:
+
+| Edge | Ticket | For |
+|---|---|---|
+| `apps/api → @pas/database` | PAS-0102 | `/ready` validating database connectivity and schema currency |
+| `@pas/auth → @pas/database` | PAS-0202 | `query`, `withTransaction` — PAS-0101 forbids any other route to the database |
+| `@pas/auth → @pas/domain` | PAS-0202 | `generateId`, `Id` — PAS-0103 is the only identity source |
+
+None creates a cycle. `@pas/database` and `@pas/domain` do not depend on `@pas/auth` or on
+`apps/api`, and both depend only on `contracts`, `config` and `observability`.
+
+### The standing rule this settles
+
+ADR-005 made `@pas/contracts` universally dependable and held every other edge. That was the
+right default when the topology was unbuilt. It is now clear that the *infrastructure* layer —
+`database`, `domain`, `observability`, `config` — is in the same position: it depends on
+nothing above it, and a domain or application package that cannot reach it has to reimplement
+pooling, identity or correlation locally, which is the outcome the layer exists to prevent.
+
+**Ratified rule.** Any package may depend on `contracts`, `config`, `observability`, `database`
+and `domain` without a separate proposal. Every other edge — in particular any edge *between*
+domain packages, any edge into `apps/`, and anything that could close a cycle — is still
+proposed and held, and `apps/web` remains a dependency of nothing.
+
+Implementation states the edge and its reason in the ticket report. It does not stop to ask.
+
+---
+
+## ADR-007 — Capability overrides are grained to membership, and the platform is an account
+
+**Status:** ✅ **DECIDED** (implementation, under ADR-006's posture; owner may override)
+**Resolves:** the conflict between Part I §6 (`user_capability_overrides`) and PAS-0203
+(`capability_overrides`).
+
+### The conflict
+
+Part I §6 names `user_capability_overrides`. PAS-0203 names `capability_overrides` and adds
+`membership_roles`, which §6 does not have. Both are Clean-Sheet, so the authority hierarchy
+does not settle it.
+
+### Decision
+
+**`capability_overrides`, grained to `account_membership_id`.**
+
+`membership_roles` is the tell. Roles attach to a membership because a user who administers
+one organization does not thereby administer another — which is the entire reason
+`account_memberships` is many-to-many in both directions (PAS-0201).
+
+If roles are per-membership, overrides must be. A row keyed by `user_id` grants the capability
+in **every account that user belongs to**. That is not a naming preference; it is a
+tenant-isolation breach with a table name on it. §6's name encodes a grain that the rest of
+§6's own model contradicts.
+
+### Platform-level capabilities
+
+`platform.admin`, `governance.admin` and `audit.read` are not tenant-scoped, which is the one
+real argument for a user-grained table. The alternative — a nullable discriminator, or two
+override tables — puts a branch in `authorize()`, and a branch in the authorization path is
+where authorization bugs live.
+
+**The platform is an account.** A reserved `accounts` row of type `PLATFORM`; a platform
+administrator holds an `account_membership` in it like any other member.
+
+Consequences, all of them the point:
+
+- `authorize(actor, capability, resourceContext)` has exactly **one** grain and no special case.
+- "Who are the platform administrators" is a query, not tribal knowledge.
+- Revoking platform admin is revoking a membership — same path, same audit trail, same
+  `authentication_events`.
+- It is structurally impossible to hold `platform.admin` without a row someone can list. This
+  is the direct answer to `MasterAdminView`'s unguarded "god view"
+  (`docs/RECONCILIATION.md` Part 7): the guard becomes a capability check that cannot be
+  bypassed by forgetting, rather than a condition someone must remember to add.
+
+### Cost, stated
+
+`accounts` gains a third `account_type` and a row that is not a tenant in the ordinary sense,
+so anything enumerating accounts for billing or tenancy must exclude `PLATFORM`. That is one
+predicate in a few queries, against one branch in the single most security-sensitive function
+in the system. Recorded so the trade is visible rather than discovered.
+
+**Implemented at PAS-0203.** PAS-0201's migration is unchanged; `PLATFORM` is added by the
+migration that creates the capability tables, with the reserved row seeded there.
