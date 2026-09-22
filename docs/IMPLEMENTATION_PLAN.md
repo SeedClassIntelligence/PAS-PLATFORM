@@ -128,7 +128,7 @@ changes is that no new contract may express a timestamp as `string`.
 |---|---|
 | **PAS-0201** Account Schema ✅ | `migrations/0001_create_account_domain.sql` — see `docs/adr/PAS-0201-REPORT.md` |
 | **PAS-0202** Authentication ✅ | `migrations/0002_create_authentication.sql`, `packages/auth/src/{password,session}/` — see `docs/adr/PAS-0202-REPORT.md` |
-| PAS-0203 Capability Registry | `packages/auth/src/capabilities/` |
+| **PAS-0203** Capability Registry ✅ | `migrations/0003_create_capability_registry.sql`, `packages/auth/src/capabilities/` — see `docs/adr/PAS-0203-REPORT.md` |
 | PAS-0204 Authorization Service | `packages/auth/src/authorize/` |
 | PAS-0205 Authorization Security Tests | `tests/security/` |
 

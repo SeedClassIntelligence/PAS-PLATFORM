@@ -39,6 +39,8 @@ export {
   countRecentFailures,
 } from './events.js';
 
+export * from './capabilities/index.js';
+
 export {
   type LoginFailure,
   type LoginResult,
