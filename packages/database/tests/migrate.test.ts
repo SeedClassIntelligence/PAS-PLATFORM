@@ -71,18 +71,32 @@ async function tableExists(name: string): Promise<boolean> {
   return row?.present ?? false;
 }
 
-beforeEach(async () => {
-  await query(`drop table if exists ${LEDGER_TABLE}`);
-  for (const t of ['mig_alpha', 'mig_beta', 'mig_gamma', 'mig_partial']) {
-    await query(`drop table if exists ${t}`);
-  }
-});
+/**
+ * Resets the database to genuinely empty.
+ *
+ * Not an enumerated list of tables to drop, which is what this used to be and
+ * which caused a real CI failure. This suite destroys `schema_migrations` on
+ * purpose — the ledger is its subject — but it shared `pas_test` with suites
+ * that had *migrated* it. Dropping the ledger while leaving the migrated
+ * tables standing is corruption mode 4 exactly: the next suite to call
+ * `migrate()` found objects it was about to create and refused, correctly.
+ *
+ * An enumerated list also cannot be maintained. It was written when the
+ * repository had no migrations at all; the moment PAS-0201 added three tables
+ * it was silently incomplete, and every future migration would break it again.
+ *
+ * Dropping the schema wholesale is both correct and self-maintaining: a suite
+ * whose subject is "what happens to an empty database" should leave one.
+ */
+async function resetSchema(): Promise<void> {
+  await query('drop schema public cascade');
+  await query('create schema public');
+}
+
+beforeEach(resetSchema);
 
 afterAll(async () => {
-  await query(`drop table if exists ${LEDGER_TABLE}`);
-  for (const t of ['mig_alpha', 'mig_beta', 'mig_gamma', 'mig_partial']) {
-    await query(`drop table if exists ${t}`);
-  }
+  await resetSchema();
   await Promise.all(dirs.map((d) => rm(d, { recursive: true, force: true })));
   await closePool();
 });

@@ -131,6 +131,24 @@ with an entry point gets proved.
 - **ADR-004** — origin (AI, document, web, connector, manual entry, Gap Interview, admin)
   affects provenance and policy, never *whether governance exists*.
 
+- **Test fixtures read the catalogue; they do not enumerate the schema.** Earned at PAS-0202,
+  where one build broke five hard-coded schema facts at once: a drop list, two truncate lists,
+  an exact-table-set assertion, and a migration count. Every one was correct when written and
+  silently wrong the moment a migration landed, and each failed as a test failure that looks
+  like a product failure.
+
+  So: drop with `drop schema public cascade`, truncate a set computed from `pg_tables`, assert
+  **containment** of the tables a ticket is about rather than equality with the whole schema,
+  and name a migration rather than counting them. A fixture that has to be edited by every
+  future migration will not be.
+
+- **A suite that migrates a shared database owns its starting state.** `pas_test` holds no
+  durable state: `packages/database/tests/migrate.test.ts` destroys `schema_migrations`,
+  because the ledger is its subject. Any suite assuming a consistent schema *and* ledger is
+  assuming something no other suite is obliged to preserve — reset first, then migrate.
+  Fixing this one suite at a time does not work; PAS-0201 fixed a symptom and PAS-0202 hit
+  the same cause again.
+
 ---
 
 ## 6. Open — and what "open" actually means

@@ -28,6 +28,27 @@ const SCRATCH = scratchDatabaseName('acct_int');
 let SCRATCH_URL: string;
 let client: pg.Client;
 
+/**
+ * Empties every table except the migration ledger.
+ *
+ * Computed from the catalogue rather than listed. A list was here, and PAS-0202
+ * invalidated it twice over: `users` gained three referencing tables, so
+ * truncating it raised "cannot truncate a table referenced in a foreign key
+ * constraint", and the list itself would have needed editing on every future
+ * migration. `cascade` is safe on a scratch database and is what lets the set
+ * be computed rather than ordered by hand.
+ */
+async function truncateAll(): Promise<void> {
+  const { rows } = await client.query<{ tablename: string }>(
+    `select tablename from pg_tables
+      where schemaname = 'public' and tablename <> 'schema_migrations'`,
+  );
+  if (rows.length === 0) return;
+  await client.query(
+    `truncate table ${rows.map((r) => `"${r.tablename}"`).join(', ')} restart identity cascade`,
+  );
+}
+
 /** Runs a statement and returns the PostgreSQL error, or null if it succeeded. */
 async function refusal(sql: string, values: unknown[] = []): Promise<pg.DatabaseError | null> {
   try {
@@ -90,7 +111,10 @@ beforeAll(async () => {
   // The built migrator, against a database created empty for this run.
   const result = await runNode(MIGRATE_ENTRY, ['up'], { PAS_DATABASE_URL: SCRATCH_URL });
   expect(result.code, result.stderr).toBe(0);
-  expect(result.stdout).toContain('applied 1 migration(s)');
+  // Names the migration this suite is about, rather than counting them. The
+  // count assertion that used to be here broke the moment PAS-0202 added a
+  // second migration, and would have broken again on every one after it.
+  expect(result.stdout).toContain('0001  create_account_domain');
 
   client = new pg.Client({ connectionString: SCRATCH_URL });
   await client.connect();
@@ -101,21 +125,20 @@ afterAll(async () => {
   await dropScratchDatabase(SCRATCH);
 }, 30_000);
 
-beforeEach(async () => {
-  await client.query('truncate account_memberships, accounts, users');
-});
+beforeEach(truncateAll);
 
 describe('the migration creates what PAS-0201 asks for', () => {
   it('creates accounts, users and account_memberships', async () => {
     const { rows } = await client.query<{ tablename: string }>(
       `select tablename from pg_tables where schemaname = 'public' order by tablename`,
     );
-    expect(rows.map((r) => r.tablename)).toEqual([
-      'account_memberships',
-      'accounts',
-      'schema_migrations',
-      'users',
-    ]);
+    const tables = rows.map((r) => r.tablename);
+    // Containment, not equality. Asserting the exact set made this suite fail
+    // whenever a later build added a table, which is not a fact about
+    // PAS-0201.
+    for (const table of ['accounts', 'users', 'account_memberships']) {
+      expect(tables, table).toContain(table);
+    }
   });
 
   it('carries PAS-0103 identity — uuid primary keys with no database-side default', async () => {

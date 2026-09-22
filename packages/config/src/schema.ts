@@ -132,7 +132,15 @@ export function buildConfigSchema(environment: PasEnvironment) {
     session: z.object({
       secret: secret(environment, 'pas-development-session-secret-not-for-deployment'),
       cookieName: opt(z.string().min(1), 'pas_session'),
+      /** Absolute lifetime: a session ends at this age however active it is. */
       ttlSeconds: opt(positiveInt, 60 * 60 * 12),
+      /**
+       * Idle lifetime. Separate from the absolute one because they defend
+       * different things: absolute expiry bounds how long a stolen token is
+       * ever useful, idle expiry closes an abandoned session on a shared
+       * machine long before that.
+       */
+      idleTimeoutSeconds: opt(positiveInt, 60 * 60 * 2),
       /** Defaults true when deployed; an explicit false is rejected in load.ts. */
       cookieSecure: opt(bool, false, true),
       cookieSameSite: opt(z.enum(['strict', 'lax', 'none']), 'lax'),
@@ -143,9 +151,28 @@ export function buildConfigSchema(environment: PasEnvironment) {
       minPasswordLength: opt(z.coerce.number().int().min(8), 12),
       maxFailedAttempts: opt(positiveInt, 5),
       lockoutSeconds: opt(positiveInt, 900),
-      /** argon2id memory cost (KiB) and iterations. */
-      passwordHashMemoryKiB: opt(positiveInt, 19_456),
-      passwordHashIterations: opt(positiveInt, 2),
+
+      /**
+       * scrypt parameters for NEW password hashes (PAS-0202).
+       *
+       * PAS-0002 declared argon2id parameters here before there was an
+       * implementation. PAS-0202 uses scrypt from `node:crypto` instead —
+       * see `packages/auth/README.md` — so these describe scrypt. Existing
+       * hashes are unaffected by a change: every stored hash carries the
+       * parameters it was made with, and is re-hashed on the next successful
+       * login if they are below current policy.
+       *
+       * Memory is 128 * 2^cost * blockSize bytes: 64 MiB at the defaults.
+       */
+      passwordHashCostLog2: opt(z.coerce.number().int().min(14).max(22), 16),
+      passwordHashBlockSize: opt(positiveInt, 8),
+      /**
+       * Left at 1 deliberately. Node runs scrypt's `p` **sequentially**, so it
+       * multiplies CPU without the parallelism OWASP's tiers assume. Measured:
+       * cost=15,p=3 takes 272ms for 32 MiB of hardness, while cost=16,p=1
+       * takes 205ms for 64 MiB. Raising cost is strictly better here.
+       */
+      passwordHashParallelism: opt(positiveInt, 1),
     }),
 
     /** ENCRYPTION — at-rest encryption of sensitive stored values. */

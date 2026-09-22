@@ -15,4 +15,5 @@ export const pasAliases = {
   '@pas/observability': at('./packages/observability/src/index.ts'),
   '@pas/database': at('./packages/database/src/index.ts'),
   '@pas/domain': at('./packages/domain/src/index.ts'),
+  '@pas/auth': at('./packages/auth/src/index.ts'),
 };

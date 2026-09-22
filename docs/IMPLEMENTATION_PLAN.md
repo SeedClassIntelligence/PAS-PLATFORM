@@ -127,7 +127,7 @@ changes is that no new contract may express a timestamp as `string`.
 | Ticket | Target |
 |---|---|
 | **PAS-0201** Account Schema ✅ | `migrations/0001_create_account_domain.sql` — see `docs/adr/PAS-0201-REPORT.md` |
-| PAS-0202 Authentication | `packages/auth/src/session/` |
+| **PAS-0202** Authentication ✅ | `migrations/0002_create_authentication.sql`, `packages/auth/src/{password,session}/` — see `docs/adr/PAS-0202-REPORT.md` |
 | PAS-0203 Capability Registry | `packages/auth/src/capabilities/` |
 | PAS-0204 Authorization Service | `packages/auth/src/authorize/` |
 | PAS-0205 Authorization Security Tests | `tests/security/` |
@@ -140,9 +140,14 @@ platform "god view" with no access control whatsoever.
 is or what they may do was inspected; nothing unrecorded was found, and no consumer needed a
 change. See `docs/adr/PAS-0201-REPORT.md`.
 
-**Held for ratification before PAS-0202:** `@pas/auth → @pas/database` and
-`@pas/auth → @pas/domain`. `packages/auth` carries no declared dependencies (PAS-0001), and
-ADR-005 settles only `@pas/contracts`. PAS-0201 needed neither — a migration imports nothing.
+**Ratified at ADR-006** (owner, 2026-09-22): `@pas/auth → @pas/database`,
+`@pas/auth → @pas/domain`, and PAS-0102's `apps/api → @pas/database`. The standing rule is now
+that the infrastructure layer — `contracts`, `config`, `observability`, `database`, `domain` —
+is dependable by any package without a proposal. Every other edge is still proposed and held.
+
+**ADR-007** resolves Part I §6's `user_capability_overrides` against PAS-0203's
+`capability_overrides`: the latter, grained to membership, with the platform itself modelled as
+an account. Implemented at PAS-0203.
 
 ---
 
