@@ -40,6 +40,7 @@ export {
 } from './events.js';
 
 export * from './capabilities/index.js';
+export * from './authorize/index.js';
 
 export {
   type LoginFailure,
