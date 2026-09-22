@@ -16,4 +16,5 @@ export const pasAliases = {
   '@pas/database': at('./packages/database/src/index.ts'),
   '@pas/domain': at('./packages/domain/src/index.ts'),
   '@pas/auth': at('./packages/auth/src/index.ts'),
+  '@pas/events': at('./packages/events/src/index.ts'),
 };

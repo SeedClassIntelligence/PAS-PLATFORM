@@ -157,7 +157,7 @@ an account. Implemented at PAS-0203.
 
 | Ticket | Target |
 |---|---|
-| PAS-0301 Audit Ledger | `migrations/`, `packages/observability/` |
+| **PAS-0301** Audit Ledger ✅ | `migrations/0004_create_audit_ledger.sql`, `packages/events/src/audit/` — see `docs/adr/PAS-0301-REPORT.md` |
 | PAS-0302 Domain Event Envelope | `packages/events/src/envelope/` |
 | PAS-0303 Event Ledger | `packages/events/src/ledger/` |
 | PAS-0304 Transactional Outbox | `packages/events/src/outbox/` |
@@ -165,6 +165,13 @@ an account. Implemented at PAS-0203.
 
 Part I §5 is binding: a canonical mutation and its outbox event occur in **one transaction**.
 Never update → commit → publish-later.
+
+**Corrected at PAS-0301.** This table originally targeted the audit ledger at
+`packages/observability/`. That would close a dependency cycle: `@pas/database` depends on
+observability for correlation-based query instrumentation (PAS-0101), so an audit writer there
+gives `observability → database → observability`. Audit lives in `packages/events/src/audit/`
+instead — alongside the event ledger and outbox, which is also where it belongs, all three
+being append-only ledgers written in the same transaction as the mutation they record.
 
 ---
 

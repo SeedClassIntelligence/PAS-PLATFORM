@@ -7,7 +7,7 @@
  * in force on the connection — which are the only claims that matter here.
  */
 
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
+import { describe, it, expect, afterAll, beforeEach } from 'vitest';
 import {
   ConflictError,
   ValidationError,
@@ -35,7 +35,26 @@ import {
   runMigrationStatements,
 } from '../src/index.js';
 
-beforeAll(async () => {
+/**
+ * The fixture is (re)created per test, not once per file.
+ *
+ * It used to be created in `beforeAll` and only truncated afterwards, which
+ * assumed it survived for the whole file. It does not: `migrate.test.ts` is
+ * this suite's sibling and resets with `drop schema public cascade`, because
+ * the migration ledger is what it tests. Both share `pas_test`.
+ *
+ * That produced an intermittent failure — three tests at the tail of this file
+ * failing with `relation "pas_test_widget" does not exist`, passing on the
+ * next run. An intermittent failure in a shared fixture is worse than a
+ * consistent one: it is read as infrastructure flakiness and re-run until
+ * green.
+ *
+ * Creating it per test costs one cheap statement and removes the assumption
+ * entirely. This is CLAUDE.md §5's rule — *a suite that shares a database owns
+ * its starting state* — applied to the suite that was relying on a sibling not
+ * to clean up.
+ */
+beforeEach(async () => {
   await query(`
     create table if not exists pas_test_widget (
       id      bigserial primary key,
@@ -43,9 +62,6 @@ beforeAll(async () => {
       amount  integer not null check (amount >= 0)
     )
   `);
-});
-
-beforeEach(async () => {
   await query('truncate pas_test_widget restart identity');
 });
 

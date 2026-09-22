@@ -149,6 +149,18 @@ with an entry point gets proved.
   Fixing this one suite at a time does not work; PAS-0201 fixed a symptom and PAS-0202 hit
   the same cause again.
 
+  **And build fixtures per *test*, not per *file*.** Extended at PAS-0301, where the same
+  cause bit a third time from the other direction: `database.test.ts` created its table in
+  `beforeAll` and only truncated it afterwards, which assumes it survives the whole file. Its
+  sibling resets the schema wholesale, and the drop can land at a process-teardown boundary
+  that `fileParallelism: false` does not govern. The result was three tests failing at the
+  tail of one file and passing on the next run.
+
+  An **intermittent** failure in a shared fixture is worse than a consistent one: it reads as
+  infrastructure flakiness and gets re-run until green. `create table if not exists` plus a
+  truncate, per test, costs one cheap statement and removes the assumption instead of
+  narrowing the window.
+
 ---
 
 ## 6. Open — and what "open" actually means
