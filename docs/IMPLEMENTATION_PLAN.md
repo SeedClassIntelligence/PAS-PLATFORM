@@ -126,7 +126,7 @@ changes is that no new contract may express a timestamp as `string`.
 
 | Ticket | Target |
 |---|---|
-| PAS-0201 Account Schema | `migrations/`, `packages/auth/` |
+| **PAS-0201** Account Schema ✅ | `migrations/0001_create_account_domain.sql` — see `docs/adr/PAS-0201-REPORT.md` |
 | PAS-0202 Authentication | `packages/auth/src/session/` |
 | PAS-0203 Capability Registry | `packages/auth/src/capabilities/` |
 | PAS-0204 Authorization Service | `packages/auth/src/authorize/` |
@@ -135,6 +135,14 @@ changes is that no new contract may express a timestamp as `string`.
 **User ≠ AuthorityEntity** (Part I §6). PAS-0205 verifies *frontend behavior is irrelevant to
 server authorization* — directly relevant to `MasterAdminView.tsx`, which today exposes a
 platform "god view" with no access control whatsoever.
+
+**Build 02's ADR-002 opening sweep ran at PAS-0201.** Every component that decides who someone
+is or what they may do was inspected; nothing unrecorded was found, and no consumer needed a
+change. See `docs/adr/PAS-0201-REPORT.md`.
+
+**Held for ratification before PAS-0202:** `@pas/auth → @pas/database` and
+`@pas/auth → @pas/domain`. `packages/auth` carries no declared dependencies (PAS-0001), and
+ADR-005 settles only `@pas/contracts`. PAS-0201 needed neither — a migration imports nothing.
 
 ---
 

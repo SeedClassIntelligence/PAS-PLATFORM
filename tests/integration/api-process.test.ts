@@ -23,17 +23,18 @@
  * which depend on a database.
  */
 
-import { describe, it, expect, afterEach, beforeAll } from 'vitest';
+import { describe, it, expect, afterEach, beforeAll, afterAll } from 'vitest';
 import { spawn } from 'node:child_process';
 import {
   API_ENTRY,
-  MIGRATE_ENTRY,
   ROOT,
   freePort,
   killAllChildren,
-  runNode,
   startApiProcess,
   readiness,
+  scratchDatabaseName,
+  migratedScratchDatabase,
+  dropScratchDatabase,
 } from './harness.js';
 
 /** Real-looking deployed configuration. None of this may appear on the wire. */
@@ -54,16 +55,28 @@ const PRODUCTION_ENV = {
   PAS_NOTIFICATION_SMTP_URL: 'smtps://mail.internal:465',
 };
 
-/** A database whose schema is current, so readiness can be asserted. */
-/** Pinned to `pas_test` by `vitest.config.ts`, never an ambient value. */
-const DEV_DATABASE_URL = process.env.PAS_DATABASE_URL as string;
+/**
+ * A database created empty for this run and migrated, so readiness is asserted
+ * about the API rather than about whatever state a shared database happened to
+ * be left in.
+ *
+ * This suite used to migrate `pas_test` and expect the result to persist. It
+ * does not: `packages/database/tests/migrate.test.ts` drops
+ * `schema_migrations` as a fixture, because the ledger is what it tests. The
+ * next run found the tables present and the ledger empty, and the migrator
+ * refused — correctly, that being exactly the divergence it exists to catch.
+ * The defect was the shared fixture, so there is no longer one.
+ */
+const SCRATCH = scratchDatabaseName('api_int');
+let DEV_DATABASE_URL: string;
 
 beforeAll(async () => {
-  // The repository's own migrations, applied to the development database.
-  // `/ready` asserts the schema matches this build; bringing it up to date here
-  // keeps that assertion about the API rather than about the fixture.
-  const result = await runNode(MIGRATE_ENTRY, ['up'], { PAS_DATABASE_URL: DEV_DATABASE_URL });
-  expect(result.code, result.stderr).toBe(0);
+  DEV_DATABASE_URL = await migratedScratchDatabase(SCRATCH);
+}, 60_000);
+
+afterAll(async () => {
+  killAllChildren();
+  await dropScratchDatabase(SCRATCH);
 }, 30_000);
 
 afterEach(() => {

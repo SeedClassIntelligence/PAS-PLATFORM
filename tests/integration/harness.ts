@@ -11,6 +11,9 @@
  */
 
 import { expect } from 'vitest';
+import pg from 'pg';
+
+type pgClient = pg.Client;
 import { spawn, type ChildProcessByStdio } from 'node:child_process';
 import type { Readable } from 'node:stream';
 import { existsSync } from 'node:fs';
@@ -139,4 +142,70 @@ export interface ReadyBody {
 export async function readiness(base: string): Promise<{ status: number; body: ReadyBody }> {
   const response = await fetch(`${base}/ready`);
   return { status: response.status, body: (await response.json()) as ReadyBody };
+}
+
+// ── Scratch databases ────────────────────────────────────────────────────
+//
+// Every integration suite that needs a database creates its own, empty, for
+// the run. None of them share one.
+//
+// That is not tidiness. `pas_test` is a scratch database with no durable
+// state: `packages/database/tests/migrate.test.ts` drops `schema_migrations`
+// as a fixture, because the ledger is exactly what it is testing. A suite
+// that migrated `pas_test` and expected the result to survive found the
+// tables still present and the ledger gone on the next run — schema and
+// ledger diverged, which is the corruption the migrator is built to refuse,
+// so it refused, correctly and loudly. The defect was the shared fixture.
+
+/** The maintenance database — `create database` cannot run inside a transaction. */
+export const ADMIN_URL = process.env.PAS_DATABASE_URL as string;
+
+export function databaseUrlFor(database: string): string {
+  const url = new URL(ADMIN_URL);
+  url.pathname = `/${database}`;
+  return url.toString();
+}
+
+/** A name no concurrent run, on this machine or a CI runner, will collide with. */
+export function scratchDatabaseName(prefix: string): string {
+  return `pas_${prefix}_${process.pid}_${Date.now().toString(36)}`;
+}
+
+async function onAdmin<T>(fn: (client: pgClient) => Promise<T>): Promise<T> {
+  const client = new pg.Client({ connectionString: ADMIN_URL });
+  await client.connect();
+  try {
+    return await fn(client);
+  } finally {
+    await client.end();
+  }
+}
+
+/** Drops the database, disconnecting anything still attached to it. */
+export async function dropScratchDatabase(name: string): Promise<void> {
+  await onAdmin(async (client) => {
+    await client.query(
+      `select pg_terminate_backend(pid) from pg_stat_activity
+        where datname = $1 and pid <> pg_backend_pid()`,
+      [name],
+    );
+    await client.query(`drop database if exists "${name}"`);
+  });
+}
+
+/** Recreates the database, genuinely empty. */
+export async function createScratchDatabase(name: string): Promise<string> {
+  await dropScratchDatabase(name);
+  await onAdmin((client) => client.query(`create database "${name}"`));
+  return databaseUrlFor(name);
+}
+
+/** Creates the database empty and applies the repository's migrations to it. */
+export async function migratedScratchDatabase(name: string): Promise<string> {
+  const url = await createScratchDatabase(name);
+  const result = await runNode(MIGRATE_ENTRY, ['up'], { PAS_DATABASE_URL: url });
+  if (result.code !== 0) {
+    throw new Error(`migrating ${name} failed:\n${result.stdout}\n${result.stderr}`);
+  }
+  return url;
 }
