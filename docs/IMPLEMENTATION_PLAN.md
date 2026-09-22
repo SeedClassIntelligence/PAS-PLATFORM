@@ -158,7 +158,7 @@ an account. Implemented at PAS-0203.
 | Ticket | Target |
 |---|---|
 | **PAS-0301** Audit Ledger ✅ | `migrations/0004_create_audit_ledger.sql`, `packages/events/src/audit/` — see `docs/adr/PAS-0301-REPORT.md` |
-| PAS-0302 Domain Event Envelope | `packages/events/src/envelope/` |
+| **PAS-0302** Domain Event Envelope ✅ | `packages/events/src/envelope/` — see `docs/adr/PAS-0302-REPORT.md` |
 | PAS-0303 Event Ledger | `packages/events/src/ledger/` |
 | PAS-0304 Transactional Outbox | `packages/events/src/outbox/` |
 | PAS-0305 Event Dispatcher | `apps/worker/src/dispatcher/` |

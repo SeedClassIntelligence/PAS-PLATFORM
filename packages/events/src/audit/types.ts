@@ -7,9 +7,17 @@
  */
 
 import { type Instant } from '@pas/contracts';
+import { type ActorRef, type ActorType } from '../actor.js';
 
-/** Mirrors PAS-0204's `Actor`, plus the one with no human behind it. */
-export type AuditActorType = 'USER' | 'SYSTEM' | 'ANONYMOUS';
+/**
+ * The one actor shape in this package.
+ *
+ * Aliased rather than redeclared: PAS-0302's event envelope needs the same
+ * concept, and a second declaration would be two shapes drifting apart — the
+ * SUP-9 failure, where two JSON-LD generators meant guarding one fixed
+ * nothing. See `../actor.ts` for why this is not `@pas/auth`'s `Actor`.
+ */
+export type AuditActorType = ActorType;
 
 /**
  * ADR-004: "origin affects provenance and policy, never *whether governance
@@ -29,11 +37,7 @@ export type AuditOrigin =
   | 'ADMIN'
   | 'SYSTEM';
 
-export interface AuditActor {
-  type: AuditActorType;
-  /** Required for USER, forbidden otherwise — the schema enforces both. */
-  id?: string;
-}
+export type AuditActor = ActorRef;
 
 export interface AuditEntryInput {
   actor: AuditActor;
