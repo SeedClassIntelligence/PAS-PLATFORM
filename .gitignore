@@ -3,6 +3,8 @@ node_modules/
 
 # Build output (regenerate with `npm run build`)
 dist/
+apps/*/dist/
+packages/*/dist/
 
 # Environment
 .env

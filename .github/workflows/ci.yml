@@ -1,0 +1,107 @@
+# PAS-0006 — CI Pipeline
+#
+# "CI SHALL execute: install, typecheck, lint, unit tests, integration tests,
+#  production build, migration validation.
+#  No merge/deployment is considered successful when these fail."
+#
+# Ordering note: the spec lists production build after integration tests.
+# They run the other way round here because the integration suite spawns the
+# BUILT artifact (`node apps/api/dist/main.js`) — testing source would
+# reproduce exactly the blind spot that let PAS-0005 ship an API that could
+# not start. All seven steps execute; only their order differs, and it differs
+# because one genuinely depends on another.
+#
+# Steps run sequentially and the job fails on the first failure, which is what
+# "no merge is considered successful when these fail" requires.
+
+name: CI
+
+on:
+  push:
+    branches: ['main', 'claude/**']
+  pull_request:
+  workflow_dispatch:
+
+# Least privilege: CI reads the repository and nothing else.
+permissions:
+  contents: read
+
+# A superseded run tells you about code nobody is merging.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    # PAS-0101 tests run against a REAL PostgreSQL. A mocked driver proves the
+    # code calls the functions it calls — not that a transaction rolls back,
+    # that a savepoint isolates a nested failure, or that statement_timeout is
+    # in force on the connection, which are the only claims that matter.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: pas
+          POSTGRES_PASSWORD: pas
+          POSTGRES_DB: pas_test
+        ports:
+          - 5432:5432
+        # Without this the job races the container and fails on connection
+        # refused before Postgres has finished initialising.
+        options: >-
+          --health-cmd "pg_isready -U pas"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      PAS_DATABASE_URL: postgresql://pas:pas@127.0.0.1:5432/pas_test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # 1 — install. `npm ci` fails on a lockfile that disagrees with
+      #     package.json, so a drifted lockfile is caught here rather than
+      #     silently resolved into a different dependency tree.
+      - name: install
+        run: npm ci
+
+      # 2 — typecheck
+      - name: typecheck
+        run: npm run typecheck
+
+      # 3 — lint
+      - name: lint
+        run: npm run lint
+
+      # 4 — unit tests
+      - name: unit tests
+        run: npm run test
+
+      # 5 — production build (before integration: see the ordering note above)
+      - name: production build
+        run: npm run build
+
+      # 6 — integration tests, against the built artifacts
+      - name: integration tests
+        run: npm run test:integration
+
+      # 7 — migration validation
+      - name: migration validation
+        run: npm run validate:migrations
+
+      # Beyond the seven required steps. Enforces CLAUDE.md §4 (ADR-003):
+      # apps/web is preserved while the backend is built underneath it, and
+      # the proof is a byte-identical bundle. Remove this step to drop the
+      # guarantee; nothing else depends on it.
+      - name: frontend baseline unchanged
+        run: npm run check:baseline

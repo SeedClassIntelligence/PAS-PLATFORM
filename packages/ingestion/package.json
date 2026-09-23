@@ -1,0 +1,11 @@
+{
+  "name": "@pas/ingestion",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@pas/domain": "*",
+    "@pas/workflows": "*",
+    "@pas/agent-gateway": "*"
+  }
+}

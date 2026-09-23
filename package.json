@@ -1,24 +1,35 @@
 {
   "name": "pas-platform",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "lucide-react": "^0.380.0",
-    "zustand": "^4.5.2"
+    "dev": "npm run dev -w @pas/web",
+    "build": "npm run build -w @pas/contracts && npm run build -w @pas/config && npm run build -w @pas/observability && npm run build -w @pas/database && npm run build -w @pas/domain && npm run build -w @pas/auth && npm run build -w @pas/events && npm run build -w @pas/api && npm run build -w @pas/web",
+    "typecheck": "npm run typecheck --workspaces --if-present && tsc --noEmit -p tests/integration/tsconfig.json && tsc --noEmit -p tests/security/tsconfig.json",
+    "lint": "eslint .",
+    "test": "npm run test --workspaces --if-present",
+    "verify": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "test:integration": "vitest run --root tests/integration",
+    "db:start": "bash scripts/pg-start.sh",
+    "validate:migrations": "node scripts/validate-migrations.mjs",
+    "ci": "npm run typecheck && npm run lint && npm run test && npm run build && npm run test:integration && npm run test:security && npm run validate:migrations && npm run check:baseline",
+    "check:baseline": "node scripts/check-frontend-baseline.mjs",
+    "migrate": "npm run build -w @pas/database && node packages/database/dist/migrate/cli.js",
+    "test:security": "vitest run --root tests/security"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.0",
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
     "typescript": "^5.4.5",
-    "vite": "^5.2.11"
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^2.1.9"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

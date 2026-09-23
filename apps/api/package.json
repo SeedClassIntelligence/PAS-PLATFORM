@@ -1,0 +1,32 @@
+{
+  "name": "@pas/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@pas/auth": "*",
+    "@pas/config": "*",
+    "@pas/contracts": "*",
+    "@pas/database": "*",
+    "@pas/domain": "*",
+    "@pas/observability": "*"
+  },
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "start": "node dist/main.js",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "vitest": "^2.1.9"
+  }
+}

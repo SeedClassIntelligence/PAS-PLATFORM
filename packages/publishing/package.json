@@ -1,0 +1,11 @@
+{
+  "name": "@pas/publishing",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@pas/composition": "*",
+    "@pas/domain": "*",
+    "@pas/governance": "*"
+  }
+}

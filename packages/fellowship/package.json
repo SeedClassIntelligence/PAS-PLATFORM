@@ -1,0 +1,10 @@
+{
+  "name": "@pas/fellowship",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@pas/domain": "*",
+    "@pas/authority-intelligence": "*"
+  }
+}
