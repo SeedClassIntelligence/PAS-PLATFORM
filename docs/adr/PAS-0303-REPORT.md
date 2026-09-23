@@ -193,6 +193,45 @@ everything. All three now detected.
 
 ---
 
+## The gap found after this report first said COMPLETE
+
+This report was written, and the ticket committed, with **no integration coverage of the event
+ledger at all**. The owner asked whether the platform had actually been run. It had not, as a
+shipping artifact.
+
+CLAUDE.md §4 already states the rule that was broken:
+
+> Unit tests are not proof a process runs. Node packages build to `dist/` and run from there;
+> unit tests resolve `@pas/*` to source. PAS-0005 shipped 27 green tests against an API that
+> could not start.
+
+`packages/events/tests/ledger.test.ts` imports from `../src/index.js`. Every one of its 133
+green assertions ran against TypeScript source. `tests/integration/` — the place the rule names
+as where anything with an entry point gets proved — contained nothing referencing
+`domain_events`, `appendDomainEvent` or `emitWithin`. And `built-packages.test.ts` loaded five
+packages from `dist/`; `events` and `auth` were not among them.
+
+So the gap was never one ticket's. **Six tickets** (PAS-0202, 0203, 0204, 0301, 0302, 0303) had
+shipped with their entire surface proved only against source.
+
+The ledger does in fact work from `dist/` — the probe passed 7/7 on first run, so nothing
+shipped broken. That is the outcome, not the justification: the rule exists because the failure
+is invisible until someone looks, and nobody had looked.
+
+**Closed by:**
+
+| Added | What it proves |
+|---|---|
+| `tests/integration/event-ledger.test.ts` | append, read-back, immutability, credential refusal, §5 rollback, replay ordering and constraint enforcement — all against `dist/`, in a migrated scratch database |
+| `tests/integration/fixtures/exercise-ledger.mjs` | the exercise itself, in a child process, so `@pas/database` binds to the scratch database rather than the suite's own |
+| `built-packages.test.ts` | `auth` and `events` added to the loaded-from-`dist/` set |
+
+Verified the new test can fail: dropping the ledger re-export from the `@pas/events` barrel and
+rebuilding turns it red, naming the missing symbol. A test that has not been seen to fail is
+not evidence.
+
+---
+
 ## Security / Privacy Impact
 
 - A payload containing a JWT, PEM private key, AWS key id, bearer token or password-bearing

@@ -15,7 +15,12 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   {
     // Node globals for scripts and any plain-JS tooling.
-    files: ['scripts/**/*.{js,mjs}', '*.{js,mjs}'],
+    //
+    // `tests/integration/fixtures/` holds plain-JS programs that integration
+    // tests spawn as child processes. They are Node entry points, not modules
+    // the suite imports — a fixture must not resolve `@pas/*` through the
+    // suite's own aliases, which is the whole reason it is a separate process.
+    files: ['scripts/**/*.{js,mjs}', 'tests/**/fixtures/**/*.{js,mjs}', '*.{js,mjs}'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',

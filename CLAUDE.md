@@ -183,6 +183,25 @@ with an entry point gets proved.
   counter, an instrumented call — something the mutant trips on its own thread. The replacement
   fails in 10 ms with a message naming the defect.
 
+- **A ticket that adds a package surface adds it to `tests/integration/` in the same ticket.**
+  §4 already says unit tests are not proof a process runs. What was missing was anything that
+  *checks the rule was followed* — so six tickets (PAS-0202…0204, PAS-0301…0303) shipped marked
+  COMPLETE with their entire surface proved only against TypeScript source. `@pas/auth` and
+  `@pas/events` were not in `built-packages.test.ts`, and no integration test referenced
+  `appendDomainEvent` or `domain_events`.
+
+  Nothing was broken — the ledger worked from `dist/` on the first probe. That is the point:
+  the failure this rule guards is invisible until someone looks, and it took the owner asking
+  "have you tested it" for anyone to look.
+
+  So, per ticket: the package loads from `dist/`, and its primary behaviour runs end to end
+  from `dist/` against a real database. A fixture the suite *spawns* rather than *imports* —
+  an imported module binds `@pas/database` to the suite's own `PAS_DATABASE_URL` and silently
+  ignores the scratch database the test just created.
+
+  And **see the new test fail before trusting it.** Break the barrel export, rebuild, watch it
+  go red. A test that has never failed is not evidence.
+
 ---
 
 ## 6. Open — and what "open" actually means

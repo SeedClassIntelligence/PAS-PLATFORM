@@ -21,7 +21,18 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT } from './harness.js';
 
-const PACKAGES = ['contracts', 'config', 'observability', 'database', 'domain'] as const;
+const PACKAGES = [
+  'contracts',
+  'config',
+  'observability',
+  'database',
+  'domain',
+  // Added when it emerged that no integration test loaded either of these
+  // from dist/ — six tickets (PAS-0202…0204, PAS-0301…0303) had shipped with
+  // their entire surface proved only against TypeScript source.
+  'auth',
+  'events',
+] as const;
 
 function distEntry(name: string): string {
   return join(ROOT, 'packages', name, 'dist/index.js');
