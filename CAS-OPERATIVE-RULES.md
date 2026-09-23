@@ -81,5 +81,34 @@ way, or put it in a hook instead.
 `references/`; none were ever written. The lesson a reader draws from that is not "those twelve
 are missing" — it is "pointers here are decorative," and that generalises to the pointers that
 do resolve. `references/README.md` now tracks the gap explicitly rather than leaving it silent.
-The original upload of this file pointed at `cas-agent.md`, which does not exist in this
-repository; corrected above to `CAS-doctrine.md`.
+
+**And a pointer that resolves is not a pointer that is right.** The original upload of this file
+pointed at `cas-agent.md`, which does not exist here, so it was repointed to `CAS-doctrine.md`.
+That repair was technically correct and substantively wrong, and it took someone outside this
+session asking the question to surface it: `cas-agent.md` is not a second name for
+`CAS-doctrine.md`, it is a *later and fuller* doctrine, and the repoint quietly resolved to the
+earlier one.
+
+Verified rather than assumed, four ways:
+
+- The sections that distinguish the later doctrine — Mutual Contract, Mission Roadmap, Presence,
+  the failure definition, the restored cross-domain list — are **all absent** from
+  `CAS-doctrine.md`. Its fifteen headings are the earlier set.
+- Its frontmatter is SKILL-format and *conditionally triggered* (`Use this skill whenever the
+  user frames a request as a mission…`), which is the earlier version's signature. The later
+  doctrine was converted to a standing identity.
+- `cas-agent.md` exists nowhere on this filesystem and appears nowhere in this repository's git
+  history. It was never here.
+- `CAS-doctrine.md` entered at `f23d11a`, the baseline-extraction commit, and **has not been
+  modified since**. Everything developed after that point never reached this repository.
+
+So the doctrine governing this repository is the earlier one, and has been the whole time. The
+later file is the owner's to supply; implementation cannot reconstruct a document it has never
+seen. Tracked in `references/README.md`.
+
+The shape of this mistake is worth more than the mistake. It is the third instance today of one
+pattern: **verifying that a mechanism works is not verifying that it points at the right thing.**
+Unit tests passed while the package was never loaded from `dist/`. A security assertion existed
+while being unable to fail. A pointer resolved while resolving to the wrong document. Each was
+green. None was right. When checking a reference, check what is *in* the target, not merely that
+the target opens.

@@ -1,5 +1,9 @@
 # `references/` — status
 
+> **The doctrine in this repository is the earlier version, and a fuller one exists elsewhere.**
+> See *"Which doctrine is actually deployed here"* at the foot of this file. That gap sits
+> behind the twelve below and is larger than any of them.
+
 `CAS-doctrine.md` points at twelve files from this directory. **None of them have been
 written.** This README exists so that absence is tracked rather than silent.
 
@@ -48,3 +52,41 @@ file from scratch, promote `CLAUDE.md` §5 into it and let §5 continue as the i
 earned at a ticket, then lifted here once they generalise beyond this repository. That keeps
 the hardest-line file grounded in failures that actually happened rather than ones imagined in
 advance.
+
+---
+
+## Which doctrine is actually deployed here
+
+`CAS-doctrine.md` (and its byte-identical twin `SKILL.md`) is the **earlier** CAS doctrine: the
+SKILL-format, conditionally-triggered version. A later doctrine — `cas-agent.md`, converted into
+a standing identity rather than a triggered skill — was developed afterwards and **is not in this
+repository**.
+
+This was found on 2026-09-23, after `CAS-OPERATIVE-RULES.md` had its reference repointed from
+`cas-agent.md` to `CAS-doctrine.md` on the assumption they were two names for one file. The
+pointer resolved. It resolved to the wrong document.
+
+Evidence, checked rather than assumed:
+
+| Check | Result |
+|---|---|
+| Mutual Contract, Mission Roadmap, Presence, failure definition, cross-domain list | **all absent** from `CAS-doctrine.md` |
+| Frontmatter | SKILL-format, `Use this skill whenever…` — conditionally triggered, the earlier signature |
+| `cas-agent.md` on this filesystem | nowhere |
+| `cas-agent.md` in this repository's git history | never committed |
+| Last modification to `CAS-doctrine.md` | `f23d11a`, the baseline-extraction commit — **unchanged since the repository was created** |
+
+That last row is the substantive finding. Everything developed after the baseline extraction
+never reached this repository, so every session here has been governed by the earlier doctrine
+while a more developed one existed.
+
+**Owner's to resolve.** Implementation cannot reconstruct a document it has never seen, and
+writing a plausible substitute would be worse than the gap — it would look like the real thing.
+The options, for the owner to pick:
+
+1. Supply `cas-agent.md`; it replaces or supersedes `CAS-doctrine.md` here, and
+   `CAS-OPERATIVE-RULES.md` repoints to it.
+2. Confirm the earlier doctrine is what should govern this repository, in which case this
+   section stays as the record of why that is deliberate rather than accidental.
+
+Until one of those happens, nothing in this repository should describe its doctrine as current.
