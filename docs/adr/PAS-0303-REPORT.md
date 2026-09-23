@@ -230,6 +230,33 @@ Verified the new test can fail: dropping the ledger re-export from the `@pas/eve
 rebuilding turns it red, naming the missing symbol. A test that has not been seen to fail is
 not evidence.
 
+### That fix was itself partial, and this section said otherwise
+
+The paragraph above named a six-ticket gap and closed one of them. `@pas/auth` was added to the
+`dist/`-load list, which proves the package *imports* — not that a login works. `hashPassword`,
+`verifyPassword`, `createSession`, `authorize` and `grantCapability` appeared in no integration
+test at all. PAS-0202, 0203 and 0204 stayed marked ✅ on a standard this report had just
+finished rejecting.
+
+That is §4's other rule broken — *"Known Issues may not hide an unmet criterion"* — by a section
+whose heading reads as closure. Closed by `tests/integration/auth.test.ts` and
+`fixtures/exercise-auth.mjs`: 18 checks from `dist/` against a migrated scratch database, and an
+8-mutation sweep over the shipping source (cross-account predicate, DENY override, suspended
+user, deny-fallback, password verification, session revocation, token digest, password storage).
+
+**One mutation survived, and it was the one that mattered most.** Storing the raw session token
+instead of its SHA-256 digest passed the check named *"the session token is not stored in
+recoverable form"*. `token_hash` is `bytea`, so pg returns a Buffer and `JSON.stringify` renders
+it as `{"type":"Buffer","data":[…]}` — the assertion searched for an ASCII token in a byte array
+and could never match. A credential-at-rest check that could not fail, which is worse than no
+check because it reads as coverage. Now compares bytes and asserts a 32-byte digest length;
+re-run, detected.
+
+Two other assertions in the same file had the same shape and were caught while writing it:
+`decision.allowed` does not exist on `AuthorizationDecision` (the field is `decision`), so six
+"is denied" checks were passing on `undefined` being falsy, without the authorization service
+being consulted at all. A deny-only probe would have been entirely green and entirely worthless.
+
 ---
 
 ## Security / Privacy Impact

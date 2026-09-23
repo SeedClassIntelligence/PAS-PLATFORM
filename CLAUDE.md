@@ -202,6 +202,26 @@ with an entry point gets proved.
   And **see the new test fail before trusting it.** Break the barrel export, rebuild, watch it
   go red. A test that has never failed is not evidence.
 
+- **A security assertion that has not been seen to fail is worse than none.** Earned across
+  PAS-0202…0204's integration sweep, where three assertions in one new file could not fail for
+  the reason they claimed:
+
+  - `decision.allowed` does not exist on `AuthorizationDecision` — the field is `decision`.
+    Reading a missing property gives `undefined`, so six "is denied" checks passed without the
+    authorization service being consulted. A deny-only probe would have been green and empty.
+  - `JSON.stringify(row).includes(token)` can never match a `bytea` column: pg returns a
+    Buffer, which renders as `{"type":"Buffer","data":[…]}`. A mutation storing the raw session
+    token instead of its digest passed the check named "the token is not stored in recoverable
+    form".
+  - Both read as coverage. That is the damage — a missing check invites one, a decorative check
+    forecloses it.
+
+  So: **pair every refusal with an acceptance** (a rule mutated to `check (false)` must not pass
+  by rejecting everything), compare **bytes** rather than a JSON rendering of them, assert the
+  **positive shape** as well as the absence (a 32-byte digest, not merely "not the token"), and
+  prefer the module's own predicate (`isAllowed(...)`) over a truthiness test on a field name
+  you assumed.
+
 ---
 
 ## 6. Open — and what "open" actually means
